@@ -1,0 +1,181 @@
+.gear_rolling {
+
+    animation: gear_rolling linear infinite 3s;
+
+}
+
+@keyframes gear_rolling {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(270deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.belt_running {
+
+    animation: belt_running linear infinite 3s;
+
+
+}
+
+@keyframes belt_running {
+    0% {
+        transform: translateX(0);
+    }
+
+    40% {
+        transform: translateX(-414px);
+    }
+
+    100% {
+        transform: translateX(-552px);
+    }
+}
+
+
+.outer {
+    height: 470px;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    justify-content: center;
+}
+
+.happy_foods {
+    display: flex;
+    margin: 0 12.5% 10% 12.5%;
+    position: relative;
+}
+
+
+.happy_foods_hide {
+    visibility: hidden;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.happy_foods_left {
+    animation: food_jump_left linear infinite 1s;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+}
+
+@keyframes food_jump_left {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.happy_foods_right {
+    animation: food_jump_right linear infinite 1s;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+}
+
+@keyframes food_jump_right {
+    0% {
+        transform: translateY(-20px);
+    }
+
+    50% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+.belt {
+    position: absolute;
+    height: 100%;
+    z-index: 1;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.belt_middle {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+}
+
+.belt_left {
+    position: absolute;
+    z-index: 1;
+    left: -97.45%;
+    bottom: 0px;
+    width: 100%;
+}
+
+.belt_right {
+    position: absolute;
+    z-index: 1;
+    left: 97.45%;
+    bottom: 0px;
+    width: 100%;
+
+}
+
+.shield {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+}
+
+.gear_group {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    padding: 1% 7.5%;
+}
+
+.gear {
+    z-index: 3;
+    width: 5%;
+}
+
+.copy_right {
+    position: absolute;
+    z-index: 4;
+    color: #dcdbdb;
+    font-size: var(--h6);
+    text-align: center;
+    width: 100%;
+    bottom: 2%;
+}
+
+
+
+
+
+
+@media screen and (max-width: 391px) {
+    .gear_rolling {
+        display: none;
+    }
+}

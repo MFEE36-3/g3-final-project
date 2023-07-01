@@ -1,0 +1,39 @@
+:root {
+  --main-color: #911010;
+  --sub-color: #FAB3B3;
+  --h1: 72px;
+  --h2: 48px;
+  --h3: 32px;
+  --h4: 24px;
+  --h5: 20px;
+  --h6: 18px;
+  --h7: 16px;
+  --h7: 14px;
+  --h8: 12px;
+  --h9: 10px;
+  --h10: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url('/background/kodawari_bg_cut.jpg');
+  background-repeat: repeat;
+  height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+
+main {
+  min-height: calc(100% - 360px - 470px);
+}
