@@ -25,6 +25,7 @@ export default function MemberBar() {
         <div style={divStyle}>
           <Image
             src="/member/asiagodtone01.jpg"
+            style={{ objectFit: 'cover' }}
             width={500}
             height={500}
             className={styles.memImg}
