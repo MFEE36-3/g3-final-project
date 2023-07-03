@@ -1,8 +1,15 @@
 import styles from '@/styles/member-css/member-form.module.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Form from 'react-bootstrap/Form';
 
 export default function MemberForm() {
   return (
     <form className={styles.memForm}>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control type="email" placeholder="name@example.com" />
+      </Form.Group>
+
       <div className={styles.formArea}>
         <label htmlFor="email">帳號 : </label>
         <input id="email" name="email" type="email"></input>
