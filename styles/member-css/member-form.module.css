@@ -1,0 +1,15 @@
+.memForm {
+    border: 2px solid #921010;
+    width: 600px;
+    height: 800px;
+    padding: 50px;
+    border-radius: 20px;
+  }
+  
+  .formArea {
+    margin-top: 0px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+  }
+  

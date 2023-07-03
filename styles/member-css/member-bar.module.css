@@ -1,0 +1,95 @@
+.memBar {
+    background-color: #fcc8a1;
+    width: 200px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+    padding-bottom: 50px;
+    /* border: 3px solid #921010; */
+    box-shadow: inset -5px -5px 5px rgba(123, 123, 123, 0.5);
+  }
+  
+  .memBtnTop {
+    font-size: 18px;
+    font-weight: 800;
+    background-color: #fefdfb;
+    border-radius: 20px;
+    width: 170px;
+    height: 330px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .memBtn {
+    font-size: 18px;
+    font-weight: 800;
+    color: #921010;
+    background-color: #fcc8a1;
+    border-radius: 20px;
+    width: 180px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 0;
+    transition: all 0.2s ease-in;
+  }
+  
+  .memBtnClick {
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    background-color: #921010;
+    border-radius: 20px;
+    width: 180px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    box-shadow: inset -15px -15px 12px rgba(0, 0, 0, 0.5);
+    border: 0;
+    transition: all 0.2s ease-in;
+  }
+  
+  .memImg {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: rgb(203, 203, 203);
+    margin-top: 20px;
+  }
+  
+  .memEmail {
+    font-size: 12px;
+    color: #921010;
+  }
+  
+  .memText {
+    color: #921010;
+    margin-bottom: 10px;
+  }
+  
+  .achImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(118, 118, 118);
+    margin-bottom: 20px;
+    position: relative;
+    left: 35px;
+    top: -20px;
+  }
+  
