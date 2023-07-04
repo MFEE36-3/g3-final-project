@@ -29,7 +29,7 @@ export default function Navbar() {
 
 
     return (
-        <header>
+        <>
 
             <Image src={chocoCookie} className={styles.choco} alt='chocoCookie' priority></Image>
             <div className={styles.big_title_container}>
@@ -80,5 +80,5 @@ export default function Navbar() {
 
 
 
-        </header>)
+        </>)
 }

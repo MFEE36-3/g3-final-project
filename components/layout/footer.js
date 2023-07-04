@@ -16,7 +16,7 @@ export default function Footer() {
 
 
     return (
-        <footer>
+        <>
             <div className={styles.outer}>
                 <div className={styles.happy_foods}>
                     <Image src={happy_foods} className={styles.happy_foods_hide} style={{width:'100%', height: 'auto'}} alt='happy_foods'></Image>
@@ -36,6 +36,6 @@ export default function Footer() {
 
                 <p className={styles.copy_right}>Copyright © 2023 MFEE36 TEAM3. All rights reserved.</p>
             </div>
-        </footer>
+        </>
     )
 }
