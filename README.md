@@ -99,21 +99,26 @@
 
     (1) Input
 
+        
+        使用時在自己的頁面引用如下
+        import Input from '@/components/common/input';
+        
         可以傳入的參數如下:
-
-        InputTest({label='input name',placeholder='',helperText='',required=false,error=false})
+        <Input label='email' placeholder='請輸入電子信箱' helperText='例如: aaabc@gmail.com' required error/>
         -------------------------------------------------------------------------------------------        
         label       : 欄位名稱   (default='input name')          //自己改欄位名稱
         placeholder : 欄位提示   (default='')                    //看你要不要用，不用就不要傳這個參數 
         helperText  : 欄位說明   (default='')                    //看你要不要用，不用就不要傳這個參數
-        required    : 必填欄位   (default=false)                 //要必填的話就傳 required=true
-        error       : 出錯樣式   (default=false)                 //可以寫判斷，填錯或不符欄位要求就設 error=true
+        required    : 必填欄位   (default=false)                 //要必填的話就傳 required={true} 或是直接傳 required
+        error       : 出錯樣式   (default=false)                 //可以寫判斷，填錯或不符欄位要求就設 error={true} 或是直接傳 error
     
     (2)
 
-        可以傳入的參數如下:
+        使用時在自己的頁面引用如下
+        import Btn from '@/components/common/btn';
 
-        Btn({ text = 'set text'})
+        可以傳入的參數如下:
+        <Btn text='送出'/>
         -------------------------------------------------------------------------------------------        
         text       : 按鈕名稱   (default='set text')             //自己改按鈕名稱 其他rwd跟css寫好ㄌ
 
@@ -124,6 +129,32 @@
 
     我 git ignore .vscode資料夾了，所以如果想要用老師的prettier設定還有要不要分號設定那些的話，
     <br>再自己寫進 .vscode 的 settings.json檔就可以了。
+
+5. **CSS**
+
+
+    不管決定要用哪一種，要先想好之後RWD要怎麼改，會使用到RWD的樣式就盡量不要用inline-style。
+
+    (1) 使用 css module
+
+        建好module.css檔後在自己的頁面中引入，
+        
+        例如: 
+        import styles from '@/styles/footer.module.css';
+        就可以在內部使用 className={styles.aaa}
+        若有 2 個以上或與 bootstrap混用則要寫成這種型式 className={`${styles.aaa} ${styles.bbb} d-flex justify-content-center align-items-center`}
+
+    (2) 使用 bootstrap
+
+        在自己的頁面中引入，就可以使用 bootstrap。
+        import 'bootstrap/dist/css/bootstrap.min.css';
+
+    (3) inline-style
+
+        很快，但不推薦，程式碼會很亂很醜，而且RWD很難改。
+
+        例如: 
+        <div style={{ width: '100%', height: '100%', backgroundColor: 'pink', display: 'flex', flex: 'auto' }}>inline好醜</div>
 
 
 
