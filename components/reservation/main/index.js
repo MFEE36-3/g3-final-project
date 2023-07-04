@@ -1,10 +1,12 @@
 import React from 'react';
-import FoodCard from './card';
+import Top5 from './top5';
+import MainContent from './maincontent';
 
 export default function Main() {
   return (
     <>
-      <FoodCard className="d-flex flex-wrap"/>
+      <Top5 />
+      <MainContent />
     </>
   );
 }

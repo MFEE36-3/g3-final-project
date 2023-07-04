@@ -22,12 +22,11 @@ export default function FoodCheckbox() {
   };
 
   return (
-    <div className='mx-auto'>
-      <div className='d-flex w-100 flex-wrap justify-content-evenly'>
-      {foodtypes.map((foodtypes) => {
-        const { id, name, selected } = foodtypes;
-        return (
-          
+    <div className="mx-auto">
+      <div className="d-flex w-100 flex-wrap justify-content-evenly">
+        {foodtypes.map((foodtypes) => {
+          const { id, name, selected } = foodtypes;
+          return (
             <button
               className={`${style.selectbutton} ${
                 selected ? style.buttonon : style.buttonoff
@@ -42,8 +41,8 @@ export default function FoodCheckbox() {
             >
               {name}
             </button>
-        );
-      })}
+          );
+        })}
       </div>
     </div>
   );
