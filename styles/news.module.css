@@ -1,0 +1,20 @@
+.bread{
+    font-size: var(--h8);
+    color: gray;
+}
+.title{
+    font-size:var(--h5)
+}
+.line1{
+    border: 1px;
+    border-bottom: 1px solid var(--main-color);
+}
+.container{
+    width: 80%;
+    /* display: flex; */
+}
+.breadcontainer{
+    width: 70px;
+    /* height: 50px; */
+    display: flex;
+}
