@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function MemberLongcard() {
+export default function MemLongcard() {
   const card = {
     width: '100%',
     height: '70px',

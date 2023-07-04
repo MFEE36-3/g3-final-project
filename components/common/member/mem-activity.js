@@ -1,10 +1,10 @@
 import React from 'react';
-import MemberTag from './member-tag';
+import MemTag from './mem-tag';
 
-export default function MemberActivity({ content }) {
+export default function MemAct({ content }) {
   const activityStyle = {
     width: '100%',
-    height: '400px',
+    height: '380px',
     backgroundColor: '#fcc8a1',
     borderRadius: '20px',
     boxShadow: 'inset -5px -5px 5px rgba(123, 123, 123, 0.5)',
@@ -28,8 +28,8 @@ export default function MemberActivity({ content }) {
   return (
     <div style={activityStyle}>
       <div style={innerStyle}>
-        <MemberTag content={content} />
-        <div>你好</div>
+        <MemTag content={content} />
+        <div></div>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 .memBar {
     background-color: #fcc8a1;
     width: 200px;
+    height: 100%;
     border-radius: 20px;
     display: flex;
     align-items: center;

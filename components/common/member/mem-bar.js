@@ -1,16 +1,15 @@
-import styles from '@/styles/member-css/member-bar.module.css';
-import MemberBar2 from './member-bar2';
+import styles from '@/styles/member-css/mem-bar.module.css';
+import MemBarBtn from './mem-barBtn';
 import Image from 'next/image';
 
-export default function MemberBar() {
+export default function MemBar() {
   const arr = [
-    '會員中心',
-    '個人資料',
-    '美食錢包',
-    '我的活動',
-    '活動紀錄',
-    '我的收藏',
-    '優惠券',
+    { name: '會員中心', url: '/member' },
+    { name: '個人資料', url: '/member/info' },
+    { name: '美食錢包', url: '/member/money' },
+    { name: '我的活動', url: '/member/activity' },
+    { name: '我的收藏', url: '/member/collect' },
+    { name: '優惠券', url: '/member/coupon' },
   ];
 
   const divStyle = {
@@ -44,7 +43,7 @@ export default function MemberBar() {
         <div className={styles.memEmail}>asiagodtone@gmail.com</div>
       </div>
       {arr.map((v, i) => {
-        return <MemberBar2 Info={v} key={i} />;
+        return <MemBarBtn Info={v.name} key={i} url={v.url} />;
       })}
     </div>
   );

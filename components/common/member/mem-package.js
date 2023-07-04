@@ -1,20 +1,7 @@
 import React from 'react';
+import styles from '@/styles/member-css/mem-package.module.css';
 
-export default function MemberPackage() {
-  const packageStyle = {
-    width: '60%',
-    height: '250px',
-    backgroundColor: 'rgba(142, 142, 142, 0.3)',
-    borderRadius: '20px',
-    padding: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    fontSize: '14px',
-    fontWeight: '800',
-    boxShadow: 'inset -2px -2px 2px rgba(0, 0, 0, 0.5)',
-  };
-
+export default function MemPack() {
   const packageFlex = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -38,7 +25,7 @@ export default function MemberPackage() {
   };
 
   return (
-    <div style={packageStyle}>
+    <div className={styles.pack}>
       <div style={packageFlex}>
         <div>我的錢包</div>
         <div>帳號:asiagodtone@gmail.com</div>

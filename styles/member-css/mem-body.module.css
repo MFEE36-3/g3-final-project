@@ -1,0 +1,29 @@
+.body{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+.right{
+    width: 800px;
+    height: 1100px;
+}
+
+.rightflex{
+    display: flex;
+    justify-content: space-between;
+    width: 100%
+}
+
+.rightbox{
+    width: 47%
+}
