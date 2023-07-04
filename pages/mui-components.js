@@ -14,6 +14,7 @@ const MuiComponents = () => {
       <hr />
       <BtnTest />
       <Btn />
+      <Btn text='WTF'/>
       <hr/>
       <hr/>
       <hr/>
