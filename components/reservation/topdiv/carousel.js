@@ -8,7 +8,7 @@ export default function CarouselDiv() {
       <Carousel.Item interval={1000} className={style.carousel}>
         <img
           className="d-block w-100"
-          src="http://localhost:3000/reservation/one.jpeg"
+          src="../../reservation/one.jpeg"
           alt="First slide"
           style={{ objectFit: 'cover', overFlow: 'hidden' }}
         />

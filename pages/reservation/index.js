@@ -15,7 +15,7 @@ export default function BookingPage() {
         <div className='container-fluid'>
           <div className="row">
             <div className='col-3' ><SelectArea /></div>
-            
+  
             <div className='col-9'><FoodCard /></div>
           </div>
         </div>
