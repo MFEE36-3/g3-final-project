@@ -14,6 +14,7 @@ const MuiComponents = () => {
       <hr />
       <BtnTest />
       <Btn />
+      <Btn text='WTF'/>
       <hr/>
       <hr/>
       <hr/>
@@ -23,6 +24,6 @@ const MuiComponents = () => {
 }
 
 
-MuiComponents.getLayout = BlankLayout
+//MuiComponents.getLayout = BlankLayout
 
 export default MuiComponents
