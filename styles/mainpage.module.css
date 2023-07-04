@@ -1,3 +1,4 @@
+/* 第一頁 */
 .first_page {
     height: 100vh;
     background-color: #FFC700;
@@ -23,56 +24,93 @@
     height: 100vh;
     display: flex;
     justify-content: space-between;
-    padding: 200px 200px 200px 250px;
+    overflow: hidden;
+    padding: 10% 10% 10% 15%;
 }
 
 .walkbag_line {
-    margin: 0 auto;
+    width: 100%;
+    height: 100%;
 }
 
+/* 順路買 */
+
 .filled_walkbag_middle {
-    position: absolute;
+    /* position: absolute; */
+    width: 100%;
+    height: 100%;
     animation: walkbag_middle_run ease-in-out infinite 2s;
 }
 
 @keyframes walkbag_middle_run {
     0% {
-        transform: translateX(0);
+        transform: translateX(-100%);
     }
 
     100% {
-        transform: translateX(40%);
+        transform: translateX(-60%);
     }
 
 }
 
 .filled_walkbag_last {
-    position: absolute;
+    /* position: absolute; */
+    width: 100%;
+    height: 100%;
     animation: walkbag_last_run ease-in-out infinite 2s;
 }
 
 @keyframes walkbag_last_run {
     0% {
-        transform: translateX(0);
+        transform: translateX(-200%);
     }
 
     100% {
-        transform: translateX(80%);
+        transform: translateX(-120%);
     }
 
 }
 
 .shadow {
     z-index: -1;
-    margin-left: -90%;
-    margin-top: 35%;
+    margin-top: 27%;
+    position: absolute;
+    animation: shadow ease-in-out infinite 2s;
+}
+
+@keyframes shadow {
+    0% {
+        transform: scaleX(0.5);
+        margin-left: -12.5%;
+    }
+
+    100% {
+        transform: scaleX(1.0);
+    }
+
 }
 
 .buyme_left {
-    width: 49.21875%;
-    height: 100%;
+    display: flex;
+    width: 64.29%;
 }
 
 .buyme_right {
-    width: 24.21875%;
+    width: 31.63%;
+}
+
+/* 聯絡 */
+
+.contact {
+    height: calc(100vh - 470px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.contact_us {
+    font-size: var(--h2);
+    color: var(--main-color);
+    font-family: var(--ff1)
 }

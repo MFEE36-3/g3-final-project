@@ -14,7 +14,10 @@
 .btn_text {
     color: white;
     font-size: var(--h5);
+    font-family: 'Zen Maru Gothic', sans-serif;
+    /* font-family: 'Mochiy Pop One', sans-serif; */
 }
+
 
 
 

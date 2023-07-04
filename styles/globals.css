@@ -12,6 +12,8 @@
   --h8: 12px;
   --h9: 10px;
   --h10: 8px;
+  --ff1: 'Mochiy Pop One', sans-serif;
+  --ff2: 'Zen Maru Gothic', sans-serif;
 }
 
 * {
@@ -36,4 +38,27 @@ html {
 
 main {
   min-height: calc(100vh - 360px - 470px);
+}
+
+
+@font-face {
+  font-family: 'Zen Maru Gothic';
+  /* 使用正確的字型名稱 */
+  src: url('/fonts/ZenMaruGothic-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* @font-face {
+  font-family: 'Inter';
+  font-weight: bold;
+  font-style: normal;
+  src: url('/fonts/Inter-ExtraBold.ttf') format('truetype');
+} */
+
+@font-face {
+  font-family: 'Mochiy Pop One';
+  font-weight: bold;
+  font-style: normal;
+  src: url('/fonts/MochiyPopOne-Regular.ttf') format('truetype');
 }
