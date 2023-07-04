@@ -6,7 +6,8 @@ import slogan from '@/public/main_page/slogan.svg'
 import walkbag_line from '@/public/main_page/walkbag_line.svg'
 import filled_walkbag_middle from '@/public/main_page/filled_walkbag_middle.svg'
 import filled_walkbag_last from '@/public/main_page/filled_walkbag_last.svg'
-import shadow from '@/public/main_page/shadow.svg'
+import shadow from '@/public/main_page/shadow.svg';
+import Btn from "@/components/common/btn"
 
 const Home = () => {
 
@@ -27,7 +28,9 @@ const Home = () => {
         <Image src={filled_walkbag_last} className={styles.filled_walkbag_last} alt='filled_walkbag_last'/>
         <Image src={shadow} className={styles.shadow} alt='shadow'/>
         
-        <div className="buyme_right">123</div>
+        <div className="buyme_right">
+          <Btn text='馬上GOGO!'/>
+        </div>
 
       </div>
     </>

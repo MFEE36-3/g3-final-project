@@ -142,7 +142,7 @@
         例如: 
         import styles from '@/styles/footer.module.css';
         就可以在內部使用 className={styles.aaa}
-        若有 2 個以上或與 bootstrap混用擇要寫成這種型式 className={`${styles.aaa} ${styles.bbb} d-flex justify-content-center align-items-center`}
+        若有 2 個以上或與 bootstrap混用則要寫成這種型式 className={`${styles.aaa} ${styles.bbb} d-flex justify-content-center align-items-center`}
 
     (2) 使用 bootstrap
 

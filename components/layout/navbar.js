@@ -29,29 +29,29 @@ export default function Navbar() {
 
 
     return (
-        <header>
+        <>
 
-            <Image src={chocoCookie} className={styles.choco}></Image>
+            <Image src={chocoCookie} className={styles.choco} alt='chocoCookie' priority></Image>
             <div className={styles.big_title_container}>
-                <Image src={bigtitle} className={styles.big_title}></Image>
+                <Image src={bigtitle} className={styles.big_title} alt='bigtitle' priority></Image>
             </div>
-            <Link href="#"><Image src={littletitle} className={styles.little_title}></Image></Link>
+            <Link href="#"><Image src={littletitle} className={styles.little_title} style={{width:'auto'}} alt='littletitle' priority></Image></Link>
             <Link href="#"><FaShoppingCart className={styles.cart} /></Link>
 
 
             <Link href="#"><div className={styles.member_icon}></div></Link>
-            <Image src={hand} className={styles.hand_left}></Image>
-            <Image src={hand} className={styles.hand_right}></Image>
+            <Image src={hand} className={styles.hand_left} alt='hand' priority></Image>
+            <Image src={hand} className={styles.hand_right} alt='hand' priority></Image>
 
             {/* 下面做sticky-navbar */}
 
 
             <nav className={styles.nav}>
-                <Image src={navbar_back} className={styles.nav_back}></Image>
+                <Image src={navbar_back} className={styles.nav_back} alt='navbar_back' priority></Image>
                 <div className={styles.btn_left_container}>
                     <Link href="#" className={styles.btn_outer_link}>
                         <button className={(router_title === 'buyforme') ? `${styles.navbtn_active} btn` : `${styles.navbtn} btn`}>
-                            <Image src={hamburger} className={styles.hamburger}></Image>
+                            <Image src={hamburger} className={styles.hamburger} alt='hamburger' priority></Image>
                             <p className={styles.btn_text}>順路買買</p>
                         </button>
                     </Link>
@@ -59,19 +59,19 @@ export default function Navbar() {
                 <div className={styles.btn_right_container}>
                     <Link href="#" className={styles.btn_outer_link}>
                         <button className={(router_title === 'reservation-togo') ? `${styles.navbtn_active} btn` : `${styles.navbtn} btn`}>
-                            <Image src={candychief} className={styles.candy}></Image>
+                            <Image src={candychief} className={styles.candy} alt='candychief' priority></Image>
                             <p className={styles.btn_text}>訂位/外帶</p>
                         </button>
                     </Link>
                     <Link href="#" className={styles.btn_outer_link}>
                         <button className={(router_title === 'shopping-mall') ? `${styles.navbtn_active} btn` : `${styles.navbtn} btn`}>
-                            <Image src={chip} className={styles.chips}></Image>
+                            <Image src={chip} className={styles.chips} alt='chip' priority></Image>
                             <p className={styles.btn_text}>美食商城</p>
                         </button>
                     </Link>
                     <Link href="#" className={styles.btn_outer_link}>
                         <button className={(router_title === 'forum') ? `${styles.navbtn_active} btn` : `${styles.navbtn} btn`}>
-                            <Image src={bubble_tea} className={styles.bubble_tea}></Image>
+                            <Image src={bubble_tea} className={styles.bubble_tea} alt='bubble_tea' priority></Image>
                             <p className={styles.btn_text}>美食論壇</p>
                         </button>
                     </Link>
@@ -80,5 +80,5 @@ export default function Navbar() {
 
 
 
-        </header>)
+        </>)
 }
