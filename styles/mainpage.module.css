@@ -1,0 +1,78 @@
+.first_page {
+    height: 100vh;
+    background-color: #FFC700;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.chocoCookie {
+    margin: 0 auto;
+}
+
+.blank_area {
+    flex-grow: 0.2;
+}
+
+.slogan {
+    flex-grow: 0.8;
+    margin: 0 auto;
+}
+
+.buy_for_me {
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 200px 200px 200px 250px;
+}
+
+.walkbag_line {
+    margin: 0 auto;
+}
+
+.filled_walkbag_middle {
+    position: absolute;
+    animation: walkbag_middle_run ease-in-out infinite 2s;
+}
+
+@keyframes walkbag_middle_run {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(40%);
+    }
+
+}
+
+.filled_walkbag_last {
+    position: absolute;
+    animation: walkbag_last_run ease-in-out infinite 2s;
+}
+
+@keyframes walkbag_last_run {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(80%);
+    }
+
+}
+
+.shadow {
+    z-index: -1;
+    margin-left: -90%;
+    margin-top: 35%;
+}
+
+.buyme_left {
+    width: 49.21875%;
+    height: 100%;
+}
+
+.buyme_right {
+    width: 24.21875%;
+}
