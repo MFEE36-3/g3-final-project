@@ -23,6 +23,6 @@ const MuiComponents = () => {
 }
 
 
-MuiComponents.getLayout = BlankLayout
+//MuiComponents.getLayout = BlankLayout
 
 export default MuiComponents

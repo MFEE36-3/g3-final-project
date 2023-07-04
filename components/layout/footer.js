@@ -23,10 +23,10 @@ export default function Footer() {
                     <Image src={happy_foods_right} className={styles.happy_foods_right}></Image>
                 </div>
                 <div className={styles.belt}>
-                    <Image src={belt} className={`${styles.belt_running}  ${styles.belt_middle}`}></Image>
-                    <Image src={belt} className={`${styles.belt_running} ${styles.belt_left}`}></Image>
-                    <Image src={belt} className={`${styles.belt_running} ${styles.belt_right}`}></Image>
-                    <Image src={shield} className={styles.shield}></Image>
+                    <Image src={belt} className={`${styles.belt_running}  ${styles.belt_middle}`} style={{ width: '100%', height: 'auto' }}></Image>
+                    <Image src={belt} className={`${styles.belt_running} ${styles.belt_left}`} style={{ width: '100%', height: 'auto' }}></Image>
+                    <Image src={belt} className={`${styles.belt_running} ${styles.belt_right}`} style={{ width: '100%', height: 'auto' }}></Image>
+                    <Image src={shield} className={styles.shield} style={{ width: '100%', height: 'auto' }}></Image>
                 </div>
                 <div className={styles.gear_group}>
                     <Image src={gear} className={`${styles.gear_rolling} ${styles.gear}`}></Image>
