@@ -1,6 +1,16 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#911010',
+      darker: '#053e85',
+    },
+  },
+});
 
 function valuetext(value) {
   return `${value}°C`;
@@ -46,16 +56,19 @@ export default function SliderBar() {
     <>
       <p>價格範圍</p>
       <hr />
-      <Box sx={{ width: '100%' }}>
-        <Slider
-          getAriaLabel={() => 'Minimum distance'}
-          value={value1}
-          onChange={handleChange1}
-          valueLabelDisplay="auto"
-          getAriaValueText={valuetext}
-          disableSwap
-        />
-      </Box>
+      <ThemeProvider theme={theme}>
+        <Box sx={{ width: '100%' }}>
+          <Slider
+            getAriaLabel={() => 'Minimum distance'}
+            value={value1}
+            onChange={handleChange1}
+            valueLabelDisplay="auto"
+            getAriaValueText={valuetext}
+            color="primary"
+            disableSwap
+          />
+        </Box>
+      </ThemeProvider>
     </>
   );
 }
