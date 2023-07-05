@@ -9,7 +9,6 @@ export default function SelectArea() {
   return (
     <>
       <div className={style.selectarea}>
-        {/* style={{display:"flex", justifyContent:"center" ,flexFlow:"column"}} */}
         <div>
           <SelectBar />
         </div>

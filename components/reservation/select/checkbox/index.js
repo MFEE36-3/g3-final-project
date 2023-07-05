@@ -6,7 +6,7 @@ export default function CheckBox() {
     <>
       <p>餐廳類別</p>
       <hr />
-      <div className={style.spaceevenly}>
+      <div className={`${style.spaceevenly} ${style.mb20}`}>
         <FoodCheckbox />
       </div>
     </>

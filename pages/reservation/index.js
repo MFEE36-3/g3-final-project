@@ -14,11 +14,11 @@ export default function BookingPage() {
         <TopDiv />
         <div className="container-fluid">
           <div className="row">
-            <div className="col-3">
+            <div className="col-2">
               <SelectArea />
             </div>
 
-            <div className="col-9">
+            <div className="col-10">
               <Main />
             </div>
           </div>

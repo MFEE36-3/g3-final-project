@@ -23,24 +23,26 @@ export default function FoodCheckbox() {
 
   return (
     <div className="mx-auto">
-      <div className="d-flex w-100 flex-wrap justify-content-evenly">
+      <div className="d-flex justify-content-center row flex-wrap w-70">
         {foodtypes.map((foodtypes) => {
           const { id, name, selected } = foodtypes;
           return (
-            <button
-              className={`${style.selectbutton} ${
-                selected ? style.buttonon : style.buttonoff
-              } me-3`}
-              key={id}
-              id={id}
-              value={name}
-              onClick={(e) => {
-                handleButtonClick(id);
-                // console.log(e.target.value)
-              }}
-            >
-              {name}
-            </button>
+            <div className="col-4" key={id}>
+              <button
+                className={`${style.selectbutton} ${
+                  selected ? style.buttonon : style.buttonoff
+                }`}
+                key={id}
+                id={id}
+                value={name}
+                onClick={(e) => {
+                  handleButtonClick(id);
+                  // console.log(e.target.value)
+                }}
+              >
+                {name}
+              </button>
+            </div>
           );
         })}
       </div>
