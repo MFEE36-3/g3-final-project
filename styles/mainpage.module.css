@@ -99,6 +99,234 @@
     width: 31.63%;
 }
 
+/* togo & reservation */
+
+.togo_and_reservation {
+    height: 100vh;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding-bottom: 50px;
+}
+
+.runpic_zone {
+    height: 400px;
+    width: 100%;
+    background-color: var(--main-color);
+    overflow: hidden;
+}
+
+.runpic {
+    display: flex;
+    height: 100%;
+    animation: runpic linear infinite 5s;
+}
+
+@keyframes runpic {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-115.5%);
+    }
+}
+
+.runpic_zone .runpic>img {
+    height: 130%;
+    margin-top: -3%;
+}
+
+.bg_sushi {
+    position: absolute;
+    bottom: 10px;
+    left: -150px;
+}
+
+.candy_chief {
+    position: absolute;
+    top: 300px;
+    right: 8%;
+}
+
+.goReservationTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.goReservationTitle>p {
+    font-family: var(--ff3);
+    color: var(--main-color);
+    font-size: var(--h2);
+}
+
+.goReservationTitle>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 65%;
+}
+
+.goReservationTitle>div>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.goReservationTitle>div>div>p:first-of-type {
+    font-family: var(--ff1);
+    font-size: var(--h4);
+    color: var(--main-color);
+}
+
+.goReservationTitle>div>div>p:last-child {
+    /* font-family: var(--ff1); */
+    font-size: var(--h6);
+    color: var(--main-color);
+    font-weight: 600;
+}
+
+.icon_outer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+}
+
+.ForkBowl {
+    transform: scale(10);
+    color: var(--main-color)
+}
+
+/* 論壇 */
+
+.forum {
+    height: 100vh;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5.5% 13%;
+}
+
+.forum>div {
+    flex-grow: 0.43;
+    width: 100%;
+    background-color: var(--main-color);
+    border-radius: 30px;
+}
+
+.bgBubbleTea {
+    position: absolute;
+    z-index: -1;
+    top: -280px;
+}
+
+.bgnews {
+    position: relative;
+    background-image: url('../public/main_page/news.jpg');
+    background-repeat: repeat-x;
+    background-size: contain;
+    overflow: hidden;
+}
+
+.bgforum {
+    position: relative;
+    background-image: url('../public/main_page/forum.jpg');
+    background-repeat: repeat-x;
+    background-size: contain;
+    overflow: hidden;
+}
+
+.newsC {
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    left: -450px;
+    top: -350px;
+    transition: 0.5s ease-in-out;
+}
+
+.newsC:hover {
+    transform: scale(1.5) translateY(150px);
+    background-color: var(--sub-color);
+}
+
+.forumC {
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    right: -450px;
+    top: -350px;
+    transition: 0.5s ease-in-out;
+}
+
+.forumC:hover {
+    transform: scale(1.5) translateY(150px);
+    background-color: var(--sub-color);
+}
+
+.newsText {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+}
+
+.bgnews>p {
+    position: absolute;
+    font-family: var(--ff1);
+    font-size: var(--h2);
+    color: white;
+    left: 260px;
+    top: 20%;
+    pointer-events: none;
+}
+
+.newsBtn {
+    position: absolute;
+    left: 80px;
+    bottom: 15%;
+}
+
+.forumText {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+}
+
+.bgforum>p {
+    position: absolute;
+    font-family: var(--ff1);
+    font-size: var(--h2);
+    color: white;
+    right: 260px;
+    top: 20%;
+    pointer-events: none;
+}
+
+.forumBtn {
+    position: absolute;
+    right: 80px;
+    bottom: 15%;
+}
+
+
+
+
 /* 聯絡 */
 
 .contact {
@@ -112,5 +340,33 @@
 .contact_us {
     font-size: var(--h2);
     color: var(--main-color);
-    font-family: var(--ff1)
+    font-family: var(--ff1);
+    margin: 0;
+}
+
+.icons {
+    transform: scale(1.5);
+    color: var(--main-color);
+}
+
+.information_group {
+    display: flex;
+    width: 550px;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.information_box {
+    display: flex;
+}
+
+.information_box>p {
+    font-size: var(--h6);
+    color: var(--main-color);
+    margin: 0;
+    font-family: var(--ff3);
+}
+
+.information_box>div {
+    width: 40px;
 }
