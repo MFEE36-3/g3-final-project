@@ -1,4 +1,7 @@
-import LayoutMainPage from "@/components/layout/layout-mainpage";
+// import LayoutMainPage from "@/components/layout/layout-mainpage";
+import React from 'react';
+import BlankLayout from '@/components/layout/blank-layout';
+import Footer from '@/components/layout/footer.js';
 import styles from '@/styles/mainpage.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from "next/image";
@@ -16,113 +19,192 @@ import candyChief from '@/public/main_page/candy_chief_trun.svg';
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { GiBowlOfRice } from "react-icons/gi";
 import bgBubbleTea from '@/public/main_page/bg_bubble_tea.svg'
+import sausageLeft from '@/public/main_page/half-sausage-left.svg';
+import sausageRight from '@/public/main_page/half-sausage-right.svg';
+import Input from '@/components/common/input';
+import TextField from '@mui/material/TextField';
+import { useState, useEffect } from 'react';
+
+
+
 
 const Home = () => {
 
+
+  const [sausage_Left,setSausage_Left] = useState(styles.sausage_left)
+  const [sausage_Right,setSausage_Right] = useState(styles.sausage_right)
+
+ 
+
   return (
     <>
-      <div className={styles.first_page}>
-        <div className={styles.blank_area}></div>
-        <Image src={slogan} className={styles.slogan} alt='slogan' priority />
-        <Image src={chocoCookie} className={styles.chocoCookie} alt='chocoCookie with site name' priority />
-      </div>
-
-      <div className={`${styles.buy_for_me}`}>
-        <div className={`${styles.buyme_left}`}>
-          <Image src={walkbag_line} className={`${styles.walkbag_line}`}
-            alt='walkbag_line' />
-          <Image src={filled_walkbag_middle} className={styles.filled_walkbag_middle} alt='filled_walkbag_middle' />
-          <Image src={filled_walkbag_last} className={styles.filled_walkbag_last} alt='filled_walkbag_last' />
-          <Image src={shadow} className={styles.shadow} alt='shadow' />
+      <div className={styles.container}>
+        <div className={styles.first_page}>
+          <div className={styles.blank_area}></div>
+          <Image src={slogan} className={styles.slogan} alt='slogan' priority />
+          <Image src={chocoCookie} className={styles.chocoCookie} alt='chocoCookie with site name' priority />
         </div>
 
-        <div className={`${styles.buyme_right}`}>
-          <Btn text='馬上GOGO!' />
-        </div>
-
-      </div>
-
-      <div className={`${styles.togo_and_reservation}`}>
-        <div className={styles.runpic_zone}>
-          <div className={styles.runpic}>
-            <img src='./main_page/runaway/p1.png' alt='p1'></img>
-            <img src='./main_page/runaway/p2.png' alt='p2'></img>
-            <img src='./main_page/runaway/p3.png' alt='p3'></img>
-            <img src='./main_page/runaway/p4.png' alt='p4'></img>
-            <img src='./main_page/runaway/p1.png' alt='p1'></img>
-            <img src='./main_page/runaway/p2.png' alt='p2'></img>
-            <img src='./main_page/runaway/p3.png' alt='p3'></img>
-            <img src='./main_page/runaway/p4.png' alt='p4'></img>
-            <img src='./main_page/runaway/p1.png' alt='p1'></img>
-            <img src='./main_page/runaway/p2.png' alt='p2'></img>
-            <img src='./main_page/runaway/p3.png' alt='p3'></img>
-            <img src='./main_page/runaway/p4.png' alt='p4'></img>
+        <div className={`${styles.buy_for_me}`}>
+          <div className={`${styles.buyme_left}`}>
+            <Image src={walkbag_line} className={`${styles.walkbag_line}`}
+              alt='walkbag_line' />
+            <Image src={filled_walkbag_middle} className={styles.filled_walkbag_middle} alt='filled_walkbag_middle' />
+            <Image src={filled_walkbag_last} className={styles.filled_walkbag_last} alt='filled_walkbag_last' />
+            <div className={styles.shadow_container}>
+              <Image src={shadow} className={styles.shadow} alt='shadow' />
+            </div>
           </div>
-        </div>
-        <Image src={bgSushi} className={styles.bg_sushi} alt='bgSushi' />
-        <Image src={candyChief} className={styles.candy_chief} alt='candyChief' />
-        <div className={styles.goReservationTitle}>
-          <p>Order & Enjoy: Gourmet Delights at Your Doorstep.</p>
-          <div>
-            <div>
-              <div className={styles.icon_outer}>
-                <GiForkKnifeSpoon className={styles.ForkBowl} />
+
+          <div className={`${styles.buyme_right}`}>
+            <p>想吃什麼，</p>
+            <p>讓別人幫你買！</p>
+            <div><p>點擊下方香腸輸入關鍵字</p></div>
+            <div className={styles.sausage_container}>
+              <div>
+                <TextField
+                  id="outlined-basic"
+                  label='搜尋美食'
+                  size='medium'
+                  variant="outlined"
+                  placeholder='請輸入拉麵、咖哩...'
+                  sx={{
+                    '&:hover fieldset': {
+                      backgroundColor: 'rgba(250,179,179,0.2)',
+                      borderColor: '#FAB3B3'
+                    },
+                    '& .MuiInputLabel-root': {
+                      lineHeight: '68px', //原 '23px'
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      transform:'translate(14px,-24px) scale(0.75)' //原 'translate(14px,-9px) scale(0.75)'
+                    },
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': {
+                        borderColor: 'var(--sub-color)',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: 'var(--sub-color)',
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: 'var(--sub-color)',
+                      },
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'var(--sub-color)'
+                    },
+                    '& label.Mui-focused,label': {
+                      color: 'var(--main-color)',
+                    },
+                  }}
+                  inputProps={{
+                    style: {
+                      height: 68,
+                      width: 150,
+                    },
+                  }}
+                  InputLabelProps={{
+                    
+
+                    
+                  }}
+                />
               </div>
-              <p>美食訂位</p>
-              <p>輕鬆預約，享受便捷的訂位服務</p>
+              <Image alt='sausageLeft' src={sausageLeft} className={sausage_Left} onClick={()=>setSausage_Left((styles.sausage_left_active))}/>
+              <Image alt='sausageRight' src={sausageRight} className={sausage_Right} onClick={()=>setSausage_Right((styles.sausage_right_active))}/>
             </div>
-            <div>
-              <Btn text='Order Now!' />
+            <div className={styles.goBtn}>
+              <Btn text='馬上GOGO!' />
             </div>
+          </div>
+
+        </div>
+
+        <div className={`${styles.togo_and_reservation}`}>
+          <div className={styles.runpic_zone}>
+            <div className={styles.runpic}>
+              <img src='./main_page/runaway/p1.png' alt='p1'></img>
+              <img src='./main_page/runaway/p2.png' alt='p2'></img>
+              <img src='./main_page/runaway/p3.png' alt='p3'></img>
+              <img src='./main_page/runaway/p4.png' alt='p4'></img>
+              <img src='./main_page/runaway/p1.png' alt='p1'></img>
+              <img src='./main_page/runaway/p2.png' alt='p2'></img>
+              <img src='./main_page/runaway/p3.png' alt='p3'></img>
+              <img src='./main_page/runaway/p4.png' alt='p4'></img>
+              <img src='./main_page/runaway/p1.png' alt='p1'></img>
+              <img src='./main_page/runaway/p2.png' alt='p2'></img>
+              <img src='./main_page/runaway/p3.png' alt='p3'></img>
+              <img src='./main_page/runaway/p4.png' alt='p4'></img>
+            </div>
+          </div>
+          <Image src={bgSushi} className={styles.bg_sushi} alt='bgSushi' />
+          <Image src={candyChief} className={styles.candy_chief} alt='candyChief' />
+          <div className={styles.goReservationTitle}>
+            <p>Order & Enjoy: Gourmet Delights at Your Doorstep.</p>
             <div>
-              <div className={styles.icon_outer}>
-                <GiBowlOfRice className={styles.ForkBowl} />
+              <div>
+                <div className={styles.icon_outer}>
+                  <GiForkKnifeSpoon className={styles.ForkBowl} />
+                </div>
+                <p>美食訂位</p>
+                <p>輕鬆預約，享受便捷的訂位服務</p>
               </div>
-              <p>外帶取餐</p>
-              <p>享受在家或任何地方的美食盛宴</p>
+              <div>
+                <Btn text='Order Now!' />
+              </div>
+              <div>
+                <div className={styles.icon_outer}>
+                  <GiBowlOfRice className={styles.ForkBowl} />
+                </div>
+                <p>外帶取餐</p>
+                <p>享受在家或任何地方的美食盛宴</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div className={`${styles.forum}`}>
+
+          <Image src={bgBubbleTea} className={styles.bgBubbleTea} />
+
+          <div className={styles.bgnews}>
+            <div className={styles.newsC}></div>
+
+            <p>美食新聞</p>
+            <div className={styles.newsBtn}>
+              <Btn text='GO! NEWS' />
+            </div>
+
+          </div>
+          <div className={styles.bgforum}>
+            <div className={styles.forumC}></div>
+
+            <p>美食論壇</p>
+            <div className={styles.forumBtn}>
+              <Btn text='GO! FORUM' />
             </div>
           </div>
         </div>
-
-      </div>
-
-      <div className={`${styles.forum}`}>
-
-        <Image src={bgBubbleTea} className={styles.bgBubbleTea} />
-
-        <div className={styles.bgnews}>
-          <div className={styles.newsC}></div>
-
-          <p>美食新聞</p>
-          <div className={styles.newsBtn}>
-            <Btn text='GO! NEWS' />
-          </div>
-
-        </div>
-        <div className={styles.bgforum}>
-          <div className={styles.forumC}></div>
-
-          <p>美食論壇</p>
-          <div className={styles.forumBtn}>
-            <Btn text='GO! FORUM' />
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.contact}>
-        <Image src={sugoeat} alt='sugoeat' style={{ width: '100%', height: 'auto' }}></Image>
         <div>
-          <p className={styles.contact_us}>聯絡我們</p>
-        </div>
-        <div className={styles.information_group}>
-          <div className={styles.information_box}>
-            <div><FaMailBulk className={styles.icons} /></div>
-            <p>MAIL | iservice@ispan.com.tw</p>
+          <div className={styles.contact}>
+            <Image src={sugoeat} alt='sugoeat' style={{ width: '100%', height: 'auto' }}></Image>
+            <div>
+              <p className={styles.contact_us}>聯絡我們</p>
+            </div>
+            <div className={styles.information_group}>
+              <div className={styles.information_box}>
+                <div><FaMailBulk className={styles.icons} /></div>
+                <p>MAIL | iservice@ispan.com.tw</p>
+              </div>
+              <div className={styles.information_box}>
+                <div><FaPhoneSquareAlt className={styles.icons} /></div>
+                <p>TEL | (02) 6631-6588</p>
+              </div>
+            </div>
           </div>
-          <div className={styles.information_box}>
-            <div><FaPhoneSquareAlt className={styles.icons} /></div>
-            <p>TEL | (02) 6631-6588</p>
-          </div>
+
+          <Footer />
         </div>
       </div>
     </>
@@ -131,6 +213,7 @@ const Home = () => {
 
 
 
-Home.getLayout = LayoutMainPage;
+// Home.getLayout = LayoutMainPage;
+Home.getLayout = BlankLayout;
 
 export default Home;

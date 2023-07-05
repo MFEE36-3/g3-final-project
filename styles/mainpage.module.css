@@ -1,3 +1,15 @@
+.container {
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+.container>div {
+    scroll-snap-align: center;
+}
+
+
 /* 第一頁 */
 .first_page {
     height: 100vh;
@@ -71,9 +83,15 @@
 
 }
 
+.shadow_container {
+    height: 100%;
+    position: absolute;
+}
+
 .shadow {
     z-index: -1;
-    margin-top: 27%;
+    top: 100%;
+    /* left: -800%; */
     position: absolute;
     animation: shadow ease-in-out infinite 2s;
 }
@@ -81,11 +99,12 @@
 @keyframes shadow {
     0% {
         transform: scaleX(0.5);
-        margin-left: -12.5%;
+        left: -200px;
     }
 
     100% {
-        transform: scaleX(1.0);
+        transform: scaleX(0.9);
+        left: 0;
     }
 
 }
@@ -93,10 +112,87 @@
 .buyme_left {
     display: flex;
     width: 64.29%;
+    position: relative;
 }
 
 .buyme_right {
+    position: relative;
     width: 31.63%;
+}
+
+.buyme_right>p {
+    margin: 0;
+    font-size: var(--h2);
+    font-family: var(--ff1);
+    color: var(--main-color);
+}
+
+.buyme_right>div>p {
+    margin: 5% 0;
+    font-size: var(--h4);
+    /* font-family: var(--ff1); */
+    font-weight: 600;
+    color: var(--main-color);
+}
+
+.sausage_container {
+    position: relative;
+    margin-left: 50px;
+}
+
+.sausage_left {
+    margin-top: -101px;
+    margin-left: -80px;
+    position: absolute;
+    z-index: 1;
+}
+
+.sausage_left_active {
+    margin-top: -101px;
+    margin-left: -165px;
+    position: absolute;
+    z-index: 1;
+}
+
+.sausage_right {
+    margin-top: -101px;
+    margin-left: 80px;
+    position: absolute;
+    z-index: 1;
+    animation: sausage_right linear 2s;
+    animation-fill-mode: forwards;
+}
+
+.sausage_right_active {
+    margin-top: -101px;
+    margin-left: 175px;
+    position: absolute;
+    z-index: 1;
+}
+
+/* .sausage_right:hover {
+    margin-top: -101px;
+    margin-left: 175px;
+    position: absolute;
+    z-index: 1;
+}
+
+@keyframes sausage_right{
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(95px);
+    }
+} */
+
+
+
+
+.goBtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 /* togo & reservation */
@@ -108,7 +204,7 @@
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
-    padding-bottom: 50px;
+    padding-bottom: 80px;
 }
 
 .runpic_zone {
@@ -141,7 +237,7 @@
 
 .bg_sushi {
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     left: -150px;
 }
 
@@ -149,6 +245,7 @@
     position: absolute;
     top: 300px;
     right: 8%;
+    transform: scale(1.2);
 }
 
 .goReservationTitle {
