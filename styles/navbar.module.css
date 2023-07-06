@@ -58,6 +58,7 @@
     left: 2.34%;
     top: 28.55px;
     width: 9.427%;
+    z-index: 10;
 }
 
 .cart {
@@ -66,6 +67,7 @@
     left: 90.21%;
     top: 23.78px;
     font-size: 48px;
+    z-index: 10;
 }
 
 .cart:hover {
@@ -82,6 +84,7 @@
     left: 94.5%;
     background-image: url('/28a8513919088d3328aaa40284c6b13e.png');
     background-size: cover;
+    z-index: 10;
 }
 
 .hand_left {
