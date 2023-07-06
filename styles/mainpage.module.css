@@ -1,7 +1,7 @@
 .container {
     height: 100vh;
     overflow-y: auto;
-    scroll-snap-type: y mandatory;
+    /* scroll-snap-type: y mandatory; */
     scroll-behavior: smooth;
 }
 
@@ -44,6 +44,53 @@
     width: 100%;
     height: 100%;
 }
+
+/* sidebar */
+
+.sidebar {
+    position: sticky;
+    top: 10px;
+    bottom:500px;
+    width: 160px;
+    list-style: none;
+    margin-left: 50px;
+    margin-bottom: -593px;  
+    z-index: 10;
+}
+
+.flyHamburger{
+    margin-left: -50px;
+}
+
+.linkOffstyle{
+    text-decoration: none;
+}
+
+.liBtn {
+    cursor: pointer;
+    padding: 20px 0px;
+    transition: 
+    padding 0.2s ease-in-out 
+    ,color 0.2s ease-in-out;
+    background-position: 0;
+    font-family: var(--ff1);
+    color: var(--main-color);
+    font-size: var(--h6);
+    box-sizing: border-box;
+}
+
+.liBtn:hover {
+    background-image: url('../public/main_page/liCookie.svg');
+    background-repeat: no-repeat;
+    /* background-position: 0 ; */
+    cursor: pointer;
+    padding: 20px 0 20px 40px;
+    font-family: var(--ff1);
+    color: var(--sub-color);
+    border-bottom: 2px solid var(--sub-color);
+    box-sizing: border-box;
+}
+
 
 /* 順路買 */
 
@@ -94,12 +141,13 @@
     /* left: -800%; */
     position: absolute;
     animation: shadow ease-in-out infinite 2s;
+    transform-origin: left;
 }
 
 @keyframes shadow {
     0% {
         transform: scaleX(0.5);
-        left: -200px;
+        /* left: -200px; */
     }
 
     100% {
@@ -152,15 +200,16 @@
     margin-left: -80px;
     position: absolute;
     z-index: 1;
-    animation: sausage_left linear 1s;
+    animation: sausage_left linear 0.5s;
     animation-fill-mode: forwards;
 }
 
-@keyframes sausage_left{
-    0%{
+@keyframes sausage_left {
+    0% {
         transform: translateX(0);
     }
-    100%{
+
+    100% {
         transform: translateX(-85px);
     }
 }
@@ -177,7 +226,7 @@
     margin-left: 80px;
     position: absolute;
     z-index: 1;
-    animation: sausage_right linear 1s;
+    animation: sausage_right linear 0.5s;
     animation-fill-mode: forwards;
 }
 
@@ -188,12 +237,13 @@
     z-index: 1;
 } */
 
-@keyframes sausage_right{
-    0%{
+@keyframes sausage_right {
+    0% {
         transform: translateX(0);
     }
-    100%{
-        transform: translateX(95px);
+
+    100% {
+        transform: translateX(165px);
     }
 }
 

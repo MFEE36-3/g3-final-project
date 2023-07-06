@@ -24,28 +24,58 @@ import sausageRight from '@/public/main_page/half-sausage-right.svg';
 import Input from '@/components/common/input';
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
+import flyHamburger from '@/public/main_page/fly_hamburger.svg'
+import Link from 'next/link';
 
 
 
 
 const Home = () => {
 
+  const [sausage_open, setSausage_Open] = useState(false);
 
-  const [sausage_Left,setSausage_Left] = useState(styles.sausage_left)
-  const [sausage_Right,setSausage_Right] = useState(styles.sausage_right)
 
- 
+  // const [sausage_Left, setSausage_Left] = useState(styles.sausage_left)
+  // const [sausage_Right, setSausage_Right] = useState(styles.sausage_right)
+
+
 
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.first_page}>
+        <div className={styles.first_page} id='firstPage'>
           <div className={styles.blank_area}></div>
           <Image src={slogan} className={styles.slogan} alt='slogan' priority />
           <Image src={chocoCookie} className={styles.chocoCookie} alt='chocoCookie with site name' priority />
         </div>
 
-        <div className={`${styles.buy_for_me}`}>
+        <ul className={styles.sidebar}>
+          <Image src={flyHamburger} className={styles.flyHamburger} alt='flyHamburger' />
+          <Link href='#firstPage' className={styles.linkOffstyle}>
+            <li className={styles.liBtn}>首頁</li>
+          </Link>
+          {/* <Link href='#firstPage' className={styles.linkOffstyle}>
+            <li className={styles.liBtn}>關於我們</li>
+          </Link> */}
+          <Link href='#buyForMe' className={styles.linkOffstyle}>
+            <li className={styles.liBtn}>順路買買</li>
+          </Link>
+          <Link href='#togoReservation' className={styles.linkOffstyle}>
+            <li className={styles.liBtn}>訂位/外帶</li>
+          </Link>
+          <Link href='#shoppingMall' className={styles.linkOffstyle}>
+            <li className={styles.liBtn}>美食商城</li>
+          </Link>
+          <Link href='#forum' className={styles.linkOffstyle}>
+            <li className={styles.liBtn}>美食論壇</li>
+          </Link>
+          <Link href='#contactUs' className={styles.linkOffstyle}>
+            <li className={styles.liBtn}>聯絡我們</li>
+          </Link>
+        </ul>
+
+
+        <div className={`${styles.buy_for_me}`} id='buyForMe'>
           <div className={`${styles.buyme_left}`}>
             <Image src={walkbag_line} className={`${styles.walkbag_line}`}
               alt='walkbag_line' />
@@ -61,7 +91,7 @@ const Home = () => {
             <p>讓別人幫你買！</p>
             <div><p>點擊下方香腸輸入關鍵字</p></div>
             <div className={styles.sausage_container}>
-              <div>
+              <div style={sausage_open==false?{opacity:0,transition:'1s'}:{opacity:1,transition:'1s'}}>
                 <TextField
                   id="outlined-basic"
                   label='搜尋美食'
@@ -75,9 +105,11 @@ const Home = () => {
                     },
                     '& .MuiInputLabel-root': {
                       lineHeight: '68px', //原 '23px'
+                      fontSize:'var(--h4)',
+                      fontWeight:600,
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
-                      transform:'translate(14px,-24px) scale(0.75)' //原 'translate(14px,-9px) scale(0.75)'
+                      transform: 'translate(14px,-24px) scale(0.75)' //原 'translate(14px,-9px) scale(0.75)'
                     },
                     '& .MuiOutlinedInput-root': {
                       '& fieldset': {
@@ -89,6 +121,8 @@ const Home = () => {
                       '&.Mui-focused fieldset': {
                         borderColor: 'var(--sub-color)',
                       },
+                      fontSize: 'var(--h4)',
+                      fontFamily: 'var(--ff1)',
                     },
                     '& .MuiOutlinedInput-notchedOutline': {
                       borderColor: 'var(--sub-color)'
@@ -100,18 +134,16 @@ const Home = () => {
                   inputProps={{
                     style: {
                       height: 68,
-                      width: 150,
+                      width: 220,
                     },
                   }}
-                  InputLabelProps={{
-                    
-
-                    
-                  }}
+                  InputLabelProps={{}}
                 />
               </div>
-              <Image alt='sausageLeft' src={sausageLeft} className={sausage_Left} onClick={()=>setSausage_Left((styles.sausage_left_active))}/>
-              <Image alt='sausageRight' src={sausageRight} className={sausage_Right} onClick={()=>setSausage_Right((styles.sausage_right_active))}/>
+              {/* <Image alt='sausageLeft' src={sausageLeft} className={sausage_Left} onClick={() => setSausage_Left((styles.sausage_left_active))} /> */}
+              <Image alt='sausageLeft' src={sausageLeft} className={sausage_open === false ? styles.sausage_left : styles.sausage_left_active} onClick={() => setSausage_Open(true)} />
+              {/* <Image alt='sausageRight' src={sausageRight} className={sausage_Right} onClick={() => setSausage_Right((styles.sausage_right_active))} /> */}
+              <Image alt='sausageRight' src={sausageRight} className={sausage_open === false ? styles.sausage_right : styles.sausage_right_active} onClick={() => setSausage_Open(true)} />
             </div>
             <div className={styles.goBtn}>
               <Btn text='馬上GOGO!' />
@@ -120,7 +152,9 @@ const Home = () => {
 
         </div>
 
-        <div className={`${styles.togo_and_reservation}`}>
+
+
+        <div className={`${styles.togo_and_reservation}`} id='togoReservation'>
           <div className={styles.runpic_zone}>
             <div className={styles.runpic}>
               <img src='./main_page/runaway/p1.png' alt='p1'></img>
@@ -164,7 +198,7 @@ const Home = () => {
 
         </div>
 
-        <div className={`${styles.forum}`}>
+        <div className={`${styles.forum}`} id='forum'>
 
           <Image src={bgBubbleTea} className={styles.bgBubbleTea} />
 
@@ -186,7 +220,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div>
+        <div id='contactUs'>
           <div className={styles.contact}>
             <Image src={sugoeat} alt='sugoeat' style={{ width: '100%', height: 'auto' }}></Image>
             <div>
