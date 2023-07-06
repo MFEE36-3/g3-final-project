@@ -1,84 +1,99 @@
 .body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .dflex{
-    display: flex;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .spaceevenly{
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-  }
-  
-  .carousel {
-    position: relative;
-    width: 100vw;
-    height: 40vh;
-    /* background-color: darkgrey; */
-  }
-  
-  .selectarea {
-    height: 100%;
-    margin: 30px;
-    /* background-color: rgb(243, 202, 212); */
-  }
-  
-  .selectbutton {
-    font-size: 18px;
-    width: 60px;
-    height: 40px;
-    border-radius: 20px;
-    border: 0px;
-    margin: 5px 0px;
-  }
-  
-  .buttonon {
-    background-color: #911010;
-    color: white;
-  }
-  
-  .buttonoff {
-    background-color: #e2dfdd;
-  }
-  
-  .toggleactive {
-    background-color: #911010;
-  }
-  
-  .togglebutton {
-    width: 250px;
-    height:50px;
-    border-radius: 50px;
-  }
-  
-  .topdiv{
-    position: relative;
-  }
-  
-  .searchbar{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border-radius: 20px;
-    border: none;
-  }
-  .borderradius{
-    background-color: #911010 !important;
-    border-radius: 20px;
-    border: none !important;
-  }
+.dflex {
+  display: flex;
+}
+
+.spaceevenly {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.carousel {
+  position: relative;
+  width: 100vw;
+  height: 40vh;
+  /* background-color: darkgrey; */
+}
+
+.selectarea {
+  height: 100%;
+  margin: 30px;
+  /* background-color: rgb(243, 202, 212); */
+}
+
+.selectbutton {
+  font-size: 18px;
+  width: 60px;
+  height: 40px;
+  border-radius: 20px;
+  border: 0px;
+  margin: 5px 0px;
+}
+
+.buttonon {
+  background-color: #911010;
+  color: white;
+}
+
+.buttonoff {
+  background-color: #e2dfdd;
+}
+
+.toggleactive {
+  background-color: #911010;
+}
+
+.togglebutton {
+  width: 250px;
+  height: 50px;
+  border-radius: 50px;
+}
+
+.topdiv {
+  position: relative;
+}
+
+.searchbar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  background-color: #e1e0dd;
+  border-radius: 20px;
+  border: none;
+}
+
+.bordernone {
+  border: none;
+}
+
+.searchinput {
+  height: 50px;
+  background: none;
+  border: none;
+}
+
+.borderradius {
+  background-color: #911010 !important;
+  border-radius: 20px;
+  border: none !important;
+}
 
 
-  .mb10{
-    margin-bottom: 10px;
-  }
+.mb10 {
+  margin-bottom: 10px;
+}
 
-  .mb20{
-    margin-bottom: 20px;
-  }
+.mb20 {
+  margin-bottom: 20px;
+}

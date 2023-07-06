@@ -1,27 +1,23 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import style from '@/styles/reservation/style.module.css';
+import { useState } from 'react';
+import Search from '@/public/reservation/search.svg';
+import Image from 'next/image';
 
 export default function SearchBar() {
+
+  const [inputText, setInputText] = useState('')
+
   return (
     <>
       <div className={style.searchbar}>
-        <Box
-          component="form"
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
-          }}
-          noValidate
-          autoComplete="off"
-          // className={style.borderradius}
+        <Image src={Search} />
+        <input
+          type="text"
+          // value={inputText}
+          className={style.searchinput}
+          placeholder="請輸入餐廳名稱"
         />
-        <TextField
-          id="outlined-search"
-          label="Search field"
-          type="search"
-          // className={style.borderradius}
-        />
+
       </div>
     </>
   );
