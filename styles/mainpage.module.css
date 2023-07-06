@@ -149,9 +149,20 @@
 
 .sausage_left_active {
     margin-top: -101px;
-    margin-left: -165px;
+    margin-left: -80px;
     position: absolute;
     z-index: 1;
+    animation: sausage_left linear 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes sausage_left{
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-85px);
+    }
 }
 
 .sausage_right {
@@ -159,15 +170,15 @@
     margin-left: 80px;
     position: absolute;
     z-index: 1;
-    animation: sausage_right linear 2s;
-    animation-fill-mode: forwards;
 }
 
 .sausage_right_active {
     margin-top: -101px;
-    margin-left: 175px;
+    margin-left: 80px;
     position: absolute;
     z-index: 1;
+    animation: sausage_right linear 1s;
+    animation-fill-mode: forwards;
 }
 
 /* .sausage_right:hover {
@@ -175,7 +186,7 @@
     margin-left: 175px;
     position: absolute;
     z-index: 1;
-}
+} */
 
 @keyframes sausage_right{
     0%{
@@ -184,7 +195,7 @@
     100%{
         transform: translateX(95px);
     }
-} */
+}
 
 
 
