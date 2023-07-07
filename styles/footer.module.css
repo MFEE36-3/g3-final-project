@@ -164,6 +164,7 @@
     z-index: 4;
     color: #dcdbdb;
     font-size: var(--h6);
+    font-family: var(--ff3);
     text-align: center;
     width: 100%;
     bottom: 2%;
