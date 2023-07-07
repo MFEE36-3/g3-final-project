@@ -1,29 +1,136 @@
-.body{
-    margin-top: 30px;
-    margin-bottom: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+/*所有頁面都會用到的*/
+.body {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 
-.container{
-    width: 80%;
-    display: flex;
-    justify-content: space-around;
-    margin-top: 50px;
+.container {
+  width: 75%;
+  display: flex;
+  justify-content: space-around;
 }
 
-.right{
-    width: 800px;
-    height: 1100px;
+.rightArea {
+  width: 1000px;
+  height: 100%;
 }
 
-.rightflex{
-    display: flex;
-    justify-content: space-between;
-    width: 100%
+.flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.rightbox{
-    width: 47%
+.box {
+  width: calc(50% - 30px);
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  border: 20px solid #fcc8a1;
+  border-radius: 15px;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.title {
+  width: 100%;
+  height: 50px;
+  background-color: #921010;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -5px -5px 5px rgba(0, 0, 0, 0.6);
+}
+
+/*信用卡會用到的*/
+.package {
+  width: 60%;
+  height: 250px;
+  background-color: rgba(142, 142, 142, 0.3);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: inset -2px -2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.packageMoney {
+  margin-top: 20px;
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.packageBtn {
+  width: 60px;
+  border-radius: 8px;
+  font-weight: 800;
+  padding: 5px;
+  color: white;
+  background-color: rgba(120, 120, 120, 1);
+  border: none;
+}
+
+/*輪播牆會用到的*/
+.carousel {
+  width: 100%;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+  overflow: hidden;
+  border: 20px solid #fcc8a1;
+  margin-top: 50px;
+}
+
+.scroll {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.scrollCard {
+  width: 100%;
+  height: 70px;
+  box-shadow: 0px 5px 2px rgba(123, 123, 123, 0.5);
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*表單會用到的*/
+.form {
+  width: 800px;
+  height: 1000px;
+  padding: 50px;
+  border-radius: 20px;
+  color: #921010;
+  font-weight: 800;
+  border: 2px solid #921010;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formArea {
+  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
 }

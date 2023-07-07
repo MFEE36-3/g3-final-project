@@ -1,0 +1,10 @@
+.rightArea {
+  width: 1000px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 20px solid #fcc8a1;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+}

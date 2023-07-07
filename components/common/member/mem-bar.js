@@ -1,6 +1,7 @@
-import styles from '@/styles/member-css/mem-bar.module.css';
-import MemBarBtn from './mem-barBtn';
+import styles from './mem-bar.module.css';
 import Image from 'next/image';
+import { useState } from 'react';
+import Link from 'next/link';
 
 export default function MemBar() {
   const arr = [
@@ -12,16 +13,28 @@ export default function MemBar() {
     { name: '優惠券', url: '/member/coupon' },
   ];
 
-  const divStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'visible',
+  const [hoveredButtons, setHoveredButtons] = useState([]);
+
+  const handleMouseEnter = (index) => {
+    setHoveredButtons((prevHoveredButtons) => [...prevHoveredButtons, index]);
+  };
+
+  const handleMouseLeave = (index) => {
+    setHoveredButtons((prevHoveredButtons) =>
+      prevHoveredButtons.filter((btnIndex) => btnIndex !== index)
+    );
   };
 
   return (
     <div className={styles.memBar}>
       <div className={styles.memBtnTop}>
-        <div style={divStyle}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'visible',
+          }}
+        >
           <Image
             src="/member/asiagodtone01.jpg"
             style={{ objectFit: 'cover' }}
@@ -43,7 +56,29 @@ export default function MemBar() {
         <div className={styles.memEmail}>asiagodtone@gmail.com</div>
       </div>
       {arr.map((v, i) => {
-        return <MemBarBtn Info={v.name} key={i} url={v.url} />;
+        return (
+          <>
+            <Link
+              href={v.url}
+              style={{
+                textDecoration: 'none',
+              }}
+              key={i}
+            >
+              <button
+                onMouseEnter={() => handleMouseEnter(i)}
+                onMouseLeave={() => handleMouseLeave(i)}
+                className={
+                  hoveredButtons.includes(i)
+                    ? styles.memBtnClick
+                    : styles.memBtn
+                }
+              >
+                {v.name}
+              </button>
+            </Link>
+          </>
+        );
       })}
     </div>
   );
