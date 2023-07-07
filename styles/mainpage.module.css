@@ -278,7 +278,7 @@
 .runpic {
     display: flex;
     height: 100%;
-    animation: runpic linear infinite 5s;
+    animation: runpic linear infinite 10s;
 }
 
 @keyframes runpic {
@@ -305,8 +305,8 @@
 .candy_chief {
     position: absolute;
     top: 300px;
-    right: 8%;
-    transform: scale(1.2);
+    right: 6%;
+    /* transform: scale(1.2); */
 }
 
 .goReservationTitle {
@@ -320,6 +320,7 @@
     font-family: var(--ff3);
     color: var(--main-color);
     font-size: var(--h2);
+    font-weight: 800;
 }
 
 .goReservationTitle>div {
