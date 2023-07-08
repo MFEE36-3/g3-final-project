@@ -11,10 +11,28 @@
 }
 .container{
     width: 80%;
-    /* display: flex; */
+    /* display: flex;  */
 }
 .breadcontainer{
     width: 70px;
     /* height: 50px; */
     display: flex;
+}
+.box{
+    border: 1px soild var(--main-color);
+    background-color: #fff;
+    color: var(--main-color);
+    width: 20%;
+    text-align:center;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 30px;
+}
+.box:hover{
+    color:white;
+    background-color: var(--main-color);
+}
+.frame{
+    display: flex;
+ 
 }

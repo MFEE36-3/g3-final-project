@@ -1,0 +1,77 @@
+
+.center{
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 80%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    height: 640px;
+}
+.text{
+    font-size: var(--h6);
+    margin-top: 30px;
+}
+
+.line{
+    border-bottom: 1px solid var(--main-color);
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 100%;
+
+}
+.kanban{
+    background-color: var(--main-color);
+    color: white;
+    font-size: var(--h7);
+    font-weight: bold;
+    padding: 3px;
+
+}
+.input1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--main-color);
+    width: 100%;
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 10px;
+
+}
+.input2{
+border: 1px solid var(--main-color);
+border-radius: 5px;
+width: 100%;
+height: 70%;
+background-color: transparent;
+padding: 10px;
+
+}
+.addbtn{
+    border-radius: 5px;
+    background-color: var(--main-color);
+    color: white;
+    font-size: var(--h7);
+    width: 50px;
+}
+.cancel{
+    border-radius: 5px;
+    width: 50px;
+    margin-right: 10px;
+    border: 0;
+    font-size: var(--h7);
+
+}
+.icon{
+    width: 30px;
+    /* margin-top: 10px; */
+}
+.end{
+    display: flex;
+    justify-content: flex-end;
+}
+.between{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}

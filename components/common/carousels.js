@@ -7,7 +7,7 @@ function CarouselFadeExample() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="holder.js/800x400?text=First slide&bg=373940"
+          src='/f_imgs/images.jpeg'
           alt="First slide"
         />
         <Carousel.Caption>

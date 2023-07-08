@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '@/styles/news.module.css'
-import CarouselFadeExample from '@/pages/course/carousels'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CarouselFadeExample from '../../components/common/carousels';
 
 export default function Demo() {
   return (
@@ -39,14 +40,14 @@ export default function Demo() {
         </div>
       </header>
       <div>
-        <div>
-          <div>即時新聞</div>
-          <div>美食</div>
-          <div>旅遊</div>
-          <div>娛樂</div>
-          <div>生活</div>
+        <div className={`${styles.frame}`}>
+          <div className={`${styles.box}`}>即時新聞</div>
+          <div className={`${styles.box}`}>美食</div>
+          <div className={`${styles.box}`}>旅遊</div>
+          <div className={`${styles.box}`}>娛樂</div>
+          <div className={`${styles.box}`}>生活</div>
         </div>
-        <div>我是紅線</div>
+        <div>我4紅線</div>
       </div>
     </>
   )
