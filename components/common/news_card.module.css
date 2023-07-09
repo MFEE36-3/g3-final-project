@@ -1,0 +1,18 @@
+.cardbody{
+    width: 40%;
+    background-color: #fff;
+    height: 40%;
+}
+.ptext{
+    font-size: var(--h9);
+    padding-top: 10px;
+}
+.card{
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+}
+.card img{
+width: 100%;
+height: auto;
+}

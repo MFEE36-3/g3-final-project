@@ -1,23 +1,23 @@
-.bread{
-    font-size: var(--h8);
-    color: gray;
+.container{
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 80%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    height: 640px;
 }
 .title{
-    font-size:var(--h5)
+    font-size:var(--h5);
+    margin-top: 10px;
+    
 }
 .line1{
-    border: 1px;
-    border-bottom: 1px solid var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+    width: 100%;
+
 }
-.container{
-    width: 80%;
-    /* display: flex;  */
-}
-.breadcontainer{
-    width: 70px;
-    /* height: 50px; */
-    display: flex;
-}
+
 .box{
     border: 1px soild var(--main-color);
     background-color: #fff;
@@ -35,4 +35,9 @@
 .frame{
     display: flex;
  
+}
+.flex{
+    display: flex;
+    gap: 20px;
+    padding-top: 20px;
 }
