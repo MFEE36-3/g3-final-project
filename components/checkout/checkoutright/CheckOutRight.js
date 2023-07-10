@@ -4,6 +4,7 @@ import Payment from './Payment'
 import CheckOutMember from './CheckOutMember'
 import PaymentBody from './PaymentBody'
 import CheckOutTotalPrice from './CheckOutTotalPrice'
+import SendAddress from './SendAddress'
 export default function CheckoutRight() {
   const [selected,setSelected] = useState(0)
   return (
@@ -11,7 +12,8 @@ export default function CheckoutRight() {
       <CardContainer>
         <CheckOutMember/>
         <Payment selected={selected} setSelected={setSelected}/>
-        <PaymentBody selected={selected}/>
+        {/* <PaymentBody selected={selected}/> */}
+        <SendAddress/>
         <CheckOutTotalPrice/>
       </CardContainer>
     </div>

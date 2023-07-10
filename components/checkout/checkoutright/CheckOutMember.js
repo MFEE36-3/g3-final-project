@@ -5,7 +5,7 @@ export default function CheckOutMember() {
   return (
     <div className='d-flex justify-content-between align-items-center'>
         <h4>Member Name</h4>
-        <Image src={jayni} className='border rounded-circle' style={{width:"20%",height:"20%"}}></Image>
+        <Image src={jayni} className='border rounded-circle w-25 h-100 border-2 border-warning' ></Image>
     </div>
   )
 }

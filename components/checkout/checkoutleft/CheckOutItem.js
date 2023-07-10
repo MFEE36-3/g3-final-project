@@ -1,8 +1,9 @@
 import React,{useContext, useState} from 'react'
 import CheckOutCounter from './CheckOutCounter'
-import { Cart } from '@/pages/checkout/CheckOut'
+import { Cart } from '@/components/checkout/CheckOutFinal'
 import {HiOutlineTrash} from 'react-icons/hi'
 import Swal from 'sweetalert2'
+import emptycart from '@/public/trycheckoutimage/emptycart.png'
 import Image from 'next/image'
 export default function CheckOutItem() {
     const {items, showPages, setItems, page} = useContext(Cart)
@@ -32,8 +33,8 @@ export default function CheckOutItem() {
       });
     }
     const itemCart = (item) =>
-    <div key={item.itemId} className='border rounded-3 d-flex p-2 mb-4 position-relative'  style={{ width: "95%", height: "25%", boxShadow: "4px 2px 5px -2px #7A7070" }}>
-      <Image src={item.src} className='overflow-hidden object-fit-cover' style={{ width: "25%",height:"100%",}} alt="Item"></Image>
+    <div key={item.itemId} className='border rounded-3 d-flex p-2 mb-4 position-relative'  style={{ width: "95%", boxShadow: "4px 2px 5px -2px #7A7070" }}>
+      <Image src={item.src} alt={`${item.itemName}`} className='overflow-hidden object-fit-cover w-25' style={{height:"100%",}} ></Image>
       <div className='d-flex align-items-center ms-3 w-100 justify-content-between'>
         <div>{item.itemName}</div>
         <div className='d-flex align-items-center justify-content-between' style={{width:"70%"}}>
@@ -47,10 +48,12 @@ export default function CheckOutItem() {
 
   return (
     <>
-      <div className='d-flex flex-column overflow-auto mt-2 me-2 position-relative' style={{ height: "76%" }}>
+      {showPages(items).length !== 0 ? (<div className='d-flex flex-column overflow-auto mt-2 me-2 position-relative' style={{ height: "76%" }}>
         {showPages(items).map(item=>(itemCart(item)))}
-        {/* {showPages(items).map(item=>(item.length === 1 ? emptyCart() : itemCart(item)))} */}
-      </div>
+      </div>) : (<div className='d-flex flex-column mt-2 me-2 position-relative justify-content-center align-items-center' style={{ height: "76%" }}>
+        <Image src={emptycart} className='w-25 border-bottom border-3' style={{height:"29%"}}></Image>
+        <div className='fs-5 mt-2'>你的購物車空空如也</div>
+      </div>)}
     </>
   );
 }

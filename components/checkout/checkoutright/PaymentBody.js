@@ -32,18 +32,18 @@ const Money1 = styled.img`
 `
 export default function CreditCardForm({selected}) {
   return (<>
-    {selected === 0 &&<div style={{height:"40%"}} className='col-10 d-flex mx-auto align-items-center mt-3'>
+    {selected === 0 &&<div style={{height:"40%"}} className='col-10 d-flex mx-auto align-items-center mt-3 border-bottom border-3 w-100 justify-content-center'>
       <div>
         <Image src={PiggyBank} className=' h-50' style={{width:"70%"}}></Image>
       </div>
       <div className='d-flex align-items-center'>
-        <Money1 src='../trycheckoutimage/money.svg' style={{width:"60%"}}/>
+        <Money1 src={Money.src} style={{width:"60%"}}/>
         <div className='fs-1 text-danger' style={{width:"39%"}}>100</div>
       </div>
         
     </div>}
     {selected === 1 &&<Card
-      className="mt-3 bg-light border-bottom pb-3 px-0 rounded-0 border-2"
+      className="mt-3 bg-light border-bottom pb-3 px-0 rounded-0 border-3"
       style={{boxShadow:'none',height:'40%'}}
       sx={{
         maxHeight: 'max-content',
@@ -59,6 +59,7 @@ export default function CreditCardForm({selected}) {
           gridTemplateColumns: 'repeat(2, minmax(80px, 1fr))',
           gap: 1.5,
         }}
+        className="overflow-hidden"
       >
         <FormControl sx={{ gridColumn: '1/-1' }}>
           <FormLabel>卡號</FormLabel>

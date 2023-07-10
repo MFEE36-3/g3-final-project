@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import {BsArrowLeft} from 'react-icons/bs'
-import { Cart } from '@/pages/checkout/CheckOut'
+import { Cart } from '@/components/checkout/CheckOutFinal'
 export default function CheckOutLeftHead() {
   const {page, items, showPages} = useContext(Cart)
   const handlePage = () => {

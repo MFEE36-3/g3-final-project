@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
 import React, { useContext } from 'react'
-import { Cart } from '@/pages/checkout/CheckOut'
+import { Cart } from '@/components/checkout/CheckOutFinal'
 
 const Page = styled.div`
     position:absolute;
+    width:5%;
     top: 0%;
     left: -5.1%;
 `
