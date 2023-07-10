@@ -3,18 +3,19 @@ import togocards from '@/data/reservation/togocards.json'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-export default function Products() {
+export default function Products({category}) {
+
+    const filterData = togocards.datas.filter((v) => v.category === category);
     return (
         <>
             <div className='d-flex justify-content-center'>
                 <div className="d-flex justify-content-start row">
-                    {togocards.datas.map((v) => {
-                        const { id, name, price, category, desc, pictures } = v;
+                    {filterData.map((v) => {
                         return (
                             <Card
                                 className="m-2 co1-4 px-0"
                                 style={{ width: '21%', border: 'none' }}
-                                key={id}
+                                key={v.id}
                             >
                                 <Card.Img
                                     variant="top"
@@ -23,8 +24,8 @@ export default function Products() {
                                 />
 
                                 <Card.Body>
-                                    <Card.Title>{name}</Card.Title>
-                                    <Card.Text>${price}</Card.Text>
+                                    <Card.Title>{v.name}</Card.Title>
+                                    <Card.Text>${v.price}</Card.Text>
                                     <div className="d-flex align-item-center justify-content-between">
                                         <Button
                                             style={{
@@ -42,8 +43,7 @@ export default function Products() {
                                 </Card.Body>
                             </Card>
                         )
-                    })
-                    }
+                    })}
                 </div>
             </div>
         </>
