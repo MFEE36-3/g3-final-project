@@ -3,11 +3,12 @@ import Card from 'react-bootstrap/Card';
 import cards2 from '@/data/reservation/cards2.json';
 import Crown from '@/public/reservation/crown.svg';
 import Image from 'next/image';
+import style from '@/styles/reservation/style.module.css'
 
 export default function Top5() {
   return (
     <>
-      <div className="d-flex justify-content-center border-bottom mb-3 pb-1">
+      <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
         熱門排行
       </div>
       <div className="d-flex flex-column m-3">

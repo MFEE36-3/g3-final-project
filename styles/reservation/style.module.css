@@ -8,6 +8,30 @@
   display: flex;
 }
 
+.fonttitle {
+  font-family: var(--ff1);
+  color: var(--main-color);
+  font-size: var(--h3);
+}
+
+.info{
+  padding-top: 50px;
+}
+
+.restauranttitle {
+  font-family: var(--ff1);
+  font-size: var(--h3);
+}
+
+.restaurantdetail {
+  font-size: var(--h5);
+}
+
+
+.borderbottom {
+  border-bottom: 2px solid var(--main-color);
+}
+
 .spaceevenly {
   display: flex;
   justify-content: space-evenly;

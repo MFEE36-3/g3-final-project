@@ -4,7 +4,7 @@ import TopDiv from '@/components/reservation/topdiv';
 import style from '@/styles/reservation/style.module.css';
 import SliderBar from '@/components/reservation/select/sliderbar';
 import SelectArea from '@/components/reservation/select';
-import ToggleButtonGroup from '@/components/reservation/main/switchbar';
+import ToggleButtonGroup from '@/components/reservation/reservationPage/switchbar';
 import Main from '@/components/reservation/main';
 
 export default function BookingPage() {
@@ -17,7 +17,6 @@ export default function BookingPage() {
             <div className="col-2">
               <SelectArea />
             </div>
-
             <div className="col-10">
               <Main />
             </div>

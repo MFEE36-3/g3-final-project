@@ -4,12 +4,12 @@ import cards from '@/data/reservation/cards.json';
 import { FaRegHeart } from 'react-icons/fa';
 import { FaUtensils } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
-import { yellow } from '@mui/material/colors';
+import style from '@/styles/reservation/style.module.css'
 
 export default function MainContent() {
   return (
     <div className="d-flex flex-column m-3">
-      <div className="d-flex justify-content-center border-bottom mb-3 pb-1">
+      <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
         推薦必吃
       </div>
       <div className="d-flex justify-content-center space-evenly row flex-wrap">
@@ -46,8 +46,8 @@ export default function MainContent() {
                   </Button>
                   <div className="d-flex align-item-center">
                     <AiFillStar
-                      className="fs-4 h-100"
-                      style={{ color: '#ecbd18' }}
+                      className="fs-4 h-100 text-warning"
+                      // style={{ color: '#ecbd18' }}
                     />
                     <div className="d-flex align-item-center">
                       <p>4.5 / 5</p>
