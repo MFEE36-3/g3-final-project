@@ -14,18 +14,79 @@
   font-size: var(--h3);
 }
 
+/* 副標題 */
+.subtitle{ 
+  font-family: var(--ff1);
+  color: black;
+  font-size: var(--h5);
+}
+
 .info{
   padding-top: 50px;
 }
 
+/* 餐廳頁-餐廳名稱 */
 .restauranttitle {
   font-family: var(--ff1);
   font-size: var(--h3);
 }
 
+/* 餐廳頁-詳細資訊 */
 .restaurantdetail {
-  font-size: var(--h5);
+  font-size: var(--h6);
 }
+
+/* 餐廳頁-資訊對齊用寬度 */
+.detailwidth{
+  width: 75px;
+}
+
+/* 餐廳頁-div間隔 */
+.divmb{
+  margin-bottom: 20px;
+}
+
+/* 餐廳頁-人數欄寬＋間隔 */
+.selectperson{
+  width: 20%;
+  margin-bottom: 10px;
+}
+
+/* 外帶頁-nav */
+.categorynav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-size: var(--h2);
+    color: var(--main-color);
+}
+.categorydiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+}
+
+.categorydivactive{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background-color: var(--main-color);
+  border-radius: 20px;
+  color: white;
+}
+
+
+.categoryfont{
+  font-size: var(--h6);
+}
+
+
+/* ---------------------------------------- */
 
 
 .borderbottom {
@@ -42,7 +103,6 @@
   position: relative;
   width: 100vw;
   height: 40vh;
-  /* background-color: darkgrey; */
 }
 
 .selectarea {
@@ -61,7 +121,7 @@
 }
 
 .buttonon {
-  background-color: #911010;
+  background-color: var(--main-color);
   color: white;
 }
 
@@ -69,20 +129,61 @@
   background-color: #e2dfdd;
 }
 
-.toggleactive {
-  background-color: #911010;
+.togglebutton {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-color);
+  font-size: var(--h6);
 }
 
-.togglebutton {
-  width: 250px;
-  height: 50px;
+.toggleactive1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-color);
+  color: white;
+  font-size: var(--h6);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.toggleactive2 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-color);
+  color: white;
+  font-size: var(--h6);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.togglediv {
+  width: 400px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50px;
+  border: 2px solid var(--main-color);
 }
 
 .topdiv {
   position: relative;
 }
 
+/* 餐廳座位圖 */
+
+
+
+/* --------------------------------------------- */
 .searchbar {
   position: absolute;
   display: flex;

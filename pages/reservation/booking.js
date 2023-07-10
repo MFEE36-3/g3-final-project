@@ -19,8 +19,6 @@ export default function Booking() {
             </div>
             <div className="col-9">
               <ReservationPage />
-
-
             </div>
           </div>
         </div>

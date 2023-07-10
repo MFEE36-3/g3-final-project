@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import style from '@/styles/reservation/style.module.css'
 
 const theme = createTheme({
     palette: {
@@ -24,7 +25,7 @@ export default function SelectPerson() {
 
     return (
         <>
-            <div style={{ width: '20%' }}> 
+            <div className={style.selectperson}>
                 <ThemeProvider theme={theme}>
                     <Box sx={{ Width: '100%' }}>
                         <FormControl fullWidth>

@@ -1,22 +1,28 @@
-
-import BookingCalendar from './calendar'
+import Calendar from './calendar'
 import InteriorPic from './interior'
 import SelectPerson from './person'
 import { TextareaAutosize } from '@mui/base';
+import style from '@/styles/reservation/style.module.css'
 
 
 export default function Reservation() {
   return (
     <>
-      <p>用餐日期</p>
+      <div className={style.divmb}>
+        <p className={style.subtitle}>用餐日期</p>
+        <Calendar />
+      </div>
 
-      <p>用餐人數</p>
+      <div className={style.divmb}>
+        <p className={style.subtitle}>用餐人數</p>
+        <SelectPerson />
+        <InteriorPic />
+      </div>
 
-      <SelectPerson className='w-10'/>
-      <InteriorPic />
-      <p>備註</p>
-      <TextareaAutosize className='w-40' minRows={2} />
-
+      <div className={style.divmb}>
+        <p className={style.subtitle}>備註</p>
+        <TextareaAutosize className='w-40' minRows={2} />
+      </div>
     </>
   )
 }

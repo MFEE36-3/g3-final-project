@@ -10,12 +10,12 @@ export default function ReservationPage() {
 
     return (
         <>
-            <div>
+            <div className='d-flex justify-content-center m-4'>
                 <ToggleButtonGroup
                     page={page}
                     setPage={setPage} />
-                {page === '訂位' ? <Reservation /> : <Togo />}
             </div>
+            {page === '訂位' ? <Reservation /> : <Togo />}
         </>
     )
 }

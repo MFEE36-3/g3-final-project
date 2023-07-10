@@ -1,4 +1,6 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button';
+import { FaUtensils } from 'react-icons/fa6';
 import style from '@/styles/reservation/style.module.css'
 
 export default function Info() {
@@ -20,20 +22,37 @@ export default function Info() {
                     <div className={style.info}>
                         <p className={style.restauranttitle}>{name}</p>
                         <div className={style.restaurantdetail}>
-                            <div className='pb-1'>
-                                地點|{location}
+                            <div className='pb-2 d-flex'>
+                                <div className={style.detailwidth}>地點</div>
+                                <div>|{location}</div>
                             </div>
-                            <div className='pb-1'>
-                                營業時間|{time}
+                            <div className='pb-2 d-flex'>
+                                <div className={style.detailwidth}>營業時間</div>
+                                <div>|{time}</div>
                             </div>
-                            <div className='pb-1'>
-                                人均消費|${peramount}
+                            <div className='pb-2 d-flex'>
+                                <div className={style.detailwidth}>人均消費</div>
+                                <div>|${peramount}</div>
                             </div>
-                            <div className='pb-1'>
-                                電話|{phone}
+                            <div className='pb-2 d-flex'>
+                                <div className={style.detailwidth}>電話</div>
+                                <div>|{phone}</div>
                             </div>
-                            <div className='pb-1'>
-                                餐廳類別|{type}
+                            <div className='pb-2 d-flex'>
+                                <div className={style.detailwidth}>餐廳類別</div>
+                                |<Button
+                                    style={{
+                                        fontSize: '12px',
+                                        background: '#911010',
+                                        borderRadius: 20,
+                                        border: 0,
+                                        color: 'white',
+                                        padding: '5px',
+                                    }}
+                                >
+                                    <FaUtensils />
+                                    {type}
+                                </Button>
                             </div>
                         </div>
                     </div>

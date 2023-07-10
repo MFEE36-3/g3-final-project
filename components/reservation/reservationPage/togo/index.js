@@ -1,9 +1,16 @@
-import React from 'react'
+import React,{useState} from 'react'
+import CatergoryDiv from './catergorydiv'
+import style from '@/styles/reservation/style.module.css'
+import Products from './products'
 
 export default function Togo() {
+
+    
+
     return (
         <>
-            <div>lets gooooooooooooo! 看到這頁了好開心</div>
+            <CatergoryDiv />
+            <Products/>
         </>
     )
 }
