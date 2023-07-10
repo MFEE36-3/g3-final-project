@@ -1,0 +1,21 @@
+.cardBox {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.card {
+  width: 180px;
+  height: 250px;
+  background-color: #bcbcbc;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card:hover {
+  transform: scale(1.1);
+  transition: all 0.1s ease-in;
+}

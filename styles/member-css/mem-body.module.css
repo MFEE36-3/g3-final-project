@@ -24,11 +24,27 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 60px;
+}
+
+.bigBox {
+  font-size: 18px;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  border: 20px solid #fcc8a1;
+  border-radius: 15px;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+  overflow: hidden;
+  margin-top: 60px;
 }
 
 .box {
+  font-size: 18px;
   width: calc(50% - 30px);
-  height: 350px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   border: 20px solid #fcc8a1;
@@ -44,13 +60,14 @@
   height: 50px;
   background-color: #921010;
   color: white;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-shadow: inset -5px -5px 5px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
 }
 
 /*信用卡會用到的*/
@@ -86,6 +103,7 @@
 
 /*輪播牆會用到的*/
 .carousel {
+  font-size: 18px;
   width: 100%;
   height: 380px;
   display: flex;
@@ -101,16 +119,19 @@
 .scroll {
   overflow-y: scroll;
   height: 100%;
+  width: 100%;
 }
 
-.scrollCard {
-  width: 100%;
-  height: 70px;
-  box-shadow: 0px 5px 2px rgba(123, 123, 123, 0.5);
-  margin-top: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.scroll::-webkit-scrollbar {
+  width: 0; /* 設置捲軸寬度 */
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: transparent; /* 設置捲軸軌道背景色 */
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: transparent; /* 設置捲軸滑塊顏色 */
 }
 
 /*表單會用到的*/

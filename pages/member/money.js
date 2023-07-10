@@ -1,6 +1,9 @@
 import React from 'react';
 import MemBar from '@/components/common/member/mem-bar';
+import MemMoneyCard from '@/components/common/member/mem-moneyCard';
+import MemMoneyRecord from '@/components/common/member/mem-moneyRecord';
 import styles from '@/styles/member-css/mem-body.module.css';
+import styles2 from '@/styles/member-css/mem-money.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
 
@@ -10,52 +13,68 @@ export default function Index() {
       <div className={styles.container}>
         <MemBar />
         <div className={styles.rightArea}>
-          <div className={styles.flex}>
-            <div className={styles.package}>
-              <div className={styles.flex}>
-                <div>我的錢包</div>
-                <div>帳號:asiagodtone@gmail.com</div>
-              </div>
+          <div className={styles2.area0}>
+            <div className={styles2.area1}>
+              <div className={styles.title}>我的錢包</div>
 
-              <div className={styles.packageMoney}>NT$ 7414</div>
-
-              <div style={{ display: 'flex', justifyContent: 'end' }}>
-                <button className={styles.packageBtn}>儲值+</button>
+              <div className={styles2.nowMoney}>NT$ 7414 元</div>
+              <div className={styles2.inputArea}>
+                <label className={styles2.label}>
+                  <div className={styles2.title}>儲值</div>
+                  <input type="number" className={styles2.input}></input>
+                </label>
+                <button className={styles2.btn}>確認</button>
               </div>
             </div>
-            <Image src="/member/cookie.png" width={250} height={250} alt="" />
-            <Image src="/member/cookie.png" width={250} height={250} alt="" />
+            <div className={styles2.imgArea}>
+              <div className={styles2.imgText}>您的尊榮會員還有 21 天到期</div>
+            </div>
           </div>
           <div>
-            <div className={styles.carousel}>
-              <div className={styles.title}>{'進行中的活動'}</div>
-              <div className={styles.scroll}>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
+            <div className={styles2.area2}>
+              <div className={styles.title}>會員升級</div>
+              <MemMoneyCard />
+              <div className={styles2.text}>
+                加入尊榮會員，每天可獲得2張揪團9折優惠券 ( 限當天使用
+                )，商城商品全享9折，不定時贈送各種優惠券
               </div>
             </div>
           </div>
-          <div className={styles.flex}>
-            <div className={styles.box}>
-              <div className={styles.title}>本月流行</div>
-              <div>你好你好你好你好你好你好</div>
-            </div>
-            <div className={styles.box}>
-              <div className={styles.title}>你的趨勢</div>
-              <div>你好你好你好你好你好你好</div>
+          <div>
+            <div className={styles2.area3}>
+              <div className={styles.title}>儲值紀錄</div>
+              <div className={styles.scroll}>
+                <MemMoneyRecord
+                  money={'800'}
+                  date={'2023/01/09'}
+                  time={'18:30'}
+                />
+                <MemMoneyRecord
+                  money={'800'}
+                  date={'2023/01/09'}
+                  time={'18:30'}
+                />
+                <MemMoneyRecord
+                  money={'800'}
+                  date={'2023/01/09'}
+                  time={'18:30'}
+                />
+                <MemMoneyRecord
+                  money={'800'}
+                  date={'2023/01/09'}
+                  time={'18:30'}
+                />
+                <MemMoneyRecord
+                  money={'800'}
+                  date={'2023/01/09'}
+                  time={'18:30'}
+                />
+                <MemMoneyRecord
+                  money={'800'}
+                  date={'2023/01/09'}
+                  time={'18:30'}
+                />
+              </div>
             </div>
           </div>
         </div>

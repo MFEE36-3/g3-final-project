@@ -1,0 +1,33 @@
+.area1 {
+  font-size: 18px;
+  width: 100%;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+  overflow: hidden;
+  border: 20px solid #fcc8a1;
+  margin-bottom: 60px;
+  font-weight: 800;
+}
+
+.area2 {
+  font-size: 18px;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+  overflow: hidden;
+  border: 20px solid #fcc8a1;
+  margin-bottom: 60px;
+  font-weight: 800;
+}

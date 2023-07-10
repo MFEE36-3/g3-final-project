@@ -1,0 +1,147 @@
+.area0 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.imgArea {
+  width: 35%;
+  height: 500px;
+  background-image: url('/member/cookie2.png');
+  background-size: cover;
+  background-position: center;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgText {
+  width: 500px;
+  height: 100px;
+  border-radius: 15%;
+  border: 2px solid black;
+  background-color: #f7e6c6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center;
+  overflow: visible;
+  padding: 5px;
+  position: relative;
+  top: 60px;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.area1 {
+  font-size: 18px;
+  width: 60%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+  overflow: hidden;
+  border: 20px solid #fcc8a1;
+  margin-bottom: 60px;
+  padding-bottom: 30px;
+}
+
+.area2 {
+  font-size: 18px;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+  overflow: hidden;
+  border: 20px solid #fcc8a1;
+  margin-bottom: 60px;
+  font-weight: 800;
+}
+
+.area3 {
+  font-size: 18px;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+  overflow: hidden;
+  border: 20px solid #fcc8a1;
+}
+
+.text {
+  height: 50px;
+  width: 98%;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputArea {
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #921010;
+  height: 80px;
+  border-radius: 15px;
+}
+
+.nowMoney {
+  font-size: 48px;
+  font-weight: bolder;
+}
+
+.input {
+  font-size: 18px;
+  width: 70%;
+  height: 50px;
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
+.title {
+  color: #fefdfb;
+  margin-right: 10px;
+}
+
+.btn {
+  width: 75px;
+  height: 60px;
+  background-color: #fece4b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 15px;
+  font-weight: 900;
+  box-shadow: inset -7px -7px 7px rgba(126, 95, 51, 0.6);
+  margin-right: 3px;
+  transition: all 0.1s ease-in;
+  margin-left: 30px;
+}
+
+.btn:hover {
+  background-color: #ffe291;
+}

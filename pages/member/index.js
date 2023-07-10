@@ -1,5 +1,6 @@
 import React from 'react';
 import MemBar from '@/components/common/member/mem-bar';
+import MemIndexCard from '@/components/common/member/mem-indexCard';
 import styles from '@/styles/member-css/mem-body.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
@@ -30,21 +31,30 @@ export default function Index() {
             <div className={styles.carousel}>
               <div className={styles.title}>{'進行中的活動'}</div>
               <div className={styles.scroll}>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
+                <MemIndexCard
+                  title={'揪團'}
+                  content={'半筋半肉牛肉麵(大碗)  光復牛肉麵'}
+                />
+                <MemIndexCard
+                  title={'揪團'}
+                  content={'鼎極鮮奶茶  上宇林大安復興店'}
+                />
+                <MemIndexCard
+                  title={'商城'}
+                  content={'鮮蝦水餃x100  三玖水餃'}
+                />
+                <MemIndexCard
+                  title={'商城'}
+                  content={'韭菜水餃x100  三玖水餃'}
+                />
+                <MemIndexCard
+                  title={'外帶'}
+                  content={'排骨炒飯 + 巧克力鍋  鼎泰豐'}
+                />
+                <MemIndexCard
+                  title={'商城'}
+                  content={'極品泰國蝦x35  外雙溪釣蝦場'}
+                />
               </div>
             </div>
           </div>

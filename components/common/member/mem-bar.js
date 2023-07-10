@@ -28,13 +28,7 @@ export default function MemBar() {
   return (
     <div className={styles.memBar}>
       <div className={styles.memBtnTop}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'visible',
-          }}
-        >
+        <div className={styles.memImgBox}>
           <Image
             src="/member/asiagodtone01.jpg"
             style={{ objectFit: 'cover' }}
@@ -44,7 +38,7 @@ export default function MemBar() {
             alt=""
           />
           <Image
-            src=""
+            src="/member/cookie.png"
             width={500}
             height={500}
             className={styles.achImg}
