@@ -1,7 +1,8 @@
 import styles from './mem-bar.module.css';
 import Image from 'next/image';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import Link from 'next/link';
+import { v4 } from 'uuid';
 
 export default function MemBar() {
   const arr = [
@@ -12,18 +13,6 @@ export default function MemBar() {
     { name: '我的收藏', url: '/member/collect' },
     { name: '優惠券', url: '/member/coupon' },
   ];
-
-  const [hoveredButtons, setHoveredButtons] = useState([]);
-
-  const handleMouseEnter = (index) => {
-    setHoveredButtons((prevHoveredButtons) => [...prevHoveredButtons, index]);
-  };
-
-  const handleMouseLeave = (index) => {
-    setHoveredButtons((prevHoveredButtons) =>
-      prevHoveredButtons.filter((btnIndex) => btnIndex !== index)
-    );
-  };
 
   return (
     <div className={styles.memBar}>
@@ -51,27 +40,16 @@ export default function MemBar() {
       </div>
       {arr.map((v, i) => {
         return (
-          <>
+          <Fragment key={v4()}>
             <Link
               href={v.url}
               style={{
                 textDecoration: 'none',
               }}
-              key={i}
             >
-              <button
-                onMouseEnter={() => handleMouseEnter(i)}
-                onMouseLeave={() => handleMouseLeave(i)}
-                className={
-                  hoveredButtons.includes(i)
-                    ? styles.memBtnClick
-                    : styles.memBtn
-                }
-              >
-                {v.name}
-              </button>
+              <button className={styles.memBtn}>{v.name}</button>
             </Link>
-          </>
+          </Fragment>
         );
       })}
     </div>

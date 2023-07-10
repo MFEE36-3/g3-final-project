@@ -4,8 +4,28 @@ import styles from '@/styles/member-css/mem-body.module.css';
 import styles2 from '@/styles/member-css/mem-collect.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
+import MemCollectBlog from '@/components/common/member/mem-collectBlog';
+import { v4 } from 'uuid';
 
 export default function Index() {
+  const forumList = [
+    {
+      type: '閒聊',
+      title: '有人喝過上宇林的鼎極鮮奶茶嗎?',
+      time: '2023/07/08',
+    },
+    {
+      type: '推薦',
+      title: '內湖的黃老師母便當，在地隱藏美食',
+      time: '2023/06/24',
+    },
+    {
+      type: '踩雷',
+      title: '快崩潰了，到底誰會想吃阿得餐盒???',
+      time: '2023/04/29',
+    },
+  ];
+
   return (
     <div className={styles.body}>
       <div className={styles.container}>
@@ -15,33 +35,42 @@ export default function Index() {
             <div className={styles2.area1}>
               <div className={styles.title}>{'我的文章'}</div>
               <div className={styles.scroll}>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
-                <div className={styles.scrollCard}>
-                  【開山羌】RRRRRRRR小宇幫我開直播
-                </div>
+                {forumList.map((v) => {
+                  return (
+                    <MemCollectBlog
+                      type={v.type}
+                      title={v.title}
+                      time={v.time}
+                      key={v4()}
+                    />
+                  );
+                })}
               </div>
             </div>
             <div className={styles2.area2}>
               <div className={styles.title}>{'我的收藏'}</div>
               <div className={styles.scroll}>
-                <div className={styles.scrollCard}>123456</div>
-                <div className={styles.scrollCard}>123456</div>
-                <div className={styles.scrollCard}>123456</div>
-                <div className={styles.scrollCard}>123456</div>
-                <div className={styles.scrollCard}>123456</div>
-                <div className={styles.scrollCard}>123456</div>
-                <div className={styles.scrollCard}>123456</div>
+                <div
+                  className={styles2.scrollArea}
+                  style={{ boxShadow: '0px 5px 2px rgba(123, 123, 123, 0.5)' }}
+                >
+                  <button className={styles2.scrollTitle}>論壇貼文</button>
+                  <button className={styles2.scrollTitle}>訂位/外帶店家</button>
+                  <button className={styles2.scrollTitle}>商城商品</button>
+                </div>
+                <div>
+                  {forumList.map((v) => {
+                    return (
+                      <MemCollectBlog
+                        type={v.type}
+                        title={v.title}
+                        time={v.time}
+                        key={v4()}
+                      />
+                    );
+                  })}
+                </div>
+                <div></div>
               </div>
             </div>
           </div>

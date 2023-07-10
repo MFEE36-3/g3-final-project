@@ -48,7 +48,7 @@
   transition: all 0.2s ease-in;
 }
 
-.memBtnClick {
+.memBtn:hover {
   font-size: 24px;
   font-weight: 800;
   color: white;

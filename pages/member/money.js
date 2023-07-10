@@ -6,8 +6,18 @@ import styles from '@/styles/member-css/mem-body.module.css';
 import styles2 from '@/styles/member-css/mem-money.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
+import { v4 } from 'uuid';
 
 export default function Index() {
+  const moneyList = [
+    { money: '800', date: '2023/01/09', time: '18:30' },
+    { money: '700', date: '2023/01/10', time: '18:30' },
+    { money: '2500', date: '2023/01/11', time: '18:30' },
+    { money: '200', date: '2023/01/12', time: '18:30' },
+    { money: '800', date: '2023/01/13', time: '18:30' },
+    { money: '3000', date: '2023/01/14', time: '18:30' },
+  ];
+
   return (
     <div className={styles.body}>
       <div className={styles.container}>
@@ -44,36 +54,16 @@ export default function Index() {
             <div className={styles2.area3}>
               <div className={styles.title}>儲值紀錄</div>
               <div className={styles.scroll}>
-                <MemMoneyRecord
-                  money={'800'}
-                  date={'2023/01/09'}
-                  time={'18:30'}
-                />
-                <MemMoneyRecord
-                  money={'800'}
-                  date={'2023/01/09'}
-                  time={'18:30'}
-                />
-                <MemMoneyRecord
-                  money={'800'}
-                  date={'2023/01/09'}
-                  time={'18:30'}
-                />
-                <MemMoneyRecord
-                  money={'800'}
-                  date={'2023/01/09'}
-                  time={'18:30'}
-                />
-                <MemMoneyRecord
-                  money={'800'}
-                  date={'2023/01/09'}
-                  time={'18:30'}
-                />
-                <MemMoneyRecord
-                  money={'800'}
-                  date={'2023/01/09'}
-                  time={'18:30'}
-                />
+                {moneyList.map((v) => {
+                  return (
+                    <MemMoneyRecord
+                      money={v.money}
+                      date={v.date}
+                      time={v.time}
+                      key={v4()}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

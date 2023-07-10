@@ -4,8 +4,20 @@ import styles from '@/styles/member-css/mem-body.module.css';
 import styles2 from '@/styles/member-css/mem-info.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
+import { v4 } from 'uuid';
 
 export default function Info() {
+  const infoList = [
+    { tag: '帳號', content: 'asiagodtone@mgail.com' },
+    { tag: '暱稱', content: '亞洲統神', change: '修改' },
+    { tag: '密碼', content: '******', change: '修改' },
+    { tag: '手機', content: '0911222333', change: '修改' },
+    { tag: '錢包', content: 'NT$ 7414 元', change: '儲值' },
+    { tag: '等級', content: '尊榮會員', change: '升級' },
+    { tag: '生日', content: '1990 / 10 / 29' },
+    { tag: '加入時間', content: '2023 / 06 / 19' },
+  ];
+
   return (
     <div className={styles.body}>
       <div className={styles.container}>
@@ -35,14 +47,16 @@ export default function Info() {
             </div>
           </div>
           <div>
-            <MemInfoBtn tag={'帳號'} content={'asiagodtone@mgail.com'} />
-            <MemInfoBtn tag={'暱稱'} content={'亞洲統神'} change={'修改'} />
-            <MemInfoBtn tag={'密碼'} content={'******'} change={'修改'} />
-            <MemInfoBtn tag={'手機'} content={'0911222333'} change={'修改'} />
-            <MemInfoBtn tag={'錢包'} content={'NT$ 7414 元'} change={'儲值'} />
-            <MemInfoBtn tag={'等級'} content={'尊榮會員'} change={'升級'} />
-            <MemInfoBtn tag={'生日'} content={'1990 / 10 / 29'} />
-            <MemInfoBtn tag={'加入時間'} content={'2023 / 06 / 19'} />
+            {infoList.map((v) => {
+              return (
+                <MemInfoBtn
+                  tag={v.tag}
+                  content={v.content}
+                  change={v.change}
+                  key={v4()}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
