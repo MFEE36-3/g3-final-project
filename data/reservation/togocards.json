@@ -43,9 +43,33 @@
         {
             "id": 6,
             "pictures": "",
-            "name": "香檸莓果茶",
+            "name": "香草奶昔",
             "price": "180",
             "category":"飲品",
+            "desc": "超級好吃泰式乾哩雞"
+        },
+        {
+            "id": 7,
+            "pictures": "",
+            "name": "烤香腸",
+            "price": "180",
+            "category":"開胃菜",
+            "desc": "超級好吃泰式乾哩雞"
+        },
+        {
+            "id": 8,
+            "pictures": "",
+            "name": "烤魷魚",
+            "price": "260",
+            "category":"開胃菜",
+            "desc": "超級好吃泰式乾哩雞"
+        },
+        {
+            "id": 9,
+            "pictures": "",
+            "name": "肋眼牛排",
+            "price": "1199",
+            "category":"主餐",
             "desc": "超級好吃泰式乾哩雞"
         }
     ]

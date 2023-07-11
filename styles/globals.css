@@ -63,3 +63,7 @@ main {
   font-style: normal;
   src: url('/fonts/MochiyPopOne-Regular.ttf') format('truetype');
 }
+
+svg:hover *{
+fill: #911010;
+}

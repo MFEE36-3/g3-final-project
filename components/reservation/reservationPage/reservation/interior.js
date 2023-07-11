@@ -22,8 +22,16 @@ export default function InteriorPic() {
                 position: "relative"
             }}>
 
-            <Image src={Seat6}
-                style={{ position: "absolute", top: "12px", left: "20px" ,color:"red"}} />
+            <svg width="98" height="97" viewBox="0 0 98 97" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect className='aaa' x="39" width="18" height="18" fill="#D9D9D9" />
+                <rect width="18" height="18" transform="matrix(0.517729 0.855545 -0.875908 0.482478 87.7656 16)" fill="#D9D9D9" />
+                <rect width="18" height="18" transform="matrix(0.517729 0.855545 -0.875908 0.482478 16.9688 55.584)" fill="#D9D9D9" />
+                <rect width="18" height="18" transform="matrix(0.517729 -0.855545 0.875908 0.482478 0 33.4004)" fill="#D9D9D9" />
+                <rect width="18" height="18" transform="matrix(0.517729 -0.855545 0.875908 0.482478 69.6562 73.8672)" fill="#D9D9D9" />
+                <rect x="38.8477" y="78.5469" width="18" height="18" fill="#D9D9D9" />
+                <circle cx="48.5" cy="48.5" r="26.5" fill="#D9D9D9" />
+            </svg>
+
             <Image src={Seat8}
                 style={{ position: "absolute", top: "30px", right: "30px" }} />
             <Image src={Seat8s}

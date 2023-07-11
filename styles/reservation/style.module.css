@@ -88,6 +88,39 @@
 
 /* ---------------------------------------- */
 
+/* 購物車ShoppingCart */
+
+.shoppingcartdiv{
+  display: flex;
+  font-size: var(--h6);
+}
+
+.shoppingcartbody1{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.shoppingcartbody2{
+  display: flex;
+  width: 100%;
+  padding: 0px 20px;
+  justify-content: space-between;
+}
+
+
+.cartimage{
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+}
+
+
+
+
+/* ---------------------------------------- */
+
 
 .borderbottom {
   border-bottom: 2px solid var(--main-color);
