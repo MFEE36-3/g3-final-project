@@ -12,7 +12,7 @@ export default function AddNewItem() {
           <div className="card p-5 bg-info rounded-3 border-black border-3">
             <div className="card-title d-flex justify-content-center fw-bold fs-5">
               <Btn text="新增商品" />
-              <Btn text="編輯商品" />
+              <Btn text="商品清單" />
             </div>
 
             <div className="card-body d-flex flex-column justify-content-center align-items-center">
@@ -60,7 +60,6 @@ export default function AddNewItem() {
                   <Btn text="取消填寫" />
                 </div>
               </div>
-
             </div>
           </div>
         </div>

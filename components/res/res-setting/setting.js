@@ -4,12 +4,15 @@ import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import styles from '@/components/res/res-setting/res-setting.module.css';
 
-export default function Setting(){
-    return <>
-        <h4 className='container'>Setting</h4>
-        <div className="container">
+export default function Setting() {
+  return (
+    <>
+      <h4 className="container">Setting</h4>
+      <div className="container">
         <form className="bg-primary-subtle container col-10">
-          <h1 className="d-flex justify-content-center fw-bold pt-3">商家編輯</h1>
+          <h1 className="d-flex justify-content-center fw-bold pt-3">
+            商家編輯
+          </h1>
           <hr />
 
           <div className="mx-5">
@@ -286,7 +289,7 @@ export default function Setting(){
 
             <hr />
 
-            <div className='d-flex justify-content-center'>
+            <div className="d-flex justify-content-center">
               <button type="submit" class="btn btn-primary my-3 mx-3">
                 確認送出
               </button>
@@ -299,4 +302,5 @@ export default function Setting(){
         </form>
       </div>
     </>
+  );
 }
