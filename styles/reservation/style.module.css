@@ -90,10 +90,19 @@
 
 /* 購物車ShoppingCart */
 
+.cartbody{
+  background-image: url('/background/kodawari_bg_cut.jpg');
+}
+
+.carttitle{
+  font-size: var(--h4);
+  text-align: center;
+}
+
 .shoppingcartdiv{
   display: flex;
   font-size: var(--h6);
-  
+  margin: 5px 0px;
 }
 
 .shoppingcartbody1{
@@ -106,8 +115,14 @@
 .shoppingcartbody2{
   display: flex;
   width: 100%;
+  font-size: var(--h5);
+  font-weight: bold;
   padding: 0px 20px;
   justify-content: space-between;
+}
+
+.shoppingcartbody3{
+  display: flex;
 }
 
 .cartimage{
@@ -116,12 +131,44 @@
   border-radius: 10px;
 }
 
+.trashicon{
+  font-size: 28px;
+}
+
 .cartbutton{
-  width: 30px;
-  height:30px;
+  width: 40px;
+  height:40px;
   background-color: white;
+  margin-right: 10px;
   border-radius: 10px;
-  border: 1px solid var(--main-color);
+  color: var(--main-color);
+  font-weight:bold;
+  border: 3px solid var(--main-color);
+ 
+}
+
+.cartbutton:hover{
+  color: var(--sub-color);
+  border: 3px solid var(--sub-color);
+}
+
+.cartcount{
+  width: 40px;
+  height:40px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 10px;
+  border: 2px solid #d9d9d9;
+}
+
+.cartprice{
+  line-height: 40px;
+}
+
+.hrcolor{
+  border-color:black;
+  border-width: 2px;
 }
 
 
@@ -221,7 +268,99 @@
 
 /* 餐廳座位圖 */
 
+.svgicon:hover *{
+  fill: #911010;
+  }
 
+.svg6{
+  position: absolute;
+  top: 10px;
+  left: 20px;
+} 
+
+.svg8{
+  position: absolute; 
+  top: 30px; 
+  right: 30px;
+}
+
+.svg8s{
+  position: absolute;
+  bottom: 40px; 
+  right: 20px;
+}
+
+.svg41{
+  position: absolute; 
+    top: 260px;
+    left: 200px;
+}
+
+.svg42{
+  position: absolute; 
+    top: 260px;
+    left: 350px;
+}
+
+.svg43{
+  position: absolute; 
+    top: 80px;
+    left: 530px;
+}
+
+.svg4s1{
+  position: absolute; 
+    top: 130px;
+    left: 150px;
+}
+
+.svg4s2{
+  position: absolute; 
+    top: 130px;
+    left: 280px;
+}
+
+.svg21{
+  position: absolute; 
+    top: 10px;
+    left: 180px;
+}
+
+.svg22{
+  position: absolute; 
+    top: 10px;
+    left: 240px;
+}
+
+.svg23{
+  position: absolute; 
+    top: 10px;
+    left: 300px;
+}
+
+.svg24{
+  position: absolute; 
+    top: 10px;
+    left: 360px;
+}
+
+.svg2s1{
+  position: absolute; 
+  bottom: 10px;
+    left: 120px;
+}
+
+.svg2s2{
+  position: absolute; 
+  bottom: 10px;
+    left: 250px;
+}
+
+.svg2s3 {
+  position: absolute; 
+  bottom: 10px;
+    left: 380px;
+}
 
 /* --------------------------------------------- */
 .searchbar {

@@ -32,9 +32,9 @@ export default function Booking() {
               <div>
                 <Image src={ShoppingBag} variant="primary" onClick={handleShow}/>
 
-                <Offcanvas show={show} onHide={handleClose} placement={'end'}>
+                <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
                   <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>--您的購物車--</Offcanvas.Title>
+                    <Offcanvas.Title className={style.carttitle}>--您的購物車--</Offcanvas.Title>
                   </Offcanvas.Header>
                   <Offcanvas.Body>
                    <ShoppingCart/>
