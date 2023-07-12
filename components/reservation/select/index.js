@@ -4,9 +4,21 @@ import SliderBar from './sliderbar';
 import SidebarBtn from './sidebarbtn';
 import Btn from '@/components/common/btn';
 import style from '@/styles/reservation/style.module.css';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-export default function SelectArea() {
+export default function SelectArea({keyword,setKeyword}) {
+
+  const router = useRouter();
+
+  console.log("router.query:",router.query)
+  
+
+  // useEffect(()=>{
+  //   setKeyword(router.query.keyword || '');
+  //   const usp= new 
+  // })
+
   const initialtypes = [
     { id: 1, name: '中式', selected: false },
     { id: 2, name: '日式', selected: false },
@@ -16,13 +28,13 @@ export default function SelectArea() {
     { id: 6, name: '西式', selected: false },
   ];
 
-  const [foodtypes, setFoodtypes] = useState(initialtypes);
+  // const [foodtypes, setFoodtypes] = useState(initialtypes);
 
   const handleFoodtypes = (id) => {
-    setFoodtypes((prevFoodtypes) =>
-      prevFoodtypes.map((id2) => {
+    setKeyword((prevFoodtypes) => ({...prevFoodtypes,foodtype:prevFoodtypes.foodtype.map((id2) => {
         return id === id2.id ? { ...id2, selected: !id2.selected } : id2;
-      })
+      })})
+      
     );
   };
 
@@ -40,19 +52,21 @@ export default function SelectArea() {
 
   return (
     <>
-      <div className={style.selectarea}>
+      <form className={style.selectarea} onSubmit={(e)=>{
+        e.preventDefault();
+        
+      }}>
         <div>
-          <SelectBar />
+          <SelectBar/>
         </div>
         <div>
-          <CheckBox foodtypes={foodtypes} handleFoodtypes={handleFoodtypes}/>
+          <CheckBox keyword={keyword} handleFoodtypes={handleFoodtypes} />
         </div>
         <div>
           <SliderBar />
         </div>
         <Btn text="go!" />
-        {/* <SidebarBtn /> */}
-      </div>
+      </form>
     </>
   );
 }

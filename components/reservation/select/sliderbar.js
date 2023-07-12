@@ -20,7 +20,7 @@ function valuetext(value) {
 const minDistance = 10;
 
 export default function SliderBar() {
-  const [value1, setValue1] = React.useState([20, 37]);
+  const [value1, setValue1] = React.useState([200,500]);
 
   const handleChange1 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -32,9 +32,11 @@ export default function SliderBar() {
     } else {
       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
     }
+
+    console.log(value1)
   };
 
-  const [value2, setValue2] = React.useState([20, 37]);
+  const [value2, setValue2] = React.useState([200, 500]);
 
   const handleChange2 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -68,6 +70,8 @@ export default function SliderBar() {
               getAriaValueText={valuetext}
               color="primary"
               disableSwap
+              max={1200}
+              step={50}
             />
           </Box>
         </ThemeProvider>

@@ -63,6 +63,7 @@ export default function SelectItem() {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value
     );
+    console.log(personName);
   };
 
   return (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import style from '@/styles/reservation/style.module.css';
 
-export default function FoodCheckbox({foodtypes,handleFoodtypes}) {
+export default function FoodCheckbox({keyword,handleFoodtypes}) {
   // const initialtypes = [
   //   { id: 1, name: '中式', selected: false },
   //   { id: 2, name: '日式', selected: false },
@@ -24,7 +24,7 @@ export default function FoodCheckbox({foodtypes,handleFoodtypes}) {
   return (
     <div className="mx-auto">
       <div className="d-flex justify-content-center row flex-wrap w-70">
-        {foodtypes.map((v) => {
+        {keyword.foodtype.map((v) => {
           const { id, name, selected } = v;
           return (
             <div className="col-4" key={id}>
@@ -36,7 +36,7 @@ export default function FoodCheckbox({foodtypes,handleFoodtypes}) {
                 id={id}
                 value={name}
                 onClick={(e) => {
-                  handleFoodtypes(id);
+                  handleFoodtypes(id); 
                 }}
               >
                 {name}

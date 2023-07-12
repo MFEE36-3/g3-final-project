@@ -5,6 +5,8 @@ import Trash from '@/public/reservation/trash.svg'
 
 export default function ShoppingCart() {
 
+    
+
     const shoppingfood = [
         { id: 1, name: "泰式打拋豬", price: 290, count: 5 },
         { id: 2, name: "月亮蝦餅", price: 220, count: 2 }
@@ -50,6 +52,7 @@ export default function ShoppingCart() {
                                 <div className={style.shoppingcartbody2}>
                                     <div>
                                         <button
+                                            className={style.cartbutton}
                                             onClick={() => {
                                                 setProducts(add(products, v.id))
                                             }}
@@ -58,6 +61,7 @@ export default function ShoppingCart() {
                                         </button>
                                         (<b>{v.count}</b>)
                                         <button
+                                            className={style.cartbutton}
                                             onClick={() => {
                                                 // 預期: 目前商品數量是1，再按-按鈕，數量會變0 -> 就作移除
                                                 console.log(v.count)

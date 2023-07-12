@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState} from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,10 +17,10 @@ const theme = createTheme({
 });
 
 export default function BasicSelect() {
-  const [age, setAge] = React.useState('');
+  const [city, setCity] = useState('');
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setCity(event.target.value);
   };
 
   return (
@@ -31,14 +31,14 @@ export default function BasicSelect() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={age}
+            value={city}
             label="Age"
             onChange={handleChange}
             color="primary"
           >
-            <MenuItem value={10}>台北市</MenuItem>
-            <MenuItem value={20}>新北市</MenuItem>
-            <MenuItem value={30}>基隆市</MenuItem>
+            <MenuItem value={'tpe'}>台北市</MenuItem>
+            <MenuItem value={'ntp'}>新北市</MenuItem>
+            <MenuItem value={'klc'}>基隆市</MenuItem>
           </Select>
         </FormControl>
       </Box>
