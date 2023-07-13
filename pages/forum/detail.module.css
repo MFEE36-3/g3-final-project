@@ -1,0 +1,10 @@
+.category{
+    display:flex ;
+    flex-direction: column;
+    /* width: 20%; */
+    margin-top: 40px;
+}
+.title{
+    margin-top: 40px;
+    margin-left: 40px;
+}

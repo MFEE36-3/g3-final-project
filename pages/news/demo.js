@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from '@/styles/news.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CarouselFadeExample from '../../components/common/carousels';
+import CarouselFadeExample from '../../components/common/UncontrolledExample';
 import Newscard from '../../components/common/news_card';
 import Newnav from '@/components/common/new_nav';
+import UncontrolledExample from '../../components/common/UncontrolledExample';
 export default function Demo() {
   return (
     <>

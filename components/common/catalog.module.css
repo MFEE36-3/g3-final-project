@@ -1,0 +1,23 @@
+.after{
+    border: 1px solid gray;
+    position: relative;
+    margin-left: 25px;
+}
+.after::after{
+    content: '文章目錄';
+    position: absolute;
+    top: -11%;
+    left: 42%;
+    background-image: url('../../public/background/kodawari_bg_cut.jpg');
+}
+
+.pline{
+    border-bottom: 1px dashed gray;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-bottom: 15px;
+}
+.pline2{
+
+ margin-left: 10px;
+}

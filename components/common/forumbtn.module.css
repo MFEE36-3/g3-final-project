@@ -1,0 +1,11 @@
+.btn{
+    background-color: var(--main-color);
+    color: white;
+    padding: 20px 50px;
+    font-weight: bold;
+    font-size: var(--h5);
+    border: 0;
+}
+.container{
+    width: 80%;
+}
