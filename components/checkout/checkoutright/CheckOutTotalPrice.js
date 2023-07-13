@@ -18,6 +18,14 @@ export default function CheckOutTotalPrice() {
     const handleChange = (event) => {
         setDiscount(event.target.value);
     };
+    const linePay = async () => {
+        const res = await fetch('http://localhost:3000/checkout/1')
+        const json = await res.json();
+        const url = `http://localhost:3000/createorder/${json.orderId}`
+        const order_res = await fetch(url, { method: "POST" });
+        const { redirect } = await order_res.json();
+        window.location.href = redirect;
+    }
   return (
     <div className='my-2'>
         <div className='mt-3 mx-1'>
@@ -35,7 +43,7 @@ export default function CheckOutTotalPrice() {
                     <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth >
                             <InputLabel id="demo-simple-select-label">優惠卷</InputLabel>
-                            <Select   Select
+                            <Select
                             className='d-flex justify-content-end'
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -57,7 +65,7 @@ export default function CheckOutTotalPrice() {
                 <span>${pagePrice()+ (showPages(items).length > 0 ? fee : 0) - discount}</span>
             </div>
         </div>
-        <Button variant="contained" className='w-100 d-flex align-items-center mx-auto p-1 bg-warning rounded-4 mt-3 border-0 justify-content-center fs-4'>結&nbsp;&nbsp;&nbsp;&nbsp;帳</Button>
+        <Button variant="contained" className='w-100 d-flex align-items-center mx-auto p-1 bg-warning rounded-4 mt-3 border-0 justify-content-center fs-4' onClick={()=>linePay()}>結&nbsp;&nbsp;&nbsp;&nbsp;帳</Button>
     </div>
   )
 }
