@@ -1,0 +1,12 @@
+.iconText {
+    font-size: var(--h8);
+    font-family: var(--ff1);
+    color: var(--main-color);
+}
+
+.mainIconText {
+    font-size: var(--h8);
+    font-family: var(--ff1);
+    color: white;
+}
+
