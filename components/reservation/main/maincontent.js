@@ -25,6 +25,7 @@ export default function MainContent() {
                 variant="top"
                 src="../../reservation/respic.jpeg"
                 className="rounded-top-3"
+                alt=""
               />
 
               <Card.Body>

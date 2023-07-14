@@ -1,10 +1,7 @@
 import { useState } from 'react';
-import Carousel from '@/components/reservation/topdiv/carousel';
 import TopDiv from '@/components/reservation/topdiv';
 import style from '@/styles/reservation/style.module.css';
-import SliderBar from '@/components/reservation/select/sliderbar';
 import SelectArea from '@/components/reservation/select';
-import ToggleButtonGroup from '@/components/reservation/reservationPage/switchbar';
 import Main from '@/components/reservation/main';
 import { useRouter } from 'next/router';
 
@@ -12,8 +9,8 @@ export default function BookingPage() {
 
   const router = useRouter();
 
-  let outerKeyword =
-  {
+  // 預設值default
+  let totalKeyword = {
     foodtype: [
       { id: 1, name: '中式', selected: false },
       { id: 2, name: '日式', selected: false },
@@ -29,21 +26,39 @@ export default function BookingPage() {
 
   if (router.query) {
 
+    // 取得router 食物類別category
     if (router.query.foodtype) {
-      const arr1 = router.query.foodtype.split(',')
-      outerKeyword.foodtype.forEach((v, i) => {
-        if (arr1.includes(v.name)) {
+      const arrfoodtype = router.query.foodtype.split(',');
+      totalKeyword.foodtype.forEach((v, i) => {
+        if (arrfoodtype.includes(v.name)) {
           v.selected = true;
         }
-      } 
+      }
       )
     }
+
+    //取得router 城市city
+    if (router.query.city) {
+      totalKeyword.city = router.query.city;
+    }
+
+    //取得router 區域dist
+    if (router.query.dist) {
+      const arrdist = router.query.dist.split(',')
+      totalKeyword.dist = arrdist;
+    }
+
+    //取得router 價格price
+    if (router.query.price) {
+      const arrprice = router.query.price.split(',')
+      totalKeyword.price = arrprice;
+    }
+
   }
-  // 還沒寫完
-  console.log(outerKeyword);
+  console.log(totalKeyword);
 
 
-  const [keyword, setKeyword] = useState(outerKeyword||{
+  const [keyword, setKeyword] = useState(totalKeyword || {
     foodtype: [
       { id: 1, name: '中式', selected: false },
       { id: 2, name: '日式', selected: false },
@@ -57,6 +72,7 @@ export default function BookingPage() {
     price: [0, 1200]
   })
 
+  
   return (
     <>
       <div className={style.body}>

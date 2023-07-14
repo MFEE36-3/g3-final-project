@@ -42,10 +42,10 @@ const names = [
   '松山區',
 ];
 
-function getStyles(name, personName, theme) {
+function getStyles(name, dist, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      dist.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
@@ -53,17 +53,17 @@ function getStyles(name, personName, theme) {
 
 export default function SelectItem() {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const [dist, setDist] = React.useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setDist(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value
     );
-    console.log(personName);
+    console.log(dist);
   };
 
   return (
@@ -77,7 +77,7 @@ export default function SelectItem() {
             labelId="demo-multiple-chip-label"
             id="demo-multiple-chip"
             multiple
-            value={personName}
+            value={dist}
             onChange={handleChange}
             color="primary"
             input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
@@ -94,7 +94,7 @@ export default function SelectItem() {
               <MenuItem
                 key={name}
                 value={name}
-                style={getStyles(name, personName, theme)}
+                style={getStyles(name, dist, theme)}
               >
                 {name}
               </MenuItem>

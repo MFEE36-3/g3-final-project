@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import style from '@/styles/reservation/style.module.css'
-import Image from 'next/image'
-import Trash from '@/public/reservation/trash.svg'
+import { Button } from 'react-bootstrap';
 import { BsTrash } from "react-icons/bs";
 
 export default function ShoppingCart() {
@@ -48,7 +47,7 @@ export default function ShoppingCart() {
                                 <div className={style.shoppingcartbody1}>
                                     <div className={style.shoppingcartbody2}>
                                         <div>{name}</div>
-                                        <div><BsTrash className={style.trashicon}/></div>
+                                        <div><BsTrash className={style.trashicon} /></div>
                                     </div>
 
                                     <div className={style.shoppingcartbody2}>
@@ -87,11 +86,18 @@ export default function ShoppingCart() {
                                     </div>
                                 </div>
                             </div>
-                            <hr className={style.hrcolor}/>
+                            <hr className={style.hrcolor} />
                         </>
                     )
                 })
             }
+            <div>
+                <Button className={style.cartsendbutton}
+                >
+                    加入購物車
+                </Button>
+            </div>
+
         </>
     )
 }

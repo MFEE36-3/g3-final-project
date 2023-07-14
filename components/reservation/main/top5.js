@@ -17,11 +17,12 @@ export default function Top5() {
             const { id, picture, name, type, location } = v;
             return (
               <Card
+                key={id}
                 className="m-2 h-25 position-relative"
                 style={{ width: '21%', border: 'none', background: 'none' }}
               >
-                <Image src={Crown} className='position-absolute top-0 start-0' />
-                <Card.Img variant="top" src="../../reservation/c1.png" className='position-relative pt-5' />
+                <Image src={Crown} className='position-absolute top-0 start-0' alt="" />
+                <Card.Img src="../../reservation/c1.png" className='position-relative pt-5' alt=""/>
                 <Card.Body>
                   <Card.Title>{name}</Card.Title>
                 </Card.Body>

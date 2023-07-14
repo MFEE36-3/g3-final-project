@@ -5,27 +5,27 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function CarouselDiv() {
   return (
     <Carousel>
-      <Carousel.Item interval={1000} className={style.carousel}>
+      <Carousel.Item interval={1500} className={style.carousel}>
         <img
           className="d-block w-100"
           src="../../reservation/one.jpeg"
-          alt="First slide"
+          alt=""
           style={{ objectFit: 'cover', overFlow: 'hidden' }}
         />
       </Carousel.Item>
-      <Carousel.Item interval={1000} className={style.carousel}>
+      <Carousel.Item interval={1500} className={style.carousel}>
         <img
           className="d-block w-100"
           src="http://localhost:3000/reservation/two.jpeg"
-          alt="Second slide"
+          alt=""
           style={{ objectFit: 'cover', overFlow: 'hidden' }}
         />
       </Carousel.Item>
-      <Carousel.Item className={style.carousel}>
+      <Carousel.Item interval={1500} className={style.carousel}>
         <img
           className="d-block w-100"
           src="http://localhost:3000/reservation/three.jpeg"
-          alt="Third slide"
+          alt=""
           style={{ objectFit: 'cover', overFlow: 'hidden' }}
         />
       </Carousel.Item>

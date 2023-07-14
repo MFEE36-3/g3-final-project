@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import style from '@/styles/reservation/style.module.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useRouter } from 'next/router'; 
 
 const theme = createTheme({
   palette: {
@@ -19,8 +20,11 @@ const theme = createTheme({
 export default function BasicSelect() {
   const [city, setCity] = useState('');
 
-  const handleChange = (event) => {
-    setCity(event.target.value);
+  const router = useRouter();
+
+  const handleChangeCity = (e) => {
+    setCity(e.target.value);
+    // city ? router.push(`/${city}`) : '';
   };
 
   return (
@@ -33,7 +37,7 @@ export default function BasicSelect() {
             id="demo-simple-select"
             value={city}
             label="Age"
-            onChange={handleChange}
+            onChange={handleChangeCity}
             color="primary"
           >
             <MenuItem value={'tpe'}>台北市</MenuItem>

@@ -171,6 +171,16 @@
   border-width: 2px;
 }
 
+.cartsendbutton{
+  width:100%;
+  font-size: 12px;
+  background-color: var(--main-color);
+  border-radius: 20px;
+  border: 0;
+  color: 'white';
+  padding: '5px';  
+    }
+
 
 
 /* ---------------------------------------- */

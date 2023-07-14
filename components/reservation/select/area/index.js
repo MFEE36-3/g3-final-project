@@ -2,7 +2,7 @@ import SelectItem from './dist';
 import BasicSelect from './city';
 import style from '@/styles/reservation/style.module.css';
 
-export default function SelectBar() {
+export default function Area() {
   return (
     <div className={style.mb20}>
       <p>地區</p>

@@ -21,6 +21,7 @@ export default function Products({category}) {
                                     variant="top"
                                     src="../../reservation/respic.jpeg"
                                     className="rounded-top-3"
+                                    alt=""
                                 />
 
                                 <Card.Body>
