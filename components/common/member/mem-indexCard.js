@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './mem-indexCard.module.css';
+import { useState } from 'react';
 
 export default function MemIndexCard({ title, content }) {
   return (

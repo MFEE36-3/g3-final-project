@@ -32,7 +32,7 @@
 }
 
 .memBtn {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
   color: #921010;
   background-color: #fcc8a1;
@@ -85,7 +85,7 @@
 }
 
 .memEmail {
-  font-size: 12px;
+  font-size: 16px;
   color: #921010;
 }
 
@@ -97,10 +97,12 @@
 .achImg {
   width: 70px;
   height: 70px;
-  border-radius: 50%;
-  background-color: rgb(118, 118, 118);
   float: left;
   position: relative;
-  top: -30px;
-  left: 60px;
+  overflow: visible;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 480px) {
 }

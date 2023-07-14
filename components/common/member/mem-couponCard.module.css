@@ -14,5 +14,13 @@
 }
 
 .box {
-  margin-inline: 30px;
+  margin-inline: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail {
+  color: #921010;
+  margin-left: 5px;
 }

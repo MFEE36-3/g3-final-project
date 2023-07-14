@@ -31,7 +31,7 @@ export default function Index() {
               <div className={styles2.inputArea}>
                 <label className={styles2.label}>
                   <div className={styles2.title}>儲值</div>
-                  <input type="number" className={styles2.input}></input>
+                  <input type="text" className={styles2.input}></input>
                 </label>
                 <button className={styles2.btn}>確認</button>
               </div>

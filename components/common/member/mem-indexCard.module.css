@@ -1,6 +1,5 @@
 .scrollCard:hover {
   background-color: #fff8e1;
-  transition: all 0.2s ease-in;
 }
 
 .scrollCard {
@@ -11,6 +10,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: marquee-vertical 7s infinite linear;
+  font-size: 20px;
+}
+
+@keyframes marquee-vertical {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-640%);
+  }
 }
 
 .link {

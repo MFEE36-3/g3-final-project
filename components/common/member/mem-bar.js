@@ -27,9 +27,9 @@ export default function MemBar() {
             alt=""
           />
           <Image
-            src="/member/cookie.png"
-            width={500}
-            height={500}
+            src="/member/badge01.svg"
+            width={300}
+            height={300}
             className={styles.achImg}
             alt=""
           />

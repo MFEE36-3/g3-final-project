@@ -2,14 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import styles from './mem-activityCard.module.css';
 
-export default function MemAcitvityCard({
-  type,
-  title,
-  content,
-  money,
-  score,
-  time,
-}) {
+export default function MemAcitvityCard({ type, title, content, money, time }) {
   return (
     <>
       <div className={styles.card}>
@@ -18,7 +11,6 @@ export default function MemAcitvityCard({
         <div className={styles.box}>內容:{content}</div>
         <div className={styles.box}>價格:{money}</div>
         <div className={styles.box}>日期:{time}</div>
-        <div className={styles.box}>評分:{score}</div>
       </div>
     </>
   );

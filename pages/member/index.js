@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
 import { v4 } from 'uuid';
 import Link from 'next/link';
+import IconImg from '@/public/member/icon.png';
+import MemAllTitle from '@/components/common/member/mem-allTitle';
 
 export default function Index() {
   const actNow = [
@@ -29,7 +31,15 @@ export default function Index() {
                 <div>帳號:asiagodtone@gmail.com</div>
               </div>
 
-              <div className={styles.packageMoney}>NT$ 7414</div>
+              <div className={styles.packageMoney}>
+                <Image
+                  src={IconImg}
+                  width={80}
+                  alt=""
+                  className={styles.packageImg}
+                />
+                NT$ 7414
+              </div>
 
               <div style={{ display: 'flex', justifyContent: 'end' }}>
                 <Link href={'./member/money'}>
@@ -40,17 +50,31 @@ export default function Index() {
             <Image src="/member/cookie.png" width={250} height={250} alt="" />
             <Image src="/member/cookie.png" width={250} height={250} alt="" />
           </div>
+
           <div>
             <div className={styles.carousel}>
-              <div className={styles.title}>{'進行中的活動'}</div>
-              <div className={styles.scroll}>
+              <MemAllTitle title={'進行中的活動'} />
+              <div className={styles.scroll2}>
                 {actNow.map((v) => {
                   return (
-                    <MemIndexCard
-                      title={v.title}
-                      content={v.content}
-                      key={v4()}
-                    />
+                    <>
+                      <MemIndexCard
+                        title={v.title}
+                        content={v.content}
+                        key={v4()}
+                      />
+                    </>
+                  );
+                })}
+                {actNow.map((v) => {
+                  return (
+                    <>
+                      <MemIndexCard
+                        title={v.title}
+                        content={v.content}
+                        key={v4()}
+                      />
+                    </>
                   );
                 })}
               </div>
@@ -58,11 +82,11 @@ export default function Index() {
           </div>
           <div className={styles.flex}>
             <div className={styles.box}>
-              <div className={styles.title}>本月流行</div>
+              <MemAllTitle title={'本月流行'} />
               <div>你好你好你好你好你好你好</div>
             </div>
             <div className={styles.box}>
-              <div className={styles.title}>你的趨勢</div>
+              <MemAllTitle title={'你的趨勢'} />
               <div>你好你好你好你好你好你好</div>
             </div>
           </div>
