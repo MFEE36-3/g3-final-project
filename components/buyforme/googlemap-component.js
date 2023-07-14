@@ -12,7 +12,7 @@ export default function GoogleMapComponent({ data }) {
     return <Map data={data} />;
 }
 
-// const ramens = [
+{// const ramens = [
 //     { shop: "双豚ラーメン", lat: 25.027492494837038, lng: 121.46519250548808 },
 //     { shop: "烹星", lat: 25.05607, lng: 121.52514 },
 //     { shop: "Okaeriお帰り你回來啦拉麵", lat: 25.04392, lng: 121.55372 },
@@ -47,6 +47,7 @@ export default function GoogleMapComponent({ data }) {
 
 //         </GoogleMap>
 //     );
+}
 
 const user_img = [
     'bubbleTea.svg',
