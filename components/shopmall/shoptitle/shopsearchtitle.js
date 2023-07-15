@@ -1,11 +1,12 @@
 import styled from '@emotion/styled'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {RxCross2} from "react-icons/rx"
+import { useRouter } from 'next/router';
 const H2div = styled.div`
     font-size:var(--h2)
 `
@@ -35,11 +36,36 @@ const filterButton = () => {
     )
 }
 export default function ShopSearchTitle() {
-    const [age, setAge] = React.useState('');
-
+    const router = useRouter();
+    const [sort, setSort] = useState()
+    const [order, setOrder] = useState()
     const handleChange = (event) => {
-    setAge(event.target.value);
+    let selectedSort = event.target.value;
+    if(selectedSort === 'priceAsc'){
+      setSort("price");
+      setOrder("asc")
+    }else if (selectedSort === 'priceDesc'){
+      setSort("price");
+      setOrder("desc")
+    }else{
+      setSort(selectedSort);
+      setOrder('')
+    }
+    
   };
+  useEffect(()=>{
+    let query = { ...router.query }
+    if(sort){
+      query.sortBy = sort
+    }
+    if(order){
+      query.order = order
+    }
+    router.push({
+      pathname: router.pathname,
+      search:`?${new URLSearchParams(query).toString()}`
+    })
+  },[sort, order])
   return (
     <div className='ms-4'>
         <H2div >餅乾</H2div>
@@ -51,17 +77,19 @@ export default function ShopSearchTitle() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={sort}
           label="sort"
           onChange={handleChange}
         >
-          <MenuItem value={10}>價格由低至高</MenuItem>
-          <MenuItem value={20}>價格由高至低</MenuItem>
-          <MenuItem value={30}>銷售量</MenuItem>
-          <MenuItem value={40}>評分</MenuItem>
+          <MenuItem value={"ctime"}>最新</MenuItem>
+          <MenuItem value={"priceAsc"}>價格由低至高</MenuItem>
+          <MenuItem value={"priceDesc"}>價格由高至低</MenuItem>
+          <MenuItem value={"sales"}>最熱銷</MenuItem>
         </Select>
       </FormControl>
     </Box>
+    {console.log(sort)}
+    {console.log(order)}
         </div>
         {filterButton()}
     </div>

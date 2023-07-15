@@ -19,8 +19,8 @@ export default function ShopCard() {
     margin-bottom: 3% ;
     overflow:hidden;
     &:hover  {
-      transform: scale(1.05);
-      transition: 0.4s ease-in;
+      transform: scale(1.02);
+      transition: 0.2s ease-in;
     }
   `
   const ImageCss = styled.img`
