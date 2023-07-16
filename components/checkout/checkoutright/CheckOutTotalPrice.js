@@ -1,5 +1,5 @@
 import React, { useContext , useState} from 'react'
-import { Cart } from '@/components/checkout/CheckOutFinal'
+import { Cart } from '@/components/checkout/checkoutfinal'
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';

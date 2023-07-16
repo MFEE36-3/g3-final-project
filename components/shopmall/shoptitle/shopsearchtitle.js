@@ -88,8 +88,6 @@ export default function ShopSearchTitle() {
         </Select>
       </FormControl>
     </Box>
-    {console.log(sort)}
-    {console.log(order)}
         </div>
         {filterButton()}
     </div>

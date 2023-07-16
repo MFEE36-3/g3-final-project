@@ -1,18 +1,24 @@
 import styled from '@emotion/styled'
 import React from 'react'
-
+import {PiFunnelLight} from 'react-icons/pi'
+import Category from '@/components/shopmall/shopfilter/category'
+import PriceRange from '@/components/shopmall/shopfilter/pricerange'
+import Star from '@/components/shopmall/shopfilter/star'
 const H3div = styled.div`
       font-size:var(--h3)
 `
-const H5div = styled.div`
-      font-size:var(--h5)
-`
+
 export default function ShopFilter() {
+  
   return (
-    <div className='col-3 bg-warning'>
-      <H3div>篩選</H3div>
-
+    <div className='col-3 px-5'>
+      <H3div>
+        <PiFunnelLight className='me-2' />
+        <span>條件篩選</span>
+      </H3div>
+      <Category/>
+      <PriceRange/>
+      <Star/>
     </div>
-  )
+  );
 }
-

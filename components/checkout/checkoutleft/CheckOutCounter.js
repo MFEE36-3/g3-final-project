@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Cart } from '@/components/checkout/CheckOutFinal'
+import { Cart } from '@/components/checkout/checkoutfinal'
 import Swal from 'sweetalert2'
 export default function CheckOutCounter({itemId, amount}) {
     const {items, setItems, page} = useContext(Cart);

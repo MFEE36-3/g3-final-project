@@ -1,6 +1,6 @@
 import React,{useContext, useState} from 'react'
 import CheckOutCounter from './CheckOutCounter'
-import { Cart } from '@/components/checkout/CheckOutFinal'
+import { Cart } from '@/components/checkout/checkoutfinal'
 import {HiOutlineTrash} from 'react-icons/hi'
 import Swal from 'sweetalert2'
 import emptycart from '@/public/trycheckoutimage/emptycart.png'

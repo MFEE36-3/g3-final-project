@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import React, { useContext } from 'react'
-import { Cart } from '@/components/checkout/CheckOutFinal'
+import { Cart } from '@/components/checkout/checkoutfinal'
 
 const Page = styled.div`
     position:absolute;
