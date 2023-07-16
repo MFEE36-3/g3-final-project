@@ -80,16 +80,6 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <div className={styles.flex}>
-            <div className={styles.box}>
-              <MemAllTitle title={'本月流行'} />
-              <div>你好你好你好你好你好你好</div>
-            </div>
-            <div className={styles.box}>
-              <MemAllTitle title={'你的趨勢'} />
-              <div>你好你好你好你好你好你好</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
