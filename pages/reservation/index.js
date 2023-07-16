@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TopDiv from '@/components/reservation/topdiv';
 import style from '@/styles/reservation/style.module.css';
 import SelectArea from '@/components/reservation/select';
@@ -9,7 +9,7 @@ export default function BookingPage() {
 
   const router = useRouter();
 
-  // 預設值default
+  // 篩選器 - 預設值(default)
   let totalKeyword = {
     foodtype: [
       { id: 1, name: '中式', selected: false },
@@ -72,7 +72,18 @@ export default function BookingPage() {
     price: [0, 1200]
   })
 
-  
+
+  // const [data,setData] = useState({})
+
+  // useEffect(()=>{
+  //   fetch(`${process.env.API_SERVER}/restaurants`)
+  //   .then(r=>r.json())
+  //   .then(data={
+
+  //   })
+  // },[])
+
+
   return (
     <>
       <div className={style.body}>

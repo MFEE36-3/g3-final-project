@@ -13,7 +13,6 @@ export default function SelectArea({ keyword, setKeyword }) {
 
   // console.log("router.query:", router.query)
 
-
   const initialtypes = [
     { id: 1, name: '中式', selected: false },
     { id: 2, name: '日式', selected: false },
