@@ -1,128 +1,254 @@
 import { useState } from 'react';
 import MemBar from '@/components/common/member/mem-bar';
-import MemActivityRecord from '@/components/common/member/mem-activityRecord';
-import MemAcitvityCard from '@/components/common/member/mem-activityCard';
+import {
+  MemActivityRecord1,
+  MemActivityRecord2,
+  MemActivityRecord3,
+  MemActivityRecord4,
+} from '@/components/common/member/mem-activityRecord';
+import {
+  MemActivityList1,
+  MemActivityList2,
+  MemActivityList3,
+  MemActivityList4,
+} from '@/components/common/member/mem-activityList';
+import MemAllTitle from '@/components/common/member/mem-allTitle';
+import MemChangeBtn from '@/components/common/member/mem-changeBtn';
 import styles from '@/styles/member-css/mem-body.module.css';
 import styles2 from '@/styles/member-css/mem-activity.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Image from 'next/image';
-import { v4 } from 'uuid';
 
 export default function Index() {
-  const ListGroup = [
+  const List1 = [
     {
-      type: '揪團',
-      title: '光復牛肉麵',
+      id: 'A123',
+      name: 'q01',
+      money: '300',
       content: '半筋半肉牛肉麵(大碗)',
-      money: '300',
+      store: '光復牛肉麵',
       time: '2023/07/11',
     },
     {
-      type: '揪團',
-      title: '上宇林大安復興店',
+      id: 'A124',
+      name: 'q02',
+      money: '300',
       content: '鼎極鮮奶茶',
-      money: '300',
+      store: '上宇林大安復興店',
       time: '2023/07/11',
     },
   ];
-
-  const ListStore = [
+  const List2 = [
     {
-      type: '外帶',
-      title: '鼎泰豐',
-      content: '排骨炒飯 + 巧克力鍋',
+      id: 'v12345',
       money: '300',
+      content: '排骨炒飯',
+      store: '鼎泰豐',
       time: '2023/07/11',
     },
     {
-      type: '外帶',
-      title: '外雙溪釣蝦場',
-      content: '極品泰國蝦x35',
+      id: 'v12345',
       money: '300',
+      content: '極品泰國蝦',
+      store: '外雙溪釣蝦場',
+      time: '2023/07/11',
+    },
+    {
+      id: 'v12345',
+      money: '300',
+      content: '極品泰國蝦',
+      store: '外雙溪釣蝦場',
       time: '2023/07/11',
     },
   ];
-
-  const ListMarket = [
+  const List3 = [
     {
-      type: '商城',
-      title: '三玖水餃',
+      id: 'v12345',
+      store: '鼎泰豐',
+      number: 5,
+      time: '2023/07/11 12:00',
+    },
+    {
+      id: 'v12345',
+      store: '鼎泰豐',
+      number: 5,
+      time: '2023/07/11 12:00',
+    },
+    {
+      id: 'v12345',
+      store: '鼎泰豐',
+      number: 5,
+      time: '2023/07/11 12:00',
+    },
+  ];
+  const List4 = [
+    {
+      id: 'v12345',
+      money: 300,
       content: '韭菜水餃x100',
-      money: '300',
+      store: '三玖水餃',
       time: '2023/07/11',
     },
     {
-      type: '商城',
-      title: '三玖水餃',
+      id: 'v12345',
+      money: 300,
       content: '韭菜水餃x100',
-      money: '300',
+      store: '三玖水餃',
       time: '2023/07/11',
     },
   ];
 
-  const finished = [
+  const Record1 = [
     {
-      type: '揪團',
-      title: '老蔡水煎包1',
+      id: 123456,
+      name: 'A213',
       content: '高麗菜包x10',
+      store: '老蔡水煎包',
       money: '170',
       time: '2023/07/01',
       score: '4.5',
     },
     {
-      type: '揪團',
-      title: '老蔡水煎包2',
+      id: 123456,
+      name: 'A213',
       content: '高麗菜包x10',
+      store: '老蔡水煎包',
       money: '170',
       time: '2023/07/01',
       score: '4.5',
     },
     {
-      type: '揪團',
-      title: '老蔡水煎包3',
+      id: 123456,
+      name: 'A213',
       content: '高麗菜包x10',
-      money: '170',
-      time: '2023/07/01',
-      score: '4.5',
-    },
-    {
-      type: '揪團',
-      title: '老蔡水煎包4',
-      content: '高麗菜包x10',
-      money: '170',
-      time: '2023/07/01',
-      score: '4.5',
-    },
-    {
-      type: '揪團',
-      title: '老蔡水煎包5',
-      content: '高麗菜包x10',
-      money: '170',
-      time: '2023/07/01',
-      score: '4.5',
-    },
-    {
-      type: '揪團',
-      title: '老蔡水煎包6',
-      content: '高麗菜包x10',
+      store: '老蔡水煎包',
       money: '170',
       time: '2023/07/01',
       score: '4.5',
     },
   ];
 
-  const [list, setList] = useState(ListGroup);
+  const Record2 = [
+    {
+      id: 'v12345',
+      money: 250,
+      content: '蒜香鹽酥雞',
+      store: '阿國雞排',
+      time: '2023/06/22',
+      score: 3.5,
+    },
+    {
+      id: 'v12345',
+      money: 250,
+      content: '蒜香鹽酥雞',
+      store: '阿國雞排',
+      time: '2023/06/22',
+      score: 3.5,
+    },
+    {
+      id: 'v12345',
+      money: 250,
+      content: '蒜香鹽酥雞',
+      store: '阿國雞排',
+      time: '2023/06/22',
+      score: 3.5,
+    },
+  ];
 
-  const changeList1 = () => {
-    setList(ListGroup);
+  const Record3 = [
+    {
+      id: 'v12345',
+      money: 2500,
+      number: 6,
+      store: '大橋頭熱炒',
+      time: '2023/06/22',
+      score: 5,
+    },
+    {
+      id: 'v12345',
+      money: 2500,
+      number: 6,
+      store: '大橋頭熱炒',
+      time: '2023/06/22',
+      score: 5,
+    },
+    {
+      id: 'v12345',
+      money: 2500,
+      number: 6,
+      store: '大橋頭熱炒',
+      time: '2023/06/22',
+      score: 5,
+    },
+  ];
+  const Record4 = [
+    {
+      id: 'v12345',
+      money: 800,
+      content: '人蔘烏骨雞湯',
+      store: '阿豪師官方商城',
+      time: '2023/03/03',
+      score: 3,
+    },
+    {
+      id: 'v12345',
+      money: 800,
+      content: '人蔘烏骨雞湯',
+      store: '阿豪師官方商城',
+      time: '2023/03/03',
+      score: 3,
+    },
+    {
+      id: 'v12345',
+      money: 800,
+      content: '人蔘烏骨雞湯',
+      store: '阿豪師官方商城',
+      time: '2023/03/03',
+      score: 3,
+    },
+  ];
+  const [list, setList] = useState(<MemActivityList1 List1={List1} />);
+  const [record, setRecord] = useState(
+    <MemActivityRecord1 Record1={Record1} />
+  );
+
+  const changeList = (e) => {
+    switch (e.target.value) {
+      case '揪團':
+        setList(<MemActivityList1 List1={List1} />);
+        break;
+
+      case '訂位':
+        setList(<MemActivityList2 List2={List2} />);
+        break;
+
+      case '外帶':
+        setList(<MemActivityList3 List3={List3} />);
+        break;
+
+      case '商城':
+        setList(<MemActivityList4 List4={List4} />);
+        break;
+    }
   };
 
-  const changeList2 = () => {
-    setList(ListStore);
-  };
+  const changeRecord = (e) => {
+    switch (e.target.value) {
+      case '揪團':
+        setRecord(<MemActivityRecord1 Record1={Record1} />);
+        break;
 
-  const changeList3 = () => {
-    setList(ListMarket);
+      case '外帶':
+        setRecord(<MemActivityRecord2 Record2={Record2} />);
+        break;
+
+      case '訂位':
+        setRecord(<MemActivityRecord3 Record3={Record3} />);
+        break;
+
+      case '商城':
+        setRecord(<MemActivityRecord4 Record4={Record4} />);
+        break;
+    }
   };
 
   return (
@@ -132,52 +258,26 @@ export default function Index() {
         <div className={styles.rightArea}>
           <div>
             <div className={styles2.area1}>
-              <div className={styles.title}>{'進行中的活動'}</div>
+              <MemAllTitle title={'進行中的活動'} />
               <div className={styles.scroll}>
                 <div className={styles2.scrollArea}>
-                  <button className={styles2.scrollTitle} onClick={changeList1}>
-                    美食揪團
-                  </button>
-                  <button className={styles2.scrollTitle} onClick={changeList2}>
-                    訂位/外帶店家
-                  </button>
-                  <button className={styles2.scrollTitle} onClick={changeList3}>
-                    商城商品
-                  </button>
+                  <MemChangeBtn title={'揪團'} event={changeList} />
+                  <MemChangeBtn title={'訂位'} event={changeList} />
+                  <MemChangeBtn title={'外帶'} event={changeList} />
+                  <MemChangeBtn title={'商城'} event={changeList} />
                 </div>
-                <div>
-                  {list.map((v) => {
-                    return (
-                      <MemAcitvityCard
-                        type={v.type}
-                        title={v.title}
-                        content={v.content}
-                        money={v.money}
-                        time={v.time}
-                        key={v4()}
-                      />
-                    );
-                  })}
-                </div>
+                {list}
               </div>
             </div>
             <div className={styles2.area2}>
-              <div className={styles.title}>{'已完成的活動'}</div>
-              <div className={styles.scroll}>
-                {finished.map((v) => {
-                  return (
-                    <MemActivityRecord
-                      type={v.type}
-                      title={v.title}
-                      content={v.content}
-                      money={v.money}
-                      time={v.time}
-                      score={v.score}
-                      key={v4()}
-                    />
-                  );
-                })}
+              <MemAllTitle title={'活動紀錄'} />
+              <div className={styles2.scrollArea} style={{ width: '100%' }}>
+                <MemChangeBtn title={'揪團'} event={changeRecord} />
+                <MemChangeBtn title={'訂位'} event={changeRecord} />
+                <MemChangeBtn title={'外帶'} event={changeRecord} />
+                <MemChangeBtn title={'商城'} event={changeRecord} />
               </div>
+              {record}
             </div>
           </div>
         </div>

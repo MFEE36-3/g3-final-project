@@ -9,6 +9,5 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: inset -5px -5px 5px rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
+  border-radius: 7px;
 }

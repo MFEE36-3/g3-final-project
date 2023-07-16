@@ -65,9 +65,8 @@ export default function Info() {
                 />
               </button>
             </div>
-            <div className={styles2.imgbox}>
-              <MemAllTitle title={'我的成就'} />
-              <div></div>
+            <div>
+              <MemAllTitle title={'超級大盤子'} />
               <Image
                 src={'/member/badge01.svg'}
                 style={{ objectFit: 'cover' }}
@@ -76,14 +75,16 @@ export default function Info() {
                 height={60}
                 alt=""
               />
-              <div
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'end',
-                }}
-              >
-                <button className={styles2.btn2}>更換</button>
+              <div>
+                <div
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'end',
+                  }}
+                >
+                  <button className={styles2.btn2}>更換</button>
+                </div>
               </div>
             </div>
           </div>

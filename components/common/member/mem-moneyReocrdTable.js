@@ -9,21 +9,21 @@ import Paper from '@mui/material/Paper';
 import styles from './mem-moneyReocrdTable.module.css';
 import { v4 } from 'uuid';
 
-export default function MemCouponRecord({ rows }) {
+export default function MemMoneyReocrdTable({ rows }) {
   return (
     <TableContainer component={Paper} className={styles.body}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow className={styles.row}>
-            <TableCell className={styles.cell}>優惠券</TableCell>
+            <TableCell className={styles.cell}>儲值內容</TableCell>
             <TableCell align="right" className={styles.cell}>
-              折扣金額
+              儲值金額
             </TableCell>
             <TableCell align="right" className={styles.cell}>
-              獲得時間
+              儲值時間
             </TableCell>
             <TableCell align="right" className={styles.cell}>
-              使用狀態
+              交易序號
             </TableCell>
           </TableRow>
         </TableHead>
@@ -34,7 +34,7 @@ export default function MemCouponRecord({ rows }) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row" className={styles.td}>
-                {row.name}
+                {row.context}
               </TableCell>
               <TableCell align="right" className={styles.td}>
                 {row.money}
@@ -43,7 +43,7 @@ export default function MemCouponRecord({ rows }) {
                 {row.time}
               </TableCell>
               <TableCell align="right" className={styles.td}>
-                {row.state}
+                {row.id}
               </TableCell>
             </TableRow>
           ))}

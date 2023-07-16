@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import styles from './mem-collectBlog.module.css';
 
 export default function MemCollectBlog({ type, title, time }) {
@@ -7,8 +6,8 @@ export default function MemCollectBlog({ type, title, time }) {
     <>
       <div className={styles.card}>
         <div className={styles.box}>【{type}】</div>
-        <div className={styles.box}>{title}</div>
-        <div className={styles.box}>{time}</div>
+        <div className={styles.box2}>{title}</div>
+        <div className={styles.box2}>{time}</div>
       </div>
     </>
   );

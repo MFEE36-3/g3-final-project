@@ -2,11 +2,11 @@ import React from 'react';
 import MemBar from '@/components/common/member/mem-bar';
 import MemCouponCard from '@/components/common/member/mem-couponCard';
 import MemCouponRecord from '@/components/common/member/mem-couponRecord';
+import MemAllTitle from '@/components/common/member/mem-allTitle';
 import styles from '@/styles/member-css/mem-body.module.css';
 import styles2 from '@/styles/member-css/mem-coupon.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { v4 } from 'uuid';
-import Image from 'next/image';
 
 export default function Index() {
   const mycoupon = [
@@ -61,47 +61,26 @@ export default function Index() {
     },
   ];
 
-  const expired = [
+  const rows = [
     {
       name: '生日快樂1',
       content: '送給您的生日禮物',
       money: 100,
-      time: '2023/04/15',
+      time: '2023/04/15 17:20',
       state: '過期',
     },
     {
       name: '生日快樂2',
       content: '送給您的生日禮物',
       money: 100,
-      time: '2023/04/16',
+      time: '2023/04/16 17:20',
       state: '過期',
     },
     {
       name: '生日快樂3',
       content: '送給您的生日禮物',
       money: 100,
-      time: '2023/04/17',
-      state: '過期',
-    },
-    {
-      name: '生日快樂4',
-      content: '送給您的生日禮物',
-      money: 100,
-      time: '2023/04/18',
-      state: '過期',
-    },
-    {
-      name: '生日快樂5',
-      content: '送給您的生日禮物',
-      money: 100,
-      time: '2023/04/19',
-      state: '過期',
-    },
-    {
-      name: '生日快樂6',
-      content: '送給您的生日禮物',
-      money: 100,
-      time: '2023/04/20',
+      time: '2023/04/17 17:20',
       state: '過期',
     },
   ];
@@ -113,7 +92,7 @@ export default function Index() {
         <div className={styles.rightArea}>
           <div>
             <div className={styles2.area1}>
-              <div className={styles2.title}>{'我的優惠券'}</div>
+              <MemAllTitle title={'我的優惠券'} />
               <div className={styles2.scroll}>
                 {mycoupon.map((v) => {
                   return (
@@ -130,20 +109,9 @@ export default function Index() {
               </div>
             </div>
             <div className={styles2.area2}>
-              <div className={styles.title}>{'已使用 / 失效 / 過期'}</div>
-              <div className={styles2.scroll}>
-                {expired.map((v) => {
-                  return (
-                    <MemCouponRecord
-                      name={v.name}
-                      content={v.content}
-                      money={v.money}
-                      time={v.time}
-                      state={v.state}
-                      key={v4()}
-                    />
-                  );
-                })}
+              <MemAllTitle title={'已使用 / 失效 / 過期'} />
+              <div className={styles2.recordBox}>
+                <MemCouponRecord rows={rows} />
               </div>
             </div>
           </div>

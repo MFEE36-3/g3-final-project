@@ -6,7 +6,7 @@
   background-color: #f8ebe1;
   border-radius: 20px;
   padding: 50px;
-  border: 5px solid #921010;
+  border: 7px solid #fcc8a1;
 }
 
 .content {
@@ -40,8 +40,7 @@
   align-items: end;
   border-radius: 15px;
   overflow: visible;
-  margin-top: 20px;
-  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .img {
@@ -96,6 +95,8 @@
 }
 
 .btn2 {
+  position: relative;
+  left: 50px;
   width: 60px;
   height: 45px;
   background-color: #fece4b;

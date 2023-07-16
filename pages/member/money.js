@@ -1,21 +1,44 @@
 import React from 'react';
 import MemBar from '@/components/common/member/mem-bar';
 import MemMoneyCard from '@/components/common/member/mem-moneyCard';
-import MemMoneyRecord from '@/components/common/member/mem-moneyRecord';
 import styles from '@/styles/member-css/mem-body.module.css';
 import styles2 from '@/styles/member-css/mem-money.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Image from 'next/image';
-import { v4 } from 'uuid';
+import MemAllTitle from '@/components/common/member/mem-allTitle';
+import MemMoneyReocrdTable from '@/components/common/member/mem-moneyReocrdTable';
 
 export default function Index() {
-  const moneyList = [
-    { money: '800', date: '2023/01/09', time: '18:30' },
-    { money: '700', date: '2023/01/10', time: '18:30' },
-    { money: '2500', date: '2023/01/11', time: '18:30' },
-    { money: '200', date: '2023/01/12', time: '18:30' },
-    { money: '800', date: '2023/01/13', time: '18:30' },
-    { money: '3000', date: '2023/01/14', time: '18:30' },
+  const rows = [
+    {
+      context: '升級尊榮會員三個月',
+      money: 549,
+      time: '2023/06/19 12:31',
+      id: 123456,
+    },
+    {
+      context: '升級尊榮會員三個月',
+      money: 549,
+      time: '2023/06/19 12:31',
+      id: 123457,
+    },
+    {
+      context: '升級尊榮會員三個月',
+      money: 549,
+      time: '2023/06/19 12:31',
+      id: 123458,
+    },
+    {
+      context: '升級尊榮會員三個月',
+      money: 549,
+      time: '2023/06/19 12:31',
+      id: 123459,
+    },
+    {
+      context: '升級尊榮會員三個月',
+      money: 549,
+      time: '2023/06/19 12:31',
+      id: 123450,
+    },
   ];
 
   return (
@@ -25,7 +48,7 @@ export default function Index() {
         <div className={styles.rightArea}>
           <div className={styles2.area0}>
             <div className={styles2.area1}>
-              <div className={styles.title}>我的錢包</div>
+              <MemAllTitle title={'我的錢包'} />
 
               <div className={styles2.nowMoney}>NT$ 7414 元</div>
               <div className={styles2.inputArea}>
@@ -42,7 +65,7 @@ export default function Index() {
           </div>
           <div>
             <div className={styles2.area2}>
-              <div className={styles.title}>會員升級</div>
+              <MemAllTitle title={'會員升級'} />
               <MemMoneyCard />
               <div className={styles2.text}>
                 加入尊榮會員，每天可獲得2張揪團9折優惠券 ( 限當天使用
@@ -52,18 +75,9 @@ export default function Index() {
           </div>
           <div>
             <div className={styles2.area3}>
-              <div className={styles.title}>儲值紀錄</div>
-              <div className={styles.scroll}>
-                {moneyList.map((v) => {
-                  return (
-                    <MemMoneyRecord
-                      money={v.money}
-                      date={v.date}
-                      time={v.time}
-                      key={v4()}
-                    />
-                  );
-                })}
+              <MemAllTitle title={'儲值紀錄'} />
+              <div className={styles2.recordBox}>
+                <MemMoneyReocrdTable rows={rows} />
               </div>
             </div>
           </div>

@@ -15,17 +15,19 @@ export default function MemCouponCard({ src, name, content, money, time }) {
             alt=""
           />
         </div>
-        <div className={styles.box}>
-          <div> 優惠券 :</div> <div className={styles.detail}>{name}</div>
-        </div>
-        <div className={styles.box}>
-          <div> 來源 :</div> <div className={styles.detail}>{content}</div>
-        </div>
-        <div className={styles.box}>
-          <div> 金額 :</div> <div className={styles.detail}>{money}</div>
-        </div>
-        <div className={styles.box}>
-          <div> 期限 :</div> <div className={styles.detail}>{time}</div>
+        <div>
+          <div className={styles.box}>
+            <div> 名稱 :</div> <div className={styles.detail}>{name}</div>
+          </div>
+          <div className={styles.box}>
+            <div> 來源 :</div> <div className={styles.detail}>{content}</div>
+          </div>
+          <div className={styles.box}>
+            <div> 折扣 :</div> <div className={styles.detail}>{money}</div>
+          </div>
+          <div className={styles.box}>
+            <div> 期限 :</div> <div className={styles.detail}>{time}</div>
+          </div>
         </div>
       </div>
     </>

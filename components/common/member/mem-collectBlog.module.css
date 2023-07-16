@@ -15,4 +15,14 @@
 
 .box {
   margin-inline: 10px;
+  display: flex;
+  justify-content: end;
+  width: 40%;
+}
+
+.box2 {
+  margin-inline: 10px;
+  display: flex;
+  justify-content: start;
+  width: 60%;
 }
