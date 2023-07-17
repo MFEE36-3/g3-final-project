@@ -5,30 +5,204 @@
 
 .sausageLeft {
     position: absolute;
-    top: -15px;
-    left: 180px;
+    top: 0px;
+    left: 0px;
     transform: scale(0.5);
-    z-index: 1;
+    /* z-index: 2; */
 }
 
 .sausageRight {
     position: absolute;
-    top: -15px;
-    left: 480px;
+    top: 0px;
+    left: 300px;
     transform: scale(0.5);
-    z-index: 1;
+    /* z-index: 2; */
 }
 
 .inputBox {
     position: absolute;
-    top: 10px;
-    left:300px;
-    z-index: 0;
-    background-color: rgba(255,255,255,0.5)
+    top: 25px;
+    left: 120px;
+    /* z-index: 1; */
+    background-color: rgba(255, 255, 255, 0.5)
 }
 
 .mapLabel {
-    background-color: #FAB3B3;
+    background-color: rgba(250, 179, 179, 0.75);
     border-radius: 10px;
-    padding: 5px 10px;
-  }
+    padding: 0px 10px;
+    border: 3px solid var(--main-color);
+}
+
+.userLabel {
+    background-color: rgba(255, 179, 39, 0.75);
+    border-radius: 10px;
+    padding: 0px 10px;
+    border: 3px solid rgb(255, 119, 22);
+}
+
+.walkbag {
+    position: absolute;
+    right: 100px;
+    bottom: 50px;
+    cursor: pointer;
+}
+
+.walkbag:hover {
+    filter: invert(81%) sepia(83%) saturate(5562%) hue-rotate(290deg) brightness(102%) contrast(98%);
+}
+
+.buyforme_hint {
+    position: absolute;
+    right: 80px;
+    bottom: 240px;
+    border-radius: 15px;
+    border: 2px solid var(--main-color);
+    padding: 10px 20px;
+    font-size: var(--h5);
+    color: var(--main-color);
+    font-family: var(--ff1);
+}
+
+
+
+.buyforme_hint::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 30px;
+    width: 0;
+    height: 0;
+    border: 30px solid transparent;
+    border-top-color: var(--main-color);
+    border-bottom: 0;
+    border-right: 0;
+    margin-right: 50px;
+    margin-bottom: -30px;
+}
+
+.buyforme_hint_active {
+    display: none;
+    position: absolute;
+    right: 80px;
+    bottom: 240px;
+    border-radius: 15px;
+    border: 2px solid var(--main-color);
+    padding: 10px 20px;
+    font-size: var(--h5);
+    color: var(--main-color);
+    font-family: var(--ff1);
+}
+
+.buyforme_infobox {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    right: 150px;
+    bottom: 110px;
+    width: 920px;
+    background: #ffffff;
+    border: 2px solid var(--main-color);
+    border-radius: 20px;
+    animation: show_buyforme ease-in-out 0.5s forwards;
+    overflow: hidden;
+    padding: 20px;
+}
+
+
+.buyforme_infobox_hide {
+    display: none;
+}
+
+@keyframes show_buyforme {
+    0% {
+        height: 50px;
+    }
+
+    100% {
+        height: 400px;
+    }
+}
+
+.buyforme_tablebox {
+    width: 100%;
+    border: 0.5px solid var(--main-color);
+    border-radius: 10px;
+    overflow-y: scroll;
+    padding: 0px 20px;
+}
+
+.buyforme_tablebox::-webkit-scrollbar {
+    width: 18px;
+}
+
+.buyforme_tablebox::-webkit-scrollbar-button {
+    width: 10px;
+    height: 10px;
+}
+
+.buyforme_tablebox::-webkit-scrollbar-track-piece {
+    background: transparent;
+}
+
+.buyforme_tablebox::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: var(--main-color);
+    border-right: 5px white solid;
+    border-left: 5px white solid;
+    background-clip: padding-box;
+}
+
+.buyforme_tabletitle {
+    font-size: var(--h4);
+    color: var(--main-color);
+    font-family: var(--ff1);
+    border-bottom: 2px solid var(--main-color);
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    /* letter-spacing: 30px; */
+}
+
+.buyforme_table th {
+    position: sticky;
+    top: 0;
+    vertical-align: middle;
+    color:var(--main-color);
+    font-family: var(--ff1);
+}
+
+
+.buyforme_table>thead>tr {
+    height: 45px;
+    position: relative;
+}
+
+
+.buyforme_table {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.buyforme_table th,
+.buyforme_table td {
+    font-size: var(--h7);
+    font-weight: 600;
+}
+
+.nogroup {
+    font-size: var(--h4);
+    color: var(--main-color);
+    font-family: var(--ff1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+    width: 100%;
+    background-color: rgba(250, 179, 179, 0.3);
+    border-radius: 15px;
+}
+
