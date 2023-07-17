@@ -10,10 +10,13 @@
 }
 
 .card:hover {
-  background-color: #947855;
-  color: aliceblue;
+  background-color: #fff2c3;
+  color: rgb(0, 0, 0);
   transform: scale(1.1);
   transition: all 0.2s ease-in;
+  box-shadow: 5px 5px 5px rgba(123, 123, 123, 0.5);
+  border-top: 3px groove rgb(249, 233, 200);
+  color: #911010;
 }
 
 .box {
