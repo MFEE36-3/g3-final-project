@@ -23,65 +23,43 @@ export default function BookingPage() {
     dist: [],
     price: [0, 1200]
   }
+  const [keyword, setKeyword] = useState(totalKeyword)
 
-  if (router.query) {
 
-    // 取得router 食物類別category
-    if (router.query.foodtype) {
-      const arrfoodtype = router.query.foodtype.split(',');
-      totalKeyword.foodtype.forEach((v, i) => {
-        if (arrfoodtype.includes(v.name)) {
-          v.selected = true;
+  useEffect(() => {
+    if (router.query) {
+
+      // 取得router 食物類別category
+      if (router.query.foodtype) {
+        const arrfoodtype = router.query.foodtype.split(',');
+        totalKeyword.foodtype.forEach((v, i) => {
+          if (arrfoodtype.includes(v.name)) {
+            v.selected = true;
+          }
         }
+        )
       }
-      )
+
+      //取得router 城市city
+      if (router.query.city) {
+        totalKeyword.city = router.query.city;
+      }
+
+      //取得router 區域dist
+      if (router.query.dist) {
+        const arrdist = router.query.dist.split(',')
+        totalKeyword.dist = arrdist;
+      }
+
+      //取得router 價格price
+      if (router.query.price) {
+        const arrprice = router.query.price.split(',')
+        totalKeyword.price = arrprice;
+      }
+      setKeyword(totalKeyword)
+
     }
-
-    //取得router 城市city
-    if (router.query.city) {
-      totalKeyword.city = router.query.city;
-    }
-
-    //取得router 區域dist
-    if (router.query.dist) {
-      const arrdist = router.query.dist.split(',')
-      totalKeyword.dist = arrdist;
-    }
-
-    //取得router 價格price
-    if (router.query.price) {
-      const arrprice = router.query.price.split(',')
-      totalKeyword.price = arrprice;
-    }
-
-  }
-  console.log(totalKeyword);
-
-
-  const [keyword, setKeyword] = useState(totalKeyword || {
-    foodtype: [
-      { id: 1, name: '中式', selected: false },
-      { id: 2, name: '日式', selected: false },
-      { id: 3, name: '美式', selected: false },
-      { id: 4, name: '泰式', selected: false },
-      { id: 5, name: '韓式', selected: false },
-      { id: 6, name: '西式', selected: false },
-    ],
-    city: "",
-    dist: [],
-    price: [0, 1200]
-  })
-
-
-  // const [data,setData] = useState({})
-
-  // useEffect(()=>{
-  //   fetch(`${process.env.API_SERVER}/restaurants`)
-  //   .then(r=>r.json())
-  //   .then(data={
-
-  //   })
-  // },[])
+  }, [router.query])
 
 
   return (
@@ -91,7 +69,7 @@ export default function BookingPage() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-2">
-              <SelectArea keyword={keyword} setKeyword={setKeyword} />
+              <SelectArea keyword={keyword} setKeyword={setKeyword}/>
             </div>
             <div className="col-10">
               <Main keyword={keyword} setKeyword={setKeyword} />

@@ -18,7 +18,7 @@ export default function FoodCheckbox({keyword,handleFoodtypes}) {
                 id={id}
                 value={name}
                 onClick={(e) => {
-                  handleFoodtypes(id); 
+                  handleFoodtypes(name); 
                 }}
               >
                 {name}

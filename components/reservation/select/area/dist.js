@@ -51,7 +51,7 @@ function getStyles(name, dist, theme) {
   };
 }
 
-export default function SelectItem() {
+export default function Dist() {
   const theme = useTheme();
   const [dist, setDist] = React.useState([]);
 

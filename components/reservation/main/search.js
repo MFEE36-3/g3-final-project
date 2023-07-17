@@ -1,6 +1,5 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-// import cards from '@/data/reservation/cards.json';
 import { FaRegHeart } from 'react-icons/fa';
 import { FaUtensils } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
@@ -9,25 +8,13 @@ import { useState, useEffect } from 'react';
 
 export default function MainContent() {
 
-  const [data, setData] = useState({
-    "rows": []
-  });
-
-
-  useEffect(() => {
-    fetch(`${process.env.API_SERVER}/restaurants/cards`)
-      .then(r => r.json())
-      .then(data => {
-        console.log(data)
-        setData(data);
-      })
-  }, [])
-
-
   return (
     <div className="d-flex flex-column m-3">
-      <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
-        推薦必吃
+      <div className={`${style.fonttitle} d-flex justify-content-center mb-3 pb-3`}>
+        查詢結果
+      </div>
+      <div className={`${style.fonttitle} d-flex mb-3 pb-2`}>
+        符合結果
       </div>
       <div className="d-flex justify-content-center space-evenly row flex-wrap">
         {data.rows.map((v) => {
