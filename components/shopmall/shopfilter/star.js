@@ -1,7 +1,9 @@
 import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {AiOutlineStar,AiFillStar} from 'react-icons/ai'
+import {Host} from '@/components/shopmall/shopmallfinal'
+
 const H4div = styled.div`
     font-size:var(--h4)
 `
@@ -9,7 +11,7 @@ const Nobgbutton = styled.button`
     background:none
 `
 export default function Star() {
-    const [ratingFilter, setRatingFilter] = useState();
+    const {ratingFilter, setRatingFilter} = useContext(Host)
     const handleRatingChange = (v) => {
         setRatingFilter(v)
     }

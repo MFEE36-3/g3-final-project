@@ -6,7 +6,7 @@ import { styled } from '@mui/system';
 import { BiSearch } from 'react-icons/bi';
 import { useRouter } from 'next/router';
 import { css, keyframes } from '@emotion/react';
-
+import { Host } from '@/components/shopmall/shopmallfinal';
 const scaleAnimation = keyframes`
   0% {
     transform: scale(1);
@@ -28,19 +28,18 @@ const StyledBiSearch = styled(BiSearch)`
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      border: "none",
-      background: "#E4E2DF",
+      background: "#FFF",
       borderRadius:"20px"
       
     },
     "& input": {
       color: "black",
-      zIndex: 2,
+      zIndex: 1,
       fontSize: "var(--h4)",
     },
     "& button": {
       color: "black",
-      zIndex: 2,
+      zIndex: 1,
     },
     "&:hover fieldset": {
       borderColor: "var(--main-color)",
@@ -71,8 +70,8 @@ function shuffleArray(array) {
 const randomItems = shuffleArray(items).slice(0, 5);
 ///
 export default function FreeSolo() {
+  const {host, keyword, setKeyword} = React.useContext(Host)
   const router = useRouter();
-  const [keyword, setKeyword] = React.useState('');
   const handleSearch = () => {
     const keywordValue = keyword?.trim() || '';
   
@@ -101,7 +100,7 @@ export default function FreeSolo() {
   };
   return (
     <div className='mx-5 d-flex justify-content-center align-items-center my-4'>
-      <Stack spacing={2} sx={{}} className='w-25'>
+      <Stack spacing={2} sx={{}} className='w-75'>
         <Autocomplete
           id="free-solo-demo"
           className=''
@@ -118,8 +117,6 @@ export default function FreeSolo() {
             />
           )}
         />
-        {console.log(router.query)}
-        {console.log(keyword)}
       </Stack>
       <StyledBiSearch className='fs-1 ms-3 ' onClick={handleSearch} />
     </div>

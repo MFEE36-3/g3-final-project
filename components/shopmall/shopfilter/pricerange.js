@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import {Host} from '@/components/shopmall/shopmallfinal'
 
 const H4div = styled.div`
     font-size:var(--h4)
@@ -19,8 +20,7 @@ const Button24px = styled.button`
     font-size:var(--h4)
 `
 export default function PriceRange() {
-    const [minPrice, setMinPrice] = useState('');
-    const [maxPrice, setMaxPrice] = useState('');
+    const {minPrice, setMinPrice, maxPrice, setMaxPrice} = useContext(Host)
     const [showError,setShowError] = useState(false)
     const handleMaxInput = (event) => {
         const inputValue = event.target.value;

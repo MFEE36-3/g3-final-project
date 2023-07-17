@@ -7,7 +7,7 @@ import {AiFillStar} from 'react-icons/ai'
 import {BsCartPlusFill} from 'react-icons/bs'
 import { Host } from '@/components/shopmall/shopmallfinal';
 export default function ShopCard() {
-  const {host} = useContext(Host)
+  const {host, items, setItems} = useContext(Host)
   const ShopCardContainer = styled.div`
   display: grid;
   grid-template-columns: 22% 22% 22% 22%;
@@ -40,7 +40,7 @@ export default function ShopCard() {
   const Button20px = styled.button`
   font-size:var(--h5)
   `
-  const [items, setItems] = useState([]);
+
   
   useEffect(() => {
     const fetchData = async () => {
