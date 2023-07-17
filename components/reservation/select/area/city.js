@@ -18,17 +18,38 @@ const theme = createTheme({
 });
 
 export default function City({ keyword, setKeyword }) {
-  // const [city, setCity] = useState('');
 
   const router = useRouter();
 
   const handleChangeCity = (e) => {
-    setKeyword({ ...keyword, city: e.CurrentTarget.value })
+    const selectedCity = e.target.value;
+    setKeyword({ ...keyword, city: selectedCity })
 
-    const strcity = keyword.city;
-    console.log(keyword)
+    const strcity = selectedCity;
 
-    router.push(`/reservation?city=${strcity}`)
+    const arrfoodtype = router.query.foodtype ? router.query.foodtype.split(',') : [];
+    const strfoodtype = arrfoodtype.join();
+
+
+    const queryParams = new URLSearchParams();
+    if (strfoodtype) {
+      queryParams.set('foodtype', strfoodtype);
+    }
+    if (strcity) {
+      queryParams.set('city', strcity);
+    }
+
+    // 使用 toString() 將 URL 查詢參數轉換成字串
+    const queryString = queryParams.toString();
+
+    // 修改 router.push 部分
+    let url = '/reservation';
+    if (queryString) {
+      url += '?' + queryString.replaceAll('%2C', ',');
+    }
+
+    router.push(url);
+
   };
 
   return (
@@ -41,7 +62,7 @@ export default function City({ keyword, setKeyword }) {
             id="demo-simple-select"
             value={keyword.city}
             label="city"
-            onChange={(e) => (handleChangeCity)}
+            onChange={handleChangeCity}
             color="primary"
           >
             <MenuItem value={'tpe'}>台北市</MenuItem>

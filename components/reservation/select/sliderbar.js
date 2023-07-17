@@ -19,10 +19,10 @@ function valuetext(value) {
 
 const minDistance = 10;
 
-export default function SliderBar() {
-  const [value1, setValue1] = React.useState([200,500]);
+export default function SliderBar({ keyword, setKeyword }) {
+  const [value1, setValue1] = React.useState([200, 500]);
 
-  const handleChange1 = (event, newValue, activeThumb) => {
+  const handleChange1 = (e, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -33,28 +33,34 @@ export default function SliderBar() {
       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
     }
 
+    // const sliderbarVal = newValue ? newValue.split(',') : [];
+    // setKeyword({ ...keyword, price: sliderbarVal })
+
+    // console.log("sliderbarVal : " + sliderbarVal)
+
     console.log(value1)
   };
 
-  const [value2, setValue2] = React.useState([200, 500]);
+  // const [value2, setValue2] = React.useState([200, 500]);
 
-  const handleChange2 = (event, newValue, activeThumb) => {
-    if (!Array.isArray(newValue)) {
-      return;
-    }
+  // const handleChange2 = (event, newValue, activeThumb) => {
+  //   if (!Array.isArray(newValue)) {
+  //     return;
+  //   }
 
-    if (newValue[1] - newValue[0] < minDistance) {
-      if (activeThumb === 0) {
-        const clamped = Math.min(newValue[0], 100 - minDistance);
-        setValue2([clamped, clamped + minDistance]);
-      } else {
-        const clamped = Math.max(newValue[1], minDistance);
-        setValue2([clamped - minDistance, clamped]);
-      }
-    } else {
-      setValue2(newValue);
-    }
-  };
+  //   if (newValue[1] - newValue[0] < minDistance) {
+  //     if (activeThumb === 0) {
+  //       const clamped = Math.min(newValue[0], 100 - minDistance);
+  //       setValue2([clamped, clamped + minDistance]);
+  //     } else {
+  //       const clamped = Math.max(newValue[1], minDistance);
+  //       setValue2([clamped - minDistance, clamped]);
+  //     }
+  //   } else {
+  //     setValue2(newValue);
+  //   }
+  // };
+
   return (
     <>
       <div className={style.mb20}>
@@ -66,7 +72,7 @@ export default function SliderBar() {
               getAriaLabel={() => 'Minimum distance'}
               value={value1}
               onChange={handleChange1}
-              valueLabelDisplay="auto"
+              valueLabelDisplay="on"
               getAriaValueText={valuetext}
               color="primary"
               disableSwap
