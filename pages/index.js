@@ -26,6 +26,7 @@ import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
 import flyHamburger from '@/public/main_page/fly_hamburger.svg'
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 
 
@@ -33,6 +34,7 @@ import Link from 'next/link';
 const Home = () => {
 
   const [sausage_open, setSausage_Open] = useState(false);
+  const [search, setSearch] = useState('');
 
 
   // const [sausage_Left, setSausage_Left] = useState(styles.sausage_left)
@@ -91,13 +93,17 @@ const Home = () => {
             <p>讓別人幫你買！</p>
             <div><p>點擊下方香腸輸入關鍵字</p></div>
             <div className={styles.sausage_container}>
-              <div style={sausage_open==false?{opacity:0,transition:'1s'}:{opacity:1,transition:'1s'}}>
+              <div style={sausage_open == false ? { opacity: 0, transition: '1s' } : { opacity: 1, transition: '1s' }}>
                 <TextField
                   id="outlined-basic"
                   label='搜尋美食'
                   size='medium'
                   variant="outlined"
                   placeholder='請輸入拉麵、咖哩...'
+                  value={search}
+                  onChange={(e) => { 
+                    setSearch(prev => e.target.value);
+                  }}
                   sx={{
                     '&:hover fieldset': {
                       backgroundColor: 'rgba(250,179,179,0.2)',
@@ -105,8 +111,8 @@ const Home = () => {
                     },
                     '& .MuiInputLabel-root': {
                       lineHeight: '68px', //原 '23px'
-                      fontSize:'var(--h4)',
-                      fontWeight:600,
+                      fontSize: 'var(--h4)',
+                      fontWeight: 600,
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
                       transform: 'translate(14px,-24px) scale(0.75)' //原 'translate(14px,-9px) scale(0.75)'
@@ -137,7 +143,6 @@ const Home = () => {
                       width: 220,
                     },
                   }}
-                  InputLabelProps={{}}
                 />
               </div>
               {/* <Image alt='sausageLeft' src={sausageLeft} className={sausage_Left} onClick={() => setSausage_Left((styles.sausage_left_active))} /> */}
@@ -146,7 +151,7 @@ const Home = () => {
               <Image alt='sausageRight' src={sausageRight} className={sausage_open === false ? styles.sausage_right : styles.sausage_right_active} onClick={() => setSausage_Open(true)} />
             </div>
             <div className={styles.goBtn}>
-              <Btn text='馬上GOGO!' />
+              <Link href={`/buyforme?keyword=${search}`}><Btn text='馬上GOGO!' /></Link>
             </div>
           </div>
 

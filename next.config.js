@@ -16,6 +16,17 @@ const nextConfig = {
   //     },
   //   ]
   // },
+
+  // reactStrictMode: true,
+
+  // images: {
+  //   loader: 'akamai',
+  //   path: '',
+  // },
+
+  // basePath: '/next-test',
+  // assetPrefix: '/next-test',
+
 }
 
 module.exports = nextConfig
