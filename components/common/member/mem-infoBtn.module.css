@@ -27,6 +27,7 @@
   font-weight: 900;
   border: #921010 2px solid;
   padding-left: 20px;
+  overflow: hidden;
 }
 
 .listbtn {

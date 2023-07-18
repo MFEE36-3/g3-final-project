@@ -8,6 +8,7 @@ import { v4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import MemAllTitle from '@/components/common/member/mem-allTitle';
+import Btn from '@/components/common/btn';
 
 export default function Info() {
   const router = useRouter();
@@ -109,7 +110,15 @@ export default function Info() {
                     justifyContent: 'end',
                   }}
                 >
-                  <button className={styles2.btn2}>更換</button>
+                  <div
+                    styles={{
+                      width: '230px',
+                      height: '250px',
+                      backgroundColor: 'black',
+                    }}
+                  >
+                    <Btn text="更換" padding={'5px 5px'} fs="var(--h7)" />
+                  </div>
                 </div>
               </div>
             </div>
