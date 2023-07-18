@@ -6,11 +6,12 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 15px;
-  background-color: #fcc8a1;
+  background-color: #ffffff;
   overflow: hidden;
-  border: 10px solid #fcc8a1;
+  border: 2px solid #921010;
   margin-bottom: 60px;
   font-weight: 800;
+  margin-top: 40px;
 }
 
 .area2 {
@@ -21,17 +22,18 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 15px;
-  background-color: #fcc8a1;
   overflow: hidden;
-  border: 10px solid #fcc8a1;
+  border: 2px solid #921010;
   margin-bottom: 60px;
   font-weight: 800;
+  margin-top: 40px;
 }
 
 .scrollArea {
   display: flex;
   justify-content: space-around;
-  background-color: #fcc8a1;
+  background-color: #ffffff;
+  border-bottom: 2px solid #921010;
 }
 
 .scroll {

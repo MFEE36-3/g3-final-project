@@ -257,8 +257,8 @@ export default function Index() {
         <MemBar />
         <div className={styles.rightArea}>
           <div>
+            <MemAllTitle title={'進行中的活動'} />
             <div className={styles2.area1}>
-              <MemAllTitle title={'進行中的活動'} />
               <div className={styles.scroll}>
                 <div className={styles2.scrollArea}>
                   <MemChangeBtn title={'揪團'} event={changeList} />
@@ -269,8 +269,8 @@ export default function Index() {
                 {list}
               </div>
             </div>
+            <MemAllTitle title={'活動紀錄'} />
             <div className={styles2.area2}>
-              <MemAllTitle title={'活動紀錄'} />
               <div className={styles2.scrollArea} style={{ width: '100%' }}>
                 <MemChangeBtn title={'揪團'} event={changeRecord} />
                 <MemChangeBtn title={'訂位'} event={changeRecord} />

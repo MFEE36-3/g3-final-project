@@ -97,15 +97,15 @@ export default function Index() {
 
   const changeList = (e) => {
     switch (e.target.value) {
-      case '論壇貼文':
+      case '收藏貼文':
         setCollect(<MemCollectReocrd1 ListForum={ListForum} />);
         break;
 
-      case '訂位/外帶店家':
+      case '收藏店家':
         setCollect(<MemCollectReocrd2 ListStore={ListStore} />);
         break;
 
-      case '商城商品':
+      case '收藏商品':
         setCollect(<MemCollectReocrd3 ListMarket={ListMarket} />);
         break;
     }
@@ -116,8 +116,8 @@ export default function Index() {
       <div className={styles.container}>
         <MemBar />
         <div className={styles.rightArea}>
+          <MemAllTitle title={'我的貼文'} />
           <div className={styles2.area1}>
-            <MemAllTitle title={'我的貼文'} />
             <div className={styles2.scroll}>
               {MyList.map((v) => {
                 return (
@@ -131,14 +131,14 @@ export default function Index() {
               })}
             </div>
           </div>
+          <MemAllTitle title={'我的收藏'} />
           <div className={styles2.area2}>
-            <MemAllTitle title={'我的收藏'} />
+            <div className={styles2.scrollArea}>
+              <MemChangeBtn title={'收藏貼文'} event={changeList} />
+              <MemChangeBtn title={'收藏店家'} event={changeList} />
+              <MemChangeBtn title={'收藏商品'} event={changeList} />
+            </div>
             <div className={styles.scroll}>
-              <div className={styles2.scrollArea}>
-                <MemChangeBtn title={'論壇貼文'} event={changeList} />
-                <MemChangeBtn title={'訂位/外帶店家'} event={changeList} />
-                <MemChangeBtn title={'商城商品'} event={changeList} />
-              </div>
               <div>{collect}</div>
             </div>
           </div>

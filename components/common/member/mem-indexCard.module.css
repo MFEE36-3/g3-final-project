@@ -1,5 +1,5 @@
 .scrollCard:hover {
-  background-image: linear-gradient(to right, #ffecd2 0%, #fc9877 100%);
+  background-color: rgb(255, 224, 184);
   color: #921010;
 }
 

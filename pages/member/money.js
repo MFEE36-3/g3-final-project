@@ -64,8 +64,8 @@ export default function Index() {
             </div>
           </div>
           <div>
+            <MemAllTitle title={'會員升級'} />
             <div className={styles2.area2}>
-              <MemAllTitle title={'會員升級'} />
               <MemMoneyCard />
               <div className={styles2.text}>
                 加入尊榮會員，每天可獲得2張揪團9折優惠券 ( 限當天使用

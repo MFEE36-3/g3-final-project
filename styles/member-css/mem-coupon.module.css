@@ -5,12 +5,13 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-radius: 15px;
-  background-color: #fcc8a1;
   margin-bottom: 60px;
-  padding: 10px;
   font-weight: 800;
-  box-shadow: inset -5px -5px 5px rgba(123, 123, 123, 0.5);
+  border: 2px solid #921010;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 40px;
+  background-color: #ffffff;
 }
 
 .area2 {
@@ -20,11 +21,9 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-radius: 15px;
-  background-color: #fcc8a1;
-  border: 10px solid #fcc8a1;
   margin-bottom: 60px;
   font-weight: 800;
+  overflow: hidden;
 }
 
 .scroll {
@@ -73,6 +72,9 @@
 }
 
 .recordBox {
-  margin-top: 10px;
   width: 100%;
+  border-radius: 15px;
+  border: 2px solid #921010;
+  overflow: hidden;
+  margin-top: 20px;
 }

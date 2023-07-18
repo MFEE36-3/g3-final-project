@@ -91,8 +91,8 @@ export default function Index() {
         <MemBar />
         <div className={styles.rightArea}>
           <div>
+            <MemAllTitle title={'我的優惠券'} />
             <div className={styles2.area1}>
-              <MemAllTitle title={'我的優惠券'} />
               <div className={styles2.scroll}>
                 {mycoupon.map((v) => {
                   return (
@@ -108,8 +108,8 @@ export default function Index() {
                 })}
               </div>
             </div>
+            <MemAllTitle title={'已使用 / 失效 / 過期'} />
             <div className={styles2.area2}>
-              <MemAllTitle title={'已使用 / 失效 / 過期'} />
               <div className={styles2.recordBox}>
                 <MemCouponRecord rows={rows} />
               </div>

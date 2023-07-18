@@ -42,12 +42,12 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 15px;
-  background-color: #fcc8a1;
-  box-shadow: inset -3px -3px 5px rgba(95, 95, 95, 0.7);
+  border: 2px solid #921010;
   overflow: hidden;
   margin-bottom: 60px;
   padding: 10px;
   padding-bottom: 40px;
+  background-color: #fff;
 }
 
 .area2 {
@@ -59,12 +59,14 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 15px;
-  background-color: #fefdfb;
-  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
   overflow: hidden;
-  border: 10px solid #fcc8a1;
   margin-bottom: 60px;
   font-weight: 800;
+  border: 2px solid #921010;
+  padding-top: 50px;
+  padding-bottom: 10px;
+  background-color: #fff;
+  margin-top: 40px;
 }
 
 .area3 {
@@ -73,8 +75,6 @@
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  background-color: #fcc8a1;
-  border: 10px solid #fcc8a1;
 }
 
 .text {
@@ -155,6 +155,9 @@
 }
 
 .recordBox {
-  margin-top: 10px;
+  margin-top: 20px;
   width: 100%;
+  border: 2px solid #921010;
+  border-radius: 15px;
+  overflow: hidden;
 }

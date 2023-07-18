@@ -4,7 +4,7 @@
   margin: 30px;
   border: none;
   border-radius: 15px;
-  background-color: #c7c7c7;
+  background-color: #eeecec;
   border: 3px solid rgba(123, 123, 123, 0.7);
   display: flex;
   justify-content: center;
@@ -15,5 +15,5 @@
 
 .btn:hover {
   transform: scale(1.1);
-  background-color: #e3e3e3;
+  background-color: #ffffff;
 }

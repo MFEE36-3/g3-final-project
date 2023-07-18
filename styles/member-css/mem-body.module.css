@@ -109,7 +109,6 @@
   color: white;
   background-color: rgba(120, 120, 120, 1);
   border: none;
-  box-shadow: inset -5px -5px 5px rgba(68, 68, 68, 0.5);
 }
 
 .packageBtn:hover {
@@ -125,19 +124,19 @@
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  background-color: #fcc8a1;
   overflow: hidden;
-  border: 10px solid #fcc8a1;
   margin-top: 50px;
+  padding: 15px;
 }
 
 .scroll2 {
   overflow-y: hidden;
   height: 100%;
   width: 100%;
-  margin-top: 10px;
-  background-color: #fefdfb;
-  box-shadow: inset 2px 2px 2px rgba(68, 68, 68, 0.5);
+  margin-top: 20px;
+  background-color: #ffffff;
+  border: 2px solid #921010;
+  border-radius: 15px;
 }
 
 .scroll {

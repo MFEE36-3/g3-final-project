@@ -5,32 +5,59 @@ import styles2 from '@/styles/member-css/mem-info.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
 import { v4 } from 'uuid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import MemAllTitle from '@/components/common/member/mem-allTitle';
 
 export default function Info() {
-  const infoList = [
-    { tag: '會員帳號', content: 'asiagodtone@mgail.com' },
-    { tag: '論壇暱稱', content: '亞洲統神', change: '修改' },
-    { tag: '帳號密碼', content: '******', change: '修改' },
-    { tag: '手機號碼', content: '0911222333', change: '修改' },
-    { tag: '錢包餘額', content: 'NT$ 7414 元', change: '儲值' },
-    { tag: '會員等級', content: '尊榮會員', change: '升級' },
-    { tag: '會員生日', content: '1990 / 10 / 29' },
-    { tag: '加入時間', content: '2023 / 06 / 19' },
-  ];
+  const router = useRouter();
 
-  const [memImg, setMemImg] = useState('/member/asiagodtone01.jpg');
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setMemImg(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  const [info, setInfo] = useState({});
+
+  useEffect(() => {
+    fetch('http://localhost:3002/member')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        const result = data[0];
+        setInfo(result);
+      });
+  }, [router.query]);
+
+  const {
+    account,
+    nickname,
+    name,
+    password,
+    mobile,
+    wallet,
+    level,
+    birthday,
+    photo,
+    creat_at,
+    achieve,
+  } = info;
+
+  //不要顯示等級1or2，改為顯示會員等級名稱
+  const lev = level === 1 ? '一般會員' : '尊榮會員';
+
+  //把時間格式"2023-02-25T16:00:00.000Z"擷取出需要的部分
+  const birth = birthday?.substring(0, 10);
+  const creat = creat_at?.substring(0, 10);
+  // console.log(birthday.substring(0, 10));
+
+  //把fetch到的資料放入陣列中，用map方法傳給子元件
+  const list = [
+    { tag: '帳號', content: account },
+    { tag: '暱稱', content: nickname, change: '修改' },
+    { tag: '本名', content: name, change: '修改' },
+    { tag: '密碼', content: password, change: '修改' },
+    { tag: '手機', content: mobile, change: '修改' },
+    { tag: '錢包', content: wallet, change: '儲值' },
+    { tag: '會員等級', content: lev, change: '升級' },
+    { tag: '會員生日', content: birth },
+    { tag: '加入時間', content: creat },
+  ];
 
   return (
     <div className={styles.body}>
@@ -41,32 +68,31 @@ export default function Info() {
             <div style={{ display: 'flex' }}>
               <div className={styles2.img}>
                 <Image
-                  src={memImg}
+                  src={'http://localhost:3002/img/' + photo}
                   style={{ objectFit: 'cover' }}
                   width={350}
                   height={350}
                   alt=""
                 />
               </div>
-              <button className={styles2.btn}>
+              <div className={styles2.btn}>
                 <Image
                   src={'/member/camera2.png'}
-                  width={60}
-                  height={60}
+                  width={65}
+                  height={65}
                   alt=""
                 />
                 <input
                   type="file"
                   id="imageUpload"
                   accept="image/*"
-                  onChange={handleImageUpload}
                   className={styles2.uploadInput}
                   title=""
                 />
-              </button>
+              </div>
             </div>
             <div>
-              <MemAllTitle title={'超級大盤子'} />
+              <MemAllTitle title={achieve} />
               <Image
                 src={'/member/badge01.svg'}
                 style={{ objectFit: 'cover' }}
@@ -89,7 +115,7 @@ export default function Info() {
             </div>
           </div>
           <div>
-            {infoList.map((v) => {
+            {list.map((v) => {
               return (
                 <MemInfoBtn
                   tag={v.tag}
