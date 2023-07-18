@@ -8,9 +8,7 @@ import { useState, useEffect } from 'react';
 
 export default function Top5() {
 
-  const [data, setData] = useState({
-    "rows": []
-  });
+  const [data, setData] = useState([]);
 
 
   useEffect(() => {
@@ -18,7 +16,7 @@ export default function Top5() {
       .then(r => r.json())
       .then(data => {
         console.log(data)
-        setData(data);
+        setData(data.rows);
       })
   }, [])
 
@@ -30,7 +28,7 @@ export default function Top5() {
       </div>
       <div className="d-flex flex-column m-3">
         <div className="d-flex justify-content-center space-evenly">
-          {data.rows.map((v) => {
+          {data.map((v) => {
             const { sid, picture, shop } = v;
             return (
               <Card

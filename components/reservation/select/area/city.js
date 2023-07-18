@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,9 +17,19 @@ const theme = createTheme({
   },
 });
 
-export default function City({ keyword, setKeyword }) {
+
+export default function City({ keyword, setKeyword, cdata, setCdata }) {
 
   const router = useRouter();
+
+  useEffect(() => {
+    fetch(`${process.env.API_SERVER}/restaurants/city`)
+      .then(r => r.json())
+      .then(data => {
+        console.log(data)
+        setCdata(data.rows);
+      })
+  }, [])
 
   const handleChangeCity = (e) => {
     const selectedCity = e.target.value;
@@ -30,17 +40,22 @@ export default function City({ keyword, setKeyword }) {
     const arrfoodtype = router.query.foodtype ? router.query.foodtype.split(',') : [];
     const strfoodtype = arrfoodtype.join();
 
+    const arrdist = router.query.dist;
 
-    const queryParams = new URLSearchParams();
+
+    const usp = new URLSearchParams();
     if (strfoodtype) {
-      queryParams.set('foodtype', strfoodtype);
+      usp.set('foodtype', strfoodtype);
     }
     if (strcity) {
-      queryParams.set('city', strcity);
+      usp.set('city', strcity);
+    }
+    if (arrdist) {
+      usp.set('dist', arrdist);
     }
 
     // 使用 toString() 將 URL 查詢參數轉換成字串
-    const queryString = queryParams.toString();
+    const queryString = usp.toString();
 
     // 修改 router.push 部分
     let url = '/reservation';
@@ -49,9 +64,8 @@ export default function City({ keyword, setKeyword }) {
     }
 
     router.push(url);
-
   };
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ Width: '100%' }}>
@@ -65,9 +79,13 @@ export default function City({ keyword, setKeyword }) {
             onChange={handleChangeCity}
             color="primary"
           >
-            <MenuItem value={'tpe'}>台北市</MenuItem>
-            <MenuItem value={'ntp'}>新北市</MenuItem>
-            <MenuItem value={'klc'}>基隆市</MenuItem>
+            {/* <MenuItem value={''}>--請選擇縣市--</MenuItem> */}
+            {cdata.map((v) => {
+              const { city_sid, city_id, cityname } = v;
+              return (
+                <MenuItem key={city_sid} value={cityname}>{cityname}</MenuItem>)
+            })}
+
           </Select>
         </FormControl>
       </Box>

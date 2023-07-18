@@ -31,7 +31,7 @@ export default function SliderBar({ keyword, setKeyword }) {
       setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
     } else {
       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
-    }
+    } 
 
     // const sliderbarVal = newValue ? newValue.split(',') : [];
     // setKeyword({ ...keyword, price: sliderbarVal })

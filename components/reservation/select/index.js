@@ -38,23 +38,8 @@ export default function SelectArea({ keyword, setKeyword }) {
     const strfoodtype = arrfoodtype.join();
 
     const strcity = router.query.city;
+    const arrdist = router.query.dist;
 
-
-    // let url = '/reservation';
-
-    // if (strfoodtype || strcity) {
-    //   url += '?';
-    //   if (strfoodtype) {
-    //     url += `foodtype=${strfoodtype}`;
-    //     if (strcity) {
-    //       url += `&${strcity.substring(1)}`;
-    //     }
-    //   } else {
-    //     url += strcity.substring(1);
-    //   }
-    // }
-
-    // router.push(url);
 
     const usp = new URLSearchParams();
     if (strfoodtype) {
@@ -63,6 +48,10 @@ export default function SelectArea({ keyword, setKeyword }) {
     if (strcity) {
       usp.set('city', strcity);
     }
+    if (arrdist) {
+      usp.set('dist', arrdist);
+    }
+
 
     // 使用 toString() 將 URL 查詢參數轉換成字串
     const queryString = usp.toString();

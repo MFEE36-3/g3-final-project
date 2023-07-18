@@ -9,9 +9,7 @@ import { useState, useEffect } from 'react';
 
 export default function MainContent() {
 
-  const [data, setData] = useState({
-    "rows": []
-  });
+  const [data, setData] = useState([]);
 
 
   useEffect(() => {
@@ -19,7 +17,7 @@ export default function MainContent() {
       .then(r => r.json())
       .then(data => {
         console.log(data)
-        setData(data);
+        setData(data.rows);
       })
   }, [])
 
@@ -30,7 +28,7 @@ export default function MainContent() {
         推薦必吃
       </div>
       <div className="d-flex justify-content-center space-evenly row flex-wrap">
-        {data.rows.map((v) => {
+        {data.map((v) => {
           const { sid, picture, shop, category,location } = v;
           return (
             <Card
