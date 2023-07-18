@@ -50,7 +50,7 @@
 .sidebar {
     position: sticky;
     top: 10px;
-    bottom:500px;
+    /* bottom:500px; */
     width: 160px;
     list-style: none;
     margin-left: 50px;
@@ -510,7 +510,7 @@
 
 .information_group {
     display: flex;
-    width: 550px;
+    width: 580px;
     justify-content: space-between;
     margin-top: 40px;
 }
@@ -527,5 +527,5 @@
 }
 
 .information_box>div {
-    width: 40px;
+    width: 30px;
 }

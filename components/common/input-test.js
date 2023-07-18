@@ -19,7 +19,7 @@ export default function InputTest() {
         autoComplete="off"
       >
         <TextField id="outlined-basic" label="Outlined" variant="outlined" required />
-        <TextField id="filled-basic" label="Filled" variant="filled" />
+        <div style={{width:'80%'}}><TextField id="filled-basic" label="Filled" variant="filled" fullWidth/></div>
         <TextField id="standard-basic" label="Standard" variant="standard" />
       </Box>
 
