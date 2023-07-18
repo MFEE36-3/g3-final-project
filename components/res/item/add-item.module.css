@@ -4,6 +4,11 @@
     justify-content: center;
     width: 400px;
     height: 400px;
-    background-color: #fb600c;
+    background-color: rgb(237, 232, 202);
     border: 2px solid black;
+    border-radius: 10px;
+}
+
+.backGround {
+    background-color: #FFE2E2;
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
-import Management from "@/components/res/item/management";
+import Management from "@/components/res/item/item-management";
 
 export default function ItemManagement(){
     return <>

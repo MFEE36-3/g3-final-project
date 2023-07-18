@@ -8,35 +8,47 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import registerformcss from './res-resgister-form.module.css';
 
 export default function RegisterForm() {
+  const [subForm, setSubForm] = useState({
+    shop: '',
+    city: '',        // 存option的value
+    open_time: []    // 存checkbox的value
+  })
+
   return (
     <>
       <div className="container">RegisterForm-Component</div>
       <div className="container">
-        <form className="bg-primary-subtle container col-10">
-          <h1 className="d-flex justify-content-center fw-bold">商家註冊</h1>
+        <form className={`${registerformcss.backGroundColor} container col-8 border border-black rounded-4 border-4`}>
+          <h1 className="d-flex justify-content-center fw-bold mt-3">商家註冊</h1>
           <hr />
 
+          <div className='mx-5'>
+            <label for="exampleFormControlInput1" className="form-label">Email address</label>
+            <input type="email" className="form-control border-success mt-2" id="exampleFormControlInput1" placeholder="name@example.com" />
+
+          </div>
+
           <div className="mx-5">
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between mt-3">
               <div className="d-flex flex-row align-items-center">
-                <div for="shop" class="form-label mb-3">
+                <div for="shop" className="form-label mb-3">
                   店名:
                 </div>
                 <div className="ms-3">
                   <Input label="店名" placeholder="請輸入店名" />
-                  <div id="shop" class="form-text">
+                  <div id="shop" className="form-text">
                     請填入完整店名
                   </div>
                 </div>
               </div>
 
-              <div className="d-flex flex-row align-items-center">
-                <div for="phone" class="form-label mb-3">
+              <div className="d-flex flex-row align-items-center ms-5">
+                <div for="phone" className="form-label mb-3">
                   電話:
                 </div>
                 <div className="ms-3">
                   <Input label="電話" placeholder="請輸入電話" />
-                  <div id="phone" class="form-text">
+                  <div id="phone" className="form-text">
                     電話格式範例:0918123456
                   </div>
                 </div>
@@ -45,24 +57,24 @@ export default function RegisterForm() {
 
             <div className="d-flex justify-content-between mt-3">
               <div className="d-flex flex-row align-items-center">
-                <div for="account" class="form-label mb-3">
+                <div for="account" className="form-label mb-3">
                   帳號:
                 </div>
                 <div className="ms-3">
                   <Input label="店名" placeholder="請輸入帳號" />
-                  <div id="account" class="form-text">
+                  <div id="account" className="form-text">
                     請以電子信箱做為帳號
                   </div>
                 </div>
               </div>
 
               <div className="d-flex flex-row align-items-center">
-                <div for="password" class="form-label mb-3">
+                <div for="password" className="form-label mb-3">
                   密碼:
                 </div>
                 <div className="ms-3">
                   <Input label="密碼" placeholder="請輸入密碼" />
-                  <div id="password" class="form-text">
+                  <div id="password" className="form-text">
                     密碼需要至少六個英數字
                   </div>
                 </div>
@@ -71,27 +83,27 @@ export default function RegisterForm() {
 
             <div className="d-flex justify-content-start mt-3">
               <div className="d-flex flex-row align-items-center">
-                <div for="account" class="form-label mb-3">
+                <div for="account" className="form-label mb-3">
                   負責人姓名:
                 </div>
                 <div className="ms-3">
                   <Input label="負責人姓名" placeholder="請輸入負責人姓名" />
-                  <div id="account" class="form-text"></div>
+                  <div id="account" className="form-text"></div>
                 </div>
               </div>
             </div>
 
             <div className="d-flex justify-content-start mt-3">
               <div className="d-flex flex-row align-items-center">
-                <div for="res_photo" class="form-label mb-3">
-                  上傳圖片:
+                <div for="res_photo" className="form-label mb-3">
+
                 </div>
-                <div for="res_photo" class={`${registerformcss.uploadImg}`}>
-                  上傳圖片:
+                <div for="res_photo" className={`${registerformcss.uploadImg}`}>
+                  上傳商家照:
                 </div>
                 <div className="ms-3">
                   <input type="file"></input>
-                  <div id="res_photo" class="form-text"></div>
+                  <div id="res_photo" className="form-text"></div>
                 </div>
               </div>
             </div>
@@ -102,7 +114,7 @@ export default function RegisterForm() {
 
             <div className="d-flex justify-content-between mt-3 col-6">
               <select
-                class="form-select me-3"
+                className="form-select me-3"
                 aria-label="Default select example"
               >
                 <option selected>請選擇縣市</option>
@@ -111,7 +123,7 @@ export default function RegisterForm() {
                 <option value="3">Three</option>
               </select>
 
-              <select class="form-select" aria-label="Default select example">
+              <select className="form-select" aria-label="Default select example">
                 <option selected>請選擇鄉鎮</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
@@ -122,26 +134,26 @@ export default function RegisterForm() {
             <div className="d-flex justify-content-between mt-3">
               <div className="ms-3">
                 <Input label="請填入完整地址" placeholder="請輸入完整地址" />
-                <div id="shop" class="form-text">
+                <div id="shop" className="form-text">
                   請填入完整地址
                 </div>
               </div>
             </div>
 
             <div className="d-flex flex-column mb-3 mt-3">
-              <div id="open_time" class="form-text">
+              <div id="open_time" className="form-text">
                 請選擇營業時間
               </div>
               <div className="col-3">
                 <div className="d-flex flex-row">
-                  <select class="form-select col-3">
+                  <select className="form-select col-3">
                     <option selected>開始營業時間</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                   </select>
                   <div className="mx-3">:</div>
-                  <select class="form-select col-3">
+                  <select className="form-select col-3">
                     <option selected>結束營業時間</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -153,7 +165,7 @@ export default function RegisterForm() {
 
             <div className="d-flex justify-content-between mt-3">
               <div className="ms-3">
-                <div id="shop" class="form-text">
+                <div id="open_time" className="form-text">
                   請選擇營業日期:
                 </div>
 
@@ -166,7 +178,7 @@ export default function RegisterForm() {
                       id="Monday"
                       className="me-3"
                     ></input>
-                    <label class="form-check-label" for="Monday">
+                    <label className="form-check-label" for="Monday">
                       星期一
                     </label>
                   </div>
@@ -179,7 +191,7 @@ export default function RegisterForm() {
                       id="Tuesday"
                       className="me-3"
                     ></input>
-                    <label class="form-check-label" for="Tuesday">
+                    <label className="form-check-label" for="Tuesday">
                       星期二
                     </label>
                   </div>
@@ -192,7 +204,7 @@ export default function RegisterForm() {
                       id="Wednesday"
                       className="me-3"
                     ></input>
-                    <label class="form-check-label" for="Wednesday">
+                    <label className="form-check-label" for="Wednesday">
                       星期三
                     </label>
                   </div>
@@ -205,7 +217,7 @@ export default function RegisterForm() {
                       id="Thursday"
                       className="me-3"
                     ></input>
-                    <label class="form-check-label" for="Thursday">
+                    <label className="form-check-label" for="Thursday">
                       星期四
                     </label>
                   </div>
@@ -218,7 +230,7 @@ export default function RegisterForm() {
                       id="Friday"
                       className="me-3"
                     ></input>
-                    <label class="form-check-label" for="Friday">
+                    <label className="form-check-label" for="Friday">
                       星期五
                     </label>
                   </div>
@@ -231,7 +243,7 @@ export default function RegisterForm() {
                       id="Saturday"
                       className="me-3"
                     ></input>
-                    <label class="form-check-label" for="Saturday">
+                    <label className="form-check-label" for="Saturday">
                       星期六
                     </label>
                   </div>
@@ -244,7 +256,7 @@ export default function RegisterForm() {
                       id="Sunday"
                       className="me-3"
                     ></input>
-                    <label class="form-check-label" for="Sunday">
+                    <label className="form-check-label" for="Sunday">
                       星期日
                     </label>
                   </div>
@@ -261,13 +273,13 @@ export default function RegisterForm() {
               </div>
 
               <div>
-                <Input label="請填入餐廳" placeholder="請輸入餐廳" />
+                <Input label="請輸入可內用人數" placeholder="請輸入可內用人數" />
               </div>
 
               <div className="mt-3">
                 <div>(這個是進階桌型的部分)</div>
                 <div className=" d-flex align-items-center justify-content-between">
-                  <select class="form-select me-3">
+                  <select className="form-select me-3">
                     <option selected>兩人桌</option>
                     <option value="1">四人桌</option>
                     <option value="2">六人桌</option>
@@ -291,11 +303,11 @@ export default function RegisterForm() {
             <hr />
 
             <div className='d-flex justify-content-center'>
-              <button type="submit" class="btn btn-primary my-3 mx-3">
+              <button type="submit" className="btn btn-primary my-3 mx-3">
                 確認送出
               </button>
 
-              <button type="reset" class="btn btn-primary my-3 mx-3">
+              <button type="reset" className="btn btn-primary my-3 mx-3">
                 取消填寫
               </button>
             </div>

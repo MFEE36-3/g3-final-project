@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import styles from '@/components/res/item/add-item.module.css';
+import Link from 'next/link';
 
 export default function EditItem() {
   return (
@@ -10,15 +11,23 @@ export default function EditItem() {
       <div className="container d-flex justify-content-center">
         <div>
           <div className="card p-5 bg-info rounded-3 border-black border-3">
-            <div className="card-title d-flex justify-content-center fw-bold fs-5">
-              <Btn text="新增商品" />
-              <Btn text="編輯商品" />
+            <div className="card-title d-flex justify-content-center fw-bold fs-5 ">
+              <div>
+                <Link href={`/res/add-item`}>
+                  <Btn text="新增商品" />
+                </Link>
+              </div>
+              <div>
+                <Link href={`/res/item-management`}>
+                  <Btn text="返回列表" />
+                </Link>
+              </div>
             </div>
 
             <div className="card-body d-flex flex-column justify-content-center align-items-center">
               <div className={`${styles.uploadImg}`}>
                 <div className="d-flex align-items-center fw-bold fs-5">
-                <img src='@/public/res/food-item/img1.jpg'></img>
+                  <img src='@/public/res/food-item/img1.jpg'></img>
                   <button type="button" class="btn btn-outline-dark">
                     上傳圖片
                   </button>

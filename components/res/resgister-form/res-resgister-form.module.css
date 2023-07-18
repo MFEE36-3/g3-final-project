@@ -1,7 +1,14 @@
 .uploadImg {
     background-color:rgb(237, 232, 202);
-    width: 100px;
-    height: 100px;
+    width: 300px;
+    height: 300px;
     border: 1px solid black;
     display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.backGroundColor{
+    background-color: #FFE2E2;
 }

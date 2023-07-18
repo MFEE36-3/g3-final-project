@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AddNewItem from "@/components/res/item/item";
+import AddNewItem from "@/components/res/item/add-item";
 
 export default function AddItem(){
     return <>

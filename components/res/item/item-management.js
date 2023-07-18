@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import axios from 'axios';
+import styles from '@/components/res/item/item-management.module.css'
+import Link from 'next/link';
 
 export default function Management() {
   // 拿到物件資料
@@ -20,11 +22,19 @@ export default function Management() {
   //     "food_note": "使用台灣豬，敬請安心食用"
   // },
 
+  // const getFoodItems = async () => {
+  //   const res = await axios.get('http://localhost:3005/api/item-management/');
+  //   console.log(res.data.foodItems); // targetArray
+  //   setFoodItem(res.data.foodItems);
+  // };
+
   const getFoodItems = async () => {
-    const res = await axios.get('http://localhost:3005/api/item-management/');
-    console.log(res.data.foodItems); // targetArray
-    setFoodItem(res.data.foodItems);
+    const res = await axios.get('http://localhost:3003/res/item-management/');
+    console.log(res)
+    // console.log(res.data.foodItems); // targetArray
+    setFoodItem(res.data.rows);
   };
+
 
   useEffect(() => {
     getFoodItems();
@@ -33,9 +43,9 @@ export default function Management() {
   return (
     <>
       <h3 className="container">商品管理</h3>
-      <div className="container d-flex flex-column bg-info p-3 border border-4 rounded-4 border-black">
+      <div className={`container d-flex flex-column ${styles.formbgc} p-3 col-10 border border-4 rounded-4 border-black`}>
         <div>
-          <Btn text="新增商品" />
+          <Link href={`/res/add-item`}>新增商品</Link>
         </div>
 
         <div className="d-flex justify-content-between mt-3">
@@ -79,7 +89,7 @@ export default function Management() {
         </div>
 
         <div className="">
-          <table className="table mt-3 border border-4 rounded-4 border-black table-success table-striped">
+          <table className="table mt-3 border border-4 rounded-4 border-black table-danger table-striped">
             <thead>
               <tr>
                 <th scope="col" className="text-center">
@@ -119,7 +129,9 @@ export default function Management() {
                 </td>
                 <td className="text-center">可換蛋奶素</td>
                 <td className="text-center">
-                  <Btn text="編輯商品" />
+                  <Link href={'/res/edit-item'}>
+                    <Btn text="編輯商品" />
+                  </Link>
                 </td>
                 <td className="text-center">
                   <Btn text="刪除商品" />
@@ -136,9 +148,11 @@ export default function Management() {
                     <td className="text-center">
                       <img src="@/public/res/food-item/img1.jpg"></img>
                     </td>
-                    <td className="text-center">{v.food_note  }</td>
+                    <td className="text-center">{v.food_note}</td>
                     <td className="text-center">
-                      <Btn text="編輯商品" />
+                      <Link href={'/res/edit-item'}>
+                        <Btn text="編輯商品" />
+                      </Link>
                     </td>
                     <td className="text-center">
                       <Btn text="刪除商品" />
