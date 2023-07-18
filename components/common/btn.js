@@ -4,14 +4,14 @@ import Button from '@mui/material/Button';
 import styles from '@/styles/btn.module.css'
 
 
-export default function Btn({ text = 'set text', padding = '15px 30px', fs = 'var(--h5)', onClick = () => { } }) {
+export default function Btn({ text = 'set text', padding = '15px 30px', fs = 'var(--h5)', onClick = () => { }, ...props }) {
 
   return (
     <>
 
       <Button className={styles.btn} sx={{
         '&& .MuiTouchRipple-child': { 'backgroundColor': '#911010' },
-        padding: { padding }
+        padding: { padding }, ...props.sx
       }}
         onClick={onClick}
       >

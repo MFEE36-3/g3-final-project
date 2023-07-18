@@ -42,6 +42,7 @@ const Buyforme = () => {
     const [openbuyforme, setOpenbuyforme] = useState(false);
     const [targetstore, setTargetstore] = useState(0);
     const [shopfoods, setShopfoods] = useState([]);
+    const [testV, setTestV] = useState(6666666);
 
 
     useEffect(() => {
@@ -194,12 +195,12 @@ const Buyforme = () => {
                     variant="standard"
                 />
                 <div style={{ width: '100%' }}>
-                    <InputArea onChange={() => console.log('123')} fullWidth />
+                    <InputArea onChange={(e) => { console.log('123'); setTestV(e.target.value) }} value={testV} fullWidth />
                 </div>
             </DialogContent>
             <DialogActions>
-                <div onClick={handlebuyformeClose}>Cancel</div>
-                <div onClick={handlebuyformeClose}>Subscribe</div>
+                {/* <div onClick={handlebuyformeClose}>Cancel</div>
+                <div onClick={handlebuyformeClose}>Subscribe</div> */}
             </DialogActions>
         </Dialog>
 
