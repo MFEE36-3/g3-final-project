@@ -5,9 +5,12 @@ import SelectArea from '@/components/reservation/select';
 import Main from '@/components/reservation/main';
 import { useRouter } from 'next/router';
 
-export default function BookingPage() {
+export default function Reservation() {
 
   const router = useRouter();
+
+  //加入收藏
+  const [favorite,setFavorite] = useState(0);
 
   // 篩選器 - 預設值(default)
   let totalKeyword = {
@@ -72,7 +75,7 @@ export default function BookingPage() {
               <SelectArea keyword={keyword} setKeyword={setKeyword}/>
             </div>
             <div className="col-10">
-              <Main keyword={keyword} setKeyword={setKeyword} />
+              <Main keyword={keyword} setKeyword={setKeyword} favorite={favorite} setFavorite={setFavorite}/>
             </div>
           </div>
         </div>

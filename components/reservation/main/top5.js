@@ -1,8 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-// import cards2 from '@/data/reservation/cards2.json';
 import Crown from '@/public/reservation/crown.svg';
 import Image from 'next/image';
+import { AiFillStar } from 'react-icons/ai';
+import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect } from 'react';
 
@@ -21,16 +22,24 @@ export default function Top5() {
       })
   }, [])
 
+  const moveleft = () => {
+
+  }
+
+  const moveright = () => {
+
+  }
+
+
   return (
     <>
-      {/* {JSON.stringify(data)} */}
       <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
         熱門排行
       </div>
 
       <div className={style.top5div}>
+        <BsFillArrowLeftCircleFill className={style.top5button} onClick={moveleft} />
 
-        <button>aaa</button>
         <div className={style.top5row}>
           {data.map((v) => {
             const { sid, picture, shop } = v;
@@ -41,14 +50,18 @@ export default function Top5() {
               >
                 <Image src={Crown} className='position-absolute top-0 start-0 ' alt="" />
                 <Card.Img src="../../reservation/c1.png" className='position-relative pt-5' alt="" />
-                <Card.Body>
-                  <Card.Title>{shop}</Card.Title>
+                <Card.Body className={style.top5cardbody}>
+                  <div className={style.top5star}>
+                    <div className={style.me5}>4.7</div>
+                    <AiFillStar />
+                  </div>
+                  <Card.Title className={style.top5name}>{shop}</Card.Title>
                 </Card.Body>
               </Card>
             )
           })}
         </div>
-        <button>bbb</button>
+        <BsFillArrowRightCircleFill className={style.top5button} onClick={moveright} />
       </div>
     </>
   );

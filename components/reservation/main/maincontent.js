@@ -1,13 +1,13 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 // import cards from '@/data/reservation/cards.json';
-import { FaRegHeart } from 'react-icons/fa';
+import { FaRegHeart,FaHeart } from 'react-icons/fa';
 import { FaUtensils } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect } from 'react';
 
-export default function MainContent() {
+export default function MainContent({ favorite, setFavorite }) {
 
   const [data, setData] = useState([]);
 
@@ -20,6 +20,12 @@ export default function MainContent() {
         setData(data.rows);
       })
   }, [])
+
+  const handleFavorite = () => {
+    setFavorite((prev) => {
+      return !prev;
+    })
+  }
 
 
   return (
@@ -70,7 +76,10 @@ export default function MainContent() {
                     </div>
                   </div>
                   <div className="d-flex align-item-center">
-                    <FaRegHeart className="fs-4 h-100" />
+                  {favorite ? 
+                    <FaHeart className={`${style.cardheart} fs-4 h-100`} value={favorite} onClick={handleFavorite} /> :
+                    <FaRegHeart className={`${style.cardheart} fs-4 h-100`} value={favorite} onClick={handleFavorite} />
+                  }
                   </div>
                 </div>
               </Card.Body>

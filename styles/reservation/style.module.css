@@ -31,6 +31,7 @@
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 5px;
   overflow: hidden;
 }
@@ -49,6 +50,43 @@
   min-width: 270px;
   border: none;
   background:none;
+}
+
+.top5cardbody{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 100%;
+}
+
+.top5button{
+  width: 40px;
+  height: 40px;
+  margin: 0px 5px;
+  color: var(--main-color);
+}
+
+.top5button:hover{
+  color: var(--sub-color);
+}
+
+.top5name{
+  display: flex;
+  justify-content: center;
+  align-items:flex-end;
+  height: 100%;
+}
+
+.top5star{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ecbd18;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 10px;
 }
 
 /* 餐廳頁-餐廳名稱 */
@@ -149,6 +187,14 @@
 
 .carddiv:hover .cardtext {
   opacity: 1;
+}
+
+.cardheart{
+  color: #911010;
+}
+
+.cardheart:hover{
+  color: #911010;
 }
 
 
@@ -496,6 +542,10 @@
 
 .mb10 {
   margin-bottom: 10px;
+}
+
+.me5{
+  margin-right: 5px;
 }
 
 .mb20 {
