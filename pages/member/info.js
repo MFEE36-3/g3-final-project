@@ -1,5 +1,5 @@
 import MemrBar from '@/components/common/member/mem-bar';
-import MemInfoBtn from '@/components/common/member/mem-infoBtn';
+import MemInfoInput from '@/components/common/member/mem-infoInput';
 import styles from '@/styles/member-css/mem-body.module.css';
 import styles2 from '@/styles/member-css/mem-info.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,7 +45,6 @@ export default function Info() {
   //把時間格式"2023-02-25T16:00:00.000Z"擷取出需要的部分
   const birth = birthday?.substring(0, 10);
   const creat = creat_at?.substring(0, 10);
-  // console.log(birthday.substring(0, 10));
 
   //把fetch到的資料放入陣列中，用map方法傳給子元件
   const list = [
@@ -117,7 +116,7 @@ export default function Info() {
                       backgroundColor: 'black',
                     }}
                   >
-                    <Btn text="更換" padding={'5px 5px'} fs="var(--h7)" />
+                    <Btn text="更換" padding={'5px 1px'} fs="var(--h7)" />
                   </div>
                 </div>
               </div>
@@ -126,7 +125,7 @@ export default function Info() {
           <div>
             {list.map((v) => {
               return (
-                <MemInfoBtn
+                <MemInfoInput
                   tag={v.tag}
                   content={v.content}
                   change={v.change}
