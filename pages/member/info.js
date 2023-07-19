@@ -26,6 +26,7 @@ export default function Info() {
   }, [router.query]);
 
   const {
+    sid,
     account,
     nickname,
     name,
@@ -48,15 +49,15 @@ export default function Info() {
 
   //把fetch到的資料放入陣列中，用map方法傳給子元件
   const list = [
-    { tag: '帳號', content: account },
-    { tag: '暱稱', content: nickname, change: '修改' },
-    { tag: '本名', content: name, change: '修改' },
-    { tag: '密碼', content: password, change: '修改' },
-    { tag: '手機', content: mobile, change: '修改' },
-    { tag: '錢包', content: wallet, change: '儲值' },
-    { tag: '會員等級', content: lev, change: '升級' },
-    { tag: '會員生日', content: birth },
-    { tag: '加入時間', content: creat },
+    { tag: '帳號', title: 'account', content: account },
+    { tag: '暱稱', title: 'nickname', content: nickname, change: '修改' },
+    { tag: '本名', title: 'name', content: name, change: '修改' },
+    { tag: '密碼', title: 'password', content: password, change: '修改' },
+    { tag: '手機', title: 'mobile', content: mobile, change: '修改' },
+    { tag: '錢包', title: 'wallet', content: wallet },
+    { tag: '會員等級', title: 'level', content: lev },
+    { tag: '會員生日', title: 'birthday', content: birth },
+    { tag: '加入時間', title: 'creat_at', content: creat },
   ];
 
   return (
@@ -130,6 +131,8 @@ export default function Info() {
                   content={v.content}
                   change={v.change}
                   key={v4()}
+                  sid={sid}
+                  title={v.title}
                 />
               );
             })}

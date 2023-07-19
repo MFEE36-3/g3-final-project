@@ -53,10 +53,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 export default function MemMuiSwitch() {
   return (
-    <FormGroup>
+    <FormGroup style={{ display: 'flex', justyifyContent: 'center' }}>
       <FormControlLabel
         control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
-        label="MUI switch"
       />
     </FormGroup>
   );

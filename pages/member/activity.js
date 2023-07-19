@@ -17,6 +17,7 @@ import MemChangeBtn from '@/components/common/member/mem-changeBtn';
 import styles from '@/styles/member-css/mem-body.module.css';
 import styles2 from '@/styles/member-css/mem-activity.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MemBtn from '@/components/common/member/mem-Btn';
 
 export default function Index() {
   const List1 = [
@@ -212,7 +213,7 @@ export default function Index() {
   );
 
   const changeList = (e) => {
-    switch (e.target.value) {
+    switch (e.currentTarget.value) {
       case '揪團':
         setList(<MemActivityList1 List1={List1} />);
         break;
@@ -232,7 +233,7 @@ export default function Index() {
   };
 
   const changeRecord = (e) => {
-    switch (e.target.value) {
+    switch (e.currentTarget.value) {
       case '揪團':
         setRecord(<MemActivityRecord1 Record1={Record1} />);
         break;
@@ -261,10 +262,10 @@ export default function Index() {
             <div className={styles2.area1}>
               <div className={styles.scroll}>
                 <div className={styles2.scrollArea}>
-                  <MemChangeBtn title={'揪團'} event={changeList} />
-                  <MemChangeBtn title={'訂位'} event={changeList} />
-                  <MemChangeBtn title={'外帶'} event={changeList} />
-                  <MemChangeBtn title={'商城'} event={changeList} />
+                  <MemBtn text={'揪團'} onClick={changeList} />
+                  <MemBtn text={'訂位'} onClick={changeList} />
+                  <MemBtn text={'外帶'} onClick={changeList} />
+                  <MemBtn text={'商城'} onClick={changeList} />
                 </div>
                 {list}
               </div>
@@ -272,10 +273,10 @@ export default function Index() {
             <MemAllTitle title={'活動紀錄'} />
             <div className={styles2.area2}>
               <div className={styles2.scrollArea} style={{ width: '100%' }}>
-                <MemChangeBtn title={'揪團'} event={changeRecord} />
-                <MemChangeBtn title={'訂位'} event={changeRecord} />
-                <MemChangeBtn title={'外帶'} event={changeRecord} />
-                <MemChangeBtn title={'商城'} event={changeRecord} />
+                <MemBtn text={'揪團'} onClick={changeRecord} />
+                <MemBtn text={'訂位'} onClick={changeRecord} />
+                <MemBtn text={'外帶'} onClick={changeRecord} />
+                <MemBtn text={'商城'} onClick={changeRecord} />
               </div>
               {record}
             </div>

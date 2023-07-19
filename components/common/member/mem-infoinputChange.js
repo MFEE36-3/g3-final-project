@@ -1,25 +1,23 @@
 import React from 'react';
-import styles from './mem-infoInput.module.css';
-import Btn from '../btn';
-import { useState } from 'react';
+import MemBtn from './mem-Btn';
 
-export default function MemInfoinputChange(info, setInfo) {
+//點擊「取消」按鈕會執行cancel函式，把布林值改回預設的false，input欄位的資料回復到預設狀態
+//點擊「確定」按鈕會執行sendInfo函式，送資料到後端，接著把布林值改回預設的false
+export default function MemInfoinputChange({ cancel, sendInfo }) {
   return (
-    <div key={'changeInput'} className={styles.listcontent2}>
-      <input
-        className={styles.listinput}
-        value={info}
-        onChange={(e) => {
-          console.log(e.target.value);
-
-          setInfo(e.target.value);
-        }}
-        // onFocus={(e) => {
-        //   console.log(e.target.value);
-        // }}
+    <>
+      <MemBtn
+        text="取消"
+        padding={'35px 10px'}
+        fs="var(--h7)"
+        onClick={cancel}
       />
-      <Btn text="取消" padding={'35px 10px'} fs="var(--h7)" />
-      <Btn text="確定" padding={'35px 10px'} fs="var(--h7)" />
-    </div>
+      <MemBtn
+        text="確定"
+        padding={'35px 10px'}
+        fs="var(--h7)"
+        onClick={sendInfo}
+      />
+    </>
   );
 }
