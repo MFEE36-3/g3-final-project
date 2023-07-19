@@ -29,6 +29,7 @@ export default function SelectArea({ keyword, setKeyword }) {
 
     const strcity = router.query.city;
     const arrdist = router.query.dist;
+    const slideval = router.query.price;
 
 
     const usp = new URLSearchParams();
@@ -41,7 +42,9 @@ export default function SelectArea({ keyword, setKeyword }) {
     if (arrdist) {
       usp.set('dist', arrdist);
     }
-
+    if(slideval) {
+      usp.set('price', slideval);
+    }
 
     // 使用 toString() 將 URL 查詢參數轉換成字串
     const queryString = usp.toString();

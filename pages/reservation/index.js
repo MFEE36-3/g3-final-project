@@ -57,7 +57,7 @@ export default function BookingPage() {
         totalKeyword.price = arrprice;
       }
       setKeyword(totalKeyword)
-
+      
     }
   }, [router.query])
 

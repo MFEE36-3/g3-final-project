@@ -4,9 +4,10 @@ import MainContent from './maincontent';
 import { useRouter } from 'next/router';
 import ResultContent from './resultcontent';
 
-export default function Main() {
+export default function Main({keyword,setKeyword}) {
 
   const router = useRouter();
+  
   return (
     <>
 

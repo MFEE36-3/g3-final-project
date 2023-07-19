@@ -18,9 +18,6 @@ export default function Area({ keyword, setKeyword }) {
           if (keyword.city === v.cityname) {
             return v.areaname
           }
-          // else{
-
-          // }
         })
 
         console.log(tpedist)

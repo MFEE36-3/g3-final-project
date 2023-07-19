@@ -64,6 +64,7 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
     const strfoodtype = arrfoodtype.join();
 
     const strcity = router.query.city;
+    const slideval = router.query.price;
 
     const usp = new URLSearchParams();
     if (strfoodtype) {
@@ -75,6 +76,9 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
 
     if (selectedDist && selectedDist.length !== 0) {
       usp.set('dist', selectedDist);
+    }
+    if(slideval) {
+      usp.set('price', slideval);
     }
 
     // 使用 toString() 將 URL 查詢參數轉換成字串
@@ -102,7 +106,7 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
             id="demo-multiple-chip"
             disabled={keyword.city ? false : true}
             multiple
-            value={dist}
+            value={keyword.dist}
             onChange={handleChange}
             color="primary"
             input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
