@@ -22,6 +22,7 @@ const initialState = {
   ratingFilter: null,
 };
 
+
 function reducer(state, action) {
   switch (action.type) {
     case 'SET_CATEGORIES':
@@ -44,6 +45,21 @@ function reducer(state, action) {
 export default function ShopMallFinal() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const router = useRouter();
+  useEffect(()=>{
+    const query = {...router.query}
+    if(state.keyword) query.keyword = state.keyword
+    const queryUrl = new URLSearchParams(query).toString()
+    const url = `${state.host}/api/item?${queryUrl}`
+    const fetchData = async () => {
+      const response = await fetch(url);
+      const {data} = await response.json();
+      dispatch({
+        type:"SET_ITEMS",
+        payload: data
+      })
+    }
+    fetchData()
+  },[state.keyword])
   return (
     <Host.Provider value={{ ...state, dispatch}}>
       <ShopContainer>
@@ -56,6 +72,7 @@ export default function ShopMallFinal() {
           </div>
         </ShopBodyForSearch>
       </ShopContainer>
+      {console.log(state.keyword)}
     </Host.Provider>
   );
 }

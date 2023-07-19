@@ -41,23 +41,23 @@ export default function ShopCard() {
   const {host, items, keyword, categories, dispatch} = useContext(Host);
   const router = useRouter()
   
-useEffect(() => {
-  const fetchData = async () => {
-    let url = `${host}/api/item`;
-    if (keyword) {
-      url += `?keyword=${keyword}`;
-    }
-    console.log(url)
-    const response = await fetch(url);
-    const { data } = await response.json();
-    dispatch({
-      type: 'SET_ITEMS',
-      payload: data
-    });
-  };
+// useEffect(() => {
+//   const fetchData = async () => {
+//     let url = `${host}/api/item`;
+//     if (keyword) {
+//       url += `?keyword=${keyword}`;
+//     }
+//     console.log(url)
+//     const response = await fetch(url);
+//     const { data } = await response.json();
+//     dispatch({
+//       type: 'SET_ITEMS',
+//       payload: data
+//     });
+//   };
 
-  fetchData();
-}, [host, keyword]);
+//   fetchData();
+// }, [host, keyword]);
 
   const itemCardsMap = items.map(v =>
   <ItemCard className='w-100 d-flex flex-column justify-content-between mb-5' key={v.item_id}>

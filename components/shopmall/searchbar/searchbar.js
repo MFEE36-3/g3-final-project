@@ -103,7 +103,7 @@ export default function FreeSolo() {
     setCommandItems(data)
   }
   fetchCommandItems()
-  },[])  
+  },[currKey])  
   const comItems = commandItems.map(v => ({
     title: v.item_name
   }))
