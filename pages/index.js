@@ -1,7 +1,7 @@
 // import LayoutMainPage from "@/components/layout/layout-mainpage";
 import React from 'react';
 import BlankLayout from '@/components/layout/blank-layout';
-import Footer from '@/components/layout/footer.js';
+import Footer from '@/components/layout/footer-for-mainpage.js';
 import styles from '@/styles/mainpage.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from "next/image";

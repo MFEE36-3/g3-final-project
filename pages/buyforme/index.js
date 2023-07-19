@@ -15,6 +15,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputArea from "@/components/common/input";
+import zIndex from "@mui/material/styles/zIndex";
 
 
 
@@ -140,7 +141,7 @@ const Buyforme = () => {
                                 <th>取餐時間</th>
                                 <th>取餐地點</th>
                                 <th>跑腿費</th>
-                                <th style={{ zIndex: 1 }}></th>
+                                <th style={{zIndex:1}}></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -154,7 +155,7 @@ const Buyforme = () => {
                                         <td>{v.meet_time}</td>
                                         <td>{v.meet_place}</td>
                                         <td>{v.tip}</td>
-                                        <td><Btn text='跟團go!' padding='5px 10px' fs='var(--h9)' onClick={() => {
+                                        <td><Btn text='跟團go!' padding='5px 10px' fs='var(--h9)' sx={{zIndex:0}} onClick={() => {
                                             setOpenbuyforme(true);
                                             setTargetstore(v.target_store);
                                         }} /></td>
@@ -172,32 +173,27 @@ const Buyforme = () => {
         <Image src={walkbag} className={styles.walkbag} alt='buyforme' priority onClick={() => { setCheckbuyforme((prev) => !prev) }} />
 
         <Dialog open={openbuyforme} onClose={handlebuyformeClose}>
-            <DialogTitle>Subscribe</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We
-                    will send updates occasionally.
-                </DialogContentText>
-                {data.map((v) => {
-                    if (targetstore === v.id) return (
+
+
+            {data.map((v) => {
+                if (targetstore === v.id) return (<>
+                    <DialogTitle>Subscribe</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            To subscribe to this website, please enter your email address here. We
+                            will send updates occasionally.
+                        </DialogContentText>
                         <div>
                             {JSON.stringify(v)}
                         </div>
-                    )
-                })}
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Email Address"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                />
-                <div style={{ width: '100%' }}>
-                    <InputArea onChange={(e) => { console.log('123'); setTestV(e.target.value) }} value={testV} fullWidth />
-                </div>
-            </DialogContent>
+                        <div style={{ width: '100%' }}>
+                            <InputArea onChange={(e) => { console.log('123'); setTestV(e.target.value) }} value={testV} fullWidth />
+                        </div>
+                    </DialogContent>
+                </>)
+            })}
+
+
             <DialogActions>
                 {/* <div onClick={handlebuyformeClose}>Cancel</div>
                 <div onClick={handlebuyformeClose}>Subscribe</div> */}

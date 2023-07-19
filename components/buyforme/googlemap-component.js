@@ -90,7 +90,7 @@ function Map({ data }) {
             icon: {
                 url: '/buyforme/map/user_icon/' + random_character.img,
                 scaledSize: new window.google.maps.Size(60, 60),
-                labelOrigin: new google.maps.Point(30, 80)
+                labelOrigin: new window.google.maps.Point(30, 80)
             },
             label: {
                 text: random_character.title,
@@ -100,7 +100,7 @@ function Map({ data }) {
                 className: styles.userLabel
             },
             opacity: 1,
-            animation: google.maps.Animation.BOUNCE,
+            animation: window.google.maps.Animation.BOUNCE,
         });
 
         data.map((v, i) => {
@@ -109,7 +109,7 @@ function Map({ data }) {
                 map: map,
                 icon: {
                     url: shop.src,
-                    labelOrigin: new google.maps.Point(30, 100)
+                    labelOrigin: new window.google.maps.Point(30, 100)
                 },
                 label: {
                     text: v.shop,
