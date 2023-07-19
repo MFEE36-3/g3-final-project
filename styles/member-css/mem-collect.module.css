@@ -31,9 +31,11 @@
 .scrollArea {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   width: 100%;
   background-color: #ffffff;
   border-bottom: 2px solid #921010;
+  padding-block: 15px;
 }
 
 .scroll {

@@ -11,6 +11,7 @@ import MemCollectReocrd1 from '@/components/common/member/mem-collectRecord1';
 import MemCollectReocrd2 from '@/components/common/member/mem-collectRecord2';
 import MemCollectReocrd3 from '@/components/common/member/mem-collectRecord3';
 import MemChangeBtn from '@/components/common/member/mem-changeBtn';
+import Btn from '@/components/common/btn';
 
 export default function Index() {
   const MyList = [
@@ -96,6 +97,7 @@ export default function Index() {
   );
 
   const changeList = (e) => {
+    console.log(e.target.text);
     switch (e.target.value) {
       case '收藏貼文':
         setCollect(<MemCollectReocrd1 ListForum={ListForum} />);
@@ -134,9 +136,11 @@ export default function Index() {
           <MemAllTitle title={'我的收藏'} />
           <div className={styles2.area2}>
             <div className={styles2.scrollArea}>
-              <MemChangeBtn title={'收藏貼文'} event={changeList} />
-              <MemChangeBtn title={'收藏店家'} event={changeList} />
-              <MemChangeBtn title={'收藏商品'} event={changeList} />
+              <Btn text={'收藏貼文'} onClick={changeList} />
+
+              <Btn text={'收藏店家'} onClick={changeList} />
+
+              <Btn text={'收藏商品'} onClick={changeList} />
             </div>
             <div className={styles.scroll}>
               <div>{collect}</div>
