@@ -28,6 +28,7 @@
     "react-bootstrap": "^2.8.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "smooth-scroll-into-view-if-needed": "^2.0.0",
     "validator": "^13.9.0"
   },
   "devDependencies": {
