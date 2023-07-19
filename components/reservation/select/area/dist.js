@@ -59,9 +59,7 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
 
     const selectedDist = event.target.value;
     setKeyword({ ...keyword, dist: selectedDist })
-
-
-
+    
     const arrfoodtype = router.query.foodtype ? router.query.foodtype.split(',') : [];
     const strfoodtype = arrfoodtype.join();
 

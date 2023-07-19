@@ -29,19 +29,20 @@ export default function MainContent() {
       </div>
       <div className="d-flex justify-content-center space-evenly row flex-wrap">
         {data.map((v) => {
-          const { sid, picture, shop, category,location } = v;
+          const { sid, picture, shop, category, location } = v;
           return (
             <Card
-              className="m-2 co1-4 px-0"
-              style={{ width: '21%', border: 'none' }}
+              className={`${style.card} m-2 co1-4 px-0`}
               key={sid}
             >
-              <Card.Img
-                variant="top"
-                src="../../reservation/respic.jpeg"
-                className="rounded-top-3"
-              />
-
+              <div className={style.carddiv}>
+                <Card.Img
+                  variant="top"
+                  src="../../reservation/respic.jpeg"
+                  className={`${style.cardimg}`}
+                />
+                <div className={style.cardtext}>進入餐廳</div>
+              </div>
               <Card.Body>
                 <Card.Title>{shop}</Card.Title>
                 <Card.Text>{location}</Card.Text>
@@ -62,7 +63,7 @@ export default function MainContent() {
                   <div className="d-flex align-item-center">
                     <AiFillStar
                       className="fs-4 h-100 text-warning"
-                      // style={{ color: '#ecbd18' }}
+                    // style={{ color: '#ecbd18' }}
                     />
                     <div className="d-flex align-item-center">
                       4.5 / 5

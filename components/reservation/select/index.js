@@ -1,24 +1,14 @@
 import Area from './area';
 import CheckBox from './checkbox';
 import SliderBar from './sliderbar';
-import Btn from '@/components/common/btn';
 import style from '@/styles/reservation/style.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 
 export default function SelectArea({ keyword, setKeyword }) {
-
   const router = useRouter();
 
   const handleFoodtypes = (name) => {
-
-    // setKeyword((prevFoodtypes) => (
-    //   {...prevFoodtypes, foodtype: prevFoodtypes.foodtype.map((id2) => {
-    //     return id === id2.id ? { ...id2, selected: !id2.selected } : id2;
-    //   })
-    // }));
-
-    // let arrfoodtype = router.query.foodtype !== "" ? router.query.foodtype.split(',') : [];
 
     // 判斷router.query.foodtype是否有值
     let arrfoodtype = [];
@@ -66,10 +56,16 @@ export default function SelectArea({ keyword, setKeyword }) {
 
   };
 
+  const clearselect = ()=>{
+    router.push('/reservation');
+  }
 
   return (
     <>
       <div className={style.selectarea}>
+        <div className='w-100 mb-3'>
+          <button className={style.clearselect} onClick={clearselect}>清除篩選</button>
+        </div>
         <div>
           <Area keyword={keyword} setKeyword={setKeyword} />
         </div>
@@ -77,7 +73,10 @@ export default function SelectArea({ keyword, setKeyword }) {
           <CheckBox keyword={keyword} handleFoodtypes={handleFoodtypes} />
         </div>
         <div>
-          <SliderBar keyword={keyword} setKeyword={setKeyword}/>
+          <SliderBar keyword={keyword} setKeyword={setKeyword} />
+        </div>
+        <div>
+
         </div>
       </div>
     </>

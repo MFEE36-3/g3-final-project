@@ -6,7 +6,7 @@ import { AiFillStar } from 'react-icons/ai';
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect } from 'react';
 
-export default function MainContent() {
+export default function ResultContent() {
 
   return (
     <div className="d-flex flex-column m-3">

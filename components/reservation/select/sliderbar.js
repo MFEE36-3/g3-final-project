@@ -17,7 +17,7 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
-const minDistance = 10;
+const minDistance = 50;
 
 export default function SliderBar({ keyword, setKeyword }) {
   const [value1, setValue1] = React.useState([200, 500]);
@@ -78,6 +78,7 @@ export default function SliderBar({ keyword, setKeyword }) {
               disableSwap
               max={1200}
               step={50}
+              position="bottom"
             />
           </Box>
         </ThemeProvider>
