@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 export default function Top5() {
 
   const [data, setData] = useState([]);
+  const [position, setPosition] = useState(0);
 
 
   useEffect(() => {
@@ -26,17 +27,19 @@ export default function Top5() {
       <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
         熱門排行
       </div>
-      <div className="d-flex flex-column m-3">
-        <div className="d-flex justify-content-center space-evenly">
+
+      <div className={style.top5div}>
+
+        <button>aaa</button>
+        <div className={style.top5row}>
           {data.map((v) => {
             const { sid, picture, shop } = v;
             return (
               <Card
                 key={sid}
-                className="m-2 h-25 position-relative"
-                style={{ width: '21%', border: 'none', background: 'none' }}
+                className={`${style.top5card} h-25 position-relative`}
               >
-                <Image src={Crown} className='position-absolute top-0 start-0' alt="" />
+                <Image src={Crown} className='position-absolute top-0 start-0 ' alt="" />
                 <Card.Img src="../../reservation/c1.png" className='position-relative pt-5' alt="" />
                 <Card.Body>
                   <Card.Title>{shop}</Card.Title>
@@ -45,6 +48,7 @@ export default function Top5() {
             )
           })}
         </div>
+        <button>bbb</button>
       </div>
     </>
   );

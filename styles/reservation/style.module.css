@@ -25,6 +25,32 @@
   padding-top: 50px;
 }
 
+/* top5餐廳 */
+.top5div{
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  overflow: hidden;
+}
+
+.top5row{
+  width: 1350px;
+  position: relative;
+  display:  flex;
+  /* justify-content: center; */
+  overflow:hidden;
+}
+
+.top5card{
+  position: absolute;
+  width: 270px;
+  min-width: 270px;
+  border: none;
+  background:none;
+}
+
 /* 餐廳頁-餐廳名稱 */
 .restauranttitle {
   font-family: var(--ff1);
