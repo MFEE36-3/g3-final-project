@@ -1,0 +1,76 @@
+{
+    "datas": [
+        {
+            "id": 1,
+            "pictures": "",
+            "name": "綜合沙拉",
+            "price": "290",
+            "category":"開胃菜",
+            "desc": "超級好吃泰式乾哩雞"
+        }, 
+        {
+            "id": 2,
+            "pictures": "",
+            "name": "泰式咖哩雞",
+            "price": "590",
+            "category":"主餐",
+            "desc": "超級好吃泰式乾哩雞"
+        },
+        {
+            "id": 3,
+            "pictures": "",
+            "name": "番茄牛肉湯",
+            "price": "120",
+            "category":"湯品",
+            "desc": "超級好吃泰式乾哩雞"
+        },
+        {
+            "id": 4,
+            "pictures": "",
+            "name": "巧克力冰淇淋",
+            "price": "230",
+            "category":"甜點",
+            "desc": "超級好吃泰式乾哩雞"
+        },
+        {
+            "id": 5,
+            "pictures": "",
+            "name": "香檸莓果茶",
+            "price": "180",
+            "category":"飲品",
+            "desc": "超級好吃泰式乾哩雞"
+        },
+        {
+            "id": 6,
+            "pictures": "",
+            "name": "香草奶昔",
+            "price": "180",
+            "category":"飲品",
+            "desc": "超級好吃泰式乾哩雞"
+        },
+        {
+            "id": 7,
+            "pictures": "",
+            "name": "烤香腸",
+            "price": "180",
+            "category":"開胃菜",
+            "desc": "超級好吃泰式乾哩雞"
+        },
+        {
+            "id": 8,
+            "pictures": "",
+            "name": "烤魷魚",
+            "price": "260",
+            "category":"開胃菜",
+            "desc": "超級好吃泰式乾哩雞"
+        },
+        {
+            "id": 9,
+            "pictures": "",
+            "name": "肋眼牛排",
+            "price": "1199",
+            "category":"主餐",
+            "desc": "超級好吃泰式乾哩雞"
+        }
+    ]
+}
