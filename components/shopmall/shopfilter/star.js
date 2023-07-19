@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useReducer,} from 'react'
 import {AiOutlineStar,AiFillStar} from 'react-icons/ai'
 import {Host} from '@/components/shopmall/shopmallfinal'
 
@@ -11,9 +11,12 @@ const Nobgbutton = styled.button`
     background:none
 `
 export default function Star() {
-    const {ratingFilter, setRatingFilter} = useContext(Host)
+    const {ratingFilter, dispatch} = useContext(Host)
     const handleRatingChange = (v) => {
-        setRatingFilter(v)
+        dispatch({
+            type: 'SET_RATING_FILTER',
+            payload: v
+        })
     }
     useEffect(()=>{
         const query = {...router.query};
@@ -31,14 +34,14 @@ export default function Star() {
     <div className='mt-4 border-bottom border-2 pb-4'>
         <H4div>評分</H4div>
         <div className='px-3'>
-            <Nobgbutton className={`d-flex text-warning border-0 fs-4 rounded-4 w-50 px-3 mt-4 ${ratingFilter === 5 && active}`} onClick={()=>handleRatingChange(5)}>
+            <Nobgbutton className={`d-flex text-warning border-0 fs-4 rounded-4  px-3 mt-4 ${ratingFilter === 5 && active}`} onClick={()=>handleRatingChange(5)}>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
             </Nobgbutton>
-            <Nobgbutton className={`d-flex mt-3 w-75  align-items-center text-warning border-0 fs-4 px-3 rounded-4 ${ratingFilter === 4 && active}`} onClick={()=>handleRatingChange(4)}>
+            <Nobgbutton className={`d-flex mt-3 align-items-center text-warning border-0 fs-4 px-3 rounded-4 ${ratingFilter === 4 && active}`} onClick={()=>handleRatingChange(4)}>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
@@ -46,7 +49,7 @@ export default function Star() {
                 <AiOutlineStar></AiOutlineStar>
                 <span className='ms-1 text-dark fs-5'>或以上</span>
             </Nobgbutton>
-            <Nobgbutton className={`d-flex mt-3 w-75  align-items-center text-warning border-0 fs-4 rounded-4 px-3 ${ratingFilter === 3 && active}`} onClick={()=>handleRatingChange(3)}>
+            <Nobgbutton className={`d-flex mt-3 align-items-center text-warning border-0 fs-4 rounded-4 px-3 ${ratingFilter === 3 && active}`} onClick={()=>handleRatingChange(3)}>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
@@ -54,7 +57,7 @@ export default function Star() {
                 <AiOutlineStar></AiOutlineStar>
                 <span className='ms-1 text-dark fs-5'>或以上</span>
             </Nobgbutton>
-            <Nobgbutton className={`d-flex mt-3 w-75  align-items-center text-warning border-0 fs-4 rounded-4 px-3 ${ratingFilter === 2 && active}`} onClick={()=>handleRatingChange(2)}>
+            <Nobgbutton className={`d-flex mt-3 align-items-center text-warning border-0 fs-4 rounded-4 px-3 ${ratingFilter === 2 && active}`} onClick={()=>handleRatingChange(2)}>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
                 <AiOutlineStar></AiOutlineStar>
@@ -62,7 +65,7 @@ export default function Star() {
                 <AiOutlineStar></AiOutlineStar>
                 <span className='ms-1 text-dark fs-5'>或以上</span>
             </Nobgbutton>
-            <Nobgbutton className={`d-flex mt-3 w-75 px-3 align-items-center text-warning border-0 fs-4 rounded-4 ${ratingFilter === 1 && active}`} onClick={()=>handleRatingChange(1)}>
+            <Nobgbutton className={`d-flex mt-3 px-3 align-items-center text-warning border-0 fs-4 rounded-4 ${ratingFilter === 1 && active}`} onClick={()=>handleRatingChange(1)}>
                 <AiFillStar></AiFillStar>
                 <AiOutlineStar></AiOutlineStar>
                 <AiOutlineStar></AiOutlineStar>

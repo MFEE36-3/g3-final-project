@@ -29,8 +29,8 @@ const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       background: "#FFF",
-      borderRadius:"20px"
-      
+      borderRadius:"20px",
+      border:"2px solid #adadad",
     },
     "& input": {
       color: "black",
@@ -45,36 +45,36 @@ const CustomTextField = styled(TextField)({
       borderColor: "var(--main-color)",
       border: "2px solid var(--main-color)",
     },
+    "&:focus fieldset": {
+      borderColor: "var(--main-color)",
+      border: "2px solid var(--main-color)",
+    },
   },
 });
-//這邊去把你的商品名稱用進來
-const items = [
-    { title: '超級好' },
-    { title: '讚讚' },
-    { title: '吃吃' },
-    { title: 'go eat' },
-    { title: 'run run run' },
-    { title: '臺北科技大學愛吃白飯系' },
-    { title: '熱炒店停業' },
-    { title: '台灣媒體素質' },
-    { title: '可撥' },
-  ];
-//隨機產生五筆
+
 function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }  
-const randomItems = shuffleArray(items).slice(0, 5);
-///
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+} 
+const customFilterOptions = (options, { inputValue }) => {
+  const inputRegex = new RegExp(inputValue, 'i'); 
+  return options.filter((option) => inputRegex.test(option.title));
+};
+
 export default function FreeSolo() {
-  const {host, keyword, setKeyword} = React.useContext(Host)
+  const {host, dispatch, } = React.useContext(Host);
+  const [currKey, setCurrKey] = React.useState("");
+  const [commandItems, setCommandItems] = React.useState([])
   const router = useRouter();
   const handleSearch = () => {
-    const keywordValue = keyword?.trim() || '';
-  
+    const keywordValue = currKey ? currKey.trim() : '';
+    dispatch({
+      type:"SET_KEYWORD",
+      payload:currKey
+    })
     if (keywordValue === '') {
       router.push({
         pathname: '/shopmall/shopmall',
@@ -90,9 +90,24 @@ export default function FreeSolo() {
 
   React.useEffect(()=>{
     const {keyword: value} = router.query;
-    setKeyword(value || '');  }
+    dispatch({
+      type:'SET_KEYWORD',
+      payload:value || ''
+    }) }
     ,[router.query]);
 
+  React.useEffect(()=> {
+  const fetchCommandItems = async () => {
+    const response = await fetch(`${host}/api/item`)
+    const {data} = await response.json()
+    setCommandItems(data)
+  }
+  fetchCommandItems()
+  },[])  
+  const comItems = commandItems.map(v => ({
+    title: v.item_name
+  }))
+  const randomItems = shuffleArray(comItems).slice(0, 5);
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       handleSearch();
@@ -105,14 +120,19 @@ export default function FreeSolo() {
           id="free-solo-demo"
           className=''
           freeSolo
-          value={keyword}
-          onChange={(event, value) => setKeyword(value)}
+          value={currKey}
+          onInputChange={(event, newValue) => {
+            setCurrKey(newValue); 
+          }}
           options={randomItems.map((option) => option.title)}
+          filterOptions={customFilterOptions}
           renderInput={(params) => (
             <CustomTextField
               {...params}
               placeholder="搜尋商品"
-              onChange={(e) => setKeyword(e.target.value)}
+              onChange={ e => {
+                setCurrKey(e.target.value)
+              }}
               onKeyDown={handleKeyDown}
             />
           )}

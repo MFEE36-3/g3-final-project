@@ -1,17 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Image from 'next/image'
-import cola from '@/public/trycheckoutimage/cola.webp'
-import cookie from '@/public/trycheckoutimage/cookie.png'
+import React, { useContext, useEffect, useState, useReducer} from 'react'
 import styled from '@emotion/styled'
 import {AiFillStar} from 'react-icons/ai'
 import {BsCartPlusFill} from 'react-icons/bs'
 import { Host } from '@/components/shopmall/shopmallfinal';
-export default function ShopCard() {
-  const {host, items, setItems} = useContext(Host)
-  const ShopCardContainer = styled.div`
+import { useRouter } from 'next/router';
+const ShopCardContainer = styled.div`
   display: grid;
   grid-template-columns: 22% 22% 22% 22%;
-  grid-gap: 2%;
   `;
   const ItemCard = styled.div`
     border: 4px solid var(--main-color);
@@ -27,8 +22,10 @@ export default function ShopCard() {
       
     }
   `
-  const ImageCss = styled.img`
-    border-radius: 14px 14px 0 0;
+const ImageCss = styled.img`
+    border-radius: 10px 10px 0 0;
+    border-bottom:1px solid #adadad
+
   `
   const Span24px = styled.span`
     font-size:var(--h4)
@@ -40,53 +37,65 @@ export default function ShopCard() {
   const Button20px = styled.button`
   font-size:var(--h5)
   `
+export default function ShopCard() {
+  const {host, items, keyword, categories, dispatch} = useContext(Host);
+  const router = useRouter()
+  
+useEffect(() => {
+  const fetchData = async () => {
+    let url = `${host}/api/item`;
+    if (keyword) {
+      url += `?keyword=${keyword}`;
+    }
+    console.log(url)
+    const response = await fetch(url);
+    const { data } = await response.json();
+    dispatch({
+      type: 'SET_ITEMS',
+      payload: data
+    });
+  };
 
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${host}/api/item`);
-      const {data} = await response.json();
-      setItems(data)
-    };
-  
-    fetchData();
-  }, []);
+  fetchData();
+}, [host, keyword]);
+
   const itemCardsMap = items.map(v =>
-  <ItemCard className='h-100 object-fit-cover w-100 d-flex flex-column justify-content-between' key={v.item_id}>
-    <div style={{height:"60%"}}>
-      <ImageCss src={`${v.img_url}`} className='w-100'/>
-      <div className='d-flex justify-content-between px-3 pt-2'>
-        <Span16px>{v.item_name}</Span16px>
-      </div>
-    </div>
-    <div>
-      <div className='d-flex justify-content-end w-100 pe-3 mt-4'>
-        <Span24px>${v.price}</Span24px>
-      </div>
-      <div className='d-flex justify-content-between px-3 pt-3 pb-2 align-items-center'>
-        <div className='d-flex align-items-center'>
-          <AiFillStar className='text-warning fs-4'/>
-          <Span16px className='ms-2'>4.8 / 5</Span16px>
+  <ItemCard className='w-100 d-flex flex-column justify-content-between mb-5' key={v.item_id}>
+      <div>
+        <ImageCss src={`${v.img_url}`} className='w-100'/>
+        <div className='px-3 mt-2'>
+          <Span16px className=''>{v.item_name}</Span16px>
         </div>
-        <Span16px>已售出100件</Span16px>
       </div>
-    </div>
-        <div className='w-100 px-3 mb-2'>
-          <Button20px className='bg-warning w-100 h-100 border-0 rounded-3 d-flex justify-content-center align-items-center '>
+    <div className='w-100 mt-2'>
+      <div>
+          <div className='w-100 d-flex justify-content-end pe-3'>
+              <Span24px className='text-danger'>${v.price}</Span24px>
+          </div>
+          <div className='d-flex justify-content-between px-3'>
+            <div className='d-flex align-items-center'>
+                <AiFillStar className='text-warning fs-4'/>
+                <Span16px className='ms-2'>4.8 / 5</Span16px>
+            </div>
+            <Span16px>已售出100件</Span16px>
+          </div>
+      </div>
+      <div className='px-3 my-3'>
+        <Button20px className='bg-warning w-100 h-25 border-0 rounded-3 d-flex justify-content-center align-items-center'>
           <BsCartPlusFill></BsCartPlusFill>
           <span className='ms-1'>加入購物車</span>
-          </Button20px>
-        </div>
+        </Button20px>
+      </div>
+    </div>
   </ItemCard>
 )
   
   return (
     <>
     <div >
-        <ShopCardContainer className='ms-2  justify-content-evenly'>
+        <ShopCardContainer className=' justify-content-evenly'>
           {itemCardsMap}
         </ShopCardContainer>
-        
     </div>
     </>
   )
