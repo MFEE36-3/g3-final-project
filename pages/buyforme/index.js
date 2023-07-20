@@ -16,6 +16,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputArea from "@/components/common/input";
 import zIndex from "@mui/material/styles/zIndex";
+import { HiOutlineChat } from "react-icons/hi";
+import CustomizedSwitches from "@/components/buyforme/switch";
+import { Chat } from "@mui/icons-material";
+
 
 
 
@@ -33,7 +37,72 @@ const open_for_you = [
     { open_sid: 5, open_member_id: 1, open_member_name: '小呆呆', meet_time: '2023-08-16 12:00', meet_place: '台大側門', target_store: 5, shop: '麥當勞', tip: '20' },
     { open_sid: 6, open_member_id: 1, open_member_name: '小呆呆', meet_time: '2023-08-16 12:00', meet_place: '台大正門', target_store: 6, shop: '烹星', tip: '20' },
     { open_sid: 7, open_member_id: 1, open_member_name: '小呆呆', meet_time: '2023-08-16 12:00', meet_place: '台大男一舍', target_store: 7, shop: '佐藤咖哩', tip: '25' },
-]
+];
+
+
+const search_input_style = {
+
+    '&:hover fieldset': {
+        backgroundColor: 'rgba(250,179,179,0.2)',
+        borderColor: '#FAB3B3'
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'var(--sub-color)',
+        },
+        '&:hover fieldset': {
+            borderColor: 'var(--sub-color)',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'var(--sub-color)',
+        },
+        fontSize: 'var(--h5)',
+        fontWeight: '900',
+        height: 49,
+        width: 225,
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'var(--sub-color)'
+    },
+    '& label.Mui-focused,label': {
+        color: 'var(--main-color)',
+    },
+    '& .MuiInputBase-input.MuiOutlinedInput-input': {
+        padding: '0px 14px'
+    },
+
+}
+
+const chat_input_style = {
+    '&:hover fieldset': {
+        backgroundColor: 'rgba(250,179,179,0.2)',
+        borderColor: '#FAB3B3'
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'var(--sub-color)',
+        },
+        '&:hover fieldset': {
+            borderColor: 'var(--sub-color)',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'var(--sub-color)',
+        },
+        fontSize: 'var(--h6)',
+        fontWeight: 900,
+        height: 40,
+        width: 200,
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'var(--sub-color)'
+    },
+    '& label.Mui-focused,label': {
+        color: 'var(--main-color)',
+    },
+    '& .MuiInputBase-input.MuiOutlinedInput-input': {
+        padding: '0px 14px'
+    },
+}
 
 const Buyforme = () => {
 
@@ -44,6 +113,9 @@ const Buyforme = () => {
     const [targetstore, setTargetstore] = useState(0);
     const [shopfoods, setShopfoods] = useState([]);
     const [testV, setTestV] = useState(6666666);
+    const [chat, setChat] = useState('說點什麼......');
+    const [openchat, setOpenchat] = useState(false);
+    const [mapcolor, setMapcolor] = useState(false);
 
 
     useEffect(() => {
@@ -65,49 +137,14 @@ const Buyforme = () => {
     };
 
     return (<>
-        <GoogleMapComponent data={data} />
+        <GoogleMapComponent data={data} chat={chat} mapcolor={mapcolor} />
 
         <div className={styles.inputBox}>
             <TextField
                 id="outlined-basic"
                 variant="outlined"
                 placeholder='搜尋美食...'
-                sx={{
-                    '&:hover fieldset': {
-                        backgroundColor: 'rgba(250,179,179,0.2)',
-                        borderColor: '#FAB3B3'
-                    },
-                    '& .MuiOutlinedInput-root': {
-                        '& fieldset': {
-                            borderColor: 'var(--sub-color)',
-                        },
-                        '&:hover fieldset': {
-                            borderColor: 'var(--sub-color)',
-                        },
-                        '&.Mui-focused fieldset': {
-                            borderColor: 'var(--sub-color)',
-                        },
-                        fontSize: 'var(--h5)',
-                        fontFamily: 'var(--ff1)',
-
-                    },
-                    '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'var(--sub-color)'
-                    },
-                    '& label.Mui-focused,label': {
-                        color: 'var(--main-color)',
-                    },
-                    '& .MuiInputBase-input.MuiOutlinedInput-input': {
-                        padding: '0px 14px'
-                    },
-                }}
-                inputProps={{
-                    style: {
-                        height: 50,
-                        width: 200,
-                    },
-                }}
-
+                sx={search_input_style}
                 onBlur={(e) => {
                     //if(e.key !== 'Enter') return;
                     if (e.target.value === '') {
@@ -141,7 +178,7 @@ const Buyforme = () => {
                                 <th>取餐時間</th>
                                 <th>取餐地點</th>
                                 <th>跑腿費</th>
-                                <th style={{zIndex:1}}></th>
+                                <th style={{ zIndex: 1 }}></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -155,7 +192,7 @@ const Buyforme = () => {
                                         <td>{v.meet_time}</td>
                                         <td>{v.meet_place}</td>
                                         <td>{v.tip}</td>
-                                        <td><Btn text='跟團go!' padding='5px 10px' fs='var(--h9)' sx={{zIndex:0}} onClick={() => {
+                                        <td><Btn text='跟團go!' padding='5px 10px' fs='var(--h9)' sx={{ zIndex: 0 }} onClick={() => {
                                             setOpenbuyforme(true);
                                             setTargetstore(v.target_store);
                                         }} /></td>
@@ -174,23 +211,24 @@ const Buyforme = () => {
 
         <Dialog open={openbuyforme} onClose={handlebuyformeClose}>
 
-
-            {data.map((v) => {
-                if (targetstore === v.id) return (<>
-                    <DialogTitle>Subscribe</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            To subscribe to this website, please enter your email address here. We
-                            will send updates occasionally.
-                        </DialogContentText>
-                        <div>
-                            {JSON.stringify(v)}
-                        </div>
-                        <div style={{ width: '100%' }}>
-                            <InputArea onChange={(e) => { console.log('123'); setTestV(e.target.value) }} value={testV} fullWidth />
-                        </div>
-                    </DialogContent>
-                </>)
+            {/* 記得要用全部的資料去map 不是篩選後的 */}
+            {ramens.map((v) => {
+                if (targetstore === v.id)
+                    return (<>
+                        <DialogTitle>Subscribe</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                To subscribe to this website, please enter your email address here. We
+                                will send updates occasionally.
+                            </DialogContentText>
+                            <div>
+                                {JSON.stringify(v)}
+                            </div>
+                            <div style={{ width: '100%' }}>
+                                <InputArea onChange={(e) => { console.log('123'); setTestV(e.target.value) }} value={testV} fullWidth />
+                            </div>
+                        </DialogContent>
+                    </>)
             })}
 
 
@@ -199,6 +237,19 @@ const Buyforme = () => {
                 <div onClick={handlebuyformeClose}>Subscribe</div> */}
             </DialogActions>
         </Dialog>
+
+        <div className={styles.chat_inputbox} style={{ display: `${openchat ? 'block' : 'none'}` }}>
+            <TextField sx={chat_input_style} onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                    setChat(e.target.value ? e.target.value : '說點什麼......');
+                }
+            }} />
+        </div>
+        <HiOutlineChat className={styles.chat_inputbtn} onClick={() => { setOpenchat((prev) => !prev) }} />
+        <div className={styles.switch_box}>
+            <CustomizedSwitches mapcolor={mapcolor} setMapcolor={setMapcolor} />
+        </div>
+
 
 
     </>)
