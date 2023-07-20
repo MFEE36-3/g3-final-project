@@ -62,6 +62,7 @@ export default function SearchBar() {
     const keywordValue = currKey ? currKey.trim() : '';
     if(keywordValue === "") {
       setCurrKey('')
+      return
     }
     const selectedCategoryIds = Object.keys(categories).filter((key) => categories[key].checked);
     setSelectedCategory(selectedCategoryIds);

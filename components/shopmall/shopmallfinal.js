@@ -59,7 +59,11 @@ export default function ShopMallFinal() {
     if(state.keyword) {
       query.keyword = state.keyword
     }
-    if(selectedCategory) query.cate_ids = selectedCategory.join("%")
+    if(selectedCategory.length > 0) {
+      query.cate_ids = selectedCategory.join("%")
+    }else {
+      delete query.cate_ids
+    }
     if(state.sortby) query.order_key = state.sortby
     if(state.order) query.order_type = state.order
     if(state.ratingFilter) query.rating_filter = state.ratingFilter
