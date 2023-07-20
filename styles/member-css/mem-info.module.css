@@ -30,6 +30,10 @@
   align-items: center;
 }
 
+.imgflex {
+  display: flex;
+}
+
 .box {
   font-size: 18px;
   width: 200px;
@@ -95,25 +99,6 @@
   box-shadow: inset 3px 3px 3px rgba(65, 21, 21, 0.6);
 }
 
-.btn2 {
-  position: relative;
-  left: 50px;
-  width: 60px;
-  height: 45px;
-  background-color: #fece4b;
-  border: none;
-  border-radius: 15px;
-  font-weight: 900;
-  box-shadow: inset -5px -5px 5px rgba(126, 95, 51, 0.6);
-  transition: all 0.1s ease-in;
-  font-size: 18px;
-  margin: 2px;
-}
-
-.btn2:hover {
-  background-color: #ffe291;
-}
-
 .listflex {
   display: flex;
   margin-bottom: 50px;
@@ -170,5 +155,62 @@
   font-weight: 900;
 }
 
-@media screen and (max-width: 390px) {
+.imgbig {
+  object-fit: cover;
+}
+
+@media screen and (max-width: 391px) {
+  .rightArea {
+    width: 90%;
+    overflow: hidden;
+    padding-top: 50px;
+    padding-inline: 20px;
+  }
+
+  .img {
+    width: 170px;
+    height: 170px;
+    position: relative;
+    top: -20px;
+    left: 10px;
+  }
+
+  .imgbig {
+    width: 170px;
+    height: 170px;
+  }
+
+  .btn {
+    position: relative;
+    left: -95px;
+    top: 163px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .imgsmall {
+    width: 45px;
+    height: 45px;
+  }
+
+  .box {
+    width: 120px;
+    height: 120px;
+  }
+
+  .flex {
+    margin-bottom: 30px;
+  }
+
+  .achBtn {
+    position: relative;
+    left: -28px;
+    margin-top: 10px;
+  }
+
+  .achieveBox {
+    margin-right: 10px;
+    position: relative;
+    left: -10px;
+  }
 }

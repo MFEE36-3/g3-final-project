@@ -66,11 +66,11 @@ export default function Info() {
         <MemrBar />
         <div className={styles2.rightArea}>
           <div className={styles2.flex}>
-            <div style={{ display: 'flex' }}>
+            <div className={styles2.imgflex}>
               <div className={styles2.img}>
                 <Image
                   src={'http://localhost:3002/img/' + photo}
-                  style={{ objectFit: 'cover' }}
+                  className={styles2.imgbig}
                   width={350}
                   height={350}
                   alt=""
@@ -81,6 +81,7 @@ export default function Info() {
                   src={'/member/camera2.png'}
                   width={65}
                   height={65}
+                  className={styles2.imgsmall}
                   alt=""
                 />
                 <input
@@ -92,7 +93,7 @@ export default function Info() {
                 />
               </div>
             </div>
-            <div>
+            <div className={styles2.achieveBox}>
               <MemAllTitle title={achieve} />
               <Image
                 src={'/member/badge01.svg'}
@@ -102,7 +103,7 @@ export default function Info() {
                 height={60}
                 alt=""
               />
-              <div>
+              <div className={styles2.achieveArea}>
                 <div
                   style={{
                     width: '100%',
@@ -110,13 +111,7 @@ export default function Info() {
                     justifyContent: 'end',
                   }}
                 >
-                  <div
-                    styles={{
-                      width: '230px',
-                      height: '250px',
-                      backgroundColor: 'black',
-                    }}
-                  >
+                  <div className={styles2.achBtn}>
                     <Btn text="更換" padding={'5px 1px'} fs="var(--h7)" />
                   </div>
                 </div>

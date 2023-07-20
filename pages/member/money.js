@@ -63,7 +63,7 @@ export default function Index() {
               <div className={styles2.imgText}>您的尊榮會員還有 21 天到期</div>
             </div>
           </div>
-          <div>
+          <div className={styles2.levelArea}>
             <MemAllTitle title={'會員升級'} />
             <div className={styles2.area2}>
               <MemMoneyCard />
@@ -73,9 +73,9 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <div>
+          <div className={styles2.recordArea}>
+            <MemAllTitle title={'儲值紀錄'} />
             <div className={styles2.area3}>
-              <MemAllTitle title={'儲值紀錄'} />
               <div className={styles2.recordBox}>
                 <MemMoneyReocrdTable rows={rows} />
               </div>

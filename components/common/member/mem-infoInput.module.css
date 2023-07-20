@@ -54,3 +54,27 @@
   font-size: 20px;
   font-weight: 900;
 }
+
+@media screen and (max-width: 391px) {
+  .listtag {
+    font-size: 20px;
+    margin-right: 3px;
+    width: 140px;
+  }
+
+  .listinput {
+    font-size: 18px;
+    padding: 0;
+  }
+
+  .listcontent .listcontent2 {
+    height: 20px;
+  }
+
+  .listflex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+}

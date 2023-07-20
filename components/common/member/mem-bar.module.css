@@ -94,3 +94,37 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+@media screen and (max-width: 391px) {
+  .memBar {
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    padding: 0;
+    position: relative;
+    top: 30px;
+    justify-content: space-between;
+    padding: 5px;
+    margin-bottom: 60px;
+  }
+
+  .memBtnTop {
+    display: none;
+  }
+
+  .memBtn {
+    width: 60px;
+    font-size: 12px;
+    margin: 0;
+    height: 45px;
+  }
+
+  .memBtn:hover {
+    font-size: 13px;
+    font-weight: bolder;
+    border-radius: 20px;
+    background-color: #fff3e7;
+    border: #921010 2px solid;
+    height: 45px;
+  }
+}

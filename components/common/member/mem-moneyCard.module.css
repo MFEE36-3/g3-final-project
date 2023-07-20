@@ -25,3 +25,19 @@
   text-decoration: none;
   color: black;
 }
+
+@media screen and (max-width: 391px) {
+  .card {
+    width: 130px;
+    height: 180px;
+    font-size: 16px;
+    margin-bottom: 25px;
+  }
+
+  .cardBox {
+    width: 95%;
+    flex-wrap: wrap;
+    height: 100%;
+    padding-inline: 15px;
+  }
+}

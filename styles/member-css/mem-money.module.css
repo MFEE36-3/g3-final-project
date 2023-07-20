@@ -79,7 +79,7 @@
 
 .text {
   height: 50px;
-  width: 98%;
+  width: 99%;
   font-size: 20px;
   display: flex;
   align-items: center;
@@ -160,4 +160,71 @@
   border: 2px solid #921010;
   border-radius: 15px;
   overflow: hidden;
+}
+
+@media screen and (max-width: 391px) {
+  .area0 {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .area1 {
+    width: 90%;
+    height: 300px;
+    padding-bottom: 20px;
+  }
+
+  .area2 {
+    width: 90%;
+    height: 100%;
+    padding-top: 25px;
+    margin-top: 20px;
+  }
+
+  .imgArea {
+    height: 200px;
+    width: 90%;
+    margin-bottom: 50px;
+  }
+
+  .nowMoney {
+    font-size: 36px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .input {
+    width: 110px;
+    height: 55px;
+  }
+
+  .text {
+    width: 930px;
+  }
+
+  .levelArea {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .area3 {
+    width: 90%;
+  }
+
+  .recordArea {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .recordBox {
+  }
 }
