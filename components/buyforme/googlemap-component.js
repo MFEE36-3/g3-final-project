@@ -84,7 +84,7 @@ function Map({ data }) {
 
         const random_character = random_user[Math.floor(random_user.length * Math.random())];
 
-        new window.google.maps.Marker({
+        const userMarker = new window.google.maps.Marker({
             position: center,
             map: map,
             icon: {
@@ -103,8 +103,14 @@ function Map({ data }) {
             animation: window.google.maps.Animation.BOUNCE,
         });
 
+        userMarker.addListener('click', () => {
+            // 點擊 Maker 的事件處理程式
+            console.log('User Marker 被點擊了');
+            // 在這裡可以執行其他操作或觸發其他函式
+        });
+
         data.map((v, i) => {
-            new window.google.maps.Marker({
+            const shopMarker = new window.google.maps.Marker({
                 position: { lat: v.lat, lng: v.lng },
                 map: map,
                 icon: {
@@ -118,6 +124,12 @@ function Map({ data }) {
                     fontWeight: '900',
                     className: styles.mapLabel
                 }
+            });
+
+            shopMarker.addListener('click', () => {
+                // 點擊 Maker 的事件處理程式
+                console.log(`${v.shop} Shop Marker 被點擊了`);
+                // 在這裡可以執行其他操作或觸發其他函式
             });
         })
 
