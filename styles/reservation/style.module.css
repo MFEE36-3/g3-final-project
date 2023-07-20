@@ -317,6 +317,11 @@
   height: 40vh;
 }
 
+.carouselitem{
+  object-fit: cover; 
+  overflow: hidden;
+}
+
 .selectarea {
   height: 100%;
   margin: 30px;
@@ -554,4 +559,57 @@
 
 .mb20 {
   margin-bottom: 20px;
+}
+
+
+/* ----------------RWD---------------- */
+
+@media screen and (max-width: 391px) {
+  .topdiv{
+    position: relative;
+  }
+
+  .carousel{
+    position: relative;
+    padding-top: 30px;
+    height: 20vh;
+  }
+
+  .carouselitem{
+    object-fit: cover; 
+    overflow: hidden;
+  }
+  .searchbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 70%;
+    height: 50px;
+    /* transform: translate(-50%, -50%); */
+    background-color: white;
+    border-radius: 40px;
+    border:3px solid var(--main-color);
+  }
+  .searchinput{
+    width:100%;
+    height: 100%;
+    font-size: var(--h5);
+    border: none;
+    outline: none;
+  }
+  
+  /* 查詢條件-條件區塊 */
+  .clearselect{
+    width:50%;
+    text-align: center;
+    background-color: #911010;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    padding: 5px 10px;
+  }
+
+
+
+
 }
