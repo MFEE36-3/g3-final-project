@@ -12,6 +12,7 @@
   font-family: var(--ff1);
   color: var(--main-color);
   font-size: var(--h3);
+  user-select: none;
 }
 
 /* 副標題 */
@@ -40,7 +41,6 @@
   width: 1350px;
   position: relative;
   display:  flex;
-  /* justify-content: center; */
   overflow:hidden;
 }
 
@@ -50,6 +50,7 @@
   min-width: 270px;
   border: none;
   background:none;
+  transition: transform 0.3s ease;
 }
 
 .top5cardbody{
@@ -76,6 +77,8 @@
   justify-content: center;
   align-items:flex-end;
   height: 100%;
+  margin: 0;
+  user-select: none;
 }
 
 .top5star{
@@ -506,6 +509,7 @@
   height: 100%;
   font-size: var(--h5);
   border: none;
+  outline: none;
 }
 
 /* 查詢條件-條件區塊 */

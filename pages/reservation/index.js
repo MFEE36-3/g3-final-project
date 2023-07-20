@@ -24,7 +24,8 @@ export default function Reservation() {
     ],
     city: "",
     dist: [],
-    price: [0, 1200]
+    price: [0, 1200],
+    searchkeyword:""
   }
   const [keyword, setKeyword] = useState(totalKeyword)
 
@@ -59,16 +60,21 @@ export default function Reservation() {
         const arrprice = router.query.price.split(',')
         totalKeyword.price = arrprice;
       }
+      //取得router 關鍵字searchkeyword
+      if (router.query.searchkeyword) {
+        totalKeyword.searchkeyword = router.query.searchkeyword;
+      }
       setKeyword(totalKeyword)
       
     }
   }, [router.query])
 
+  console.log(router)
 
   return (
     <>
       <div className={style.body}>
-        <TopDiv />
+        <TopDiv keyword={keyword} setKeyword={setKeyword}/>
         <div className="container-fluid">
           <div className="row">
             <div className="col-2">

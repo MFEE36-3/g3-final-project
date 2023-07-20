@@ -4,6 +4,7 @@ import Slider from '@mui/material/Slider';
 import style from '@/styles/reservation/style.module.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const theme = createTheme({
   palette: {
@@ -23,7 +24,11 @@ const minDistance = 50;
 export default function SliderBar({ keyword, setKeyword }) {
 
   const router = useRouter();
-  const [value1, setValue1] = React.useState([0, 1200]);
+  const [value1, setValue1] = useState([0, 1200]);
+
+
+
+
 
   const handleChange1 = (e, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -47,6 +52,7 @@ export default function SliderBar({ keyword, setKeyword }) {
 
     const strcity = router.query.city;
     const arrdist = router.query.dist;
+    const searchkeyword = router.query.searchkeyword;
 
     const usp = new URLSearchParams();
     if (strfoodtype) {
@@ -55,28 +61,32 @@ export default function SliderBar({ keyword, setKeyword }) {
     if (strcity) {
       usp.set('city', strcity);
     }
-
     if (arrdist) {
       usp.set('dist', arrdist);
     }
-
-    if(slideval){
+    if (slideval) {
       usp.set('price', slideval);
+    }
+    if (searchkeyword) {
+      usp.set('searchkeyword', searchkeyword);
     }
 
     // 使用 toString() 將 URL 查詢參數轉換成字串
     const queryString = usp.toString();
 
     // 修改 router.push 部分
-    let url = '/reservation';
+    let url = '';
     if (queryString) {
       url += '?' + queryString.replaceAll('%2C', ',');
     }
 
-    router.push(url);
-
-    
+    // router.push(url)
+    router.push({
+      pathname: router.pathname,
+      search: url
+    }, undefined, { scroll: false });
   };
+
 
   // const [value2, setValue2] = React.useState([200, 500]);
 
