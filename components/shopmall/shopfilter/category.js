@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, {useContext, useEffect, useReducer, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import { useRouter } from 'next/router';
 import { Host } from '@/components/shopmall/shopmallfinal';
@@ -13,38 +13,38 @@ const H5span = styled.span`
   font-size: var(--h5);
 `;
 
-
 export default function Category() {
-  const { host, categories, dispatch } = useContext(Host);
+  const { host, categories, dispatch, setSelectedCategory} = useContext(Host);
   const router = useRouter();
   const [showAll, setShowAll] = useState(false);
-  const handleShowAll = () => {
-    setShowAll(true);
-  };
-
 
   const handleChange = (event) => {
     const { value, checked } = event.target;
     dispatch({
       type: 'SET_CATEGORIES',
-      payload: {...categories,
-      [value]: {
-        ...categories[value],
-        checked: checked}
+      payload: {
+        ...categories,
+        [value]: {
+          ...categories[value],
+          checked: checked
+        }
       },
     });
   };
 
   useEffect(() => {
     const selectedCategoryIds = Object.keys(categories).filter((key) => categories[key].checked);
+    setSelectedCategory(selectedCategoryIds)
     const query = { ...router.query };
     if (selectedCategoryIds.length > 0) {
       query.cate = selectedCategoryIds.join('%');
+    } else {
+      delete query.cate;
     }
     router.push({
       pathname: router.pathname,
       search: new URLSearchParams(query).toString(),
-    });
+    }, undefined, { scroll: false });
   }, [categories]);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function Category() {
           checked: false,
         };
         return acc;
-      },{});
+      }, {});
       dispatch({
         type: 'SET_CATEGORIES',
         payload: initialCategories,
@@ -75,7 +75,7 @@ export default function Category() {
       <H4div className='mt-3'>分類</H4div>
       <div className='d-flex w-100 mt-4 flex-column align-items-start '>
         {displayedCategories.map(([key, value]) => (
-          <label style={{ cursor: 'pointer' }}>
+          <label key={key} style={{ cursor: 'pointer' }}>
             <Checkbox
               checked={value.checked}
               sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
@@ -88,7 +88,7 @@ export default function Category() {
         ))}
       </div>
       {!showAll && Object.entries(categories).length > 5 && (
-        <H5span className='d-flex justify-content-center mb-3 text-dark align-items-center' style={{ cursor: 'pointer' }} onClick={handleShowAll}>
+        <H5span className='d-flex justify-content-center mb-3 text-dark align-items-center' style={{ cursor: 'pointer' }} onClick={() => setShowAll(true)}>
           <H5span>查看更多</H5span>
           <FiArrowDown />
         </H5span>

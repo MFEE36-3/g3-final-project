@@ -1,10 +1,11 @@
 import styled from '@emotion/styled'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { Host } from '@/components/shopmall/shopmallfinal'
 import {RxCross2} from "react-icons/rx"
 import { useRouter } from 'next/router';
 const H2div = styled.div`
@@ -36,48 +37,51 @@ const filterButton = () => {
     )
 }
 export default function ShopSearchTitle() {
+    const {sortby, order, keyword, dispatch, items} = useContext(Host)
+    const [orders, setOrders] = useState('')
     const router = useRouter();
-    const [sort, setSort] = useState()
-    const [order, setOrder] = useState()
     const handleChange = (event) => {
     let selectedSort = event.target.value;
-    if(selectedSort === 'priceAsc'){
-      setSort("price");
-      setOrder("asc")
-    }else if (selectedSort === 'priceDesc'){
-      setSort("price");
-      setOrder("desc")
-    }else{
-      setSort(selectedSort);
-      setOrder('')
+    setOrders(selectedSort)
+    if (selectedSort === 'priceAsc') {
+      dispatch({ type: 'SET_SORTBY', payload: 'price' });
+      dispatch({ type: 'SET_ORDER', payload: 'asc' });
+    } else if (selectedSort === 'priceDesc') {
+      dispatch({ type: 'SET_SORTBY', payload: 'price' });
+      dispatch({ type: 'SET_ORDER', payload: 'desc' });
+    } else if (selectedSort === 'ctime') {
+      dispatch({ type: 'SET_SORTBY', payload: 'created_at' });
+      dispatch({ type: 'SET_ORDER', payload: 'desc' });
+    } else if (selectedSort === 'sales') {
+      dispatch({ type: 'SET_SORTBY', payload: 'sales' });
+      dispatch({ type: 'SET_ORDER', payload: 'desc' });
     }
-    
   };
   useEffect(()=>{
     let query = { ...router.query }
-    if(sort){
-      query.sortBy = sort
+    if(sortby){
+      query.order_key = sortby
     }
     if(order){
-      query.order = order
+      query.order_type = order
     }
     router.push({
       pathname: router.pathname,
       search:`?${new URLSearchParams(query).toString()}`
-    })
-  },[sort, order])
+    }, undefined, {scroll:false})
+  },[sortby, order])
   return (
     <div className='ms-4'>
-        <H2div >餅乾</H2div>
+        <H2div className='text-danger'>{keyword}</H2div>
         <div className='mt-3 mb-4 d-flex justify-content-between align-items-center'>
-        <H4div >找到了{2}項商品</H4div>
+        {keyword && <H4div >找到了{items.length}項商品</H4div>}
         <Box sx={{ minWidth: 150 }} className="me-5 border-3">
         <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label" className='d-flex align-items-center'>排序</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={sort}
+          value={orders}
           label="sort"
           onChange={handleChange}
         >

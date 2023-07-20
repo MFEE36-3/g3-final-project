@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import {AiFillStar} from 'react-icons/ai'
 import {BsCartPlusFill} from 'react-icons/bs'
 import { Host } from '@/components/shopmall/shopmallfinal';
+import { ErrorImage } from '@/public/main_page/chocoCookie.svg'
 import { useRouter } from 'next/router';
 const ShopCardContainer = styled.div`
   display: grid;
@@ -38,31 +39,15 @@ const ImageCss = styled.img`
   font-size:var(--h5)
   `
 export default function ShopCard() {
-  const {host, items, keyword, categories, dispatch} = useContext(Host);
-  const router = useRouter()
-  
-// useEffect(() => {
-//   const fetchData = async () => {
-//     let url = `${host}/api/item`;
-//     if (keyword) {
-//       url += `?keyword=${keyword}`;
-//     }
-//     console.log(url)
-//     const response = await fetch(url);
-//     const { data } = await response.json();
-//     dispatch({
-//       type: 'SET_ITEMS',
-//       payload: data
-//     });
-//   };
-
-//   fetchData();
-// }, [host, keyword]);
-
+  const {items} = useContext(Host);
+  const [imgError, setImgError] = useState(false)
+  const handleImageError = () => {
+    setImgError(true)
+  }
   const itemCardsMap = items.map(v =>
   <ItemCard className='w-100 d-flex flex-column justify-content-between mb-5' key={v.item_id}>
       <div>
-        <ImageCss src={`${v.img_url}`} className='w-100'/>
+      <ImageCss src={v.img_url} className='w-100'/>
         <div className='px-3 mt-2'>
           <Span16px className=''>{v.item_name}</Span16px>
         </div>
@@ -75,9 +60,9 @@ export default function ShopCard() {
           <div className='d-flex justify-content-between px-3'>
             <div className='d-flex align-items-center'>
                 <AiFillStar className='text-warning fs-4'/>
-                <Span16px className='ms-2'>4.8 / 5</Span16px>
+                <Span16px className='ms-2'>{v.avg_rating.toFixed(1)} / 5</Span16px>
             </div>
-            <Span16px>已售出100件</Span16px>
+            <Span16px>已售出 {v.sales}0 件</Span16px>
           </div>
       </div>
       <div className='px-3 my-3'>

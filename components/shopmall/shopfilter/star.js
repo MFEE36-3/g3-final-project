@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
-import React, { useContext, useEffect, useReducer,} from 'react'
+import React, { useContext, useEffect, useReducer, useState,} from 'react'
 import {AiOutlineStar,AiFillStar} from 'react-icons/ai'
 import {Host} from '@/components/shopmall/shopmallfinal'
 
@@ -15,18 +15,20 @@ export default function Star() {
     const handleRatingChange = (v) => {
         dispatch({
             type: 'SET_RATING_FILTER',
-            payload: v
+            payload: ratingFilter === v ? '' : v
         })
     }
     useEffect(()=>{
         const query = {...router.query};
-        if(ratingFilter){
+        if (ratingFilter) {
             query.ratingFilter = ratingFilter
-        }
+          } else {
+            delete query.ratingFilter
+          }
         router.push({
             pathname : router.pathname,
             query:query
-        })
+        }, undefined, {scroll:false})
     },[ratingFilter])
     const active = `bg-secondary-subtle`
     const router = useRouter();
