@@ -89,14 +89,14 @@
 
 .hand_left {
     position: absolute;
-    left: 31.5%;
+    left: 30.5%;
     top: 270px;
     z-index: 3;
 }
 
 .hand_right {
     position: absolute;
-    left: 36.1%;
+    left: 35%;
     top: 270px;
     z-index: 3;
 }
@@ -123,11 +123,7 @@
     height: 100%;
 }
 
-.btn_left_container {
-    display: flex;
-    width: 20.892%;
-    margin-left: 5%;
-}
+
 
 .btn_outer_link {
     text-decoration: none;
@@ -135,12 +131,15 @@
     margin: 0 2%;
 }
 
+.btn_hamburger{
+    margin-right: 11.5%;
+}
 .btn_right_container {
     display: flex;
     justify-content: space-between;
-    width: 59.108%;
-    margin-left: 10%;
-    margin-right: 5%;
+    width: 100%;
+    margin-left: 3%;
+    margin-right: 3%;
 }
 
 .btn_text {
@@ -226,26 +225,22 @@
         top: calc(100vh - 60px);
         border-radius: 0;
         z-index: 60;
-        padding: 5px 10px;
+        /* padding: 5px 10px; */
     }
 
-    .btn_left_container {
-        display: flex;
-        /* justify-content: end; */
-        width: 25%;
-        margin-left: 0;
+
+    .btn_outer_link {
+        margin: 0 1%;
     }
 
-    /* .btn_outer_link {
-        text-decoration: none;
-        width: 83%;
-        margin: 0 2%;
-    } */
+    .btn_hamburger{
+        margin-right: 1%;
+    }
 
     .btn_right_container {
         display: flex;
         justify-content: space-between;
-        width: 75%;
+        width: 100%;
         margin-left: -5px;
         margin-right: -5px;
     }
@@ -253,7 +248,7 @@
     .navbtn{
         padding:0;
         height: 50px;
-        width: 80px;
+        /* width: 80px; */
         border-radius: 10px !important;
     }
 

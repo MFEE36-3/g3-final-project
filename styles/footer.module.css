@@ -183,7 +183,7 @@
         font-size: var(--h11);
         font-family: var(--ff3);
         text-align: center;
-        width: 55%;
+        width: 100%;
         bottom: 46px;
         line-height: 12px;
     }
