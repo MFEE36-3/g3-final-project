@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from '@/styles/footer.module.css';
+import styles from '@/styles/footer-for-mainpage.module.css';
 import Image from "next/image";
 import happy_foods from '@/public/img_for_icon/happy_foods.svg';
 import happy_foods_left from '@/public/img_for_icon/happy_foods_left.svg';
@@ -34,7 +34,7 @@ export default function Footer() {
                     <Image src={gear} className={`${styles.gear_rolling} ${styles.gear}`} style={{width:'5%', height: 'auto'}} alt='gear'></Image>
                 </div>
 
-                <p className={styles.copy_right}>Copyright © 2023 MFEE36 TEAM3.<br/> All rights reserved.</p>
+                <p className={styles.copy_right}>Copyright © 2023 MFEE36 TEAM3. All rights reserved.</p>
             </div>
         </>
     )

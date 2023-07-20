@@ -64,3 +64,9 @@ main {
   font-style: normal;
   src: url('/fonts/MochiyPopOne-Regular.ttf') format('truetype');
 }
+
+@media screen and (max-width: 391px) {
+  main {
+    min-height: calc(100vh - 470px);
+  }
+}

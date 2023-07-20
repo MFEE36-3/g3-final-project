@@ -184,7 +184,7 @@
         font-family: var(--ff3);
         text-align: center;
         width: 100%;
-        bottom: 46px;
+        bottom: -12px;
         line-height: 12px;
     }
 
@@ -201,28 +201,4 @@
             transform: translateX(-256px);
         }
     }
-
-    .outer {
-        height: 470px;
-        display: flex;
-        align-items: flex-end;
-        position: relative;
-        justify-content: center;
-        padding-bottom: 60px;
-    }
-
-    .belt {
-        position: absolute;
-        height: 100%;
-        z-index: 1;
-        left: 0;
-        bottom: 0px;
-        width: 100%;
-        overflow: hidden;
-    }
-    
-    .belt_middle,.belt_left,.belt_right,.shield {
-        margin-bottom: 58px;
-    }
-     
 }

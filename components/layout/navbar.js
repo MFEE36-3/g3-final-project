@@ -48,15 +48,13 @@ export default function Navbar() {
 
             <nav className={styles.nav}>
                 <Image src={navbar_back} className={styles.nav_back} alt='navbar_back' priority></Image>
-                <div className={styles.btn_left_container}>
-                    <Link href="#" className={styles.btn_outer_link}>
+                <div className={styles.btn_right_container}>
+                    <Link href="#" className={`${styles.btn_outer_link} ${styles.btn_hamburger}`}>
                         <button className={(router_title === 'buyforme') ? `${styles.navbtn_active} btn` : `${styles.navbtn} btn`}>
                             <Image src={hamburger} className={styles.hamburger} alt='hamburger' priority></Image>
                             <p className={styles.btn_text}>順路買買</p>
                         </button>
                     </Link>
-                </div>
-                <div className={styles.btn_right_container}>
                     <Link href="#" className={styles.btn_outer_link}>
                         <button className={(router_title === 'reservation-togo') ? `${styles.navbtn_active} btn` : `${styles.navbtn} btn`}>
                             <Image src={candychief} className={styles.candy} alt='candychief' priority></Image>

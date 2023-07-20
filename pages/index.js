@@ -1,7 +1,7 @@
 // import LayoutMainPage from "@/components/layout/layout-mainpage";
 import React from 'react';
 import BlankLayout from '@/components/layout/blank-layout';
-import Footer from '@/components/layout/footer.js';
+import Footer from '@/components/layout/footer-for-mainpage.js';
 import styles from '@/styles/mainpage.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from "next/image";
@@ -27,14 +27,30 @@ import { useState, useEffect } from 'react';
 import flyHamburger from '@/public/main_page/fly_hamburger.svg'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 
 
 
 const Home = () => {
 
+
   const [sausage_open, setSausage_Open] = useState(false);
   const [search, setSearch] = useState('');
+
+
+  useEffect(() => {
+    const node = document.getElementById('buyForMe')
+    const timer = setTimeout(() => {
+      if (window.scrollY === 0) {
+        scrollIntoView(node, { behavior: 'smooth' })
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    }
+  }, []);
 
 
   // const [sausage_Left, setSausage_Left] = useState(styles.sausage_left)
@@ -101,7 +117,7 @@ const Home = () => {
                   variant="outlined"
                   placeholder='請輸入拉麵、咖哩...'
                   value={search}
-                  onChange={(e) => { 
+                  onChange={(e) => {
                     setSearch(prev => e.target.value);
                   }}
                   sx={{
