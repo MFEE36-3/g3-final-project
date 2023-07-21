@@ -5,9 +5,12 @@ import SelectArea from '@/components/reservation/select';
 import Main from '@/components/reservation/main';
 import { useRouter } from 'next/router';
 
-export default function BookingPage() {
+export default function Reservation() {
 
   const router = useRouter();
+
+  //加入收藏
+  const [favorite,setFavorite] = useState(0);
 
   // 篩選器 - 預設值(default)
   let totalKeyword = {
@@ -21,7 +24,8 @@ export default function BookingPage() {
     ],
     city: "",
     dist: [],
-    price: [0, 1200]
+    price: [0, 1200],
+    searchkeyword:""
   }
   const [keyword, setKeyword] = useState(totalKeyword)
 
@@ -56,23 +60,28 @@ export default function BookingPage() {
         const arrprice = router.query.price.split(',')
         totalKeyword.price = arrprice;
       }
+      //取得router 關鍵字searchkeyword
+      if (router.query.searchkeyword) {
+        totalKeyword.searchkeyword = router.query.searchkeyword;
+      }
       setKeyword(totalKeyword)
-
+      
     }
   }, [router.query])
 
+  console.log(router)
 
   return (
     <>
       <div className={style.body}>
-        <TopDiv />
+        <TopDiv keyword={keyword} setKeyword={setKeyword}/>
         <div className="container-fluid">
           <div className="row">
             <div className="col-2">
               <SelectArea keyword={keyword} setKeyword={setKeyword}/>
             </div>
             <div className="col-10">
-              <Main keyword={keyword} setKeyword={setKeyword} />
+              <Main keyword={keyword} setKeyword={setKeyword} favorite={favorite} setFavorite={setFavorite}/>
             </div>
           </div>
         </div>

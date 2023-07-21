@@ -1,13 +1,13 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 // import cards from '@/data/reservation/cards.json';
-import { FaRegHeart } from 'react-icons/fa';
+import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { FaUtensils } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect } from 'react';
 
-export default function MainContent() {
+export default function MainContent({ favorite, setFavorite }) {
 
   const [data, setData] = useState([]);
 
@@ -21,62 +21,73 @@ export default function MainContent() {
       })
   }, [])
 
+  const handleFavorite = () => {
+    setFavorite((prev) => {
+      return !prev;
+    })
+  }
+
 
   return (
     <div className="d-flex flex-column m-3">
       <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
         推薦必吃
       </div>
-      <div className="d-flex justify-content-center space-evenly row flex-wrap">
-        {data.map((v) => {
-          const { sid, picture, shop, category,location } = v;
-          return (
-            <Card
-              className="m-2 co1-4 px-0"
-              style={{ width: '21%', border: 'none' }}
-              key={sid}
-            >
-              <Card.Img
-                variant="top"
-                src="../../reservation/respic.jpeg"
-                className="rounded-top-3"
-              />
-
-              <Card.Body>
-                <Card.Title>{shop}</Card.Title>
-                <Card.Text>{location}</Card.Text>
-                <div className="d-flex align-item-center justify-content-between">
-                  <Button
-                    style={{
-                      fontSize: '12px',
-                      background: '#911010',
-                      borderRadius: 20,
-                      border: 0,
-                      color: 'white',
-                      padding: '5px',
-                    }}
-                  >
-                    <FaUtensils className="me-1" />
-                    {category}
-                  </Button>
-                  <div className="d-flex align-item-center">
-                    <AiFillStar
-                      className="fs-4 h-100 text-warning"
-                      // style={{ color: '#ecbd18' }}
-                    />
+      {/* d-flex row flex-wrap */}
+        <div style={{display:"grid" , gridTemplateColumns:"22% 22% 22% 22%"}} className='justify-content-evenly'>
+          {data.map((v) => {
+            const { sid, picture, shop, category, location } = v;
+            return (
+              <Card
+                className={`${style.card} m-2 co1-4 px-0`}
+                key={sid}
+              >
+                <div className={style.carddiv}>
+                  <Card.Img
+                    variant="top"
+                    src="../../reservation/respic.jpeg"
+                    className={`${style.cardimg}`}
+                  />
+                  <div className={style.cardtext}>進入餐廳</div>
+                </div>
+                <Card.Body>
+                  <Card.Title>{shop}</Card.Title>
+                  <Card.Text>{location}</Card.Text>
+                  <div className="d-flex align-item-center justify-content-between">
+                    <Button
+                      style={{
+                        fontSize: '12px',
+                        background: '#911010',
+                        borderRadius: 20,
+                        border: 0,
+                        color: 'white',
+                        padding: '5px',
+                      }}
+                    >
+                      <FaUtensils className="me-1" />
+                      {category}
+                    </Button>
                     <div className="d-flex align-item-center">
-                      4.5 / 5
+                      <AiFillStar
+                        className="fs-4 h-100 text-warning"
+                      // style={{ color: '#ecbd18' }}
+                      />
+                      <div className="d-flex align-item-center">
+                        4.5 / 5
+                      </div>
+                    </div>
+                    <div className="d-flex align-item-center">
+                      {favorite ?
+                        <FaHeart className={`${style.cardheart} fs-4 h-100`} value={favorite} onClick={handleFavorite} /> :
+                        <FaRegHeart className={`${style.cardheart} fs-4 h-100`} value={favorite} onClick={handleFavorite} />
+                      }
                     </div>
                   </div>
-                  <div className="d-flex align-item-center">
-                    <FaRegHeart className="fs-4 h-100" />
-                  </div>
-                </div>
-              </Card.Body>
-            </Card>
-          );
-        })}
-      </div>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </div>
     </div>
   );
 }

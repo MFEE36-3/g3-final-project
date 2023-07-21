@@ -25,6 +25,71 @@
   padding-top: 50px;
 }
 
+/* top5餐廳 */
+.top5div{
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  overflow: hidden;
+}
+
+.top5row{
+  width: 1350px;
+  position: relative;
+  display:  flex;
+  overflow:hidden;
+}
+
+.top5card{
+  position: absolute;
+  width: 270px;
+  min-width: 270px;
+  border: none;
+  background:none;
+  transition: transform 0.3s ease;
+}
+
+.top5cardbody{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 100%;
+}
+
+.top5button{
+  width: 40px;
+  height: 40px;
+  margin: 0px 5px;
+  color: var(--main-color);
+}
+
+.top5button:hover{
+  color: var(--sub-color);
+}
+
+.top5name{
+  display: flex;
+  justify-content: center;
+  align-items:flex-end;
+  height: 100%;
+  margin: 0;
+}
+
+.top5star{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ecbd18;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
 /* 餐廳頁-餐廳名稱 */
 .restauranttitle {
   font-family: var(--ff1);
@@ -80,9 +145,57 @@
   color: white;
 }
 
-
 .categoryfont{
   font-size: var(--h6);
+}
+
+/* card樣式 */
+.card{
+  /* width:21%; */
+  height:350px;
+  border: none;
+}
+
+.carddiv{
+  width: 100%;
+  height: 60%;
+  border-radius: 15px 15px 0px 0px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardimg{
+  position: relative;
+}
+
+.cardtext{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  color: #d9d9d9;
+  font-size: var(--h4);
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  padding: 8px 16px;
+  transition: opacity 0.3s ease-in;
+}
+
+.carddiv:hover .cardimg {
+  filter: brightness(0.5) blur(2px);
+}
+
+.carddiv:hover .cardtext {
+  opacity: 1;
+}
+
+.cardheart{
+  color: #911010;
+}
+
+.cardheart:hover{
+  color: #911010;
 }
 
 
@@ -200,6 +313,11 @@
   position: relative;
   width: 100vw;
   height: 40vh;
+}
+
+.carouselitem{
+  object-fit: cover; 
+  overflow: hidden;
 }
 
 .selectarea {
@@ -373,19 +491,44 @@
 }
 
 /* --------------------------------------------- */
+/* 查詢餐廳-輸入文字區塊 */
 .searchbar {
   position: absolute;
   display: flex;
   align-items: center;
   top: 50%;
   left: 50%;
-  width: 300px;
-  height: 50px;
+  width: 500px;
+  height: 80px;
   transform: translate(-50%, -50%);
-  background-color: #e1e0dd;
+  background-color: white;
+  border-radius: 40px;
+  border:3px solid var(--main-color);
+  /* box-shadow: 0 0 5px 5px white;  */
+  /* border: none; */
+}
+.searchinput{
+  width:100%;
+  height: 100%;
+  font-size: var(--h5);
+  border: none;
+  outline: none;
+}
+
+/* 查詢條件-條件區塊 */
+.clearselect{
+  width:50%;
+  text-align: center;
+  background-color: #911010;
+  color: white;
   border-radius: 20px;
   border: none;
+  padding: 5px 10px;
 }
+
+
+
+/* --------------------------------------------- */
 
 .bordernone {
   border: none;
@@ -408,6 +551,63 @@
   margin-bottom: 10px;
 }
 
+.me5{
+  margin-right: 5px;
+}
+
 .mb20 {
   margin-bottom: 20px;
+}
+
+
+/* ----------------RWD---------------- */
+
+@media screen and (max-width: 391px) {
+  .topdiv{
+    position: relative;
+  }
+
+  .carousel{
+    position: relative;
+    padding-top: 30px;
+    height: 20vh;
+  }
+
+  .carouselitem{
+    object-fit: cover; 
+    overflow: hidden;
+  }
+  .searchbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 70%;
+    height: 50px;
+    /* transform: translate(-50%, -50%); */
+    background-color: white;
+    border-radius: 40px;
+    border:3px solid var(--main-color);
+  }
+  .searchinput{
+    width:100%;
+    height: 100%;
+    font-size: var(--h5);
+    border: none;
+    outline: none;
+  }
+  
+  /* 查詢條件-條件區塊 */
+  .clearselect{
+    width:50%;
+    text-align: center;
+    background-color: #911010;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    padding: 5px 10px;
+  }
+
+
+
+
 }
