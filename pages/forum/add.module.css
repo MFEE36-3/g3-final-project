@@ -1,0 +1,97 @@
+
+.center{
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 80%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    height: 640px;
+}
+.text{
+    font-size: var(--h6);
+    margin-top: 30px;
+}
+
+.line{
+    border-bottom: 2px solid var(--main-color);
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 100%;
+
+}
+.kanban{
+    background-color: var(--main-color);
+    color: white;
+    font-size: var(--h7);
+    font-weight: bold;
+    padding: 5px 10px;
+
+
+
+}
+.input1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 2px solid var(--main-color);
+    width: 100%;
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 10px;
+
+}
+.input2{
+border: 2px solid var(--main-color);
+border-radius: 5px;
+width: 100%;
+height: 70%;
+background-color: transparent;
+padding: 10px;
+resize: none;
+}
+.addbtn{
+    border-radius: 5px;
+    background-color: var(--main-color);
+    color: white;
+    font-size: var(--h7);
+    width: 50px;
+}
+.cancel{
+    border-radius: 5px;
+    width: 50px;
+    margin-right: 10px;
+    border: 0;
+    font-size: var(--h7);
+
+}
+.icon{
+    width: 30px;
+    /* margin-top: 10px; */
+}
+.end{
+    display: flex;
+    justify-content: flex-end;
+}
+.between{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.btn {
+    background: linear-gradient(45deg, var(--main-color) 100%, #FF8E53 0%);
+    border-radius: 45px ;
+    border: 0 ;
+    padding: 10px 20px;
+    box-shadow: 0 1px 3px 1px #b1b1b1;
+}
+
+.btn:hover {
+    background: linear-gradient(45deg, var(--sub-color) 100%, #FF8E53 0%);
+}
+
+
+.btn_text {
+    color: white;
+    font-size: var(--h7);
+}
+

@@ -1,0 +1,21 @@
+.ptext{
+    font-size: var(--h7);
+    border-bottom: 1px solid var(--main-color);
+}
+.container{
+    text-align: center;
+    
+}
+.ptext2{
+    border-bottom: 1px solid gray;
+    padding-bottom: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+}
+.pad{
+    padding-left: 30px;
+}
+.ptext2:hover{
+    text-decoration: underline;
+}
