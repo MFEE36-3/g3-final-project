@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import styles from '@/styles/buyforme/map/map.module.css'
 import shop from '@/public/buyforme/map/shop_icon.svg'
 
@@ -818,6 +818,7 @@ const search_radius = [
 
 function Map({ data, chat, mapcolor }) {
     const [center, setCenter] = useState({ lat: 44, lng: -80 });
+    const [usercenter, setUserCenter] = useState({ lat: 44, lng: -80 });
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -825,6 +826,7 @@ function Map({ data, chat, mapcolor }) {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
             }
+            setUserCenter(user_position);
             setCenter(user_position);
         });
     }, []);
@@ -846,7 +848,7 @@ function Map({ data, chat, mapcolor }) {
                 fillColor: !mapcolor ? v.color : '#FFD306',
                 fillOpacity: 0.1,
                 map: map,
-                center: center,
+                center: usercenter,
                 radius: v.meter,
             })
         })
@@ -855,7 +857,7 @@ function Map({ data, chat, mapcolor }) {
         const random_character = random_user[Math.floor(random_user.length * Math.random())];
 
         const userMarker = new window.google.maps.Marker({
-            position: center,
+            position: usercenter,
             map: map,
             icon: {
                 url: '/buyforme/map/user_icon/' + random_character.img,
@@ -873,10 +875,19 @@ function Map({ data, chat, mapcolor }) {
 
         //使用者聊天框框
         const infowindow = new google.maps.InfoWindow({
-            content: `<div>${chat}</div>`,
+            content: `<div id="chatbox">${chat}</div>`,
             pixelOffset: new google.maps.Size(0, -30),
             maxWidth: 300,
         });
+
+        google.maps.event.addListener(infowindow, "domready", () => {
+            const infoWindowElement = document.getElementById("chatbox"); // 取得 InfoWindow DOM 元素
+            infoWindowElement.addEventListener("click", () => {
+              // 在這裡處理 click 事件
+              console.log("InfoWindow clicked!");
+              setCenter({ lat: 0, lng: 180 })
+            });
+          });
 
         //預設開啟使用者聊天訊息
         infowindow.open(map, userMarker);
@@ -903,13 +914,29 @@ function Map({ data, chat, mapcolor }) {
 
             shopMarker.addListener('click', () => {
                 // 點擊 Maker 的事件處理程式
+                setCenter({ lat: v.lat, lng: v.lng })
                 console.log(`${v.shop} Shop Marker 被點擊了`);
                 // 在這裡可以執行其他操作或觸發其他函式
             });
-        })
-        console.log(chat)
 
-    }, [data, center, chat, mapcolor]);
+            const shop_infowindow = new google.maps.InfoWindow({
+                content: `<div id="${v.shop}">123154s6d5adsdawe</div>`,
+                pixelOffset: new google.maps.Size(0, -30),
+                maxWidth: 300,
+            });
+
+            shop_infowindow.open(map, shopMarker);
+
+            shopMarker.addListener('click', () => {
+                // 點擊打開使用者聊天訊息
+                shop_infowindow.open(map, shopMarker);
+            });
+        })
+
+
+
+
+    }, [data, center, chat, mapcolor, usercenter]);
 
     return <div id="map" className={styles.map_container} />;
 }
