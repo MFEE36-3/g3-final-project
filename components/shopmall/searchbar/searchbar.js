@@ -73,7 +73,7 @@ export default function SearchBar() {
     const query = {};
 
     if (selectedCategoryIds.length > 0) {
-      query.cate = selectedCategoryIds.join('%'); 
+      query.cate_id = selectedCategoryIds.join('%'); 
     }
   
     if (keywordValue !== '') {

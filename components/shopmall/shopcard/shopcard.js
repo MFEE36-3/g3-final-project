@@ -3,8 +3,6 @@ import styled from '@emotion/styled'
 import {AiFillStar} from 'react-icons/ai'
 import {BsCartPlusFill} from 'react-icons/bs'
 import { Host } from '@/components/shopmall/shopmallfinal';
-import { ErrorImage } from '@/public/main_page/chocoCookie.svg'
-import { useRouter } from 'next/router';
 const ShopCardContainer = styled.div`
   display: grid;
   grid-template-columns: 22% 22% 22% 22%;
@@ -13,7 +11,6 @@ const ShopCardContainer = styled.div`
     border: 4px solid var(--main-color);
     border-radius: 14px;
     background: #fff;
-    width: 22%;
     padding: 0;
     margin-bottom: 3% ;
     overflow:hidden;
@@ -40,10 +37,6 @@ const ImageCss = styled.img`
   `
 export default function ShopCard() {
   const {items} = useContext(Host);
-  const [imgError, setImgError] = useState(false)
-  const handleImageError = () => {
-    setImgError(true)
-  }
   const itemCardsMap = items.map(v =>
   <ItemCard className='w-100 d-flex flex-column justify-content-between mb-5' key={v.item_id}>
       <div>

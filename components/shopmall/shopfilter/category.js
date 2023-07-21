@@ -37,9 +37,9 @@ export default function Category() {
     setSelectedCategory(selectedCategoryIds)
     const query = { ...router.query };
     if (selectedCategoryIds.length > 0) {
-      query.cate = selectedCategoryIds.join('%');
+      query.cate_id = selectedCategoryIds.join('%');
     } else {
-      delete query.cate;
+      delete query.cate_id;
     }
     router.push({
       pathname: router.pathname,

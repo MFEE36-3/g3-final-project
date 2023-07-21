@@ -5,6 +5,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import ShopPagination from '@/components/shopmall/shoppage/pagination';
+
 import { Host } from '@/components/shopmall/shopmallfinal'
 import {RxCross2} from "react-icons/rx"
 import { useRouter } from 'next/router';
@@ -75,6 +77,9 @@ export default function ShopSearchTitle() {
         <H2div className='text-danger'>{keyword}</H2div>
         <div className='mt-3 mb-4 d-flex justify-content-between align-items-center'>
         {keyword && <H4div >找到了{items.length}項商品</H4div>}
+        {!keyword && <>
+        <div></div>
+        </>}
         <Box sx={{ minWidth: 150 }} className="me-5 border-3">
         <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label" className='d-flex align-items-center'>排序</InputLabel>
@@ -93,7 +98,7 @@ export default function ShopSearchTitle() {
       </FormControl>
     </Box>
         </div>
-        {filterButton()}
+        {/* {filterButton()} */}
     </div>
   )
 }
