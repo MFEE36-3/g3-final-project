@@ -21,14 +21,17 @@
 
 .inputBox {
     position: absolute;
-    top: 25px;
+    top: 26.4px;
     left: 120px;
     /* z-index: 1; */
-    background-color: rgba(255, 255, 255, 0.5)
+    background-color: rgba(255, 255, 255, 0.75)
 }
 
 .mapLabel {
     background-color: rgba(250, 179, 179, 0.75);
+    font-family: var(--ff1) !important;
+    font-size: var(--h7) !important;
+    color: var(--main-color) !important;
     border-radius: 10px;
     padding: 0px 10px;
     border: 3px solid var(--main-color);
@@ -36,6 +39,10 @@
 
 .userLabel {
     background-color: rgba(255, 179, 39, 0.75);
+    font-family: var(--ff1) !important;
+    font-size: var(--h7) !important;
+    color: rgba(255, 255, 255) !important;
+    text-shadow: 0 0 5px rgb(255, 119, 22);
     border-radius: 10px;
     padding: 0px 10px;
     border: 3px solid rgb(255, 119, 22);
@@ -62,6 +69,7 @@
     font-size: var(--h5);
     color: var(--main-color);
     font-family: var(--ff1);
+    background-color: white;
 }
 
 
@@ -170,7 +178,7 @@
     position: sticky;
     top: 0;
     vertical-align: middle;
-    color:var(--main-color);
+    color: var(--main-color);
     font-family: var(--ff1);
 }
 
@@ -200,9 +208,47 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height:100%;
+    height: 100%;
     width: 100%;
     background-color: rgba(250, 179, 179, 0.3);
     border-radius: 15px;
 }
 
+.chat_inputbtn {
+    font-size: var(--h2);
+    color: var(--main-color);
+    position: absolute;
+    bottom: 52px;
+    left: 180px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 0 5px #999;
+    cursor: pointer;
+}
+
+.chat_inputbtn:hover {
+    background-color: #e0e0e0;
+}
+
+.chat_inputbox {
+    position: absolute;
+    bottom: 51px;
+    left: 190px;
+    background-color: white;
+    padding: 5px 30px 5px 50px;
+    border-radius: 30px;
+}
+
+.switch_box {
+    position: absolute;
+    top: 10px;
+    right: 60px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 30px;
+    padding: 3px 0;
+}
+
+.sss {
+    font-size: 200px !important;
+}
