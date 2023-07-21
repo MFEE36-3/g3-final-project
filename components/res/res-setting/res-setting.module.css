@@ -1,0 +1,7 @@
+.uploadImg {
+    background-color:rgb(237, 232, 202);
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+}

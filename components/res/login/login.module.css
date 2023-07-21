@@ -1,0 +1,9 @@
+.leftdiv {
+    width: 50%;
+    height: 500px;
+    background-color: rgb(220, 26, 26);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content:center
+}
