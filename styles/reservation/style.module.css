@@ -12,7 +12,6 @@
   font-family: var(--ff1);
   color: var(--main-color);
   font-size: var(--h3);
-  user-select: none;
 }
 
 /* 副標題 */
@@ -78,7 +77,6 @@
   align-items:flex-end;
   height: 100%;
   margin: 0;
-  user-select: none;
 }
 
 .top5star{
@@ -153,7 +151,7 @@
 
 /* card樣式 */
 .card{
-  width:21%;
+  /* width:21%; */
   height:350px;
   border: none;
 }
@@ -181,7 +179,7 @@
   border: 1px solid #d9d9d9;
   border-radius: 15px;
   padding: 8px 16px;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease-in;
 }
 
 .carddiv:hover .cardimg {
