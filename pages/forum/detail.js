@@ -13,23 +13,18 @@ export default function Detail() {
           <div className="col-2">
             <div className={styles.category}>
               <Forumbtn />
-              <Forumbtn />
-              <Forumbtn />
-              <Forumbtn />
-              <Forumbtn />
-              <Forumbtn />
             </div>
           </div>
           <div className="col-10">
             <div className={styles.title}>
               <Categorykanban />
-              
-              <Hotnew/>
-              <Articlelist/>
-              <Articlelist/>
-              <Articlelist/>
-              <Articlelist/>
-              <Articlelist/>
+
+              <Hotnew />
+              <Articlelist />
+              <Articlelist />
+              <Articlelist />
+              <Articlelist />
+              <Articlelist />
             </div>
             <div></div>
           </div>

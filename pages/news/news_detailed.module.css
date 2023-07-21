@@ -2,15 +2,17 @@
     border-left: 6px solid var(--main-color);
     padding-left: 30px;
     margin-top: 20px;
+    margin-bottom: 20px;
     
 }
 .title{
     font-size: var(--h3);
     font-weight: bold;
+    margin-bottom: 30px;
 }
 .ptext{
     font-size: var(--h6);
-    font-weight: bold;
+    /* font-weight: bold; */
     margin-top: 30px;
 }
 .container1{
@@ -25,3 +27,8 @@
 .ptext3{
     padding-top: 10px;
 }
+.time{
+    font-size:var(--h8) ;
+}
+.top{
+    }

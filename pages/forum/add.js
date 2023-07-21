@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './add.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
+import Button from '@mui/material/Button';
 
 export default function App() {
   return (
@@ -12,6 +13,12 @@ export default function App() {
         <div className={styles.line}></div>
 
         <button className={styles.kanban}>點擊選擇看板</button>
+        <Button
+          className={styles.btn}
+          sx={{ '&& .MuiTouchRipple-child': { backgroundColor: '#911010' } }}
+        >
+          <div className={styles.btn_text}>點擊選擇看板</div>
+        </Button>
         <div></div>
         <div>
           <div></div>
@@ -23,17 +30,20 @@ export default function App() {
             className={styles.input1}
           ></input>
         </div>
-        <input type="text" placeholder="敘述" className={styles.input2}></input>
+        <textarea
+          type="text"
+          placeholder="敘述"
+          className={styles.input2}
+        ></textarea>
 
         <div className={styles.between}>
           <FontAwesomeIcon icon={faImage} className={styles.icon} />
-            <div className={styles.end}>
-              <button className={styles.cancel}>取消</button>
-              <button className={styles.addbtn}>新增</button>
-            </div>
+          <div className={styles.end}>
+            <button className={styles.cancel}>取消</button>
+            <button className={styles.addbtn}>新增</button>
           </div>
         </div>
-      
+      </div>
     </>
   );
 }

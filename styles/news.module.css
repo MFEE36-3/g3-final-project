@@ -5,7 +5,7 @@
     width: 80%;
     margin: 0 auto;
     box-sizing: border-box;
-    height: 640px;
+    /* height: 640px; */
 }
 .title{
     font-size:var(--h5);
@@ -13,9 +13,15 @@
     
 }
 .line1{
-    border-bottom: 2px solid var(--main-color);
+    border-bottom: 1px solid var(--main-color);
     width: 100%;
-
+    margin-bottom: 30px;
+}
+.line2{
+    border-bottom: 1px solid var(--main-color);
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .box{
@@ -40,4 +46,5 @@
     display: flex;
     gap: 20px;
     padding-top: 20px;
+    /* flex-wrap: wrap; */
 }

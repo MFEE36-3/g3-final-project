@@ -2,6 +2,7 @@
     border: 1px solid gray;
     position: relative;
     margin-left: 25px;
+  
 }
 .after::after{
     content: '文章目錄';
@@ -16,8 +17,22 @@
     padding-top: 15px;
     padding-left: 10px;
     padding-bottom: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
 }
 .pline2{
-
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
  margin-left: 10px;
+}
+.container{
+    margin-top: 30px;
+}
+.pline:hover{
+    text-decoration: underline;
+}
+.pline2:hover{
+    text-decoration: underline;
 }

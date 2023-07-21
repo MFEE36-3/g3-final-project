@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './hotnew.module.css';
 import {BsPencilSquare} from 'react-icons/bs'
 export default function Hotnew() {
+  
   return (
     <>
       <div className={styles.bigcontainer}>

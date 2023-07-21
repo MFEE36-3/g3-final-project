@@ -37,3 +37,7 @@ html {
 main {
   min-height: calc(100vh - 360px - 470px);
 }
+a:hover,a:link,a:visited,a:active {
+  text-decoration: none; /* 取消底線 */
+  color: inherit; /* 使用父元素的文字顏色 */
+}

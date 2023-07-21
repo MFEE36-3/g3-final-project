@@ -1,0 +1,19 @@
+.top{
+    margin-top: 40px;
+}
+.vatar{
+    width: 32px;
+    height: 32px;
+    background-color: red;
+    border-radius: 50%;
+    margin-top: 40px;
+}
+.ptext{
+    font-size: var(--h4);
+    font-weight: bold;
+    margin-top: 10px;
+}
+.img{
+    width: 100%;
+    height: 230px;
+}

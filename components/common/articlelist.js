@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './articlelist.module.css';
 import { BsSuitHeartFill } from 'react-icons/bs';
 import { BiSolidMessageAltDetail } from 'react-icons/bi';
-import { BsBookmark } from 'react-icons/bs';
+import { FaRegBookmark } from 'react-icons/fa';
 export default function Articlelist() {
   return (
     <>
@@ -23,7 +23,7 @@ export default function Articlelist() {
             <div className={styles.like}>777</div>
             <BiSolidMessageAltDetail className={styles.message} />
             <div className={styles.like}>留言數</div>
-            <BsBookmark className={styles.bookmark} />
+            <FaRegBookmark className={styles.bookmark} />
             <div className={styles.like}>收藏</div>
           </div>
         </div>

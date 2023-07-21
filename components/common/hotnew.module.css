@@ -13,9 +13,9 @@
    
 }
 .ptext{
-    font-size: var(--h3);
+    font-size: var(--h4);
     padding-right: 30px;
-    font-weight: bold;
+    /* font-weight: bold; */
     padding-left: 20px;
 }
 .ptext:hover{

@@ -8,7 +8,7 @@ export default function Categorykanban() {
           <div className={styles.avator}>
             <img></img>
           </div>
-          <div className={styles.ptext}>小資美食看板</div>
+          <div className={styles.ptext}>小資美食版</div>
         </div>
         <div className={styles.end}>
         <input placeholder="搜尋" className={styles.put}></input>

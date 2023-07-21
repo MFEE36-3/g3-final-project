@@ -10,6 +10,7 @@
     font-size: var(--h3);
     margin-left: 40px;
     margin-bottom: 40px;
+    font-weight: bolder;
 }
 .container{
     display: flex;
