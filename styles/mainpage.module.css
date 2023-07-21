@@ -1,3 +1,16 @@
+.container {
+    height: 100vh;
+    overflow-y: auto;
+    /* scroll-snap-type: y mandatory; */
+    scroll-behavior: smooth;
+}
+
+.container>div {
+    scroll-snap-align: center;
+}
+
+
+/* 第一頁 */
 .first_page {
     height: 100vh;
     background-color: #FFC700;
@@ -23,56 +36,1043 @@
     height: 100vh;
     display: flex;
     justify-content: space-between;
-    padding: 200px 200px 200px 250px;
+    overflow: hidden;
+    padding: 10% 10% 10% 15%;
 }
 
 .walkbag_line {
-    margin: 0 auto;
+    width: 100%;
+    height: 100%;
 }
 
+/* sidebar */
+
+.sidebar {
+    position: sticky;
+    top: 10px;
+    /* bottom:500px; */
+    width: 160px;
+    list-style: none;
+    margin-left: 50px;
+    margin-bottom: -593px;
+    z-index: 10;
+}
+
+.flyHamburger {
+    margin-left: -50px;
+}
+
+.linkOffstyle {
+    text-decoration: none;
+}
+
+.liBtn {
+    cursor: pointer;
+    padding: 20px 0px;
+    transition:
+        padding 0.2s ease-in-out, color 0.2s ease-in-out;
+    background-position: 0;
+    font-family: var(--ff1);
+    color: var(--main-color);
+    font-size: var(--h6);
+    box-sizing: border-box;
+}
+
+.liBtn:hover {
+    background-image: url('../public/main_page/liCookie.svg');
+    background-repeat: no-repeat;
+    /* background-position: 0 ; */
+    cursor: pointer;
+    padding: 20px 0 20px 40px;
+    font-family: var(--ff1);
+    color: var(--sub-color);
+    border-bottom: 2px solid var(--sub-color);
+    box-sizing: border-box;
+}
+
+
+/* 順路買 */
+
 .filled_walkbag_middle {
-    position: absolute;
+    /* position: absolute; */
+    width: 100%;
+    height: 100%;
     animation: walkbag_middle_run ease-in-out infinite 2s;
 }
 
 @keyframes walkbag_middle_run {
     0% {
-        transform: translateX(0);
+        transform: translateX(-100%);
     }
 
     100% {
-        transform: translateX(40%);
+        transform: translateX(-60%);
     }
 
 }
 
 .filled_walkbag_last {
-    position: absolute;
+    /* position: absolute; */
+    width: 100%;
+    height: 100%;
     animation: walkbag_last_run ease-in-out infinite 2s;
 }
 
 @keyframes walkbag_last_run {
     0% {
-        transform: translateX(0);
+        transform: translateX(-200%);
     }
 
     100% {
-        transform: translateX(80%);
+        transform: translateX(-120%);
     }
 
+}
+
+.shadow_container {
+    height: 100%;
+    position: absolute;
 }
 
 .shadow {
     z-index: -1;
-    margin-left: -90%;
-    margin-top: 35%;
+    top: 100%;
+    /* left: -800%; */
+    position: absolute;
+    animation: shadow ease-in-out infinite 2s;
+    transform-origin: left;
+}
+
+@keyframes shadow {
+    0% {
+        transform: scaleX(0.5);
+        /* left: -200px; */
+    }
+
+    100% {
+        transform: scaleX(0.9);
+        left: 0;
+    }
+
 }
 
 .buyme_left {
-    width: 49.21875%;
-    height: 100%;
+    display: flex;
+    width: 64.29%;
+    position: relative;
 }
 
 .buyme_right {
-    width: 24.21875%;
+    position: relative;
+    width: 31.63%;
+}
+
+.buyme_right>p {
+    margin: 0;
+    font-size: var(--h2);
+    font-family: var(--ff1);
+    color: var(--main-color);
+}
+
+.buyme_right>div>p {
+    margin: 5% 0;
+    font-size: var(--h4);
+    /* font-family: var(--ff1); */
+    font-weight: 600;
+    color: var(--main-color);
+}
+
+.sausage_container {
+    position: relative;
+    margin-left: 50px;
+}
+
+.sausage_left {
+    margin-top: -101px;
+    margin-left: -80px;
+    position: absolute;
+    z-index: 1;
+}
+
+.sausage_left_active {
+    margin-top: -101px;
+    margin-left: -80px;
+    position: absolute;
+    z-index: 1;
+    animation: sausage_left linear 0.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes sausage_left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-85px);
+    }
+}
+
+.sausage_right {
+    margin-top: -101px;
+    margin-left: 80px;
+    position: absolute;
+    z-index: 1;
+}
+
+.sausage_right_active {
+    margin-top: -101px;
+    margin-left: 80px;
+    position: absolute;
+    z-index: 1;
+    animation: sausage_right linear 0.5s;
+    animation-fill-mode: forwards;
+}
+
+/* .sausage_right:hover {
+    margin-top: -101px;
+    margin-left: 175px;
+    position: absolute;
+    z-index: 1;
+} */
+
+@keyframes sausage_right {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(165px);
+    }
+}
+
+
+
+
+.goBtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/* togo & reservation */
+
+.togo_and_reservation {
+    height: 100vh;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding-bottom: 80px;
+}
+
+.runpic_zone {
+    height: 400px;
+    width: 100%;
+    background-color: var(--main-color);
+    overflow: hidden;
+}
+
+.runpic {
+    display: flex;
+    height: 100%;
+    animation: runpic linear infinite 10s;
+}
+
+@keyframes runpic {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-115.5%);
+    }
+}
+
+.runpic_zone .runpic>img {
+    height: 130%;
+    margin-top: -3%;
+}
+
+.bg_sushi {
+    position: absolute;
+    bottom: 20px;
+    left: -150px;
+}
+
+.candy_chief {
+    position: absolute;
+    top: 300px;
+    right: 6%;
+    /* transform: scale(1.2); */
+}
+
+.goReservationTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.goReservationTitle>p {
+    font-family: var(--ff3);
+    color: var(--main-color);
+    font-size: var(--h2);
+    font-weight: 800;
+}
+
+.goReservationTitle>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 65%;
+}
+
+.goReservationTitle>div>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.goReservationTitle>div>div>p:first-of-type {
+    font-family: var(--ff1);
+    font-size: var(--h4);
+    color: var(--main-color);
+}
+
+.goReservationTitle>div>div>p:last-child {
+    /* font-family: var(--ff1); */
+    font-size: var(--h6);
+    color: var(--main-color);
+    font-weight: 600;
+}
+
+.icon_outer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+}
+
+.ForkBowl {
+    transform: scale(10);
+    color: var(--main-color)
+}
+
+/* 論壇 */
+
+.forum {
+    height: 100vh;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5.5% 13%;
+}
+
+.forum>div {
+    flex-grow: 0.43;
+    width: 100%;
+    background-color: var(--main-color);
+    border-radius: 30px;
+}
+
+.bgBubbleTea {
+    position: absolute;
+    z-index: -1;
+    top: -280px;
+}
+
+.bgnews {
+    position: relative;
+    background-image: url('../public/main_page/news.jpg');
+    background-repeat: repeat-x;
+    background-size: contain;
+    overflow: hidden;
+}
+
+.bgforum {
+    position: relative;
+    background-image: url('../public/main_page/forum.jpg');
+    background-repeat: repeat-x;
+    background-size: contain;
+    overflow: hidden;
+}
+
+.newsC {
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    left: -450px;
+    top: -350px;
+    transition: 0.5s ease-in-out;
+}
+
+.newsC:hover {
+    transform: scale(1.5) translateY(150px);
+    background-color: var(--sub-color);
+}
+
+.forumC {
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    right: -450px;
+    top: -350px;
+    transition: 0.5s ease-in-out;
+}
+
+.forumC:hover {
+    transform: scale(1.5) translateY(150px);
+    background-color: var(--sub-color);
+}
+
+.newsText {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+}
+
+.bgnews>p {
+    position: absolute;
+    font-family: var(--ff1);
+    font-size: var(--h2);
+    color: white;
+    left: 260px;
+    top: 20%;
+    pointer-events: none;
+}
+
+.newsBtn {
+    position: absolute;
+    left: 80px;
+    bottom: 15%;
+}
+
+.forumText {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+}
+
+.bgforum>p {
+    position: absolute;
+    font-family: var(--ff1);
+    font-size: var(--h2);
+    color: white;
+    right: 260px;
+    top: 20%;
+    pointer-events: none;
+}
+
+.forumBtn {
+    position: absolute;
+    right: 80px;
+    bottom: 15%;
+}
+
+
+
+
+/* 聯絡 */
+
+.contact {
+    height: calc(100vh - 470px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.contact_us {
+    font-size: var(--h2);
+    color: var(--main-color);
+    font-family: var(--ff1);
+    margin: 0;
+}
+
+.icons {
+    transform: scale(1.5);
+    color: var(--main-color);
+}
+
+.information_group {
+    display: flex;
+    width: 580px;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.information_box {
+    display: flex;
+}
+
+.information_box>p {
+    font-size: var(--h6);
+    color: var(--main-color);
+    margin: 0;
+    font-family: var(--ff3);
+}
+
+.information_box>div {
+    width: 30px;
+}
+
+
+
+/* ----------------RWD-------------------- */
+
+@media screen and (max-width: 390px) {
+
+    .container {
+        height: 100vh;
+        overflow-y: auto;
+        /* scroll-snap-type: y mandatory; */
+        scroll-behavior: smooth;
+    }
+
+    .container>div {
+        scroll-snap-align: center;
+    }
+
+
+    /* 第一頁 */
+    .first_page {
+        height: 100vh;
+        background-color: #FFC700;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .chocoCookie {
+        transform: scale(0.4);
+        margin:0;
+        margin-top:-180%;
+        margin-bottom: 50%;
+    }
+
+    .blank_area {
+        flex-grow: 0.2;
+    }
+
+    .slogan {
+        /* flex-grow: 0.2; */
+        transform: scale(0.45);
+        margin:0;
+        margin-top: 50%;
+    }
+
+    .buy_for_me {
+        height: 100vh;
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 10% 10% 10% 15%;
+    }
+
+    .walkbag_line {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* sidebar */
+
+    .sidebar {
+        position: sticky;
+        top: 10px;
+        /* bottom:500px; */
+        width: 105px;
+        list-style: none;
+        margin-left: -15px;
+        margin-bottom: -369px;
+        z-index: 10;
+    }
+
+    .flyHamburger {
+        margin-left: -60px;
+        margin-bottom: -50px;
+        transform: scale(0.5);
+    }
+
+    .linkOffstyle {
+        text-decoration: none;
+    }
+
+    .liBtn {
+        cursor: pointer;
+        padding:10px 0px;
+        transition:
+            padding 0.2s ease-in-out, color 0.2s ease-in-out;
+        background-position: 0;
+        font-family: var(--ff1);
+        color: var(--main-color);
+        font-size: var(--h9);
+        box-sizing: border-box;
+    }
+
+    .liBtn:hover {
+        background-image: url('../public/main_page/liCookie.svg');
+        background-size: 20%;
+        background-repeat: no-repeat;
+        background-position: 0px 22px;
+        cursor: pointer;
+        padding: 20px 0 10px 20px;
+        font-family: var(--ff1);
+        color: var(--sub-color);
+        border-bottom: 2px solid var(--sub-color);
+        box-sizing: border-box;
+    }
+
+
+    /* 順路買 */
+
+    .filled_walkbag_middle {
+        /* position: absolute; */
+        width: 100%;
+        height: 100%;
+        animation: walkbag_middle_run ease-in-out infinite 2s;
+    }
+
+    @keyframes walkbag_middle_run {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(-60%);
+        }
+
+    }
+
+    .filled_walkbag_last {
+        /* position: absolute; */
+        width: 100%;
+        height: 100%;
+        animation: walkbag_last_run ease-in-out infinite 2s;
+    }
+
+    @keyframes walkbag_last_run {
+        0% {
+            transform: translateX(-200%);
+        }
+
+        100% {
+            transform: translateX(-120%);
+        }
+
+    }
+
+    .shadow_container {
+        height: 100%;
+        position: absolute;
+    }
+
+    .shadow {
+        z-index: -1;
+        top: 100%;
+        /* left: -800%; */
+        position: absolute;
+        animation: shadow ease-in-out infinite 2s;
+        transform-origin: left;
+    }
+
+    @keyframes shadow {
+        0% {
+            transform: scaleX(0.5);
+            /* left: -200px; */
+        }
+
+        100% {
+            transform: scaleX(0.9);
+            left: 0;
+        }
+
+    }
+
+    .buyme_left {
+        display: flex;
+        width: 64.29%;
+        position: relative;
+    }
+
+    .buyme_right {
+        position: relative;
+        width: 31.63%;
+    }
+
+    .buyme_right>p {
+        margin: 0;
+        font-size: var(--h2);
+        font-family: var(--ff1);
+        color: var(--main-color);
+    }
+
+    .buyme_right>div>p {
+        margin: 5% 0;
+        font-size: var(--h4);
+        /* font-family: var(--ff1); */
+        font-weight: 600;
+        color: var(--main-color);
+    }
+
+    .sausage_container {
+        position: relative;
+        margin-left: 50px;
+    }
+
+    .sausage_left {
+        margin-top: -101px;
+        margin-left: -80px;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .sausage_left_active {
+        margin-top: -101px;
+        margin-left: -80px;
+        position: absolute;
+        z-index: 1;
+        animation: sausage_left linear 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes sausage_left {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-85px);
+        }
+    }
+
+    .sausage_right {
+        margin-top: -101px;
+        margin-left: 80px;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .sausage_right_active {
+        margin-top: -101px;
+        margin-left: 80px;
+        position: absolute;
+        z-index: 1;
+        animation: sausage_right linear 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    /* .sausage_right:hover {
+        margin-top: -101px;
+        margin-left: 175px;
+        position: absolute;
+        z-index: 1;
+    } */
+
+    @keyframes sausage_right {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(165px);
+        }
+    }
+
+
+
+
+    .goBtn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    /* togo & reservation */
+
+    .togo_and_reservation {
+        height: 100vh;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding-bottom: 80px;
+    }
+
+    .runpic_zone {
+        height: 400px;
+        width: 100%;
+        background-color: var(--main-color);
+        overflow: hidden;
+    }
+
+    .runpic {
+        display: flex;
+        height: 100%;
+        animation: runpic linear infinite 10s;
+    }
+
+    @keyframes runpic {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-115.5%);
+        }
+    }
+
+    .runpic_zone .runpic>img {
+        height: 130%;
+        margin-top: -3%;
+    }
+
+    .bg_sushi {
+        position: absolute;
+        bottom: 20px;
+        left: -150px;
+    }
+
+    .candy_chief {
+        position: absolute;
+        top: 300px;
+        right: 6%;
+        /* transform: scale(1.2); */
+    }
+
+    .goReservationTitle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .goReservationTitle>p {
+        font-family: var(--ff3);
+        color: var(--main-color);
+        font-size: var(--h2);
+        font-weight: 800;
+    }
+
+    .goReservationTitle>div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 65%;
+    }
+
+    .goReservationTitle>div>div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .goReservationTitle>div>div>p:first-of-type {
+        font-family: var(--ff1);
+        font-size: var(--h4);
+        color: var(--main-color);
+    }
+
+    .goReservationTitle>div>div>p:last-child {
+        /* font-family: var(--ff1); */
+        font-size: var(--h6);
+        color: var(--main-color);
+        font-weight: 600;
+    }
+
+    .icon_outer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 200px;
+    }
+
+    .ForkBowl {
+        transform: scale(10);
+        color: var(--main-color)
+    }
+
+    /* 論壇 */
+
+    .forum {
+        height: 100vh;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5.5% 13%;
+    }
+
+    .forum>div {
+        flex-grow: 0.43;
+        width: 100%;
+        background-color: var(--main-color);
+        border-radius: 30px;
+    }
+
+    .bgBubbleTea {
+        position: absolute;
+        z-index: -1;
+        top: -280px;
+    }
+
+    .bgnews {
+        position: relative;
+        background-image: url('../public/main_page/news.jpg');
+        background-repeat: repeat-x;
+        background-size: contain;
+        overflow: hidden;
+    }
+
+    .bgforum {
+        position: relative;
+        background-image: url('../public/main_page/forum.jpg');
+        background-repeat: repeat-x;
+        background-size: contain;
+        overflow: hidden;
+    }
+
+    .newsC {
+        position: absolute;
+        width: 1000px;
+        height: 1000px;
+        border-radius: 50%;
+        background-color: var(--main-color);
+        left: -450px;
+        top: -350px;
+        transition: 0.5s ease-in-out;
+    }
+
+    .newsC:hover {
+        transform: scale(1.5) translateY(150px);
+        background-color: var(--sub-color);
+    }
+
+    .forumC {
+        position: absolute;
+        width: 1000px;
+        height: 1000px;
+        border-radius: 50%;
+        background-color: var(--main-color);
+        right: -450px;
+        top: -350px;
+        transition: 0.5s ease-in-out;
+    }
+
+    .forumC:hover {
+        transform: scale(1.5) translateY(150px);
+        background-color: var(--sub-color);
+    }
+
+    .newsText {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 3%;
+    }
+
+    .bgnews>p {
+        position: absolute;
+        font-family: var(--ff1);
+        font-size: var(--h2);
+        color: white;
+        left: 260px;
+        top: 20%;
+        pointer-events: none;
+    }
+
+    .newsBtn {
+        position: absolute;
+        left: 80px;
+        bottom: 15%;
+    }
+
+    .forumText {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 3%;
+    }
+
+    .bgforum>p {
+        position: absolute;
+        font-family: var(--ff1);
+        font-size: var(--h2);
+        color: white;
+        right: 260px;
+        top: 20%;
+        pointer-events: none;
+    }
+
+    .forumBtn {
+        position: absolute;
+        right: 80px;
+        bottom: 15%;
+    }
+
+
+
+
+    /* 聯絡 */
+
+    .contact {
+        height: calc(100vh - 470px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .contact_us {
+        font-size: var(--h2);
+        color: var(--main-color);
+        font-family: var(--ff1);
+        margin: 0;
+    }
+
+    .icons {
+        transform: scale(1.5);
+        color: var(--main-color);
+    }
+
+    .information_group {
+        display: flex;
+        width: 580px;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+
+    .information_box {
+        display: flex;
+    }
+
+    .information_box>p {
+        font-size: var(--h6);
+        color: var(--main-color);
+        margin: 0;
+        font-family: var(--ff3);
+    }
+
+    .information_box>div {
+        width: 30px;
+    }
+
+
 }

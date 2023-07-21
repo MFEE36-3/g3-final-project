@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ['via.placeholder.com', 'localhost'],
   },
+  env:{
+    API_SERVER: 'http://localhost:3002'
+  }
   // avoid cors with proxy
   // async rewrites() {
   //   return [
@@ -13,6 +16,17 @@ const nextConfig = {
   //     },
   //   ]
   // },
+
+  // reactStrictMode: true,
+
+  // images: {
+  //   loader: 'akamai',
+  //   path: '',
+  // },
+
+  // basePath: '/next-test',
+  // assetPrefix: '/next-test',
+
 }
 
 module.exports = nextConfig

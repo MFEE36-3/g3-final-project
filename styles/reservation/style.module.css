@@ -1,0 +1,413 @@
+.body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dflex {
+  display: flex;
+}
+
+.fonttitle {
+  font-family: var(--ff1);
+  color: var(--main-color);
+  font-size: var(--h3);
+}
+
+/* 副標題 */
+.subtitle{ 
+  font-family: var(--ff1);
+  color: black;
+  font-size: var(--h5);
+}
+
+.info{
+  padding-top: 50px;
+}
+
+/* 餐廳頁-餐廳名稱 */
+.restauranttitle {
+  font-family: var(--ff1);
+  font-size: var(--h3);
+}
+
+/* 餐廳頁-詳細資訊 */
+.restaurantdetail {
+  font-size: var(--h6);
+}
+
+/* 餐廳頁-資訊對齊用寬度 */
+.detailwidth{
+  width: 75px;
+}
+
+/* 餐廳頁-div間隔 */
+.divmb{
+  margin-bottom: 20px;
+}
+
+/* 餐廳頁-人數欄寬＋間隔 */
+.selectperson{
+  width: 20%;
+  margin-bottom: 10px;
+}
+
+/* 外帶頁-nav */
+.categorynav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-size: var(--h2);
+    color: var(--main-color);
+}
+.categorydiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+}
+
+.categorydivactive{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background-color: var(--main-color);
+  border-radius: 20px;
+  color: white;
+}
+
+
+.categoryfont{
+  font-size: var(--h6);
+}
+
+
+/* ---------------------------------------- */
+
+/* 購物車ShoppingCart */
+
+.cartbody{
+  background-image: url('/background/kodawari_bg_cut.jpg');
+}
+
+.carttitle{
+  font-size: var(--h4);
+  text-align: center;
+}
+
+.shoppingcartdiv{
+  display: flex;
+  font-size: var(--h6);
+  margin: 5px 0px;
+}
+
+.shoppingcartbody1{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.shoppingcartbody2{
+  display: flex;
+  width: 100%;
+  font-size: var(--h5);
+  font-weight: bold;
+  padding: 0px 20px;
+  justify-content: space-between;
+}
+
+.shoppingcartbody3{
+  display: flex;
+}
+
+.cartimage{
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+}
+
+.trashicon{
+  font-size: 28px;
+}
+
+.cartbutton{
+  width: 40px;
+  height:40px;
+  background-color: white;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: var(--main-color);
+  font-weight:bold;
+  border: 3px solid var(--main-color);
+ 
+}
+
+.cartbutton:hover{
+  color: var(--sub-color);
+  border: 3px solid var(--sub-color);
+}
+
+.cartcount{
+  width: 40px;
+  height:40px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 10px;
+  border: 2px solid #d9d9d9;
+}
+
+.cartprice{
+  line-height: 40px;
+}
+
+.hrcolor{
+  border-color:black;
+  border-width: 2px;
+}
+
+.cartsendbutton{
+  width:100%;
+  font-size: 12px;
+  background-color: var(--main-color);
+  border-radius: 20px;
+  border: 0;
+  color: 'white';
+  padding: '5px';  
+    }
+
+
+
+/* ---------------------------------------- */
+
+
+.borderbottom {
+  border-bottom: 2px solid var(--main-color);
+}
+
+.spaceevenly {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.carousel {
+  position: relative;
+  width: 100vw;
+  height: 40vh;
+}
+
+.selectarea {
+  height: 100%;
+  margin: 30px;
+  /* background-color: rgb(243, 202, 212); */
+}
+
+.selectbutton {
+  font-size: 18px;
+  width: 60px;
+  height: 40px;
+  border-radius: 20px;
+  border: 0px;
+  margin: 5px 0px;
+}
+
+.buttonon {
+  background-color: var(--main-color);
+  color: white;
+}
+
+.buttonoff {
+  background-color: #e2dfdd;
+}
+
+.togglebutton {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-color);
+  font-size: var(--h6);
+}
+
+.toggleactive1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-color);
+  color: white;
+  font-size: var(--h6);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.toggleactive2 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-color);
+  color: white;
+  font-size: var(--h6);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.togglediv {
+  width: 400px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  border: 2px solid var(--main-color);
+}
+
+.topdiv {
+  position: relative;
+}
+
+/* 餐廳座位圖 */
+
+.svgicon:hover *{
+  fill: #911010;
+  }
+
+.svg6{
+  position: absolute;
+  top: 10px;
+  left: 20px;
+} 
+
+.svg8{
+  position: absolute; 
+  top: 30px; 
+  right: 30px;
+}
+
+.svg8s{
+  position: absolute;
+  bottom: 40px; 
+  right: 20px;
+}
+
+.svg41{
+  position: absolute; 
+    top: 260px;
+    left: 200px;
+}
+
+.svg42{
+  position: absolute; 
+    top: 260px;
+    left: 350px;
+}
+
+.svg43{
+  position: absolute; 
+    top: 80px;
+    left: 530px;
+}
+
+.svg4s1{
+  position: absolute; 
+    top: 130px;
+    left: 150px;
+}
+
+.svg4s2{
+  position: absolute; 
+    top: 130px;
+    left: 280px;
+}
+
+.svg21{
+  position: absolute; 
+    top: 10px;
+    left: 180px;
+}
+
+.svg22{
+  position: absolute; 
+    top: 10px;
+    left: 240px;
+}
+
+.svg23{
+  position: absolute; 
+    top: 10px;
+    left: 300px;
+}
+
+.svg24{
+  position: absolute; 
+    top: 10px;
+    left: 360px;
+}
+
+.svg2s1{
+  position: absolute; 
+  bottom: 10px;
+    left: 120px;
+}
+
+.svg2s2{
+  position: absolute; 
+  bottom: 10px;
+    left: 250px;
+}
+
+.svg2s3 {
+  position: absolute; 
+  bottom: 10px;
+    left: 380px;
+}
+
+/* --------------------------------------------- */
+.searchbar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  background-color: #e1e0dd;
+  border-radius: 20px;
+  border: none;
+}
+
+.bordernone {
+  border: none;
+}
+
+.searchinput {
+  height: 50px;
+  background: none;
+  border: none;
+}
+
+.borderradius {
+  background-color: #911010 !important;
+  border-radius: 20px;
+  border: none !important;
+}
+
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}

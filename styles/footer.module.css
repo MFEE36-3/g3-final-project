@@ -164,6 +164,7 @@
     z-index: 4;
     color: #dcdbdb;
     font-size: var(--h6);
+    font-family: var(--ff3);
     text-align: center;
     width: 100%;
     bottom: 2%;
@@ -172,10 +173,56 @@
 
 
 
-
+/* --------------RWD----------- */
 
 @media screen and (max-width: 391px) {
-    .gear_rolling {
-        display: none;
+    .copy_right {
+        position: absolute;
+        z-index: 4;
+        color: #dcdbdb;
+        font-size: var(--h11);
+        font-family: var(--ff3);
+        text-align: center;
+        width: 100%;
+        bottom: 46px;
+        line-height: 12px;
     }
+
+    @keyframes belt_running {
+        0% {
+            transform: translateX(0);
+        }
+    
+        40% {
+            transform: translateX(-212px);
+        }
+    
+        100% {
+            transform: translateX(-256px);
+        }
+    }
+
+    .outer {
+        height: 470px;
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+        justify-content: center;
+        padding-bottom: 60px;
+    }
+
+    .belt {
+        position: absolute;
+        height: 100%;
+        z-index: 1;
+        left: 0;
+        bottom: 0px;
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .belt_middle,.belt_left,.belt_right,.shield {
+        margin-bottom: 58px;
+    }
+     
 }

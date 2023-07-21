@@ -8,10 +8,13 @@
   --h5: 20px;
   --h6: 18px;
   --h7: 16px;
-  --h7: 14px;
-  --h8: 12px;
-  --h9: 10px;
-  --h10: 8px;
+  --h8: 14px;
+  --h9: 12px;
+  --h10: 10px;
+  --h11: 8px;
+  --ff1: 'Mochiy Pop One', sans-serif;
+  --ff2: 'Zen Maru Gothic', sans-serif;
+  --ff3: 'Inter', sans-serif;
 }
 
 * {
@@ -36,6 +39,36 @@ html {
 
 main {
   min-height: calc(100vh - 360px - 470px);
+}
+
+
+
+@font-face {
+  font-family: 'Zen Maru Gothic';
+  /* 使用正確的字型名稱 */
+  src: url('/fonts/ZenMaruGothic-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: bold;
+  font-style: normal;
+  src: url('/fonts/Inter-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Mochiy Pop One';
+  font-weight: bold;
+  font-style: normal;
+  src: url('/fonts/MochiyPopOne-Regular.ttf') format('truetype');
+}
+
+@media screen and (max-width: 391px) {
+  main {
+    min-height: calc(100vh - 470px);
+  }
 }
 a:hover,a:link,a:visited,a:active {
   text-decoration: none; /* 取消底線 */

@@ -97,20 +97,25 @@
 
     現在有 2 個，一個是 **_Ipnut_** ，一個是 **_Btn_**。
 
-    (1) Input
+    (1) InputArea
 
         
         使用時在自己的頁面引用如下
-        import Input from '@/components/common/input';
+        import InputArea from '@/components/common/input';
         
         可以傳入的參數如下:
-        <Input label='email' placeholder='請輸入電子信箱' helperText='例如: aaabc@gmail.com' required error/>
+        <InputArea label='email' placeholder='請輸入電子信箱' helperText='例如: aaabc@gmail.com' required error fullWidth  value={testV} onChange={(e) => { console.log('123'); setTestV(e.target.value) }} sx={{margin:20}}/>
         -------------------------------------------------------------------------------------------        
         label       : 欄位名稱   (default='input name')          //自己改欄位名稱
         placeholder : 欄位提示   (default='')                    //看你要不要用，不用就不要傳這個參數 
         helperText  : 欄位說明   (default='')                    //看你要不要用，不用就不要傳這個參數
         required    : 必填欄位   (default=false)                 //要必填的話就傳 required={true} 或是直接傳 required
         error       : 出錯樣式   (default=false)                 //可以寫判斷，填錯或不符欄位要求就設 error={true} 或是直接傳 error
+        fullWidth   : 全寬       (default=false)                 //記得外部容器要定義寬度 fullWidth={true} 或是直接傳 fullWidth
+        value       : 欄位值     (default=undefined)             //這邊填你的state值
+        onChange    : 變更事件   (default=()=>{})                // onChange 要做的事都放這裡,然後記得setState改值確保它是可控
+        sx          : 樣式       (default={{'&:hover fieldset': {backgroundColor: 'rgba(153,153,153,0.2)',}}})
+                                                                //可以用sx改mui樣式
     
     (2)
 
@@ -118,9 +123,14 @@
         import Btn from '@/components/common/btn';
 
         可以傳入的參數如下:
-        <Btn text='送出'/>
+        <Btn text='送出' padding = '5px 5px', fs = '16px', onClick = {handleOnClick} sx={{margin:20}}/>
         -------------------------------------------------------------------------------------------        
-        text       : 按鈕名稱   (default='set text')             //自己改按鈕名稱 其他rwd跟css寫好ㄌ
+        text       : 按鈕名稱    (default='set text')             //改按鈕名稱
+        padding    : 按鈕大小    (default='15px 30px')            //改左右邊界，或統一拿掉
+        fs         : 文字大小    (default='var(--h5)')            //改內部文字大小  
+        onClick    : 點擊事件    (default=()=>{})                 // onClick 要做的事都放這裡
+        sx         : 樣式        (default={{'&& .MuiTouchRipple-child': { 'backgroundColor': '#911010' },}})
+                                                                //可以用sx改mui樣式
 
 <br>
 <br>
