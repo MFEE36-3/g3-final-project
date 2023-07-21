@@ -34,13 +34,14 @@
     "plotly.js-dist-min": "^2.24.2",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
+    "react-bootstrap": "^2.8.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "react-plotly.js": "^2.6.0",
     "smooth-scroll-into-view-if-needed": "^2.0.0",
     "styled-components": "^6.0.2",
-    "uuid": "^9.0.0",
-    "react-plotly.js": "^2.6.0",
     "sweetalert2": "^11.7.18",
+    "uuid": "^9.0.0",
     "validator": "^13.9.0"
   },
   "devDependencies": {

@@ -203,7 +203,7 @@
     }
 
     .outer {
-        height: 470px;
+        height: 180px;
         display: flex;
         align-items: flex-end;
         position: relative;
@@ -213,7 +213,7 @@
 
     .belt {
         position: absolute;
-        height: 100%;
+        height: 180px;
         z-index: 1;
         left: 0;
         bottom: 0px;
