@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
 export default function InputArea({ label = 'input name', placeholder = '', helperText = '', required = false, error = false, fullWidth = false, value, onChange = () => { }, ...props }) {
 
-
+  const [value,setValue] = useState([])
 
   return (
     <>
