@@ -1,8 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function regSuccessComponent() {
+    
+    const router = useRouter()
+
+    const switchToItemPageAfter5sec = () => {
+        setTimeout(() => {
+            router.push('/res/reg-first-time-login')
+        }, 5000);
+    }
+
+    useEffect(()=>{
+        switchToItemPageAfter5sec()
+    }, [])
+    
     return <>
         <div className='container'>regSuccessComponent</div>
         <div className='container d-flex justify-content-center'>
@@ -22,7 +36,7 @@ export default function regSuccessComponent() {
                                 <h5 class="card-title d-flex justify-content-center fw-bold">註冊成功!</h5>
                                 <div className='mt-3'>
                                     <p class="card-text d-flex justify-content-center">即將在5秒鐘後跳轉</p>
-                                    <p class="card-text d-flex justify-content-center">若沒有跳轉，請<Link href='/'>按這裡</Link>以進行跳轉</p>
+                                    <p class="card-text d-flex justify-content-center">若沒有跳轉，請<Link href='/res/item-management'>按這裡</Link>以進行跳轉</p>
                                 </div>
                             </div>
                         </div>

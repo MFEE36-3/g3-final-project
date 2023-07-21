@@ -6,8 +6,12 @@ import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import registerformcss from './res-resgister-form.module.css';
+import Swal from 'sweetalert2'
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function RegisterForm() {
+    const router = useRouter()
 
     const openDayOptions = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日',]
     const [openDays, setOpenDays] = useState([]);
@@ -49,6 +53,7 @@ export default function RegisterForm() {
         res_cate: '',
         photo: showImg,
         description: '',
+        avg_consumption: '',
         fulladdress: '',
         fulladdress1: '',
         open_time: '',
@@ -105,9 +110,7 @@ export default function RegisterForm() {
     const handleChange = (e) => {
         const newShop = { ...shop, [e.target.name]: e.target.value }
         setShop(newShop)
-        // const { name, value } = e.target;
-        // const newShop = { ...shop, [name]: value };
-        // setShop(newShop);
+
     }
 
     const [city, setCity] = useState('')
@@ -168,6 +171,13 @@ export default function RegisterForm() {
 
     const [switchTable, setSwitchTable] = useState('advance')
 
+    // 顯示密碼
+    const [showPassword, setShowPassword] = useState(false);
+
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
     useEffect(() => {
         if (city === '台北市') {
             setArea(areaOptions[0]);
@@ -179,26 +189,13 @@ export default function RegisterForm() {
             setArea(areaOptions[3])
         }
 
-        // if (city !== false) {
-        //     setShop({ ...shop, fulladdress: city + '' })
-        // }
-        // if (city && area) {
-        //     setShop({ ...shop, fulladdress: city + pickArea })
-        // }
-        // if (!showImg) {
-        //     setShop({ ...shop, photo: showImg })
-        // }
-
-        // handleOpenDays()
         handleShowImg()
-    }, [city, area, areaOptions, pickArea, shop, switchTable, showImg, openDays, showImg, resCate]);
 
+    }, [city, area, areaOptions, pickArea, shop, switchTable, showImg, openDays, showImg, resCate,]);
 
-    // 顯示密碼
-    const [showPassword, setShowpassword] = useState(false)
 
     // 驗證表單:先建立error清單
-    const originErrors = { name: '', phone: '', account: '', password: '', password2: '', owner: '', description: '', fulladdress: '', open_time: '', close_time: '', open_days: '' }
+    const originErrors = { name: '', phone: '', account: '', password: '', password2: '', owner: '', description: '',avg_consumption:'', fulladdress: '', open_time: '', close_time: '', open_days: '' }
     const [errors, setErrors] = useState(originErrors)
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -218,7 +215,6 @@ export default function RegisterForm() {
             newError.phone = '請照格式輸入!'
             isPass = false
         }
-
 
         const email_reg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
         if (email_reg.test(shop.account) == false) {
@@ -247,6 +243,11 @@ export default function RegisterForm() {
             isPass = false
         }
 
+        if (!shop.avg_consumption) {
+            newError.avg_consumption = '請填入平均消費金額!'
+            isPass = false
+        }
+
         if (!shop.fulladdress1) {
             newError.fulladdress = '請填寫地址'
             isPass = false
@@ -259,16 +260,35 @@ export default function RegisterForm() {
 
         setErrors(newError)
 
-        if (isPass) { }
-        fetch('http://localhost:3003/res/res-register-form', {
-            method: 'POST',
-            body: JSON.stringify(shop),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(r => r.json()).then(data => console.log(data))
+        if (isPass) {
 
-
+            Swal.fire({
+                title: '您確定要送出註冊資料嗎?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: '確定送出',
+                denyButtonText: `等等再送`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    Swal.fire('成功送出!', '', '確定')
+                    fetch('http://localhost:3003/res/res-register-form', {
+                        method: 'POST',
+                        body: JSON.stringify(shop),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(r => r.json())
+                        .then(data => {
+                            console.log(data)
+                            router.push('/res/reg-success')
+                        })
+                } else if (result.isDenied) {
+                    Swal.fire('已取消送出!', '', '確定')
+                }
+            })
+        }
     }
 
     return (
@@ -282,403 +302,420 @@ export default function RegisterForm() {
         `}
             </style>
             <div className="container">RegisterForm-Component</div>
-            <div className="container">
-                <form className={`${registerformcss.backGroundColor} container col-8 border border-black rounded-4 border-4`}
-                    onSubmit={handleSubmit}
-                >
-                    <h1 className="d-flex justify-content-center fw-bold mt-3">商家註冊</h1>
-                    <hr />
+            <div className="container container-sm-fluid">
+                <div className='row'>
+                    <form className={`${registerformcss.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-4`}
+                    // onSubmit={handleSubmit}
+                    >
+                        <h1 className="d-flex justify-content-center fw-bold mt-3">商家註冊</h1>
+                        <hr />
 
-                    <div className="mx-5">
+                        <div className="col-xxl-mx-5">
 
-                        <div className='name mx-5 d-flex justify-content-start align-items-center'>
-                            <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>店名:</div>
-                            <input
-                                type="text"
-                                className="form-control border-black"
-                                id="shop_name"
-                                placeholder="請輸入店名:"
-                                name='name'
-                                value={shop.name}
-                                onChange={handleChange}
-                            />
-                        </div>
+                            <div className='name mx-5 d-flex justify-content-start align-items-center'>
+                                <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>店名:</div>
+                                <input
+                                    type="text"
+                                    className="form-control border-black"
+                                    id="shop_name"
+                                    placeholder="請輸入店名:"
+                                    name='name'
+                                    value={shop.name}
+                                    onChange={handleChange}
+                                />
+                            </div>
 
-                        <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.name}</div>
+                            <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.name}</div>
 
-                        <div className='phone mx-5 d-flex justify-content-start align-items-center mt-3'>
+                            <div className='phone mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                            <div htmlFor="shop_phone" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>電話:</div>
-                            <input
-                                type="text"
-                                className="form-control border-black"
-                                id="shop_phone"
-                                placeholder="電話格式:0912345678"
-                                name='phone'
-                                value={shop.phone}
-                                onChange={handleChange}
-                            />
+                                <div htmlFor="shop_phone" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>電話:</div>
+                                <input
+                                    type="text"
+                                    className="form-control border-black"
+                                    id="shop_phone"
+                                    placeholder="電話格式:0912345678"
+                                    name='phone'
+                                    value={shop.phone}
+                                    onChange={handleChange}
+                                />
 
-                        </div>
+                            </div>
 
-                        <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.phone}</div>
+                            <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.phone}</div>
 
-                        <div className='account mx-5 d-flex justify-content-start align-items-center mt-3'>
+                            <div className='account mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                            <div htmlFor="shop_account" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>帳號:</div>
-                            <input
-                                type="text"
-                                className="form-control border-black"
-                                id="shop_account"
-                                name='account'
-                                value={shop.account}
-                                onChange={handleChange}
-                                placeholder="請輸入電子信箱:" />
+                                <div htmlFor="shop_account" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>帳號:</div>
+                                <input
+                                    type="text"
+                                    className="form-control border-black"
+                                    id="shop_account"
+                                    name='account'
+                                    value={shop.account}
+                                    onChange={handleChange}
+                                    placeholder="請輸入電子信箱:" />
 
-                        </div>
+                            </div>
 
-                        <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.account}</div>
+                            <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.account}</div>
 
-                        <div className='password mx-5 d-flex justify-content-start align-items-center mt-3'>
+                            <div className='password mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                            <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>密碼:</div>
-                            <input
-                                type={showPassword ? 'text' : 'password'}
-                                className="form-control border-black me-3"
-                                id="shop_password"
-                                placeholder="請輸入密碼，密碼須至少大於六個字:"
-                                name='password'
-                                value={shop.password}
-                                onChange={handleChange}
-                            />
-                            <button className='btn btn-warning' style={{ fontSize: '12px' }} onClick={(e) => {
-                                setShowpassword(!showPassword)
-                            }}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
+                                <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>密碼:</div>
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    className="form-control border-black me-3"
+                                    id="shop_password"
+                                    placeholder="請輸入密碼，密碼須至少大於六個字:"
+                                    name='password'
+                                    value={shop.password}
+                                    onChange={handleChange}
+                                />
+                                <button type='button' className='btn btn-warning' style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
 
-                        </div>
+                            </div>
 
-                        <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.password}</div>
+                            <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.password}</div>
 
-                        <div className='password2 mx-5 d-flex justify-content-start align-items-center mt-3'>
+                            <div className='password2 mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                            <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>確認密碼:</div>
-                            <input
-                                type="password"
-                                className="form-control border-black"
-                                id="shop_password2"
-                                placeholder="請再次輸入密碼:"
-                                name='password2'
-                                value={shop.password2}
-                                onChange={handleChange}
-                            />
+                                <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>確認密碼:</div>
+                                <input
+                                    type="password"
+                                    className="form-control border-black"
+                                    id="shop_password2"
+                                    placeholder="請再次輸入密碼:"
+                                    name='password2'
+                                    value={shop.password2}
+                                    onChange={handleChange}
+                                />
 
-                        </div>
+                            </div>
 
-                        <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.password2}</div>
+                            <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.password2}</div>
 
-                        <div className='owner mx-5 d-flex justify-content-start align-items-center mt-3'>
+                            <div className='owner mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                            <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>負責人姓名:</div>
-                            <input
-                                type="text"
-                                className="form-control border-black"
-                                id="shop_owner"
-                                placeholder="請輸入負責人姓名:"
-                                name='owner'
-                                value={shop.owner}
-                                onChange={handleChange}
-                            />
+                                <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>負責人姓名:</div>
+                                <input
+                                    type="text"
+                                    className="form-control border-black"
+                                    id="shop_owner"
+                                    placeholder="請輸入負責人姓名:"
+                                    name='owner'
+                                    value={shop.owner}
+                                    onChange={handleChange}
+                                />
 
-                        </div>
+                            </div>
 
-                        <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.owner}</div>
+                            <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.owner}</div>
 
-                        <div className='res_cate mx-5 d-flex justify-content-start align-items-center mt-3'>
+                            <div className='res_cate mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                            <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>餐廳分類:</div>
-                            <select value={resCate} onChange={(e) => {
-                                setResCate(e.target.value)
-                                setShop({...shop,res_cate:e.target.value})
-                            }}>
-                                <option value={``}>---請選擇餐廳分類---</option>
-                                {res_cateOptions.map((v, i) => {
-                                    return <option key={i} value={v} onChange={handleResCate}>{v}</option>
-                                })}
-                            </select>
+                                <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>餐廳分類:</div>
+                                <select value={resCate} onChange={(e) => {
+                                    setResCate(e.target.value)
+                                    setShop({ ...shop, res_cate: e.target.value })
+                                }}>
+                                    <option value={``}>---請選擇餐廳分類---</option>
+                                    {res_cateOptions.map((v, i) => {
+                                        return <option key={i} value={v} onChange={handleResCate}>{v}</option>
+                                    })}
+                                </select>
 
-                        </div>
+                            </div>
 
-                        <div className="photo d-flex justify-content-start mt-3 mx-5">
-                            <div className="d-flex flex-row align-items-center">
-                                <div htmlFor="res_photo" className="form-label mb-3">
+                            <div className="photo d-flex justify-content-start mt-3 mx-5">
+                                <div className="d-flex flex-row align-items-center">
+                                    <div htmlFor="res_photo" className="form-label mb-3">
 
-
-                                </div>
-
-                                <div className='d-flex flex-column mb-3'>
-                                    {showImg == false ? (<div htmlFor="res_photo" className={`${registerformcss.uploadImg} me-3`}>
-                                        商家圖片:
-                                    </div>) : (
-                                        <div
-                                            htmlFor="res_photo"
-                                            className={`${registerformcss.uploadImg} me-3`}
-                                            name='photo'
-                                            onChange={handleChange}>
-
-                                            <img src={`${imgPreview + showImg}`} style={{ height: '300px', width: '300px', overflow: 'static' }} alt="" />
-
-                                        </div>)}
-
-                                    <div className="mt-3">
-                                        <input type="file" name='preImg' onChange={previewImg}></input>
-                                        {/* <div id="res_photo" className="form-text"></div> */}
 
                                     </div>
-                                </div>
+
+                                    <div className='d-flex flex-column mb-3'>
+                                        {showImg == false ? (<div htmlFor="res_photo" className={`${registerformcss.uploadImg} me-3`}>
+                                            商家圖片:
+                                        </div>) : (
+                                            <div
+                                                htmlFor="res_photo"
+                                                className={`${registerformcss.uploadImg} me-3`}
+                                                name='photo'
+                                                onChange={handleChange}>
+
+                                                <img src={`${imgPreview + showImg}`} style={{ height: '300px', width: '300px', overflow: 'static' }} alt="" />
+
+                                            </div>)}
+
+                                        <div className="mt-3">
+                                            <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
+                                            {/* <div id="res_photo" className="form-text"></div> */}
+
+                                        </div>
+                                    </div>
 
 
-                                {/* https://github.com/mfee-react/example-projects/tree/main/%E5%9C%96%E6%AA%94%E4%B8%8A%E5%82%B3%E8%88%87%E9%A0%90%E8%A6%BD */}
-
-                            </div>
-                        </div>
-
-                        <div className='description mx-5 d-flex justify-content-start align-items-center mt-3'>
-
-                            <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>餐廳敘述:</div>
-                            <textarea
-                                className="form-control border-black"
-                                id="description"
-                                placeholder="請簡單介紹您的餐廳!"
-                                name='description'
-                                value={shop.description}
-                                onChange={handleChange}
-                            />
-
-                        </div>
-
-                        <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.description}</div>
-
-                        <div className='address mx-5 fw-bold mt-3'>請輸入完整地址:</div>
-                        <div className="d-flex justify-content-between mt-1 col-6 mx-5">
-
-                            <select name='city' value={city} onChange={(e) => {
-                                setCity(e.target.value)
-                                setShop({ ...shop, city: e.target.value })
-                            }} className='me-1'>
-                                <option value=''>---請選擇城市---</option>
-                                {cityOptions.map((v, i) => {
-                                    return <option key={i} value={v}>{v}</option>
-                                })}
-                            </select>
-
-                            <select name='area' value={pickArea} onChange={(e) => {
-                                setPickArea(e.target.value)
-                                setShop({ ...shop, area: e.target.value })
-                            }}
-                                className=''
-                            >
-                                <option value=''>---請選擇鄉鎮---</option>
-                                {area.map((v, i) => {
-                                    return <option key={i} value={v}>{v}</option>
-                                })}
-                            </select>
-
-                        </div>
-
-                        <div className="d-flex justify-content-between mt-3 mx-5">
-                            <div className="">
-
-                                <div className='d-flex justify-content-start  align-items-center'>
-                                    <input
-                                        type="text"
-                                        className="form-control border-black"
-                                        id="fulladdress"
-                                        placeholder="請填入完整地址"
-                                        name='fulladdress'
-                                        value={city + pickArea}
-                                        onChange={handleChange}
-                                    />
-                                    <div className='mx-2'>-</div>
-                                    <input
-                                        type='text'
-                                        className="form-control border-black"
-                                        placeholder="請填入完整地址123"
-                                        name='fulladdress1'
-                                        value={shop.fulladdress1}
-                                        onChange={handleChange}
-
-                                    />
-                                </div>
-
-                                <div id="shop" className="form-text">
-                                    請填入完整地址
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className='error pe-5 mx-5 fs-5 fw-bold d-flex justify-content-start'>{errors.fulladdress}</div>
-
-                        <div className="open_time d-flex flex-column mb-3 mt-3 mx-5">
-                            <div id="open_time" className="form-text fw-bold">
-                                請選擇營業時間
-                            </div>
-                            <div className="col-3">
-                                <div className="d-flex flex-row">
-                                    <select className="form-select col-3" value={shop.open_time} onChange={(e) => {
-                                        setShop({ ...shop, open_time: e.target.value })
-                                    }}>
-
-                                        <option selected>開始營業時間</option>
-                                        {Array(24).fill(1).map((v, i) => {
-                                            return <option key={i} value={`${i}:00`}>{`${i}:00`}</option>
-                                        })}
-
-                                    </select>
-
-                                    <div className="mx-3">:</div>
-
-                                    <select className="form-select col-3" value={shop.close_time} onChange={(e) => {
-                                        setShop({ ...shop, close_time: e.target.value })
-                                    }}>
-
-                                        <option selected>結束營業時間</option>
-                                        {Array(24).fill(1).map((v, i) => {
-                                            return <option key={i} value={`${i}:00`}>{`${i}:00`}</option>
-                                        })}
-
-                                    </select>
+                                    {/* https://github.com/mfee-react/example-projects/tree/main/%E5%9C%96%E6%AA%94%E4%B8%8A%E5%82%B3%E8%88%87%E9%A0%90%E8%A6%BD */}
 
                                 </div>
                             </div>
-                        </div>
 
-                        <div className='error mx-5 pe-5 fs-5 fw-bold d-flex justify-content-start'>{errors.open_time}</div>
+                            <div className='description mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                        <div className="d-flex justify-content-between mt-3 mx-5">
-                            <div className="">
-                                <div id="open_time" className="form-text fw-bold">
-                                    請選擇營業日期:
-                                </div>
+                                <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>餐廳敘述:</div>
+                                <textarea
+                                    className="form-control border-black"
+                                    id="description"
+                                    placeholder="請簡單介紹您的餐廳!"
+                                    name='description'
+                                    value={shop.description}
+                                    onChange={handleChange}
+                                />
 
-                                <div className="d-flex justify-content-between mt-2">
-                                    {openDayOptions.map((v, i) => {
-                                        return <label key={i} className='me-4'>
-                                            <input
-                                                className=''
-                                                type='checkbox'
-                                                value={v}
-                                                checked={shop.open_days.includes(v)}
-                                                onChange={handleOpenDays}
-                                            />{v}
-                                        </label>
+                            </div>
+
+                            <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.description}</div>
+
+                            <div className='avg_consumption mx-5 d-flex justify-content-start align-items-center mt-3'>
+
+                                <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>平均消費金額:</div>
+                                <input
+                                    type="text"
+                                    className="form-control border-black"
+                                    id="avg_consumption"
+                                    placeholder="方便消費者認識您的餐廳!:"
+                                    name='avg_consumption'
+                                    value={shop.avg_consumption}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.avg_consumption}</div>
+
+                            <div className='address mx-5 fw-bold mt-3'>請輸入完整地址:</div>
+                            <div className="d-flex justify-content-between mt-1 col-6 mx-5">
+
+                                <select name='city' value={city} onChange={(e) => {
+                                    setCity(e.target.value)
+                                    setShop({ ...shop, city: e.target.value })
+                                }} className='me-1'>
+                                    <option value=''>---請選擇城市---</option>
+                                    {cityOptions.map((v, i) => {
+                                        return <option key={i} value={v}>{v}</option>
                                     })}
+                                </select>
 
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div className="col-5 mx-5">
-                            <div className="mt-3 fw-bold">如欲開放訂位功能，請勾選並填寫桌型:</div>
-
-                            <div className="d-flex flex-row my-3">
-
-                                <button
-                                    className='form-label border border-black rounded-3 px-3 py-2 fw-bold me-5'
-                                    style={{ backgroundColor: '#FCC8A1' }}
-                                    onClick={(e) => {
-                                        setSwitchTable('normal')
-                                        setShop({ ...shop, table_number: '' })
-                                    }}
-                                >一般桌型</button>
-
-                                <button
-                                    className='form-label border border-black rounded-3 px-3 py-2 fw-bold ms-1'
-                                    style={{ backgroundColor: '#FCC8A1' }}
-                                    onClick={(e) => {
-                                        setSwitchTable('advance')
-                                        setShop({ ...shop, table_number: '' })
-                                    }}
-                                >進階桌型</button>
+                                <select name='area' value={pickArea} onChange={(e) => {
+                                    setPickArea(e.target.value)
+                                    setShop({ ...shop, area: e.target.value })
+                                }}
+                                    className=''
+                                >
+                                    <option value=''>---請選擇鄉鎮---</option>
+                                    {area.map((v, i) => {
+                                        return <option key={i} value={v}>{v}</option>
+                                    })}
+                                </select>
 
                             </div>
 
-                            {switchTable == 'normal' ?
-                                <div className='normal'>
-                                    <div className='fw-bold'>一般桌型:</div>
-                                    <input
-                                        type="text"
-                                        className="form-control border-black"
-                                        id="shop_capacity"
-                                        placeholder="請填入可內用人數"
-                                        name='table_number'
-                                        value={shop.table_number}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                :
-                                <div className="advance mt-3" id='advanceTable'>
-                                    <div>(這個是進階桌型的部分)</div>
-                                    <div className='fw-bold'>進階桌型:</div>
+                            <div className="d-flex justify-content-between mt-3 mx-5">
+                                <div className="">
 
-                                    <div className=" d-flex align-items-center justify-content-between">
-                                        <select className="form-select me-3">
-                                            <option selected>兩人桌</option>
-                                            <option value="1">四人桌</option>
-                                            <option value="2">六人桌</option>
-                                            <option value="3">八人桌</option>
-                                        </select>
+                                    <div className='d-flex justify-content-start  align-items-center'>
                                         <input
                                             type="text"
                                             className="form-control border-black"
-                                            id="shop_tables"
-                                            placeholder="請填入桌數"
+                                            id="fulladdress"
+                                            placeholder="請填入完整地址"
+                                            name='fulladdress'
+                                            value={city + pickArea}
+                                            onChange={handleChange}
+                                        />
+                                        <div className='mx-2'>-</div>
+                                        <input
+                                            type='text'
+                                            className="form-control border-black"
+                                            placeholder="請填入完整地址123"
+                                            name='fulladdress1'
+                                            value={shop.fulladdress1}
+                                            onChange={handleChange}
+
+                                        />
+                                    </div>
+
+                                    <div id="shop" className="form-text">
+                                        請填入完整地址
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className='error pe-5 mx-5 fs-5 fw-bold d-flex justify-content-start'>{errors.fulladdress}</div>
+
+                            <div className="open_time d-flex flex-column mb-3 mt-3 mx-5">
+                                <div id="open_time" className="form-text fw-bold">
+                                    請選擇營業時間
+                                </div>
+                                <div className="col-3">
+                                    <div className="d-flex flex-row">
+                                        <select className="form-select col-3" value={shop.open_time} onChange={(e) => {
+                                            setShop({ ...shop, open_time: e.target.value })
+                                        }}>
+
+                                            <option selected>開始營業時間</option>
+                                            {Array(24).fill(1).map((v, i) => {
+                                                return <option key={i} value={`${i}:00`}>{`${i}:00`}</option>
+                                            })}
+
+                                        </select>
+
+                                        <div className="mx-3">:</div>
+
+                                        <select className="form-select col-3" value={shop.close_time} onChange={(e) => {
+                                            setShop({ ...shop, close_time: e.target.value })
+                                        }}>
+
+                                            <option selected>結束營業時間</option>
+                                            {Array(24).fill(1).map((v, i) => {
+                                                return <option key={i} value={`${i}:00`}>{`${i}:00`}</option>
+                                            })}
+
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className='error mx-5 pe-5 fs-5 fw-bold d-flex justify-content-start'>{errors.open_time}</div>
+
+                            <div className="d-flex justify-content-between mt-3 mx-5">
+                                <div className="">
+                                    <div id="open_time" className="form-text fw-bold">
+                                        請選擇營業日期:
+                                    </div>
+
+                                    <div className="d-flex justify-content-between mt-2">
+                                        {openDayOptions.map((v, i) => {
+                                            return <label key={i} className='me-4'>
+                                                <input
+                                                    className=''
+                                                    type='checkbox'
+                                                    value={v}
+                                                    checked={shop.open_days.includes(v)}
+                                                    onChange={handleOpenDays}
+                                                />{v}
+                                            </label>
+                                        })}
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div className="col-5 mx-5">
+                                <div className="mt-3 fw-bold">如欲開放訂位功能，請勾選並填寫桌型:</div>
+
+                                <div className="d-flex flex-row my-3">
+
+                                    <button
+                                        className='form-label border border-black rounded-3 px-3 py-2 fw-bold me-5'
+                                        style={{ backgroundColor: '#FCC8A1' }}
+                                        onClick={(e) => {
+                                            setSwitchTable('normal')
+                                            setShop({ ...shop, table_number: '' })
+                                        }}
+                                    >一般桌型</button>
+
+                                    <button
+                                        className='form-label border border-black rounded-3 px-3 py-2 fw-bold ms-1'
+                                        style={{ backgroundColor: '#FCC8A1' }}
+                                        onClick={(e) => {
+                                            setSwitchTable('advance')
+                                            setShop({ ...shop, table_number: '' })
+                                        }}
+                                    >進階桌型</button>
+
+                                </div>
+
+                                {switchTable == 'normal' ?
+                                    <div className='normal'>
+                                        <div className='fw-bold'>一般桌型:</div>
+                                        <input
+                                            type="text"
+                                            className="form-control border-black"
+                                            id="shop_capacity"
+                                            placeholder="請填入可內用人數"
                                             name='table_number'
                                             value={shop.table_number}
                                             onChange={handleChange}
                                         />
                                     </div>
+                                    :
+                                    <div className="advance mt-3" id='advanceTable'>
+                                        <div>(這個是進階桌型的部分)</div>
+                                        <div className='fw-bold'>進階桌型:</div>
 
-                                    <div>
-                                        <button
-                                            className='form-label border border-black rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
-                                            style={{ backgroundColor: '#FCC8A1' }}
-                                            onClick={(e) => {
-                                                // addTable.createElement('<select>')
-                                            }}
-                                        >+新增桌型</button>
+                                        <div className=" d-flex align-items-center justify-content-between">
+                                            <select className="form-select me-3">
+                                                <option selected>兩人桌</option>
+                                                <option value="1">四人桌</option>
+                                                <option value="2">六人桌</option>
+                                                <option value="3">八人桌</option>
+                                            </select>
+                                            <input
+                                                type="text"
+                                                className="form-control border-black"
+                                                id="shop_tables"
+                                                placeholder="請填入桌數"
+                                                name='table_number'
+                                                value={shop.table_number}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <button
+                                                className='form-label border border-black rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
+                                                style={{ backgroundColor: '#FCC8A1' }}
+                                                onClick={(e) => {
+                                                    // addTable.createElement('<select>')
+                                                }}
+                                            >+新增桌型</button>
+                                        </div>
                                     </div>
+                                }
+
+                            </div>
+
+                            <div className="d-flex justify-content-between mt-3 mx-5">
+                                <div className="justify-content-between d-flex align-items-center">
+                                    <input
+                                        type="text"
+                                        className="form-control border-black"
+                                        id="shop_verify-num"
+                                        placeholder="請填入驗證碼" />
+                                    <button
+                                        className='form-label border border-black rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
+                                        style={{ backgroundColor: '#FCC8A1' }}>寄送驗證碼</button>
                                 </div>
-                            }
+                            </div>
 
-                        </div>
+                            <hr />
 
-                        <div className="d-flex justify-content-between mt-3 mx-5">
-                            <div className="justify-content-between d-flex align-items-center">
-                                <input
-                                    type="text"
-                                    className="form-control border-black"
-                                    id="shop_verify-num"
-                                    placeholder="請填入驗證碼" />
-                                <button
-                                    className='form-label border border-black rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
-                                    style={{ backgroundColor: '#FCC8A1' }}>寄送驗證碼</button>
+                            <div className='d-flex justify-content-center'>
+                                <button type="submit" className="btn btn-primary my-3 mx-3" onSubmit={handleSubmit} onClick={handleSubmit}>
+                                    確認送出
+                                </button>
+
+                                <button type="reset" className="btn btn-primary my-3 mx-3">
+                                    取消填寫
+                                </button>
                             </div>
                         </div>
-
-                        <hr />
-
-                        <div className='d-flex justify-content-center'>
-                            <button type="submit" className="btn btn-primary my-3 mx-3">
-                                確認送出
-                            </button>
-
-                            <button type="reset" className="btn btn-primary my-3 mx-3">
-                                取消填寫
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </>
     );

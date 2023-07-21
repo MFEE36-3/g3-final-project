@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import styles from '@/components/res/item/add-item.module.css';
-import { add } from 'lodash';
+import { add, shuffle } from 'lodash';
 import Link from 'next/link';
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router';
@@ -11,6 +11,24 @@ import { useRouter } from 'next/router';
 export default function AddNewItem() {
 
   const router = useRouter()
+
+  console.log(router)
+  // console.log('--------')
+  // console.log(router.asPath)
+  const itemId = router.asPath.split('/')[4].toString()
+  console.log('itemId:'+itemId)  
+
+  const getSingleItem = async () => {
+    fetch(`http://localhost:3003/res/item-management/editItem/${itemId}`,{
+      method:'GET'
+    })
+      .then(r => r.json())
+      .then(data => console.log(data))
+  }
+
+  useEffect(() => {
+    getSingleItem()
+  }, [])
 
   const [foodCate, setFoodCate] = useState('')
   const foodCateOptions = ['前菜', '主菜', '甜點', '飲料']
@@ -123,7 +141,7 @@ export default function AddNewItem() {
             .then(data => {
               console.log(data);
             })
-          // router.push('/res/add-item-over')
+          router.push('/res/add-item-over')
         } else if (result.isDenied) {
           Swal.fire('取消新增', '', 'info')
         }
@@ -145,12 +163,6 @@ export default function AddNewItem() {
       </style>
       <div className="container d-flex justify-content-center">
         <div>
-          <div className="container-sm">100% wide until small breakpoint</div>
-          <div className="container-md">100% wide until medium breakpoint</div>
-          <div className="container-lg">100% wide until large breakpoint</div>
-          <div className="container-xl">100% wide until extra large breakpoint</div>
-          <div className="container-xxl">100% wide until extra extra large breakpoint</div>
-
           <div className="card p-5 rounded-3 border-black border-3" style={{ backgroundColor: '#FFE2E2' }}>
             <div className="card-title d-flex justify-content-center fw-bold fs-5">
               <Btn text="新增商品" />

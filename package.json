@@ -28,6 +28,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
     "react-plotly.js": "^2.6.0",
+    "sweetalert2": "^11.7.18",
     "validator": "^13.9.0"
   },
   "devDependencies": {

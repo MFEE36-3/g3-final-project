@@ -1,16 +1,70 @@
+// import React from "react";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import EditItemComponent from "@/components/res/item/edit-item-component";
+
+// export default function EditItem(){
+//     return<>
+//         <div className="container">EditItem</div>
+//         <EditItemComponent />
+//     </>
+// }
+
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import styles from '@/components/res/item/add-item.module.css';
-import { add } from 'lodash';
+import { add, head, shuffle } from 'lodash';
 import Link from 'next/link';
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router';
+import { headers } from 'next/dist/client/components/headers';
+import axios from 'axios'
 
 export default function AddNewItem() {
 
+  // 把從後端拿到的資料塞進state
+  const [gotData, setGotData] = useState({
+    shop_id: 0,
+    food_img: "",
+    food_title: '',
+    food_des: '',
+    food_cate: 0,
+    food_price: 0,
+    food_note: '',
+    create_time: '',
+    food_id: 0,
+  })
+
+  const handleEdit = (e) => {
+    if (e && e.target) {
+      const newEditItem = { ...gotData, [e.target.name]: e.target.value }
+      setGotData(newEditItem)
+    }
+  }
+
   const router = useRouter()
+
+  const getSingleItem = async (food_id) => {
+    fetch(`http://localhost:3003/res/item-management/editItem/${food_id}`)
+      .then(r => r.json())
+      .then(data => {
+        console.log(data)
+        setGotData(data.data[0])
+      })
+  }
+
+  // console.log(gotData)
+
+  useEffect(() => {
+    if (router.query) {
+      console.log(router)
+      console.log(router.query)
+      const editItemPid = router.query.editItemPid;
+      console.log(editItemPid)  // 99
+      getSingleItem(editItemPid);
+    }
+  }, [router.query])
 
   const [foodCate, setFoodCate] = useState('')
   const foodCateOptions = ['前菜', '主菜', '甜點', '飲料']
@@ -25,10 +79,10 @@ export default function AddNewItem() {
     note: '',
   })
 
-  const handleAddItem = (e) => {
-    const newAddItem = { ...addItem, [e.target.name]: e.target.value }
-    setAddItem(newAddItem)
-  }
+  // const handleAddItem = (e) => {
+  //   const newAddItem = { ...addItem, [e.target.name]: e.target.value }
+  //   setAddItem(newAddItem)
+  // }
 
 
   const [getImg, setGetImg] = useState(null)
@@ -50,7 +104,12 @@ export default function AddNewItem() {
         setGetImg(data.filename);
       });
   };
-  console.log(getImg)
+  // console.log(getImg)
+
+  // 把新圖片放回狀態
+  const newImg = () => {
+    setGotData({ ...gotData, food_img: getImg })
+  }
 
   const handlePhoto = () => {
     setAddItem({ ...addItem, photo: getImg })
@@ -60,6 +119,8 @@ export default function AddNewItem() {
 
   useEffect(() => {
     handlePhoto()
+    // handleAddItem()
+    newImg()
   }, [getImg])
 
   const originErrors = {
@@ -80,22 +141,22 @@ export default function AddNewItem() {
 
     let isPass = true
 
-    if (!addItem.name) {
+    if (!gotData.food_title) {
       newErrors.name = '請填入商品名稱'
       isPass = false
     }
 
-    if (!addItem.description) {
+    if (!gotData.food_des) {
       newErrors.description = '請填入商品敘述'
       isPass = false
     }
 
-    if (!addItem.foodCate) {
+    if (!gotData.food_cate) {
       newErrors.foodCate = '請選擇商品分類'
       isPass = false
     }
 
-    if (!addItem.price) {
+    if (!gotData.food_price) {
       newErrors.price = '請填入商品價格'
       isPass = false
     }
@@ -104,17 +165,17 @@ export default function AddNewItem() {
     if (isPass) {
 
       Swal.fire({
-        title: '你確定要新增此項商品嗎?',
+        title: '你確定要編輯此項商品嗎?',
         showDenyButton: true,
         showCancelButton: false,
-        confirmButtonText: '確定新增',
-        denyButtonText: `取消新增`,
+        confirmButtonText: '確定編輯',
+        denyButtonText: `取消編輯`,
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire('新增成功!', '', 'success')
-          fetch('http://localhost:3003/res/add-item', {
-            method: 'POST',
-            body: JSON.stringify(addItem),
+          fetch(`http://localhost:3003/res/${gotData.food_id}`, {
+            method: 'PUT',
+            body: JSON.stringify(gotData),
             headers: {
               'Content-Type': 'application/json'
             }
@@ -145,15 +206,11 @@ export default function AddNewItem() {
       </style>
       <div className="container d-flex justify-content-center">
         <div>
-          <div className="container-sm">100% wide until small breakpoint</div>
-          <div className="container-md">100% wide until medium breakpoint</div>
-          <div className="container-lg">100% wide until large breakpoint</div>
-          <div className="container-xl">100% wide until extra large breakpoint</div>
-          <div className="container-xxl">100% wide until extra extra large breakpoint</div>
-
           <div className="card p-5 rounded-3 border-black border-3" style={{ backgroundColor: '#FFE2E2' }}>
             <div className="card-title d-flex justify-content-center fw-bold fs-5">
-              <Btn text="新增商品" />
+              <Link href={`/res/add-item`}>
+                <Btn text="新增商品" />
+              </Link>
               <Link href={`/res/item-management`}>
                 <Btn text="商品清單" />
               </Link>
@@ -164,16 +221,21 @@ export default function AddNewItem() {
                 <div className={`${styles.uploadImg}`}>
                   <div className="d-flex align-items-center fw-bold fs-5">
 
-                    <div>
+                    {getImg ? (<div>
                       <img src={`${imgLink}${getImg}`} style={{ height: '400px', width: '400px', overflow: 'static', border: '10px' }} />
-                    </div>
+                    </div>) : (<div>
+                      <img src={`${imgLink}${gotData.food_img}`} style={{ height: '400px', width: '400px', overflow: 'static', border: '10px' }} />
+                    </div>)}
+
+
+                    {/* <div>
+                      <img src={`${imgLink}${gotData.food_img}`} style={{ height: '400px', width: '400px', overflow: 'static', border: '10px' }} />
+                    </div> */}
 
                   </div>
                 </div>
 
-
                 <input type="file" name='preImg' id='preImg' className='mt-3' accept="image/jpeg, image/png" onChange={previewImg}></input>
-
 
                 <div className='name mx-5 mt-3 d-flex justify-content-start align-items-center'>
                   <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>商品名稱</div>
@@ -182,9 +244,9 @@ export default function AddNewItem() {
                     className="form-control border-black"
                     id="name"
                     placeholder="請輸入商品名稱:"
-                    name='name'
-                    value={addItem.name}
-                    onChange={handleAddItem}
+                    name='food_title'
+                    value={gotData.food_title}
+                    onChange={handleEdit}
                   />
                 </div>
 
@@ -197,16 +259,16 @@ export default function AddNewItem() {
                     className="form-control border-black"
                     id="name"
                     placeholder="請輸入商品敘述:"
-                    name='description'
-                    value={addItem.description}
-                    onChange={handleAddItem}
+                    name='food_des'
+                    value={gotData.food_des}
+                    onChange={handleEdit}
                   />
                 </div>
                 <div className='error fs-5 fw-bold'>{errors.description}</div>
 
                 <div className='mt-3 mx-5 mt-3 d-flex justify-content-start align-items-center'>
                   <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>商品分類</div>
-                  <select name='foodCate' value={addItem.foodCate} onChange={(e) => {
+                  <select name='foodCate' value={gotData.food_cate} onChange={(e) => {
                     setAddItem({ ...addItem, foodCate: e.target.value })
                   }} >
                     <option value={''}>---請選擇商品分類---</option>
@@ -225,9 +287,9 @@ export default function AddNewItem() {
                     className="form-control border-black"
                     id="name"
                     placeholder="請輸入商品價格:"
-                    name='price'
-                    value={addItem.price}
-                    onChange={handleAddItem}
+                    name='food_price'
+                    value={gotData.food_price}
+                    onChange={handleEdit}
                   />
                 </div>
                 <div className='error fs-5 fw-bold'>{errors.price}</div>
@@ -239,9 +301,9 @@ export default function AddNewItem() {
                     className="form-control border-black"
                     id="name"
                     placeholder="請輸入商品備註:"
-                    name='note'
-                    value={addItem.note}
-                    onChange={handleAddItem}
+                    name='food_note'
+                    value={gotData.food_note}
+                    onChange={handleEdit}
                   />
                 </div>
 
@@ -265,3 +327,4 @@ export default function AddNewItem() {
     </>
   );
 }
+
