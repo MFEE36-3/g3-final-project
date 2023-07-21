@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 
 export default function InputArea({ label = 'input name', placeholder = '', helperText = '', required = false, error = false, fullWidth = false, value, onChange = () => { }, ...props }) {
 
-  const [value,setValue] = useState([])
 
   return (
     <>
