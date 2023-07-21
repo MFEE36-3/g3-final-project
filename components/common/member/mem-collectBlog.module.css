@@ -14,6 +14,7 @@
   transform: scale(1.1);
   transition: all 0.2s ease-in;
   color: #911010;
+  border-top: 5px solid rgba(123, 123, 123, 0.5);
 }
 
 .box {
@@ -28,4 +29,39 @@
   display: flex;
   justify-content: start;
   width: 60%;
+}
+
+.box3 {
+  margin-inline: 10px;
+  display: flex;
+  justify-content: start;
+  width: 60%;
+}
+
+@media screen and (max-width: 391px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+  }
+
+  .box {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .box2 {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .box3 {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding-right: 20px;
+    font-size: 12px;
+    margin-top: 10px;
+  }
 }

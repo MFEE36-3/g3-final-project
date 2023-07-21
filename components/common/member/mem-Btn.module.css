@@ -15,9 +15,11 @@
   /* font-family: 'Mochiy Pop One', sans-serif; */
 }
 
-@media screen and (max-width: 390px) {
-  .btn_text {
-    font-size: var(--h10);
-    background-color: aqua;
+@media screen and (max-width: 391px) {
+  .btn {
+    height: 50px;
+    width: 30px;
+    padding: 5px;
+    border-radius: 8px;
   }
 }

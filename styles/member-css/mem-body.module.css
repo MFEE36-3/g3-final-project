@@ -7,6 +7,7 @@
   justify-content: center;
   margin-top: 60px;
   margin-bottom: 60px;
+  font-family: 'Zen Maru Gothic', sans-serif;
 }
 
 .container {
@@ -22,6 +23,13 @@
 }
 
 .flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.flex2 {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -199,7 +207,55 @@
     width: 100%;
     height: 100%;
     font-weight: 800;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .flex {
+    width: 90%;
+    flex-direction: column;
+    margin-bottom: 5px;
+  }
+
+  .package {
+    width: 100%;
+    height: 180px;
+    margin-top: 15px;
+    padding: 15px;
+  }
+
+  .flex2 {
+    font-size: 12px;
+    height: 20px;
+    margin-bottom: 40px;
+  }
+
+  .packageMoney {
+    font-size: 28px;
+  }
+
+  .packageImg {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+  }
+
+  .packageBtn {
+    width: 50px;
+    height: 30px;
+    font-size: 10px;
+  }
+
+  .imgRWD1 {
+    position: relative;
+    left: 65px;
+    width: 200px;
+    height: 200px;
+  }
+
+  .imgRWD2 {
+    display: none;
   }
 }

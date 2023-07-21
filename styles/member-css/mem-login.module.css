@@ -71,3 +71,18 @@
   font-weight: bolder;
   margin-bottom: 20px;
 }
+
+@media screen and (max-width: 391px) {
+  .container {
+    width: 90%;
+    display: flex;
+  }
+
+  .cardBody {
+    width: 90%;
+  }
+
+  .cardBody2 {
+    width: 90%;
+  }
+}

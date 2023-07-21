@@ -26,7 +26,7 @@ export default function Index() {
         <div className={styles.rightArea}>
           <div className={styles.flex}>
             <div className={styles.package}>
-              <div className={styles.flex}>
+              <div className={styles.flex2}>
                 <div>我的錢包</div>
                 <div>帳號:asiagodtone@gmail.com</div>
               </div>
@@ -47,8 +47,20 @@ export default function Index() {
                 </Link>
               </div>
             </div>
-            <Image src="/member/cookie.png" width={250} height={250} alt="" />
-            <Image src="/member/cookie.png" width={250} height={250} alt="" />
+            <Image
+              src="/member/cookie.png"
+              width={250}
+              height={250}
+              alt=""
+              className={styles.imgRWD1}
+            />
+            <Image
+              src="/member/cookie.png"
+              width={250}
+              height={250}
+              alt=""
+              className={styles.imgRWD2}
+            />
           </div>
 
           <div>

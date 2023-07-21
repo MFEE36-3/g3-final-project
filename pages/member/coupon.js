@@ -90,7 +90,7 @@ export default function Index() {
       <div className={styles.container}>
         <MemBar />
         <div className={styles.rightArea}>
-          <div>
+          <div className={styles2.flexArea}>
             <MemAllTitle title={'我的優惠券'} />
             <div className={styles2.area1}>
               <div className={styles2.scroll}>

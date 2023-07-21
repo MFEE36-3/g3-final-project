@@ -257,15 +257,31 @@ export default function Index() {
       <div className={styles.container}>
         <MemBar />
         <div className={styles.rightArea}>
-          <div>
+          <div className={styles2.actArea}>
             <MemAllTitle title={'進行中的活動'} />
             <div className={styles2.area1}>
               <div className={styles.scroll}>
                 <div className={styles2.scrollArea}>
-                  <MemBtn text={'揪團'} onClick={changeList} />
-                  <MemBtn text={'訂位'} onClick={changeList} />
-                  <MemBtn text={'外帶'} onClick={changeList} />
-                  <MemBtn text={'商城'} onClick={changeList} />
+                  <MemBtn
+                    text={'揪團'}
+                    onClick={changeList}
+                    className={styles2.scrollBtn}
+                  />
+                  <MemBtn
+                    text={'訂位'}
+                    onClick={changeList}
+                    className={styles2.scrollBtn}
+                  />
+                  <MemBtn
+                    text={'外帶'}
+                    onClick={changeList}
+                    className={styles2.scrollBtn}
+                  />
+                  <MemBtn
+                    text={'商城'}
+                    onClick={changeList}
+                    className={styles2.scrollBtn}
+                  />
                 </div>
                 {list}
               </div>

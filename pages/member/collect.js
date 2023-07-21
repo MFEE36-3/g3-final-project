@@ -96,15 +96,15 @@ export default function Index() {
   );
   const changeList = (e) => {
     switch (e.currentTarget.value) {
-      case '收藏貼文':
+      case '貼文':
         setCollect(<MemCollectReocrd1 ListForum={ListForum} />);
         break;
 
-      case '收藏店家':
+      case '店家':
         setCollect(<MemCollectReocrd2 ListStore={ListStore} />);
         break;
 
-      case '收藏商品':
+      case '商品':
         setCollect(<MemCollectReocrd3 ListMarket={ListMarket} />);
         break;
     }
@@ -133,11 +133,11 @@ export default function Index() {
           <MemAllTitle title={'我的收藏'} />
           <div className={styles2.area2}>
             <div className={styles2.scrollArea}>
-              <MemBtn text={'收藏貼文'} onClick={changeList} />
+              <MemBtn text={'貼文'} onClick={changeList} />
 
-              <MemBtn text={'收藏店家'} onClick={changeList} />
+              <MemBtn text={'店家'} onClick={changeList} />
 
-              <MemBtn text={'收藏商品'} onClick={changeList} />
+              <MemBtn text={'商品'} onClick={changeList} />
             </div>
             <div className={styles.scroll}>
               <div>{collect}</div>

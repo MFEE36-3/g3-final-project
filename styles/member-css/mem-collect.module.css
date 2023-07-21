@@ -43,3 +43,13 @@
   width: 100%;
   background-color: #ffffff;
 }
+
+@media screen and (max-width: 391px) {
+  .area1 {
+    width: 90%;
+  }
+
+  .area2 {
+    width: 90%;
+  }
+}

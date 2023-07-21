@@ -78,3 +78,14 @@
   overflow: hidden;
   margin-top: 20px;
 }
+
+@media screen and (max-width: 391px) {
+  .flexArea {
+    width: 90%;
+  }
+
+  .scroll > * {
+    flex-basis: calc(100%); /* 調整寬度以適應間距 */
+    margin: 15px; /* 設定卡片間的間距 */
+  }
+}

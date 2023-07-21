@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
-import styles from '@/styles/btn.module.css';
+import styles from './mem-Btn.module.css';
 
 export default function MemBtn({
   text = 'set text',
