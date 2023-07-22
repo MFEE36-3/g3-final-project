@@ -10,19 +10,20 @@
 .card{
     height: 200px;
     overflow: hidden;
+    
+
 }
 .card img{
 width: 100%;
-height: auto;
+height: 200px;
+object-fit: fill;
 }
+
 .ptext:hover{
     /* text-decoration: underline; */
     color:var(--main-color)
 }
-.img{
-    height: 380px;
-    width: 200px;
-}
+
 /* 假設有一個包含這組按鈕的容器 div，假設 class 為 pagination-container */
 .pagination-container {
     display: flex;
@@ -38,9 +39,37 @@ height: auto;
   }
   
   /* 按鈕之間的間距 */
-  .pagination> button {
-    margin: 0 5px;
-    background-color:var(--main-color) !important; 
+  
+  .arrayleft{
+    margin: 0 10px;
+    color:var(--main-color) !important; 
     border: 0;
+    width: 30px;
+    height: 30px;
+    margin-top: 20px;
+    padding-right: 10px;
   }
+  .arrayright{
+    margin: 0 10px;
+    color:var(--main-color) !important; 
+    border: 0;
+    width: 30px;
+    height: 30px;
+    margin-top: 20px;
+  }
+  .btn:hover{
+    color:white
+  }
+  .flex{
+    display: flex;
+    justify-content: center;
+  }
+  .number{
+    margin-top: 40px;
+    margin-left: 13px;
+  }
+  .arrayleft:hover{
+    color:rgb(109, 2, 2)
+  }
+
  

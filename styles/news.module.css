@@ -4,7 +4,7 @@
     align-items: center; */
     width: 80%;
     margin: 0 auto;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     /* height: 640px; */
 }
 .title{

@@ -3,7 +3,12 @@ import styles from './news_card.module.css';
 import Hashtag from './hashtag';
 import styled from '@emotion/styled';
 import Link from 'next/link';
-export default function Newscard() {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
+export default function Newscard({ news_sid = '' }) {
   const Btn = styled.button`
     background: var(--main-color);
   `;
@@ -46,29 +51,36 @@ export default function Newscard() {
             <div className={styles.card}>
               <img src={`${imgPreview + v.photo}`} className={styles.img} />
             </div>
-            <Link href={`/`}> <p className={styles.ptext}>{v.header}</p> </Link>
+            <Link href={`/news/${v.news_sid}`}>
+              <p className={styles.ptext}>{v.header}</p>
+            </Link>
             <Hashtag />
           </div>
         );
       })}
-
-      <div className={styles.pagination}>
-        <button
+      <div className={styles.flex}>
+      <div className={styles.arrayleft}>
+        <FontAwesomeIcon
+          icon={faChevronLeft}
           className="btn btn-secondary me-2"
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
-        >
-          上一頁
-        </button>
-        <span>{currentPage}</span>
-        <button
+          className={styles.arrayleft}
+        />
+        </div>
+
+        <span className={styles.number}>{currentPage}</span>
+        <div className={styles.arrayright}>
+        <FontAwesomeIcon
+          icon={faChevronRight}
           className="btn btn-secondary ms-2"
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
-        >
-          下一頁
-        </button>
-      </div>
+          className={styles.arrayright}
+        />
+        </div>
+        </div>
+      
     </>
   );
 }
