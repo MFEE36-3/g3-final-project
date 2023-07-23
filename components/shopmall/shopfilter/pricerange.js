@@ -21,7 +21,7 @@ const Button24px = styled.button`
 `
 
 export default function PriceRange() {
-    const { host, priceRange, dispatch} = useContext(Host);
+    const { host, priceRange, dispatch, isReset} = useContext(Host);
     const [showError,setShowError] = useState(false)
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
@@ -39,6 +39,7 @@ export default function PriceRange() {
     const router = useRouter();
     
     const handlePriceChange = () => {
+        if(isReset) return
         if(parseInt(minPrice) > parseInt(maxPrice)) {
             setShowError(true) 
             return
@@ -66,6 +67,10 @@ export default function PriceRange() {
           query: query,
         }, undefined, {scroll:false});
       };
+      useEffect(()=>{
+        setMaxPrice('')
+        setMinPrice('')
+      },[isReset])
   return (
     <div className='border-bottom border-2 mt-4'>
         <H4div>價格範圍</H4div>

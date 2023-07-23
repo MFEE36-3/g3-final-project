@@ -11,7 +11,7 @@ const H3div = styled.div`
 export default function ShopFilter() {
   
   return (
-    <div className='col-2 px-5 '>
+    <div className='col-3 px-5 '>
       <H3div>
         <PiFunnelLight className='me-2' />
         <span>條件篩選</span>

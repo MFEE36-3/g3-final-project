@@ -39,7 +39,7 @@ const filterButton = () => {
     )
 }
 export default function ShopSearchTitle() {
-    const {sortby, order, keyword, dispatch, items} = useContext(Host)
+    const {sortby, order, keyword, dispatch, items, isReset} = useContext(Host)
     const [orders, setOrders] = useState('')
     const router = useRouter();
     const handleChange = (event) => {
@@ -60,6 +60,7 @@ export default function ShopSearchTitle() {
     }
   };
   useEffect(()=>{
+    if(isReset) return
     let query = { ...router.query }
     if(sortby){
       query.order_key = sortby
@@ -72,6 +73,9 @@ export default function ShopSearchTitle() {
       search:`?${new URLSearchParams(query).toString()}`
     }, undefined, {scroll:false})
   },[sortby, order])
+  useEffect(()=>{
+    setOrders('')
+  },[isReset])
   return (
     <div className='ms-4'>
         <H2div className='text-danger'>{keyword}</H2div>
