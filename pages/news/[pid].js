@@ -11,19 +11,7 @@ export default function NewsDetailed() {
   const router = useRouter();
   const [article, setArticle] = useState({});
   const imgPreview = `http://localhost:3002/img/news_photo/`;
-  // const connect = async (e) => {
-  //   fetch('http://localhost:3002/news/article')
-  //     .then((r) => r.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       // data.rows; // array
-  //       setArticle(data.rows);
-  //     });
-  // };
-  // useEffect(() => {
-  //   connect();
-  // }, []);
-  // console.log(article);
+
   useEffect(() => {
     const { pid } = query;
     if (pid) {
@@ -38,13 +26,6 @@ export default function NewsDetailed() {
 
   return (
     <>
-      {/* {article.map((v, i) => {
-        return (
-          <div className={styles.line} key={v.news_sid}>
-            <h1 className={styles.title}>{article[0].header}</h1>
-          </div>
-        );
-      })} */}
       <div className="container">
         <div className="row">
           <Newnav />

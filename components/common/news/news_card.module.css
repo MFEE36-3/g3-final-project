@@ -1,11 +1,20 @@
 .cardbody{
     background-color: #fff;
+    height: 350px;
 }
 .ptext{
     font-size: var(--h7);
     padding-top: 10px;
     overflow: hidden;
     width: 100%;
+    height: 60px;
+    margin-top: 10px;
+    font-family: var(--ff3);
+}
+.line{
+    margin-top: 10px;
+    border-bottom: 1px solid var(--main-color);
+    padding-bottom: 10px;
 }
 .card{
     height: 200px;
@@ -15,7 +24,7 @@
 }
 .card img{
 width: 100%;
-height: 200px;
+height: auto;
 object-fit: fill;
 }
 
@@ -44,16 +53,16 @@ object-fit: fill;
     margin: 0 10px;
     color:var(--main-color) !important; 
     border: 0;
-    width: 30px;
+    width: 15px;
     height: 30px;
     margin-top: 20px;
-    padding-right: 10px;
+
   }
   .arrayright{
     margin: 0 10px;
     color:var(--main-color) !important; 
     border: 0;
-    width: 30px;
+    width: 15px;
     height: 30px;
     margin-top: 20px;
   }
@@ -65,11 +74,23 @@ object-fit: fill;
     justify-content: center;
   }
   .number{
-    margin-top: 40px;
-    margin-left: 13px;
+    margin-top: 20px;
   }
-  .arrayleft:hover{
-    color:rgb(109, 2, 2)
+  .arrayleft:hover {
+    cursor: pointer;
+    color: rgb(109, 2, 2);
+  }
+  .arrayright:hover {
+    cursor: pointer;
+    color: rgb(109, 2, 2);
+  }
+  .cardbody:hover {
+    cursor: pointer;
+  }
+  .time{
+    font-size: var(--h9);
+    display: flex;
+    justify-content: end;
   }
 
  

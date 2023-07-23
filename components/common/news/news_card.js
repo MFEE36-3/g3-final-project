@@ -3,12 +3,15 @@ import styles from './news_card.module.css';
 import Hashtag from './hashtag';
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
-export default function Newscard({ news_sid = '' }) {
+
+export default function Newscard({ news_sid = '', article = [] }) {
+  // 將 article 作為 prop 傳遞進來
   const Btn = styled.button`
     background: var(--main-color);
   `;
@@ -45,42 +48,46 @@ export default function Newscard({ news_sid = '' }) {
 
   return (
     <>
-      {news.map((v, i) => {
-        return (
-          <div className={`col-4 ${styles.cardbody}`} key={v.news_sid}>
-            <div className={styles.card}>
-              <img src={`${imgPreview + v.photo}`} className={styles.img} />
+      <div className="row">
+        {news.map((v, i) => {
+          // 使用 Link 元件作為每個新聞卡片的容器，設定 to 屬性為對應的路由
+          return (
+            <div className={`col-4 ${styles.cardbody}`} key={v.news_sid}>
+              <Link href={`/news/${v.news_sid}`}>
+                <div className={styles.card}>
+                  <img src={`${imgPreview + v.photo}`} className={styles.img} />
+                </div>
+                <div className={styles.line}>
+                  <p className={styles.ptext}>{v.header}</p>
+                  {/* 使用 dayjs 來格式化時間 */}
+                  <div className={styles.time}>
+                    {dayjs(v.publishedTime).format('YYYY-MM-DD')}
+                  </div>
+                </div>
+                <Hashtag />
+              </Link>
             </div>
-            <Link href={`/news/${v.news_sid}`}>
-              <p className={styles.ptext}>{v.header}</p>
-            </Link>
-            <Hashtag />
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
       <div className={styles.flex}>
-      <div className={styles.arrayleft}>
-        <FontAwesomeIcon
-          icon={faChevronLeft}
-          className="btn btn-secondary me-2"
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className={styles.arrayleft}
-        />
-        </div>
+        <div className={styles.arrayleft}>
+          <FontAwesomeIcon
+            icon={faChevronLeft}
 
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+          />
+        </div>
         <span className={styles.number}>{currentPage}</span>
         <div className={styles.arrayright}>
-        <FontAwesomeIcon
-          icon={faChevronRight}
-          className="btn btn-secondary ms-2"
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-          className={styles.arrayright}
-        />
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          />
         </div>
-        </div>
-      
+      </div>
     </>
   );
 }

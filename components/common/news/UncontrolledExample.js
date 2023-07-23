@@ -11,7 +11,7 @@ function UncontrolledExample() {
     >
       <Carousel.Item className=" ">
         <Image
-          className="d-block w-100 h-100 object-fit-cover"
+          className="d-block w-100  object-fit-cover"
           src={ABC}
           alt="First slide"
         />
@@ -23,7 +23,7 @@ function UncontrolledExample() {
       </Carousel.Item>
       <Carousel.Item>
         <Image
-          className="d-block w-100 h-100 object-fit-cover"
+          className="d-block w-100  object-fit-cover"
           src={CBA}
           alt="Second slide"
         />
@@ -35,7 +35,7 @@ function UncontrolledExample() {
       </Carousel.Item>
       <Carousel.Item>
         <Image
-          className="d-block w-100 object-fit-cover h100"
+          className="d-block w-100 object-fit-cover "
           src={QQQ}
           alt="Third slide"
         />
