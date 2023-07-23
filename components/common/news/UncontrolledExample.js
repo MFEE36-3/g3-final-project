@@ -1,8 +1,10 @@
 import Carousel from 'react-bootstrap/Carousel';
 import ABC from '@/public/f_imgs/圖片1.webp';
-import CBA from '@/public/f_imgs/圖片2.webp';
+import CBA from '@/public/f_imgs/66.webp';
 import QQQ from '@/public/f_imgs/圖片3.webp';
 import Image from 'next/image';
+import Link from 'next/link';
+
 function UncontrolledExample() {
   return (
     <Carousel
@@ -16,9 +18,11 @@ function UncontrolledExample() {
           alt="First slide"
         />
         <Carousel.Caption>
-          <h3>
-            星巴克史上最強聯名！日本「星巴克Ｘ史努比」首度強勢合作,23款高質感「保溫瓶、隨身瓶、T恤」官網獨家上市,簡約百搭整套買起來
-          </h3>
+          <Link href="/news/65">
+            <h3>
+              星巴克史上最強聯名！日本「星巴克Ｘ史努比」首度強勢合作,23款高質感「保溫瓶、隨身瓶、T恤」官網獨家上市,簡約百搭整套買起來
+            </h3>
+          </Link>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -28,9 +32,11 @@ function UncontrolledExample() {
           alt="Second slide"
         />
         <Carousel.Caption>
-          <h3>
-            新店人等不及！新店裕隆城「誠品生活新店」9大亮點必看，搶先曝光「30米挑高天井書店、花園露台」新店人要朝聖。
-          </h3>
+          <Link href="/news/66">
+            <h3>
+            饗A Joy到底貴在哪裡！全台最高Buffet「饗A Joy」5大聯名亮點，法朋冰淇淋甜點、興波咖啡、Double V冰淇淋一定要吃到。
+            </h3>
+          </Link>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -41,9 +47,11 @@ function UncontrolledExample() {
         />
 
         <Carousel.Caption>
-          <h3>
-            挽肉與米開了！赤峰街「挽肉與米」菜單價位搶先看，一份650元「三顆手工漢堡排」鐵粉先衝中山站朝聖。
-          </h3>
+          <Link href="/news/64">
+            <h3>
+              挽肉與米開了！赤峰街「挽肉與米」菜單價位搶先看，一份650元「三顆手工漢堡排」鐵粉先衝中山站朝聖。
+            </h3>
+          </Link>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

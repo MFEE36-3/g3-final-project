@@ -10,6 +10,7 @@
 .title{
     font-size:var(--h5);
     margin-top: 10px;
+    font-family: var(--ff2);
     
 }
 .line1{
