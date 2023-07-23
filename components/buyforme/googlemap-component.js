@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect,useRef } from "react";
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import styles from '@/styles/buyforme/map/map.module.css'
 import shop from '@/public/buyforme/map/shop_icon.svg'
@@ -819,6 +819,7 @@ const search_radius = [
 function Map({ data, chat, mapcolor }) {
     const [center, setCenter] = useState({ lat: 44, lng: -80 });
     const [usercenter, setUserCenter] = useState({ lat: 44, lng: -80 });
+    const routeAnimationRef = useRef(null);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -832,8 +833,25 @@ function Map({ data, chat, mapcolor }) {
     }, []);
 
     useEffect(() => {
+
+
+        //抓地點座標
+        const geocoder = new google.maps.Geocoder();
+        let address = '台大'; //先給個測試地點
+
+
+        //顯示路線
+        const directionsService = new google.maps.DirectionsService();
+        const directionsDisplay = new google.maps.DirectionsRenderer({
+            polylineOptions: {
+                strokeColor: 'transparent',
+            },
+            suppressMarkers: true,
+        });
+
+
         const map = new window.google.maps.Map(document.getElementById("map"), {
-            zoom: 14,
+            zoom: 13,
             center: center,
             // mapId: "de35cca39a5847df", // 自訂的地圖識別碼
             styles: mapcolor ? blue_style : red_style,
@@ -852,6 +870,67 @@ function Map({ data, chat, mapcolor }) {
                 radius: v.meter,
             })
         })
+
+        //嘗試console地點座標
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status === 'OK') {
+                console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng())
+                // map.setCenter(results[0].geometry.location);
+                const search_marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            } else {
+                console.log(status);
+            }
+        });
+
+        //放置路線圖層
+        directionsDisplay.setMap(map);
+        //測試路線
+        const request = {
+            origin: usercenter,
+            destination: { lat: 25.037906, lng: 121.549781 },
+            travelMode: 'WALKING'
+        };
+        // 繪製路線
+        directionsService.route(request, function (result, status) {
+            if (status === 'OK') {
+                // 回傳路線上每個步驟的細節
+                //console.log(result.routes[0].legs[0].steps);
+                directionsDisplay.setDirections(result);
+
+                //拿出設定的路線重畫路線
+                const routePath = result.routes[0].overview_path
+                const lineSymbol = {
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    scale: 5,
+                    strokeColor: "#393",
+                };
+
+                const line = new google.maps.Polyline({
+                    path: routePath,
+                    strokeColor: 'yellow',
+                    strokeWeight: 5,
+                    icons: [
+                        {
+                            icon: lineSymbol,
+                            offset: "100%",
+                        },
+                    ],
+                    map: map,
+                });
+
+                animateArrow(line);
+
+
+
+            } else {
+                console.log(status);
+            }
+        });
+
+
 
 
         const random_character = random_user[Math.floor(random_user.length * Math.random())];
@@ -880,19 +959,24 @@ function Map({ data, chat, mapcolor }) {
             maxWidth: 300,
         });
 
-        google.maps.event.addListener(infowindow, "domready", () => {
+        const setcenter = new google.maps.event.addListener(infowindow, "domready", () => {
             const infoWindowElement = document.getElementById("chatbox"); // 取得 InfoWindow DOM 元素
-            infoWindowElement.addEventListener("click", () => {
-              // 在這裡處理 click 事件
-              console.log("InfoWindow clicked!");
-              setCenter({ lat: 0, lng: 180 })
-            });
-          });
+            if (infoWindowElement) {
+                const click_chat = infoWindowElement.addEventListener("click", () => {
+                    // 在這裡處理 click 事件
+                    console.log("InfoWindow clicked!");
+                    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=台灣台北市萬華區康定路190號&key=你ㄉ金鑰')
+                        .then(r => r.json())
+                        .then(obj => console.log(obj))
+                    //   setCenter({ lat: 0, lng: 180 })
+                });
+            };
+        });
 
         //預設開啟使用者聊天訊息
         infowindow.open(map, userMarker);
 
-        userMarker.addListener('click', () => {
+        const open_chat_message = userMarker.addListener('click', () => {
             // 點擊打開使用者聊天訊息
             infowindow.open(map, userMarker);
         });
@@ -912,9 +996,9 @@ function Map({ data, chat, mapcolor }) {
                 animation: window.google.maps.Animation.DROP,
             });
 
-            shopMarker.addListener('click', () => {
+            const shop_click = shopMarker.addListener('click', () => {
                 // 點擊 Maker 的事件處理程式
-                setCenter({ lat: v.lat, lng: v.lng })
+                map.setCenter({ lat: v.lat, lng: v.lng });
                 console.log(`${v.shop} Shop Marker 被點擊了`);
                 // 在這裡可以執行其他操作或觸發其他函式
             });
@@ -925,18 +1009,45 @@ function Map({ data, chat, mapcolor }) {
                 maxWidth: 300,
             });
 
-            shop_infowindow.open(map, shopMarker);
-
-            shopMarker.addListener('click', () => {
+            const open_shop_info = shopMarker.addListener('click', () => {
                 // 點擊打開使用者聊天訊息
                 shop_infowindow.open(map, shopMarker);
             });
         })
 
 
+        return (() => {
+            // 清除地圖上的事件監聽器和標記
+            google.maps.event.clearInstanceListeners(map);
+            if (routeAnimationRef.current) {
+                clearInterval(routeAnimationRef.current);
+            }
+            // 移除地圖元素
+            const mapElement = document.getElementById("map");
+            if (mapElement && mapElement.firstChild) {
+                mapElement.removeChild(mapElement.firstChild);
+            }
+        })
 
 
     }, [data, center, chat, mapcolor, usercenter]);
+
+            // Use the DOM setInterval() function to change the offset of the symbol
+        // at fixed intervals.
+        function animateArrow(line) {
+            let count = 0;
+
+            routeAnimationRef.current = setInterval(() => {
+                count = (count + 1) % 200;
+
+                const icons = line.get("icons");
+
+                icons[0].offset = count / 2 + "%";
+                line.set("icons", icons);
+                console.log(count)
+            }, 30);
+
+        }
 
     return <div id="map" className={styles.map_container} />;
 }
