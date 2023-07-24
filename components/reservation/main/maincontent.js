@@ -10,6 +10,13 @@ export default function MainContent({ favorite, setFavorite }) {
 
   const [data, setData] = useState([]);
 
+  // const trans = () => {
+  //   data.map((v) => {
+  //     if (v.category == 1) {
+  //       setData ({ ...v, category: '中式' })
+  //     }
+  //   })
+  // }
 
   useEffect(() => {
     fetch(`${process.env.API_SERVER}/restaurants/cards`)
@@ -17,23 +24,29 @@ export default function MainContent({ favorite, setFavorite }) {
       .then(data => {
         console.log(data)
         setData(data.rows);
+        // trans();
       })
   }, [])
 
-  const handleFavorite = () => {
-    setFavorite((prev) => {
-      return !prev;
-    })
-  }
+  // useEffect(()=>{
+  //   trans()
+  // },[data])
+
+
+
+  // const handleFavorite = () => {
+  //   setFavorite((prev) => {
+  //     return !prev;
+  //   })
+  // }
 
 
   return (
     <>
       <div className={`${style.fonttitle} ${style.borderbottom} d-flex w-100 justify-content-center mb-3 pb-1`}>
-        推薦必吃
+        查詢結果
       </div>
       <div className={style.main}>
-        {/* style={{display:"grid" , gridTemplateColumns:"22% 22% 22% 22%"}} className='justify-content-evenly' */}
         <div className={style.maincontent}>
           {data.map((v) => {
             const { sid, picture, shop, category, location } = v;
@@ -78,8 +91,8 @@ export default function MainContent({ favorite, setFavorite }) {
                     </div>
                     <div className="d-flex align-item-center">
                       {favorite ?
-                        <FaHeart className={`${style.cardheart} fs-4 h-100`} value={favorite} onClick={handleFavorite} /> :
-                        <FaRegHeart className={`${style.cardheart} fs-4 h-100`} value={favorite} onClick={handleFavorite} />
+                        <FaHeart className={`${style.cardheart} fs-4 h-100`} /> :
+                        <FaRegHeart className={`${style.cardheart} fs-4 h-100`} />
                       }
                     </div>
                   </div>

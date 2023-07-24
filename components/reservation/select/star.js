@@ -11,6 +11,7 @@ export default function Star({ keyword, setKeyword}) {
   // const { ratingFilter, dispatch } = useContext(Host)
   const [rating,setRating] = useState();
   const router = useRouter();
+
   const handleRatingChange = (v) => {
     setRating(rating === v ? '' : v)
     setKeyword({ ...keyword, star: v });
@@ -36,7 +37,7 @@ export default function Star({ keyword, setKeyword}) {
       usp.set('city', strcity);
     }
     if (arrdist) {
-      usp.set('dist', '');
+      usp.set('dist', arrdist);
     }
     if (slideval) {
       usp.set('price', slideval);

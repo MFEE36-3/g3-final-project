@@ -20,7 +20,7 @@ export default function Area({ keyword, setKeyword }) {
           }
         })
 
-        console.log(tpedist)
+        // console.log(tpedist)
         setDdata(tpedist)
       }
   
