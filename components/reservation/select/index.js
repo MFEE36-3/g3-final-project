@@ -1,13 +1,13 @@
 import Area from './area';
 import CheckBox from './checkbox';
 import SliderBar from './sliderbar';
+import Star from './star';
 import style from '@/styles/reservation/style.module.css';
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 
 export default function SelectArea({ keyword, setKeyword }) {
   const router = useRouter();
-
   const handleFoodtypes = (name) => {
 
     // 判斷router.query.foodtype是否有值
@@ -30,6 +30,7 @@ export default function SelectArea({ keyword, setKeyword }) {
     const strcity = router.query.city;
     const arrdist = router.query.dist;
     const slideval = router.query.price;
+    const numstar = router.query.star;
     const searchkeyword = router.query.searchkeyword;
 
     const usp = new URLSearchParams();
@@ -44,6 +45,9 @@ export default function SelectArea({ keyword, setKeyword }) {
     }
     if (slideval) {
       usp.set('price', slideval);
+    }
+    if (numstar) {
+      usp.set('star', numstar);
     }
     if (searchkeyword) {
       usp.set('searchkeyword', searchkeyword);
@@ -91,7 +95,7 @@ export default function SelectArea({ keyword, setKeyword }) {
           <SliderBar keyword={keyword} setKeyword={setKeyword} />
         </div>
         <div>
-
+          <Star keyword={keyword} setKeyword={setKeyword} />
         </div>
       </div>
     </>

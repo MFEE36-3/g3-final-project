@@ -1,11 +1,19 @@
 .body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 .dflex {
   display: flex;
+}
+
+.leftdiv{
+  width: 16%;
+}
+
+.rightdiv{
+  width: 83%;
 }
 
 .fonttitle {
@@ -90,6 +98,25 @@
   margin-right: 10px;
 }
 
+
+/* 首頁推薦餐廳區塊 */
+.main{
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.maincontent{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 21% 21% 21% 21%;
+  justify-content: space-evenly;
+}
+
+
+
+
+
 /* 餐廳頁-餐廳名稱 */
 .restauranttitle {
   font-family: var(--ff1);
@@ -153,6 +180,7 @@
 .card{
   /* width:21%; */
   height:350px;
+  margin-bottom: 5px;
   border: none;
 }
 
@@ -515,6 +543,10 @@
   outline: none;
 }
 
+.rwdselected{
+  display: none;
+}
+
 /* 查詢條件-條件區塊 */
 .clearselect{
   width:50%;
@@ -560,16 +592,16 @@
 }
 
 
-/* ----------------RWD---------------- */
+/* ----------------------RWD---------------------- */
 
 @media screen and (max-width: 391px) {
-  .topdiv{
+  /* .topdiv{
     position: relative;
-  }
-
+  } */
   .carousel{
-    position: relative;
-    padding-top: 30px;
+    /* position: relative; */
+    width: 100%;
+    margin-top: 30px;
     height: 20vh;
   }
 
@@ -578,12 +610,12 @@
     overflow: hidden;
   }
   .searchbar {
-    position: relative;
+    position: none;
     display: flex;
     align-items: center;
     width: 70%;
     height: 50px;
-    /* transform: translate(-50%, -50%); */
+    margin-top: 80px;
     background-color: white;
     border-radius: 40px;
     border:3px solid var(--main-color);
@@ -594,6 +626,14 @@
     font-size: var(--h5);
     border: none;
     outline: none;
+  }
+  .rwdselected{
+    display: block;
+    position: relative;
+    color: var(--main-color);
+    width: 45px;
+    height: 45px;
+    margin: 10px 10px;
   }
   
   /* 查詢條件-條件區塊 */
@@ -606,6 +646,161 @@
     border: none;
     padding: 5px 10px;
   }
+
+  .rwdarea{
+    display: none;
+  }
+
+  .rightdiv{
+    width: 100%;
+  }
+
+
+  /* top5餐廳 ------------*/
+.top5div{
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  overflow: hidden;
+}
+
+.top5row{
+  width: 1350px;
+  position: relative;
+  display:  flex;
+  overflow:hidden;
+}
+
+.top5card{
+  position: absolute;
+  width: 135px;
+  min-width: 135px;
+  border: none;
+  background:none;
+  transition: transform 0.3s ease;
+}
+
+.top5cardbody{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 100%;
+  font-size: var(--h8);
+}
+
+.top5button{
+  width: 40px;
+  height: 40px;
+  margin: 0px 5px;
+  color: var(--main-color);
+}
+
+.top5button:hover{
+  color: var(--sub-color);
+}
+
+.top5name{
+  display: flex;
+  justify-content: center;
+  align-items:flex-end;
+  height: 100%;
+  margin: 0;
+  font-size: var(--h7);
+}
+
+.top5star{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ecbd18;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.contentdiv{
+  display: flex;
+  justify-content: center;
+}
+
+
+.fonttitle {
+    font-size: var(--h5);
+}
+
+.main{
+  width: 97%;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-evenly;
+  align-items: center;
+  /* margin: 20px; */
+}
+
+.maincontent{
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: 21% 21% 21% 21%;
+    justify-content: space-evenly;
+}
+
+/* card樣式 -----------*/
+.card{
+  width: 50%;
+  height:300px;
+  border: none;
+}
+
+.carddiv{
+  width: 100%;
+  height: 60%;
+  border-radius: 15px 15px 0px 0px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardimg{
+  position: relative;
+}
+
+.cardtext{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  color: #d9d9d9;
+  font-size: var(--h4);
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  padding: 4px 8px;
+  transition: opacity 0.3s ease-in;
+}
+
+.carddiv:hover .cardimg {
+  filter: brightness(0.5) blur(2px);
+}
+
+.carddiv:hover .cardtext {
+  opacity: 1;
+}
+
+.cardheart{
+  color: #911010;
+}
+
+.cardheart:hover{
+  color: #911010;
+}
+
+
+
 
 
 

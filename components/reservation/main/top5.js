@@ -1,4 +1,4 @@
-import Button from 'react-bootstrap/Button';
+
 import Card from 'react-bootstrap/Card';
 import Crown from '@/public/reservation/crown.svg';
 import Image from 'next/image';
@@ -26,49 +26,49 @@ export default function Top5() {
     setPosition(prevPosition =>
       prevPosition === 0 ? 0 : prevPosition + 270
     )
-}
+  }
 
-const moveright = () => {
-  setPosition(prevPosition => 
-    prevPosition === -1620 ? -1620 : prevPosition - 270
+  const moveright = () => {
+    setPosition(prevPosition =>
+      prevPosition === -1620 ? -1620 : prevPosition - 270
     )
-}
+  }
 
 
-return (
-  <>
-    <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
-      熱門排行
-    </div>
-
-    <div className={style.top5div}>
-      <BsFillArrowLeftCircleFill className={style.top5button} onClick={moveleft} />
-
-      <div className={style.top5row}>
-        {data.map((v) => {
-          const { sid, picture, shop } = v;
-          return (
-            <Card
-              key={sid}
-              className={`${style.top5card} h-25 position-relative`}
-              style={{ transform: `translateX(${position}px)` }}
-            >
-              <Image src={Crown} className='position-absolute top-0 start-0 ' alt="" />
-              <Card.Img src="../../reservation/c1.png" className='position-relative pt-5' alt="" />
-              <Card.Body className={style.top5cardbody}>
-                <div className={style.top5star}>
-                  <div className={style.me5}>4.7</div>
-                  <AiFillStar />
-                </div>
-                <Card.Title className={style.top5name}>{shop}</Card.Title>
-              </Card.Body>
-            </Card>
-          )
-        })}
+  return (
+    <>
+      <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
+        熱門排行
       </div>
 
-      <BsFillArrowRightCircleFill className={style.top5button} onClick={moveright} />
-    </div>
-  </>
-);
+      <div className={style.top5div}>
+        <BsFillArrowLeftCircleFill className={style.top5button} onClick={moveleft} />
+
+        <div className={style.top5row}>
+          {data.map((v) => {
+            const { sid, picture, shop } = v;
+            return (
+              <Card
+                key={sid}
+                className={`${style.top5card} h-25 position-relative`}
+                style={{ transform: `translateX(${position}px)` }}
+              >
+                <Image src={Crown} className='position-absolute top-0 start-0 ' alt="" />
+                <Card.Img src="../../reservation/c1.png" className='position-relative pt-5' alt="" />
+                <Card.Body className={style.top5cardbody}>
+                  <div className={style.top5star}>
+                    <div className={style.me5}>4.7</div>
+                    <AiFillStar />
+                  </div>
+                  <Card.Title className={style.top5name}>{shop}</Card.Title>
+                </Card.Body>
+              </Card>
+            )
+          })}
+        </div>
+
+        <BsFillArrowRightCircleFill className={style.top5button} onClick={moveright} />
+      </div>
+    </>
+  );
 }

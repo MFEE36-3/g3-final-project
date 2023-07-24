@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 // import cards from '@/data/reservation/cards.json';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
@@ -29,17 +28,18 @@ export default function MainContent({ favorite, setFavorite }) {
 
 
   return (
-    <div className="d-flex flex-column m-3">
-      <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
+    <>
+      <div className={`${style.fonttitle} ${style.borderbottom} d-flex w-100 justify-content-center mb-3 pb-1`}>
         推薦必吃
       </div>
-      {/* d-flex row flex-wrap */}
-        <div style={{display:"grid" , gridTemplateColumns:"22% 22% 22% 22%"}} className='justify-content-evenly'>
+      <div className={style.main}>
+        {/* style={{display:"grid" , gridTemplateColumns:"22% 22% 22% 22%"}} className='justify-content-evenly' */}
+        <div className={style.maincontent}>
           {data.map((v) => {
             const { sid, picture, shop, category, location } = v;
             return (
               <Card
-                className={`${style.card} m-2 co1-4 px-0`}
+                className={`${style.card}`}
                 key={sid}
               >
                 <div className={style.carddiv}>
@@ -54,7 +54,7 @@ export default function MainContent({ favorite, setFavorite }) {
                   <Card.Title>{shop}</Card.Title>
                   <Card.Text>{location}</Card.Text>
                   <div className="d-flex align-item-center justify-content-between">
-                    <Button
+                    <div
                       style={{
                         fontSize: '12px',
                         background: '#911010',
@@ -66,7 +66,7 @@ export default function MainContent({ favorite, setFavorite }) {
                     >
                       <FaUtensils className="me-1" />
                       {category}
-                    </Button>
+                    </div>
                     <div className="d-flex align-item-center">
                       <AiFillStar
                         className="fs-4 h-100 text-warning"
@@ -88,6 +88,7 @@ export default function MainContent({ favorite, setFavorite }) {
             );
           })}
         </div>
-    </div>
+      </div>
+    </>
   );
 }

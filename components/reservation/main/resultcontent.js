@@ -10,20 +10,20 @@ import { ContactSupportOutlined } from '@mui/icons-material';
 
 export default function ResultContent() {
 
-  const router = useRouter();
-  console.log(router)
-  useEffect(() => {
-    fetch(`${process.env.API_SERVER}/search`,{
-      method:"POST",
-      body:JSON.stringify(router.query),
-      headers:{'Content-Type':'applcation/json'}
-    })
-      .then(r => r.json())
-      .then(data => {
-        console.log(data)
-        // setData(data.rows);
-      })
-  }, [])
+  // const router = useRouter();
+  // console.log(router)
+  // useEffect(() => {
+  //   fetch(`${process.env.API_SERVER}/search`,{
+  //     method:"POST",
+  //     body:JSON.stringify(router.query),
+  //     headers:{'Content-Type':'applcation/json'}
+  //   })
+  //     .then(r => r.json())
+  //     .then(data => {
+  //       console.log(data)
+  //       // setData(data.rows);
+  //     })
+  // }, [])
 
 
   return (
