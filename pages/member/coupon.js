@@ -1,10 +1,10 @@
 import React from 'react';
-import MemBar from '@/components/common/member/mem-bar';
-import MemCouponCard from '@/components/common/member/mem-couponCard';
-import MemCouponRecord from '@/components/common/member/mem-couponRecord';
-import MemAllTitle from '@/components/common/member/mem-allTitle';
-import styles from '@/styles/member-css/mem-body.module.css';
-import styles2 from '@/styles/member-css/mem-coupon.module.css';
+import MemBar from '@/components/member/mem-bar';
+import MemCouponCard from '@/components/member/mem-couponCard';
+import MemCouponRecord from '@/components/member/mem-couponRecord';
+import MemAllTitle from '@/components/member/mem-allTitle';
+import styles from '@/styles/member/mem-body.module.css';
+import styles2 from '@/styles/member/mem-coupon.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { v4 } from 'uuid';
 

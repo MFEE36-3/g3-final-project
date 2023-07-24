@@ -168,10 +168,9 @@
   }
 
   .img {
-    width: 170px;
-    height: 170px;
+    width: 150px;
+    height: 150px;
     position: relative;
-    top: -20px;
     left: 10px;
   }
 
@@ -182,35 +181,45 @@
 
   .btn {
     position: relative;
-    left: -95px;
-    top: 163px;
-    width: 45px;
-    height: 45px;
+    left: -20px;
+    top: 122px;
+    width: 40px;
+    height: 40px;
   }
 
   .imgsmall {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
   }
 
   .box {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    left: 8px;
   }
 
   .flex {
-    margin-bottom: 30px;
-  }
-
-  .achBtn {
-    position: relative;
-    left: -28px;
-    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
   }
 
   .achieveBox {
-    margin-right: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .achBtn {
+    height: 35px;
+    width: 50px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    left: -10px;
+    left: 35px;
+    top: -15px;
   }
 }

@@ -1,13 +1,13 @@
-import MemrBar from '@/components/common/member/mem-bar';
-import MemInfoInput from '@/components/common/member/mem-infoInput';
-import styles from '@/styles/member-css/mem-body.module.css';
-import styles2 from '@/styles/member-css/mem-info.module.css';
+import MemrBar from '@/components/member/mem-bar';
+import MemInfoInput from '@/components/member/mem-infoInput';
+import styles from '@/styles/member/mem-body.module.css';
+import styles2 from '@/styles/member/mem-info.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
 import { v4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import MemAllTitle from '@/components/common/member/mem-allTitle';
+import MemAllTitle from '@/components/member/mem-allTitle';
 import Btn from '@/components/common/btn';
 
 export default function Info() {

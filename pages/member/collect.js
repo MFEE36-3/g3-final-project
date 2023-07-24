@@ -1,16 +1,16 @@
 import React from 'react';
-import MemBar from '@/components/common/member/mem-bar';
-import styles from '@/styles/member-css/mem-body.module.css';
-import styles2 from '@/styles/member-css/mem-collect.module.css';
+import MemBar from '@/components/member/mem-bar';
+import styles from '@/styles/member/mem-body.module.css';
+import styles2 from '@/styles/member/mem-collect.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MemCollectBlog from '@/components/common/member/mem-collectBlog';
+import MemCollectBlog from '@/components/member/mem-collectBlog';
 import { v4 } from 'uuid';
 import { useState } from 'react';
-import MemAllTitle from '@/components/common/member/mem-allTitle';
-import MemCollectReocrd1 from '@/components/common/member/mem-collectRecord1';
-import MemCollectReocrd2 from '@/components/common/member/mem-collectRecord2';
-import MemCollectReocrd3 from '@/components/common/member/mem-collectRecord3';
-import MemBtn from '@/components/common/member/mem-Btn';
+import MemAllTitle from '@/components/member/mem-allTitle';
+import MemCollectReocrd1 from '@/components/member/mem-collectRecord1';
+import MemCollectReocrd2 from '@/components/member/mem-collectRecord2';
+import MemCollectReocrd3 from '@/components/member/mem-collectRecord3';
+import MemBtn from '@/components/member/mem-Btn';
 
 export default function Index() {
   const MyList = [

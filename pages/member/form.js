@@ -1,4 +1,4 @@
-import styles from '@/styles/member-css/mem-body.module.css';
+import styles from '@/styles/member/mem-body.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Input from '@/components/common/input';

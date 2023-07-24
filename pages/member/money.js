@@ -1,11 +1,11 @@
 import React from 'react';
-import MemBar from '@/components/common/member/mem-bar';
-import MemMoneyCard from '@/components/common/member/mem-moneyCard';
-import styles from '@/styles/member-css/mem-body.module.css';
-import styles2 from '@/styles/member-css/mem-money.module.css';
+import MemBar from '@/components/member/mem-bar';
+import MemMoneyCard from '@/components/member/mem-moneyCard';
+import styles from '@/styles/member/mem-body.module.css';
+import styles2 from '@/styles/member/mem-money.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MemAllTitle from '@/components/common/member/mem-allTitle';
-import MemMoneyReocrdTable from '@/components/common/member/mem-moneyReocrdTable';
+import MemAllTitle from '@/components/member/mem-allTitle';
+import MemMoneyReocrdTable from '@/components/member/mem-moneyReocrdTable';
 
 export default function Index() {
   const rows = [

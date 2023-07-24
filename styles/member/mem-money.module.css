@@ -75,6 +75,19 @@
   display: flex;
   flex-direction: column;
   border-radius: 15px;
+  border: 2px solid #921010;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 500px;
+  background-color: #fff;
+}
+
+.area3::-webkit-scrollbar {
+  width: 3px; /* 設置滾輪寬度 */
+}
+
+.area3::-webkit-scrollbar-thumb {
+  background-color: #aeaeae; /* 設置滾輪顏色 */
 }
 
 .text {
@@ -154,14 +167,6 @@
   background-color: #ffe291;
 }
 
-.recordBox {
-  margin-top: 20px;
-  width: 100%;
-  border: 2px solid #921010;
-  border-radius: 15px;
-  overflow: hidden;
-}
-
 @media screen and (max-width: 391px) {
   .area0 {
     display: flex;
@@ -197,11 +202,6 @@
     font-size: 18px;
   }
 
-  .input {
-    width: 110px;
-    height: 55px;
-  }
-
   .text {
     width: 930px;
     font-size: 16px;
@@ -225,5 +225,27 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .btn {
+    font-size: 16px;
+    width: 50px;
+    height: 45px;
+    margin-left: 15px;
+    margin-right: 0px;
+  }
+
+  .inputArea {
+    justify-content: space-between;
+    width: 95%;
+  }
+
+  .input {
+    width: 70%;
+    height: 40px;
+  }
+
+  .label {
+    height: 60px;
   }
 }

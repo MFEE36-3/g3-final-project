@@ -35,8 +35,12 @@
   .card {
     font-size: 13px;
     height: 150px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  }
+
+  .box {
+    width: 100%;
+    padding-right: 10px;
+    justify-content: start;
   }
 
   .boxImg2 {

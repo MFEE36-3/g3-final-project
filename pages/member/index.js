@@ -1,13 +1,14 @@
 import React from 'react';
-import MemBar from '@/components/common/member/mem-bar';
-import MemIndexCard from '@/components/common/member/mem-indexCard';
-import styles from '@/styles/member-css/mem-body.module.css';
+import MemBar from '@/components/member/mem-bar';
+import MemIndexCard from '@/components/member/mem-indexCard';
+import styles from '@/styles/member/mem-body.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
 import { v4 } from 'uuid';
 import Link from 'next/link';
 import IconImg from '@/public/member/icon.png';
-import MemAllTitle from '@/components/common/member/mem-allTitle';
+import MemAllTitle from '@/components/member/mem-allTitle';
+import AuthContext from '@/context/AuthContext';
 
 export default function Index() {
   const actNow = [

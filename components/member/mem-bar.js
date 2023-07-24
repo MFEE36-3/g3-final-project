@@ -4,8 +4,11 @@ import { Fragment, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { v4 } from 'uuid';
 import { useRouter } from 'next/router';
+import AuthContext from '@/context/AuthContext';
+import { useContext } from 'react';
 
 export default function MemBar() {
+  //創建一個陣列，包含此navbar需要的按鈕名與路徑
   const arr = [
     { name: '會員中心', url: '/member' },
     { name: '個人資料', url: '/member/info' },
@@ -14,28 +17,39 @@ export default function MemBar() {
     { name: '我的收藏', url: '/member/collect' },
     { name: '優惠券', url: '/member/coupon' },
   ];
-  const router = useRouter();
 
+  // 從useContext裡解構出auth這個裝著驗證資料的物件
+  const { auth } = useContext(AuthContext);
+
+  // 創建一個空物件，準備要裝後端回傳的會員資料
   const [res, setRes] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:3002/member')
+    // 用一個jwt固定格式存放登入後獲得的token，放在headers準備傳給後端
+    const Authorization = 'Bearer ' + auth.token;
+    fetch('http://localhost:3002/member', {
+      method: 'GET',
+      headers: {
+        Authorization,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        const result = data[0];
-        setRes(result);
+        // 後端回傳的資料後重新渲染+塞入預設物件裡面
+        setRes(data.data);
       });
-  }, [router.query]);
 
-  const { nickname, achieve, photo, account } = res;
+    // 每次登出與重新登入都會觸發這個useEffect
+  }, [auth]);
 
+  // 由於useEffect重新渲染時會有第一次沒資料、第二次有資料的問題
+  // 在
   return (
     <div className={styles.memBar}>
       <div className={styles.memBtnTop}>
         <div className={styles.memImgBox}>
           <Image
-            src={'http://localhost:3002/img/' + photo}
+            src={'http://localhost:3002/img/' + res?.photo}
             style={{ objectFit: 'cover' }}
             width={500}
             height={500}
@@ -50,9 +64,9 @@ export default function MemBar() {
             alt=""
           />
         </div>
-        <div className={styles.memText}>{achieve}</div>
-        <div className={styles.memText}>{nickname}</div>
-        <div className={styles.memEmail}>{account}</div>
+        <div className={styles.memText}>{res?.achieve}</div>
+        <div className={styles.memText}>{res?.nickname}</div>
+        <div className={styles.memEmail}>{res?.account}</div>
       </div>
       {arr.map((v) => {
         return (

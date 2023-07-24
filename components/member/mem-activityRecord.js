@@ -15,14 +15,28 @@ export function MemActivityRecord1({ Record1 }) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow className={styles.row}>
-            <TableCell className={styles.cell}>編號</TableCell>
-            <TableCell className={styles.cell}>主揪</TableCell>
-            <TableCell className={styles.cell}>金額</TableCell>
-            <TableCell className={styles.cell}>餐點</TableCell>
-            <TableCell className={styles.cell}>店家</TableCell>
+            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
+              編號
+            </TableCell>
+            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
+              主揪
+            </TableCell>
+            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
+              金額
+            </TableCell>
+            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
+              餐點
+            </TableCell>
+            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
+              店家
+            </TableCell>
 
-            <TableCell className={styles.cell}>時間</TableCell>
-            <TableCell className={styles.cell}>評分</TableCell>
+            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
+              時間
+            </TableCell>
+            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
+              評分
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   animation: marquee-vertical 7s infinite linear;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 @keyframes marquee-vertical {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,13 +12,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import styles from '@/styles/member-css/mem-login.module.css';
+import styles from '@/styles/member/mem-login.module.css';
 import Image from 'next/image';
-import MemMuiSwitch from '@/components/common/member/mem-muiSwitch';
+import MemMuiSwitch from '@/components/member/mem-muiSwitch';
 import BlankLayout from '@/components/layout/blank-layout';
-import MemBtn from '@/components/common/member/mem-Btn';
-import MemLoginBtn from '@/components/common/member/mem-loginBtn';
+import MemBtn from '@/components/member/mem-Btn';
+import MemLoginBtn from '@/components/member/mem-loginBtn';
+import AuthContext from '@/context/AuthContext';
+import { useRouter } from 'next/router';
 
+//mui內建函式
 function Copyright(props) {
   return (
     <Typography
@@ -37,23 +40,53 @@ function Copyright(props) {
   );
 }
 
+//mui內建樣式
 const defaultTheme = createTheme();
 
 const Login = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  //引入useRouter，之後切換頁面時使用
+  const router = useRouter();
 
-  const [change, setChange] = React.useState(false);
+  //引入useContext存放的setState，之後會把localStorage裡面的token存進去
+  const { setAuth } = useContext(AuthContext);
+
+  const handleSubmit = (event) => {
+    //mui內建寫好，取消表單內建事件
+    event.preventDefault();
+
+    //創建一個FormData物件，把表單資料存進裡面
+    const data = new FormData(event.currentTarget);
+
+    //使用fetch方法，把FormData物件內的指定資料傳到後端
+    fetch(process.env.API_SERVER + '/memlogin', {
+      method: 'POST',
+      body: JSON.stringify({
+        account: data.get('email'),
+        password: data.get('password'),
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        // 如果後端回傳正確的資料，把資料命名為auth，以json物件的格式存入localStorage
+        // 回傳的資料包含驗證的token，所有頁面都要用，因此把回傳資料也存放在useContext
+        // 透過router內建的push方法跳轉頁面至首頁
+        // 這邊都沒問題之後，接下來有2種方式讓其他頁面可以找到這個驗證token
+        if (data.success) {
+          const obj = { ...data.data };
+          localStorage.setItem('auth', JSON.stringify(obj));
+          setAuth(obj);
+          router.push('/');
+        } else {
+          console.log(data.error || '帳密錯誤');
+        }
+      });
+  };
+  const [change, setChange] = useState(false);
 
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.flex}>
         <div className={styles.logintext}>選擇登入身分</div>
         <MemLoginBtn change={change} setChange={setChange} />
       </div>
@@ -235,5 +268,5 @@ const Login = () => {
   );
 };
 
-// Login.getLayout = BlankLayout;
+Login.getLayout = BlankLayout;
 export default Login;
