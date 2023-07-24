@@ -48,7 +48,6 @@ export default function Newscard({ news_sid = '', article = [] }) {
 
   return (
     <>
-      <div className="row">
         {news.map((v, i) => {
           // 使用 Link 元件作為每個新聞卡片的容器，設定 to 屬性為對應的路由
           return (
@@ -69,7 +68,6 @@ export default function Newscard({ news_sid = '', article = [] }) {
             </div>
           );
         })}
-      </div>
       <div className={styles.flex}>
         <div className={styles.arrayleft}>
           <FontAwesomeIcon

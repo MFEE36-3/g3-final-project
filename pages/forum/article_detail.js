@@ -1,5 +1,5 @@
 import React from 'react';
-import Forumbtn from '@/components/common/forum/btn';
+import Forumbtn from '@/components/common/btn';
 import { Style } from '@mui/icons-material';
 import styles from './article_datail.module.css';
 import TagTime from '@/components/common/forum/tag_time';
