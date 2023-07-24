@@ -10,14 +10,6 @@ export default function MainContent({ favorite, setFavorite }) {
 
   const [data, setData] = useState([]);
 
-  // const trans = () => {
-  //   data.map((v) => {
-  //     if (v.category == 1) {
-  //       setData ({ ...v, category: '中式' })
-  //     }
-  //   })
-  // }
-
   useEffect(() => {
     fetch(`${process.env.API_SERVER}/restaurants/cards`)
       .then(r => r.json())
@@ -27,12 +19,6 @@ export default function MainContent({ favorite, setFavorite }) {
         // trans();
       })
   }, [])
-
-  // useEffect(()=>{
-  //   trans()
-  // },[data])
-
-
 
   // const handleFavorite = () => {
   //   setFavorite((prev) => {
@@ -44,12 +30,12 @@ export default function MainContent({ favorite, setFavorite }) {
   return (
     <>
       <div className={`${style.fonttitle} ${style.borderbottom} d-flex w-100 justify-content-center mb-3 pb-1`}>
-        查詢結果
+        推薦餐廳
       </div>
       <div className={style.main}>
         <div className={style.maincontent}>
           {data.map((v) => {
-            const { sid, picture, shop, category, location } = v;
+            const { sid, picture, shop, res_cate, rating, location } = v;
             return (
               <Card
                 className={`${style.card}`}
@@ -78,15 +64,15 @@ export default function MainContent({ favorite, setFavorite }) {
                       }}
                     >
                       <FaUtensils className="me-1" />
-                      {category}
+                      {res_cate}
                     </div>
                     <div className="d-flex align-item-center">
                       <AiFillStar
                         className="fs-4 h-100 text-warning"
                       // style={{ color: '#ecbd18' }}
                       />
-                      <div className="d-flex align-item-center">
-                        4.5 / 5
+                      <div className="d-flex align-item-center mb-0">
+                        {rating}
                       </div>
                     </div>
                     <div className="d-flex align-item-center">

@@ -46,7 +46,7 @@ export default function Top5() {
 
         <div className={style.top5row}>
           {data.map((v) => {
-            const { sid, picture, shop } = v;
+            const { sid, picture, shop,rating } = v;
             return (
               <Card
                 key={sid}
@@ -57,7 +57,7 @@ export default function Top5() {
                 <Card.Img src="../../reservation/c1.png" className='position-relative pt-5' alt="" />
                 <Card.Body className={style.top5cardbody}>
                   <div className={style.top5star}>
-                    <div className={style.me5}>4.7</div>
+                    <div className={style.me5}>{rating}</div>
                     <AiFillStar />
                   </div>
                   <Card.Title className={style.top5name}>{shop}</Card.Title>
