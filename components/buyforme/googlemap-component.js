@@ -1,15 +1,18 @@
-import { useMemo, useState, useEffect,useRef } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
-import styles from '@/styles/buyforme/map/map.module.css'
-import shop from '@/public/buyforme/map/shop_icon.svg'
+import axios from "axios";
+import styles from '@/styles/buyforme/map/map.module.css';
+import shop from '@/public/buyforme/map/shop_icon.svg';
+import Btn from "@/components/common/btn";
+import star from '@/public/buyforme/map/star.svg'
 
-export default function GoogleMapComponent({ data, chat, mapcolor }) {
+export default function GoogleMapComponent({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore }) {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     });
 
     if (!isLoaded) return <div>Loading...</div>;
-    return <Map data={data} chat={chat} mapcolor={mapcolor} />;
+    return <Map data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} />;
 }
 
 {// const ramens = [
@@ -816,10 +819,16 @@ const search_radius = [
 ]
 
 
-function Map({ data, chat, mapcolor }) {
+
+
+
+function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore }) {
     const [center, setCenter] = useState({ lat: 44, lng: -80 });
     const [usercenter, setUserCenter] = useState({ lat: 44, lng: -80 });
     const routeAnimationRef = useRef(null);
+    const [selectedMarker, setSelectedMarker] = useState(null);
+    const [review, setReview] = useState([]);
+
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -954,7 +963,7 @@ function Map({ data, chat, mapcolor }) {
 
         //使用者聊天框框
         const infowindow = new google.maps.InfoWindow({
-            content: `<div id="chatbox">${chat}</div>`,
+            content: `<div id="chatbox" class=${styles.chatbox_message}>${chat}</div>`,
             pixelOffset: new google.maps.Size(0, -30),
             maxWidth: 300,
         });
@@ -968,7 +977,6 @@ function Map({ data, chat, mapcolor }) {
                     fetch('https://maps.googleapis.com/maps/api/geocode/json?address=台灣台北市萬華區康定路190號&key=你ㄉ金鑰')
                         .then(r => r.json())
                         .then(obj => console.log(obj))
-                    //   setCenter({ lat: 0, lng: 180 })
                 });
             };
         });
@@ -983,7 +991,7 @@ function Map({ data, chat, mapcolor }) {
 
         data.map((v, i) => {
             const shopMarker = new window.google.maps.Marker({
-                position: { lat: v.lat, lng: v.lng },
+                position: { lat: Number(v.latitude), lng: Number(v.longitude) },
                 map: map,
                 icon: {
                     url: shop.src,
@@ -996,22 +1004,59 @@ function Map({ data, chat, mapcolor }) {
                 animation: window.google.maps.Animation.DROP,
             });
 
+            const shop_infowindow = new google.maps.InfoWindow({
+                content: `
+                <div id="${v.shop}" class=${styles.shop_infowindow_title}>${v.shop}</div>
+                <div class=${styles.shop_infowindow_img_box}>
+                <div class=${styles.shop_infowindow_img} style="background-image:url('/28a8513919088d3328aaa40284c6b13e.png')"></div>
+                </div>
+                <div class=${styles.shop_infowindow_tag_star}>
+                <div class=${styles.shop_infowindow_star}>
+                <div style="background-image:url(${star.src})" class=${styles.star_img}></div>
+                <div>${v.rating}</div>
+                </div>
+                <div class=${styles.shop_infowindow_tag}>${v.res_cate}</div>
+                </div>
+                <div class=${styles.shop_infowindow_description}>${v.res_desc}</div>
+                ${review.map((v) => {
+                    const random_character = random_user[Math.floor(random_user.length * Math.random())];
+                    return (
+                        `<div class=${styles.shop_infowindow_review_box}>
+                            <div style="background-image:url('/buyforme/map/user_icon/${random_character.img}')" class=${styles.shop_infowindow_review_img}></div>
+                            <div class=${styles.shop_infowindow_review}>${v.text}</div>
+                        </div>`
+                    )
+                }).join('')
+                    }
+                <botton class='btn btn-info ${styles.shop_infowindow_btn}' id="btn_${v.sid}">開團GO!<botton>
+                `,
+                pixelOffset: new google.maps.Size(0, -30),
+                maxWidth: 600,
+            });
+
+
+
+
             const shop_click = shopMarker.addListener('click', () => {
                 // 點擊 Maker 的事件處理程式
-                map.setCenter({ lat: v.lat, lng: v.lng });
+                map.setCenter({ lat: Number(v.latitude), lng: Number(v.longitude) });
                 console.log(`${v.shop} Shop Marker 被點擊了`);
+                setSelectedMarker(v.shop);
+                getreview();
                 // 在這裡可以執行其他操作或觸發其他函式
-            });
-
-            const shop_infowindow = new google.maps.InfoWindow({
-                content: `<div id="${v.shop}">123154s6d5adsdawe</div>`,
-                pixelOffset: new google.maps.Size(0, -30),
-                maxWidth: 300,
-            });
-
-            const open_shop_info = shopMarker.addListener('click', () => {
-                // 點擊打開使用者聊天訊息
                 shop_infowindow.open(map, shopMarker);
+
+                //設定事件
+                google.maps.event.addListener(shop_infowindow, "domready", () => {
+                    const shop_infowindowElement = document.getElementById(`btn_${v.sid}`); // 取得 InfoWindow DOM 元素
+                    if (shop_infowindowElement) {
+                        shop_infowindowElement.addEventListener("click", () => {
+                            // 在這裡處理 click 事件
+                            setOpenForm(true);
+                            setOpentargetstore(v.sid);
+                        });
+                    };
+                });
             });
         })
 
@@ -1032,22 +1077,29 @@ function Map({ data, chat, mapcolor }) {
 
     }, [data, center, chat, mapcolor, usercenter]);
 
-            // Use the DOM setInterval() function to change the offset of the symbol
-        // at fixed intervals.
-        function animateArrow(line) {
-            let count = 0;
+    // Use the DOM setInterval() function to change the offset of the symbol
+    // at fixed intervals.
+    function animateArrow(line) {
+        let count = 0;
 
-            routeAnimationRef.current = setInterval(() => {
-                count = (count + 1) % 200;
+        routeAnimationRef.current = setInterval(() => {
+            count = (count + 1) % 200;
 
-                const icons = line.get("icons");
+            const icons = line.get("icons");
 
-                icons[0].offset = count / 2 + "%";
-                line.set("icons", icons);
-                console.log(count)
-            }, 30);
+            icons[0].offset = count / 2 + "%";
+            line.set("icons", icons);
+            // console.log(count)
+        }, 30);
 
-        }
+    }
+
+    const getreview = async () => {
+        const response = await fetch(process.env.API_SERVER + '/buyforme/review');
+        const data = await response.json();
+        console.log(data);
+        setReview(data.rows);
+    }
 
     return <div id="map" className={styles.map_container} />;
 }
