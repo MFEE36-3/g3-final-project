@@ -2,6 +2,8 @@ import styles from '@/styles/member/mem-body.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Input from '@/components/common/input';
+import AuthContext from '@/context/AuthContext';
+import { useState, useEffect, useContext } from 'react';
 
 export default function aandex() {
   return (

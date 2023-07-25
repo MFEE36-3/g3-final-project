@@ -15,8 +15,11 @@ export const noLoginState = {
 
 // 創建一個函式，之後子元件才能引入useContext並使用裡面的資料及修改狀態
 export const AuthContextProvider = function ({ children }) {
-  //預設auth物件暫時沒有資料
+  // 預設auth物件暫時沒有資料
   const [auth, setAuth] = useState({ ...noLoginState });
+
+  // 創建一個狀態空物件，準備存放基本會員資料給所有頁面使用
+  const [memberData, setMemberData] = useState({});
 
   // 創建一個登出函式會清空localStorage，接著把auth物件清空
   const logout = () => {
@@ -29,19 +32,28 @@ export const AuthContextProvider = function ({ children }) {
   useEffect(() => {
     const str = localStorage.getItem('auth');
     if (str) {
-      try {
-        const obj = JSON.parse(str);
-        setAuth(obj);
-      } catch (ex) {
-        ('嘻嘻嘻我最喜歡玩原神啦');
-      }
+      const obj = JSON.parse(str);
+      setAuth(obj);
+
+      const Authorization = 'Bearer ' + obj.token;
+      fetch('http://localhost:3002/member', {
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // 後端回傳的資料後重新渲染+塞入預設物件裡面
+          setMemberData(data[0]);
+        });
     }
   }, []);
 
   // 完成建立Context.Provider頂層元件
-  // 可以傳遞auth狀態、setAuth控制狀態、登出函式給任何子元件
+  // 把裝著驗證token的auth、setAuth控制狀態、登出函式、基本會員資料分享給任何子元件
   return (
-    <AuthContext.Provider value={{ auth, setAuth, logout }}>
+    <AuthContext.Provider value={{ auth, setAuth, logout, memberData }}>
       {children}
     </AuthContext.Provider>
   );

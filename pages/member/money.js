@@ -6,6 +6,8 @@ import styles2 from '@/styles/member/mem-money.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MemAllTitle from '@/components/member/mem-allTitle';
 import MemMoneyReocrdTable from '@/components/member/mem-moneyReocrdTable';
+import AuthContext from '@/context/AuthContext';
+import { useState, useEffect, useContext } from 'react';
 
 export default function Index() {
   const rows = [
@@ -41,6 +43,8 @@ export default function Index() {
     },
   ];
 
+  const { auth, memberData } = useContext(AuthContext);
+
   return (
     <div className={styles.body}>
       <div className={styles.container}>
@@ -50,7 +54,7 @@ export default function Index() {
             <div className={styles2.area1}>
               <MemAllTitle title={'我的錢包'} />
 
-              <div className={styles2.nowMoney}>NT$ 7414 元</div>
+              <div className={styles2.nowMoney}>NT$ {memberData.wallet}</div>
               <div className={styles2.inputArea}>
                 <label className={styles2.label}>
                   <div className={styles2.title}>儲值</div>

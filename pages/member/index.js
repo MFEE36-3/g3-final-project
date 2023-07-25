@@ -9,8 +9,36 @@ import Link from 'next/link';
 import IconImg from '@/public/member/icon.png';
 import MemAllTitle from '@/components/member/mem-allTitle';
 import AuthContext from '@/context/AuthContext';
+import { useState, useEffect, useContext } from 'react';
 
 export default function Index() {
+  const { auth, memberData } = useContext(AuthContext);
+  const [info, setInfo] = useState({ account: '' });
+  // console.log(auth.token);
+
+  useEffect(() => {
+    if (!auth.token) return;
+
+    // 用一個jwt固定格式存放登入後獲得的token，放在headers準備傳給後端
+    const Authorization = 'Bearer ' + auth.token;
+    fetch('http://localhost:3002/member', {
+      method: 'GET',
+      headers: {
+        Authorization,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // 後端回傳的資料後重新渲染+塞入預設物件裡面
+        console.log(data);
+        setInfo(data[0]);
+        console.log(info);
+      });
+
+    // 每次登出與重新登入都會觸發這個useEffect
+  }, [auth]);
+  // }, []);
+
   const actNow = [
     { title: '揪團', content: '半筋半肉牛肉麵(大碗)  光復牛肉麵' },
     { title: '揪團', content: '鼎極鮮奶茶  上宇林大安復興店' },
@@ -29,7 +57,7 @@ export default function Index() {
             <div className={styles.package}>
               <div className={styles.flex2}>
                 <div>我的錢包</div>
-                <div>帳號:asiagodtone@gmail.com</div>
+                <div>帳號:{auth.account}</div>
               </div>
 
               <div className={styles.packageMoney}>
@@ -39,7 +67,7 @@ export default function Index() {
                   alt=""
                   className={styles.packageImg}
                 />
-                NT$ 7414
+                NT$ {memberData?.wallet}
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'end' }}>

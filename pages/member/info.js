@@ -5,40 +5,34 @@ import styles2 from '@/styles/member/mem-info.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
 import { v4 } from 'uuid';
-import { useEffect, useState } from 'react';
+import AuthContext from '@/context/AuthContext';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import MemAllTitle from '@/components/member/mem-allTitle';
 import Btn from '@/components/common/btn';
 
 export default function Info() {
-  const router = useRouter();
+  // 從useContext裡解構出auth這個裝著驗證資料的物件
+  const { auth, memberData } = useContext(AuthContext);
 
-  const [info, setInfo] = useState({});
-
-  useEffect(() => {
-    fetch('http://localhost:3002/member')
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        const result = data[0];
-        setInfo(result);
-      });
-  }, [router.query]);
+  if (!memberData) {
+    return <div>Loading...</div>;
+  }
 
   const {
-    sid,
     account,
-    nickname,
-    name,
-    password,
-    mobile,
-    wallet,
-    level,
-    birthday,
-    photo,
-    creat_at,
     achieve,
-  } = info;
+    birthday,
+    creat_at,
+    level,
+    mobile,
+    name,
+    nickname,
+    password,
+    photo,
+    sid,
+    wallet,
+  } = memberData;
 
   //不要顯示等級1or2，改為顯示會員等級名稱
   const lev = level === 1 ? '一般會員' : '尊榮會員';

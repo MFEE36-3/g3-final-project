@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import AuthContext from '@/context/AuthContext';
+import { useState, useEffect, useContext } from 'react';
 import MemBar from '@/components/member/mem-bar';
 import {
   MemActivityRecord1,

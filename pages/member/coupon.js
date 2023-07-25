@@ -7,6 +7,8 @@ import styles from '@/styles/member/mem-body.module.css';
 import styles2 from '@/styles/member/mem-coupon.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { v4 } from 'uuid';
+import AuthContext from '@/context/AuthContext';
+import { useState, useEffect, useContext } from 'react';
 
 export default function Index() {
   const mycoupon = [
