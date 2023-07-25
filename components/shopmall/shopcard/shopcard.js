@@ -106,7 +106,6 @@ export default function ShopCard() {
     </div>
   </ItemCard>  
 )
-  useLocal
   return (
     <>
     <div >
