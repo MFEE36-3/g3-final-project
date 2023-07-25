@@ -75,7 +75,7 @@ export default function ResultContent(favorite, setFavorite) {
     }, undefined, { scroll: false })
   }
 
-  //處理sortrating
+  // 處理sortrating
   const handleSort = (e) => {
     const sortrating = e.target.value;
     setSortrating(sortrating);
@@ -126,6 +126,7 @@ export default function ResultContent(favorite, setFavorite) {
           </ThemeProvider>
         </div>
       </div>
+
       <div className={style.main}>
         <div className={style.maincontent}>
           {data.rows.map((v) => {
@@ -151,7 +152,7 @@ export default function ResultContent(favorite, setFavorite) {
                   <div className="d-flex align-item-center justify-content-between">
                     <div
                       style={{
-                        fontSize: '12px',
+                        fontSize: '14px',
                         background: '#911010',
                         borderRadius: 20,
                         border: 0,
@@ -159,7 +160,7 @@ export default function ResultContent(favorite, setFavorite) {
                         padding: '5px',
                       }}
                     >
-                      <FaUtensils className="me-1" />
+                      <FaUtensils className={style.buttonicon} />
                       {res_cate}
                     </div>
                     <div className="d-flex align-item-center">

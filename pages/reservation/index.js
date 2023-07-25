@@ -32,6 +32,10 @@ export default function Reservation() {
 
 
   useEffect(() => {
+    // if (window.location.search) {
+    //   router.query = new URLSearchParams(window.location.search)
+    // }
+
     if (router.query) {
 
       // 取得router 食物類別category
@@ -76,7 +80,7 @@ export default function Reservation() {
     }
   }, [router.query])
 
-  console.log(router)
+  // console.log(router)
 
   return (
     <>

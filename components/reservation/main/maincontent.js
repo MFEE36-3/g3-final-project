@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { FaUtensils } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
+import Link from "next/link";
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect } from 'react';
 
@@ -41,12 +42,14 @@ export default function MainContent({ favorite, setFavorite }) {
                 key={sid}
               >
                 <div className={style.carddiv}>
-                  <Card.Img
-                    variant="top"
-                    src="../../reservation/respic.jpeg"
-                    className={`${style.cardimg}`}
-                  />
-                  <div className={style.cardtext}>進入餐廳</div>
+                  <Link href={"/reservation/" + sid}>
+                    <Card.Img
+                      variant="top"
+                      src="../../reservation/respic.jpeg"
+                      className={`${style.cardimg}`}
+                    />
+                    <div className={style.cardtext}>進入餐廳</div>
+                  </Link>
                 </div>
                 <Card.Body>
                   <Card.Title>{shop}</Card.Title>
@@ -54,7 +57,7 @@ export default function MainContent({ favorite, setFavorite }) {
                   <div className="d-flex align-item-center justify-content-between">
                     <div
                       style={{
-                        fontSize: '12px',
+                        fontSize: '14px',
                         background: '#911010',
                         borderRadius: 20,
                         border: 0,
@@ -62,7 +65,7 @@ export default function MainContent({ favorite, setFavorite }) {
                         padding: '5px',
                       }}
                     >
-                      <FaUtensils className="me-1" />
+                      <FaUtensils className={style.buttonicon} />
                       {res_cate}
                     </div>
                     <div className="d-flex align-item-center">

@@ -23,11 +23,11 @@ export default function RestaurantPage() {
                 <Rcarousel />
                 <div className="container">
                     <div className="row">
-                        <div className="col-3">
+                        <div className={style.infodiv}>
                             <Info />
                         </div>
 
-                        <div className="col-9">
+                        <div className={style.reservationdiv}>
                             <div>
                                 <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
 

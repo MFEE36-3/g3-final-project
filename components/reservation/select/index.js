@@ -70,7 +70,6 @@ export default function SelectArea({ keyword, setKeyword }) {
   };
 
   let clearurl = '';
-  // router.push('/reservation');
   const clearselect = () => {
     router.push(
       {
@@ -95,7 +94,7 @@ export default function SelectArea({ keyword, setKeyword }) {
           <SliderBar keyword={keyword} setKeyword={setKeyword} />
         </div>
         <div>
-          <Star keyword={keyword} setKeyword={setKeyword} />
+          {/* <Star keyword={keyword} setKeyword={setKeyword} /> */}
         </div>
       </div>
     </>
