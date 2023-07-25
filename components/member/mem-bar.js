@@ -43,7 +43,7 @@ export default function MemBar() {
   }, [auth]);
 
   // 由於useEffect重新渲染時會有第一次沒資料、第二次有資料的問題
-  // 在
+  // 在填入變數時要在變數後面加上? 代表內容不是null或undefined才會訪問其屬性
   return (
     <div className={styles.memBar}>
       <div className={styles.memBtnTop}>
