@@ -67,7 +67,7 @@ export default function Info() {
                         <iframe
                             className={style.map}
                             frameborder={0}
-                            src={`https://www.google.com/maps/embed/v1/place?q=${row?.cityname}${row?.areaname}${row?.location}&key=AIzaSyAe4RAMJalQ2Zz12UpGV3RoLw6sLUIFvQ8`}
+                            src={`https://www.google.com/maps/embed/v1/place?q=${row?.cityname}${row?.areaname}${row?.location}&key=`}
                         >
                         </iframe>
                     </div>
