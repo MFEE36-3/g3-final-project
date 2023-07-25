@@ -14,8 +14,8 @@ import styled from '@emotion/styled'
 export const Host = createContext()
 
 const initialState = {
-  // host: "http://127.0.0.1:8000",
-  host: "http://192.168.50.169:8000",
+  host: "http://127.0.0.1:8000",
+  // host: "http://192.168.50.169:8000",
   categories: {},
   items: [],
   keyword: '',
@@ -27,7 +27,7 @@ const initialState = {
   sortby:'',
   order:'',
   isLoading:true,
-  page:'',
+  page:1,
   isReset:false,
 }
 
@@ -90,6 +90,7 @@ const LoadingAni = () => {
 export default function ShopMallFinal() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [selectedCategory, setSelectedCategory] = useState([])
+  const [rating, setRating] = useState('')
   const router = useRouter()
   const resetButton = () => {
     dispatch({
@@ -98,15 +99,16 @@ export default function ShopMallFinal() {
     });
   }
   useEffect(() => {
-    const { keyword, cate_ids, order_key, order_type, rating_filter, price_min, price_max, page} = router.query;
+    const { keyword, cate_ids, order_key, order_type, rating_filter, price_min, price_max, page,} = router.query;
     dispatch({ type: 'SET_KEYWORD', payload: keyword || '' });
     dispatch({ type: 'SET_SORTBY', payload: order_key || '' });
     dispatch({ type: 'SET_ORDER', payload: order_type || '' });
     dispatch({ type: 'SET_RATING_FILTER', payload: rating_filter || '' });
     dispatch({ type: 'SET_MIN_PRICE', payload: price_min || '' });
     dispatch({ type: 'SET_MAX_PRICE', payload: price_max || '' });
-    dispatch({ type: 'SET_PAGE', payload: page || 1})
+    dispatch({ type: 'SET_PAGE', payload: page})
     const fetchData = async () => {
+      let successSubscribe = true;
       let query = {
         keyword: keyword || '',
         cate_ids: selectedCategory ? selectedCategory.join('%') : [],
@@ -119,23 +121,30 @@ export default function ShopMallFinal() {
       };
       const queryUrl = new URLSearchParams(query).toString();
       const url = `${state.host}/api/item?${state.isReset ? '' : queryUrl}`;
+      console.log(`start fetching ${url}`);
       const response = await fetch(url);
       const { data, pagination } = await response.json();
-      dispatch({
-        type: 'SET_ITEMS',
-        payload: data
-      });
-      dispatch({
-        type: 'SET_LOADING',
-        payload: false
-      })
-      dispatch({
-        type: 'SET_TOTALPAGES',
-        payload: pagination.totalPages
-      })
+      if(successSubscribe){
+        console.log(`start dispatch ${url}`);
+        dispatch({
+          type: 'SET_ITEMS',
+          payload: data
+        });
+        dispatch({
+          type: 'SET_LOADING',
+          payload: false
+        })
+        dispatch({
+          type: 'SET_TOTALPAGES',
+          payload: pagination.totalPages
+        })
+      }
+      return () =>{
+        console.log(`revoke fetching ${url}`);
+        successSubscribe = false
+      }
     };
     fetchData();
-    // state.isReset && (state.isReset = !state.isReset)
   }, [router.query]);
   useEffect(()=>{
     console.log('hi Goreset')
@@ -150,7 +159,7 @@ export default function ShopMallFinal() {
     })
   },[state.isReset])
   return (
-    <Host.Provider value={{ ...state, dispatch, selectedCategory, setSelectedCategory}}>
+    <Host.Provider value={{ ...state, dispatch, selectedCategory, setSelectedCategory, rating, setRating}}>
       <ShopContainer>
         <SearchBar/>
         <ShopBodyForSearch>

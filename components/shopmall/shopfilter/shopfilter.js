@@ -4,6 +4,7 @@ import {PiFunnelLight} from 'react-icons/pi'
 import Category from '@/components/shopmall/shopfilter/category'
 import PriceRange from '@/components/shopmall/shopfilter/pricerange'
 import Star from '@/components/shopmall/shopfilter/star'
+import CardModal from '@/components/shopmall/modal/cardmodal'
 const H3div = styled.div`
       font-size:var(--h3)
 `
@@ -19,6 +20,7 @@ export default function ShopFilter() {
       <Category/>
       <PriceRange/>
       <Star/>
+      <CardModal/>
     </div>
   );
 }

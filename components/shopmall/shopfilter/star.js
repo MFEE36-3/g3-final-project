@@ -11,8 +11,8 @@ const Nobgbutton = styled.button`
     background:none
 `
 export default function Star() {
-    const {ratingFilter, dispatch , isReset} = useContext(Host)
-    const [rating, setRating] = useState('')
+    const {ratingFilter, dispatch , isReset, rating, setRating } = useContext(Host)
+    
     const handleRatingChange = (v) => {
         setRating(v)
         dispatch({
