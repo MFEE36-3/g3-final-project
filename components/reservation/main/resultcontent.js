@@ -1,17 +1,32 @@
+import Box from '@mui/material/Box';
 import Card from 'react-bootstrap/Card';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 import { FaUtensils } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect } from 'react';
 import Link from "next/link";
+import Select from '@mui/material/Select';
 import { Router, useRouter } from 'next/router';
 import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function ResultContent(favorite, setFavorite) {
 
   const router = useRouter();
+  const [sortrating, setSortrating] = useState('');
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#911010',
+        darker: '#053e85',
+      },
+    },
+  });
 
   const [data, setData] = useState({
     redirect: "",
@@ -41,45 +56,75 @@ export default function ResultContent(favorite, setFavorite) {
   //     return !prev;
   //   })
   // }
+  const [currentPage, setCurrentPage] = useState();
+
+  // 處理pagination
+  const handlePageChange = (e, page) => {
+    setCurrentPage(page);
+
+    let query = { ...router.query };
+    // const query1 = query.replaceAll('%2C', ',');
+
+    if (page) {
+      query.page = page;
+    }
+
+    router.push({
+      pathname: router.pathname,
+      query: query
+    }, undefined, { scroll: false })
+  }
+
+  //處理sortrating
+  const handleSort = (e) => {
+    const sortrating = e.target.value;
+    setSortrating(sortrating);
+
+    let query = { ...router.query };
+
+    if (sortrating) {
+      query.sortrating = sortrating;
+    }
+
+    router.push({
+      pathname: router.pathname,
+      query: query
+    }, undefined, { scroll: false })
+  }
 
   return (
     <>
       <div className={`${style.fonttitle} ${style.borderbottom} d-flex w-100 justify-content-center mb-3 pb-1`}>
         符合餐廳
       </div>
-      <div>
-        {/* Pagination */}
-        <nav aria-label="Page navigation example">
-          <ul className="pagination">
-            {Array(5)
-              .fill(1)
-              .map((v, i) => {
-                const p = data.page - 2 + i;
-                const query = { ...router.query };
-                if (p < 1 || p > data.totalPages) return;
-                query.page = p;
-                return (
-                  <li
-                    className={
-                      `page-item ` + (p === data.page ? "active" : "")
-                    }
-                    key={p}
-                  >
-                    <Link className="page-link" href={"?" + new URLSearchParams(query).toString().replaceAll('%2C', ',')}>
-                      {p}
-                    </Link>
-                  </li>
-                );
-              })}
-          </ul>
-        </nav>
-      </div>
-      <div>
-        <Pagination
-          count={data.totalPages} // 总页数，需要根据实际情况设置
-        // page={currentPage}
-        // onChange={handlePageChange}
-        />
+
+      <div className={style.paginationbar}>
+        <div>
+          <Pagination
+            count={data.totalPages}
+            onChange={handlePageChange}
+          />
+        </div>
+        <div className={style.sortdiv}>
+          <ThemeProvider theme={theme}>
+            <Box>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">--評分排序--</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={sortrating}
+                  label="city"
+                  onChange={handleSort}
+                  color="primary"
+                >
+                  <MenuItem value={'desc'}>高到低</MenuItem>
+                  <MenuItem value={'asc'}>低到高</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </ThemeProvider>
+        </div>
       </div>
       <div className={style.main}>
         <div className={style.maincontent}>
@@ -91,7 +136,7 @@ export default function ResultContent(favorite, setFavorite) {
                 key={sid}
               >
                 <div className={style.carddiv}>
-                  <Link href={"/search/" + sid}>
+                  <Link href={"/reservation/" + sid}>
                     <Card.Img
                       variant="top"
                       src="../../reservation/respic.jpeg"

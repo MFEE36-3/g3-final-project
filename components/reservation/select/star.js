@@ -7,9 +7,9 @@ import { Host } from '@/components/shopmall/shopmallfinal'
 const H4div = styled.div`font-size:var(--h4)`
 const Nobgbutton = styled.button`background:none`
 
-export default function Star({ keyword, setKeyword}) {
-  // const { ratingFilter, dispatch } = useContext(Host)
-  const [rating,setRating] = useState();
+export default function Star({ keyword, setKeyword }) {
+
+  const [rating, setRating] = useState();
   const router = useRouter();
 
   const handleRatingChange = (v) => {

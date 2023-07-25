@@ -14,9 +14,8 @@ export default function MainContent({ favorite, setFavorite }) {
     fetch(`${process.env.API_SERVER}/restaurants/cards`)
       .then(r => r.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setData(data.rows);
-        // trans();
       })
   }, [])
 

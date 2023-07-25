@@ -226,6 +226,15 @@
   color: #911010;
 }
 
+.paginationbar{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sortdiv{
+  width: 10%;
+}
 
 /* ---------------------------------------- */
 
