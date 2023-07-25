@@ -6,13 +6,13 @@ import shop from '@/public/buyforme/map/shop_icon.svg';
 import Btn from "@/components/common/btn";
 import star from '@/public/buyforme/map/star.svg'
 
-export default function GoogleMapComponent({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore }) {
+export default function GoogleMapComponent({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, review_data }) {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     });
 
     if (!isLoaded) return <div>Loading...</div>;
-    return <Map data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} />;
+    return <Map data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} review_data={review_data} />;
 }
 
 {// const ramens = [
@@ -822,7 +822,7 @@ const search_radius = [
 
 
 
-function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore }) {
+function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore,review_data}) {
     const [center, setCenter] = useState({ lat: 44, lng: -80 });
     const [usercenter, setUserCenter] = useState({ lat: 44, lng: -80 });
     const routeAnimationRef = useRef(null);
@@ -1018,21 +1018,28 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore }
                 <div class=${styles.shop_infowindow_tag}>${v.res_cate}</div>
                 </div>
                 <div class=${styles.shop_infowindow_description}>${v.res_desc}</div>
-                ${review.map((v) => {
-                    const random_character = random_user[Math.floor(random_user.length * Math.random())];
-                    return (
-                        `<div class=${styles.shop_infowindow_review_box}>
+                ${review_data.rows.filter((review) => review.sid === v.sid) // 篩選符合 v.sid 的評論
+                .map((review) => {
+                    if(review.review)
+                    return review.review.map((reviewItem) => {
+                        const random_character = random_user[Math.floor(random_user.length * Math.random())];
+                        return (
+                          `<div class=${styles.shop_infowindow_review_box}>
                             <div style="background-image:url('/buyforme/map/user_icon/${random_character.img}')" class=${styles.shop_infowindow_review_img}></div>
-                            <div class=${styles.shop_infowindow_review}>${v.text}</div>
-                        </div>`
-                    )
-                }).join('')
+                            <div class=${styles.shop_infowindow_review}>${reviewItem.text}</div>
+                          </div>`
+                        );
+                      }).join('');
+                })
+                .join('')
                     }
                 <botton class='btn btn-info ${styles.shop_infowindow_btn}' id="btn_${v.sid}">開團GO!<botton>
                 `,
                 pixelOffset: new google.maps.Size(0, -30),
                 maxWidth: 600,
             });
+
+            console.log(review_data.rows)
 
 
 
@@ -1042,7 +1049,7 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore }
                 map.setCenter({ lat: Number(v.latitude), lng: Number(v.longitude) });
                 console.log(`${v.shop} Shop Marker 被點擊了`);
                 setSelectedMarker(v.shop);
-                getreview();
+                //getreview();
                 // 在這裡可以執行其他操作或觸發其他函式
                 shop_infowindow.open(map, shopMarker);
 

@@ -145,19 +145,23 @@ const chat_input_style = {
 }
 
 
-//後端先取得資料庫的商家資料
+//後端先取得資料庫的商家資料 跟 店家評論
 export async function getStaticProps() {
     const response = await fetch(process.env.API_SERVER + '/buyforme');
     const data = await response.json();
 
+    const response2 = await fetch(process.env.API_SERVER + '/buyforme/review');
+    const review_data = await response2.json();
+
     return {
         props: {
             initialData: data.rows,
+            review_data: review_data,
         },
     };
 }
 
-const Buyforme = ({ initialData }) => {
+const Buyforme = ({ initialData,review_data}) => {
 
     const [originaldata, setOriginaldata] = useState(initialData);
     const [data, setData] = useState(initialData);
@@ -212,7 +216,7 @@ const Buyforme = ({ initialData }) => {
     };
 
     return (<>
-        <GoogleMapComponent data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} />
+        <GoogleMapComponent data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} review_data={review_data} />
 
         <div className={styles.inputBox}>
             <TextField

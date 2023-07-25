@@ -320,7 +320,6 @@
 
 .shop_infowindow_tag_star {
     display: flex;
-    justify-content: start;
     align-items: center;
     width: 100%;
     background-color: var(--main-color);
