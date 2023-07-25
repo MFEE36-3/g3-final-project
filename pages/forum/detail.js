@@ -21,10 +21,6 @@ export default function Detail() {
 
               <Hotnew />
               <Articlelist />
-              <Articlelist />
-              <Articlelist />
-              <Articlelist />
-              <Articlelist />
             </div>
             <div></div>
           </div>
