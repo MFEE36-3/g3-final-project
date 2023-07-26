@@ -1,17 +1,22 @@
 import Calendar from './calendar'
+import DateTime from './datetime';
 import InteriorPic from './interior'
 import SelectPerson from './person'
 import { TextareaAutosize } from '@mui/base';
 import style from '@/styles/reservation/style.module.css'
 
 
-export default function Reservation({ date, setDate }) {
+export default function Reservation({ date, setDate, time, setTime }) {
   return (
     <>
       <div className={style.divmb}>
         <p className={style.subtitle}>用餐日期</p>
         <Calendar date={date} setDate={setDate} />
       </div>
+
+      {date ? <div className={style.divmb}>
+        <DateTime date={date} setDate={setDate} time={time} setTime={setTime} />
+      </div> : ''}
 
       <div className={style.divmb}>
         <p className={style.subtitle}>用餐人數</p>
