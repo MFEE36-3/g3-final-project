@@ -16,8 +16,7 @@ const theme = createTheme({
     },
 });
 
-export default function SelectPerson() {
-    const [person, setPerson] = React.useState('');
+export default function SelectPerson({ time, setTime, person, setPerson }) {
 
     const handleChange = (event) => {
         setPerson(event.target.value);
@@ -37,7 +36,7 @@ export default function SelectPerson() {
                                 label="Age"
                                 onChange={handleChange}
                                 color="primary"
-
+                                disabled={!time}
                             >
                                 <MenuItem value={1}>1人</MenuItem>
                                 <MenuItem value={2}>2人</MenuItem>

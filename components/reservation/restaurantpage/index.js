@@ -3,7 +3,7 @@ import ToggleButtonGroup from './switchbar'
 import Reservation from './reservation'
 import Togo from './togo'
 
-export default function ReservationPage({ date, setDate, time, setTime }) {
+export default function ReservationPage({ date, setDate, time, setTime, person, setPerson }) {
 
     const [page, setPage] = useState('訂位')
 
@@ -15,7 +15,8 @@ export default function ReservationPage({ date, setDate, time, setTime }) {
                     page={page}
                     setPage={setPage} />
             </div>
-            {page === '訂位' ? <Reservation date={date} setDate={setDate} time={time} setTime={setTime} /> : <Togo />}
+            {page === '訂位' ? <Reservation date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} />
+                : <Togo />}
         </>
     )
 }

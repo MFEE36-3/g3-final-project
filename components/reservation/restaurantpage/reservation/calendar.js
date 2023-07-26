@@ -3,9 +3,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
+import SelectPerson from './person';
 
 
-export default function Calendar({ date, setDate }) {
+export default function Calendar({ date, setDate, setTime, setPerson }) {
 
     const today = new Date();
     const minDate = dayjs(today).add(1, 'day').toDate(); // 計算今天往後一天的日期
@@ -22,8 +23,10 @@ export default function Calendar({ date, setDate }) {
     const handleDateChange = (selectedDate) => {
         // const formattedDate = selectedDate.toISOString().split('T')[0];
         const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
-        console.log(formattedDate)
-        setDate(formattedDate)
+        // console.log(formattedDate)
+        setDate(formattedDate);
+        setTime('');
+        setPerson('');
     }
 
     return (

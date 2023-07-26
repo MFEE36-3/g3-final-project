@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import style from '@/styles/reservation/style.module.css'
 import { areArraysEqual } from '@mui/base';
 
-export default function DateTime({ date, setDate, time, setTime }) {
+export default function DateTime({ date, setDate, time, setTime, setPerson }) {
 
     const pickdate = dayjs(date).format('M月D日');
     const availabletime = [
@@ -17,7 +17,8 @@ export default function DateTime({ date, setDate, time, setTime }) {
 
     const handleTime = (selectedtime) => {
         setTime(selectedtime)
-        console.log(selectedtime);
+        // console.log(selectedtime);
+        setPerson('');
     }
 
     return (
