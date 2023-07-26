@@ -20,6 +20,7 @@ export default function RestaurantPage() {
     const [date, setDate] = useState(); //dayjs(startDate)
     const [time, setTime] = useState('');
     const [person, setPerson] = useState('');
+    const [seat, setSeat] = useState('');
 
     //購物車Offcanvas
     const handleClose = () => setShow(false);
@@ -50,7 +51,7 @@ export default function RestaurantPage() {
 
 
                             </div>
-                            <ReservationPage date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} />
+                            <ReservationPage date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} />
                         </div>
 
 

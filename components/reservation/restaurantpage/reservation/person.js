@@ -16,10 +16,11 @@ const theme = createTheme({
     },
 });
 
-export default function SelectPerson({ time, setTime, person, setPerson }) {
+export default function SelectPerson({ time, setTime, person, setPerson, setSeat }) {
 
     const handleChange = (event) => {
         setPerson(event.target.value);
+        setSeat('');
     };
 
     return (

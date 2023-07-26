@@ -494,8 +494,13 @@
 /* 餐廳座位圖 */
 
 .svgicon:hover *{
-  fill: #911010;
+  cursor: pointer;
   }
+ 
+.svgactive *{
+  fill: var(--main-color);
+  cursor: pointer;
+}
 
 .svg6{
   position: absolute;

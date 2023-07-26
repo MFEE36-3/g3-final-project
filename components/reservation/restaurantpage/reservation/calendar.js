@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import SelectPerson from './person';
 
 
-export default function Calendar({ date, setDate, setTime, setPerson }) {
+export default function Calendar({ date, setDate, setTime, setPerson, setSeat }) {
 
     const today = new Date();
     const minDate = dayjs(today).add(1, 'day').toDate(); // 計算今天往後一天的日期
@@ -27,6 +27,7 @@ export default function Calendar({ date, setDate, setTime, setPerson }) {
         setDate(formattedDate);
         setTime('');
         setPerson('');
+        setSeat('');
     }
 
     return (
