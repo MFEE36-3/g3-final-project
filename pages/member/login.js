@@ -48,7 +48,7 @@ const Login = () => {
   const router = useRouter();
 
   //引入useContext存放的setState，之後會把localStorage裡面的token存進去
-  const { setAuth } = useContext(AuthContext);
+  const { handleLocalStorageChange } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
     //mui內建寫好，取消表單內建事件
@@ -68,19 +68,15 @@ const Login = () => {
     })
       .then((r) => r.json())
       .then((data) => {
-        // 如果後端回傳正確的資料，把資料命名為auth，以json物件的格式存入localStorage
-        // 回傳的資料包含驗證的token，所有頁面都要用，因此把回傳資料也存放在useContext
-        // 透過router內建的push方法跳轉頁面至首頁
-        // 這邊都沒問題之後，接下來有2種方式讓其他頁面可以找到這個驗證token
         if (data.success) {
           const obj = { ...data.data };
           localStorage.setItem('auth', JSON.stringify(obj));
-          setAuth(obj);
-          router.push('/');
         } else {
           console.log(data.error || '帳密錯誤');
         }
-      });
+      })
+      .then(handleLocalStorageChange())
+      .then(router.push('/'));
   };
   const [change, setChange] = useState(false);
 

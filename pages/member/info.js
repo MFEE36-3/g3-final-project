@@ -12,12 +12,22 @@ import MemAllTitle from '@/components/member/mem-allTitle';
 import Btn from '@/components/common/btn';
 
 export default function Info() {
-  // 從useContext裡解構出auth這個裝著驗證資料的物件
+  const router = useRouter();
+  // 從useContext裡解構出驗證資料的auth及包含會員資料的memberData
   const { auth, memberData } = useContext(AuthContext);
 
-  if (!memberData) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    // 如果非登入狀態，則跳轉至根目錄頁面
+    if (!auth) {
+      setTimeout(() => {
+        router.push('/');
+      }, 5000);
+    }
+  }, [auth, router]);
+
+  // if (!memberData) {
+  //   return <div>Loading...</div>;
+  // }
 
   const {
     account,
@@ -28,11 +38,12 @@ export default function Info() {
     mobile,
     name,
     nickname,
-    password,
     photo,
     sid,
     wallet,
   } = memberData;
+
+  const password = '*'.repeat(auth.length);
 
   //不要顯示等級1or2，改為顯示會員等級名稱
   const lev = level === 1 ? '一般會員' : '尊榮會員';

@@ -46,8 +46,8 @@ export default function MemBar() {
           />
         </div>
         <div className={styles.memText}>{memberData?.achieve}</div>
-        <div className={styles.memText}>{auth.nickname}</div>
-        <div className={styles.memEmail}>{auth.account}</div>
+        <div className={styles.memText}>{auth?.nickname}</div>
+        <div className={styles.memEmail}>{auth?.account}</div>
       </div>
       {arr.map((v) => {
         return (

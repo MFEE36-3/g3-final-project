@@ -22,7 +22,7 @@ export default function MemInfoInput({ tag, content, change, sid, title }) {
   //點擊「確定」按鈕後送資料到後端觸發的函式，送完資料把布林值改回預設的false
   function sendInfo() {
     const data = { info, sid, title };
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
 
     fetch('http://localhost:3002/member', {
       method: 'POST',

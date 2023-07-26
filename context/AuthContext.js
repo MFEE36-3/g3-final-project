@@ -27,14 +27,14 @@ export const AuthContextProvider = function ({ children }) {
     setAuth(noLoginState);
   };
 
-  // 每次重新渲染會時抓取localStorage內的auth資料裝在auth裡面
-  // auth資料是json型態，所以要用JSON.parse解析
-  useEffect(() => {
+  // 創建一個函式來處理 localStorage 資料的變化邏輯
+  const handleLocalStorageChange = () => {
     const str = localStorage.getItem('auth');
-    if (str) {
-      const obj = JSON.parse(str);
-      setAuth(obj);
+    const obj = JSON.parse(str);
 
+    if (obj && obj.token) {
+      setAuth(obj);
+      // 確保 obj 不為空且包含 token 屬性
       const Authorization = 'Bearer ' + obj.token;
       fetch('http://localhost:3002/member', {
         method: 'GET',
@@ -44,16 +44,35 @@ export const AuthContextProvider = function ({ children }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          // 後端回傳的資料後重新渲染+塞入預設物件裡面
           setMemberData(data[0]);
         });
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    // 這裡是 auth 發生變化時執行的邏輯
+    if (auth && auth.token) {
+      // 確保 auth 不為空且包含 token 屬性
+      const Authorization = 'Bearer ' + auth.token;
+      fetch('http://localhost:3002/member', {
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setMemberData(data[0]);
+        });
+    }
+  }, [auth]); // 當 auth 變化時觸發這個 useEffect
 
   // 完成建立Context.Provider頂層元件
   // 把裝著驗證token的auth、setAuth控制狀態、登出函式、基本會員資料分享給任何子元件
   return (
-    <AuthContext.Provider value={{ auth, setAuth, logout, memberData }}>
+    <AuthContext.Provider
+      value={{ auth, setAuth, logout, memberData, handleLocalStorageChange }}
+    >
       {children}
     </AuthContext.Provider>
   );
