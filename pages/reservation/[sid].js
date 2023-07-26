@@ -5,6 +5,7 @@ import Info from '@/components/reservation/restaurantpage/info';
 import ReservationPage from '@/components/reservation/restaurantpage';
 import ShoppingCart from '@/components/reservation/restaurantpage/shoppingcart';
 import Image from 'next/image';
+import dayjs from 'dayjs';
 import ShoppingBag from '@/public/reservation/shoppingbag.svg'
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
@@ -13,6 +14,10 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 export default function RestaurantPage() {
 
     const [show, setShow] = useState(false);
+
+    // const today = new Date();
+    // const startDate = dayjs(today).add(1, 'day').toDate();
+    const [date, setDate] = useState(); //dayjs(startDate)
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -42,7 +47,7 @@ export default function RestaurantPage() {
 
 
                             </div>
-                            <ReservationPage />
+                            <ReservationPage date={date} setDate={setDate} />
                         </div>
 
 

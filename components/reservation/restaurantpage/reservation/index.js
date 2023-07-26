@@ -5,12 +5,12 @@ import { TextareaAutosize } from '@mui/base';
 import style from '@/styles/reservation/style.module.css'
 
 
-export default function Reservation() {
+export default function Reservation({ date, setDate }) {
   return (
     <>
       <div className={style.divmb}>
         <p className={style.subtitle}>用餐日期</p>
-        <Calendar />
+        <Calendar date={date} setDate={setDate} />
       </div>
 
       <div className={style.divmb}>
