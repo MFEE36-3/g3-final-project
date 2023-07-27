@@ -9,6 +9,7 @@
     border-right: 4px solid white;
     margin-top:10px ;
     transition: 0.5s;
+    font-family: var(--ff2);
 }
  .nav:hover{
     background-color: #6a0202;

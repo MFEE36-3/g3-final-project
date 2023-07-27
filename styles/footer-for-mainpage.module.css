@@ -184,7 +184,7 @@
         font-family: var(--ff3);
         text-align: center;
         width: 100%;
-        bottom: -12px;
+        bottom: -14px;
         line-height: 12px;
     }
 
@@ -192,13 +192,18 @@
         0% {
             transform: translateX(0);
         }
-    
+
         40% {
             transform: translateX(-212px);
         }
-    
+
         100% {
             transform: translateX(-256px);
         }
+    }
+
+    .belt,
+    .outer {
+        height: 120px;
     }
 }

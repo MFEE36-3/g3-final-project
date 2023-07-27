@@ -74,7 +74,7 @@ const Login = () => {
         }
       })
       .then(() => {
-        router.push('/');
+        router.back();
       });
   };
 

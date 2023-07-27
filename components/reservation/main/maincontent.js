@@ -1,9 +1,9 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 // import cards from '@/data/reservation/cards.json';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { FaUtensils } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
+import Link from "next/link";
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect } from 'react';
 
@@ -11,52 +11,53 @@ export default function MainContent({ favorite, setFavorite }) {
 
   const [data, setData] = useState([]);
 
-
   useEffect(() => {
     fetch(`${process.env.API_SERVER}/restaurants/cards`)
       .then(r => r.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setData(data.rows);
       })
   }, [])
 
-  const handleFavorite = () => {
-    setFavorite((prev) => {
-      return !prev;
-    })
-  }
+  // const handleFavorite = () => {
+  //   setFavorite((prev) => {
+  //     return !prev;
+  //   })
+  // }
 
 
   return (
-    <div className="d-flex flex-column m-3">
-      <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
-        推薦必吃
+    <>
+      <div className={`${style.fonttitle} ${style.borderbottom} d-flex w-100 justify-content-center mb-3 pb-1`}>
+        推薦餐廳
       </div>
-      {/* d-flex row flex-wrap */}
-        <div style={{display:"grid" , gridTemplateColumns:"22% 22% 22% 22%"}} className='justify-content-evenly'>
+      <div className={style.main}>
+        <div className={style.maincontent}>
           {data.map((v) => {
-            const { sid, picture, shop, category, location } = v;
+            const { sid, picture, shop, res_cate, rating, location } = v;
             return (
               <Card
-                className={`${style.card} m-2 co1-4 px-0`}
+                className={`${style.card}`}
                 key={sid}
               >
                 <div className={style.carddiv}>
-                  <Card.Img
-                    variant="top"
-                    src="../../reservation/respic.jpeg"
-                    className={`${style.cardimg}`}
-                  />
-                  <div className={style.cardtext}>進入餐廳</div>
+                  <Link href={"/reservation/" + sid}>
+                    <Card.Img
+                      variant="top"
+                      src="../../reservation/respic.jpeg"
+                      className={`${style.cardimg}`}
+                    />
+                    <div className={style.cardtext}>進入餐廳</div>
+                  </Link>
                 </div>
                 <Card.Body>
                   <Card.Title>{shop}</Card.Title>
                   <Card.Text>{location}</Card.Text>
                   <div className="d-flex align-item-center justify-content-between">
-                    <Button
+                    <div
                       style={{
-                        fontSize: '12px',
+                        fontSize: '14px',
                         background: '#911010',
                         borderRadius: 20,
                         border: 0,
@@ -64,22 +65,22 @@ export default function MainContent({ favorite, setFavorite }) {
                         padding: '5px',
                       }}
                     >
-                      <FaUtensils className="me-1" />
-                      {category}
-                    </Button>
+                      <FaUtensils className={style.buttonicon} />
+                      {res_cate}
+                    </div>
                     <div className="d-flex align-item-center">
                       <AiFillStar
                         className="fs-4 h-100 text-warning"
                       // style={{ color: '#ecbd18' }}
                       />
-                      <div className="d-flex align-item-center">
-                        4.5 / 5
+                      <div className="d-flex align-item-center mb-0">
+                        {rating}
                       </div>
                     </div>
                     <div className="d-flex align-item-center">
                       {favorite ?
-                        <FaHeart className={`${style.cardheart} fs-4 h-100`} value={favorite} onClick={handleFavorite} /> :
-                        <FaRegHeart className={`${style.cardheart} fs-4 h-100`} value={favorite} onClick={handleFavorite} />
+                        <FaHeart className={`${style.cardheart} fs-4 h-100`} /> :
+                        <FaRegHeart className={`${style.cardheart} fs-4 h-100`} />
                       }
                     </div>
                   </div>
@@ -88,6 +89,7 @@ export default function MainContent({ favorite, setFavorite }) {
             );
           })}
         </div>
-    </div>
+      </div>
+    </>
   );
 }

@@ -10,7 +10,7 @@ export default function Reservation() {
   const router = useRouter();
 
   //加入收藏
-  const [favorite,setFavorite] = useState(0);
+  const [favorite, setFavorite] = useState(0);
 
   // 篩選器 - 預設值(default)
   let totalKeyword = {
@@ -25,12 +25,17 @@ export default function Reservation() {
     city: "",
     dist: [],
     price: [0, 1200],
-    searchkeyword:""
+    star: "",
+    searchkeyword: ""
   }
   const [keyword, setKeyword] = useState(totalKeyword)
 
 
   useEffect(() => {
+    // if (window.location.search) {
+    //   router.query = new URLSearchParams(window.location.search)
+    // }
+
     if (router.query) {
 
       // 取得router 食物類別category
@@ -60,28 +65,44 @@ export default function Reservation() {
         const arrprice = router.query.price.split(',')
         totalKeyword.price = arrprice;
       }
+
+      //取得router 評分star
+      if (router.query.star) {
+        totalKeyword.star = router.query.star;
+      }
+
       //取得router 關鍵字searchkeyword
       if (router.query.searchkeyword) {
         totalKeyword.searchkeyword = router.query.searchkeyword;
       }
       setKeyword(totalKeyword)
-      
+
     }
   }, [router.query])
 
-  console.log(router)
+  // console.log(router)
 
   return (
     <>
       <div className={style.body}>
-        <TopDiv keyword={keyword} setKeyword={setKeyword}/>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-2">
+        <TopDiv keyword={keyword} setKeyword={setKeyword} />
+        {/* <div className="container-fluid">
+          <div className={`${style.contentdiv} row `}>
+            <div className={`${style.rwdarea} col-2`}>
               <SelectArea keyword={keyword} setKeyword={setKeyword}/>
             </div>
             <div className="col-10">
               <Main keyword={keyword} setKeyword={setKeyword} favorite={favorite} setFavorite={setFavorite}/>
+            </div>
+          </div>
+        </div> */}
+        <div className="container-fluid">
+          <div className={`${style.contentdiv} row `}>
+            <div className={`${style.leftdiv} ${style.rwdarea}`}>
+              <SelectArea keyword={keyword} setKeyword={setKeyword} />
+            </div>
+            <div className={style.rightdiv}>
+              <Main keyword={keyword} setKeyword={setKeyword} favorite={favorite} setFavorite={setFavorite} />
             </div>
           </div>
         </div>

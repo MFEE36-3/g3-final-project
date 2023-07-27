@@ -42,6 +42,7 @@ export default function City({ keyword, setKeyword, cdata, setCdata }) {
     const strfoodtype = arrfoodtype.join();
 
     const slideval = router.query.price;
+    const numstar = router.query.star;
     const searchkeyword = router.query.searchkeyword;
 
 
@@ -57,6 +58,9 @@ export default function City({ keyword, setKeyword, cdata, setCdata }) {
     // }
     if (slideval) {
       usp.set('price', slideval);
+    }
+    if (numstar){
+      usp.set('star', numstar);
     }
     if (searchkeyword) {
       usp.set('searchkeyword', searchkeyword);

@@ -52,6 +52,7 @@ export default function SliderBar({ keyword, setKeyword }) {
 
     const strcity = router.query.city;
     const arrdist = router.query.dist;
+    const numstar = router.query.star;
     const searchkeyword = router.query.searchkeyword;
 
     const usp = new URLSearchParams();
@@ -66,6 +67,9 @@ export default function SliderBar({ keyword, setKeyword }) {
     }
     if (slideval) {
       usp.set('price', slideval);
+    }
+    if (numstar){
+      usp.set('star', numstar);
     }
     if (searchkeyword) {
       usp.set('searchkeyword', searchkeyword);

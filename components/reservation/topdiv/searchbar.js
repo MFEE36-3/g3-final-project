@@ -65,6 +65,7 @@ export default function SearchBar({ keyword, setKeyword }) {
 
       const arrdist = router.query.dist;
       const slideval = router.query.price;
+      const numstar = router.query.star;
 
       const usp = new URLSearchParams();
 
@@ -79,6 +80,9 @@ export default function SearchBar({ keyword, setKeyword }) {
       }
       if (slideval) {
         usp.set('price', slideval);
+      }
+      if (numstar) {
+        usp.set('star', numstar);
       }
       if (searchkeyword) {
         usp.set('searchkeyword', searchkeyword);

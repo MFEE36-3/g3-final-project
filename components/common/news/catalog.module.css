@@ -2,6 +2,7 @@
     border: 1px solid gray;
     position: relative;
     margin-left: 25px;
+    min-height: 20px; /* 添加此行，設置最小高度 */
   
 }
 .after::after{
@@ -9,14 +10,20 @@
     position: absolute;
     top: -11%;
     left: 42%;
-    background-image: url('../../public/background/kodawari_bg_cut.jpg');
+    background-image: url('../../../public/background/kodawari_bg_cut.jpg');
 }
-
-.pline{
+.line{
+    position: absolute;
+    width: 100%;
     border-bottom: 1px dashed gray;
+    top:50%;
+    z-index:113;
+    
+    
+}
+.pline{
     padding-top: 15px;
     padding-left: 10px;
-    padding-bottom: 15px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis; 
@@ -25,10 +32,14 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis; 
- margin-left: 10px;
+    margin-left: 10px;
+}
+.pline3{
+    
 }
 .container{
     margin-top: 30px;
+    position: relative;
 }
 .pline:hover{
     text-decoration: underline;

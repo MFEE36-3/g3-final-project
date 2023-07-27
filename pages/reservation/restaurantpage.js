@@ -6,7 +6,7 @@ import ReservationPage from '@/components/reservation/restaurantpage';
 import ShoppingCart from '@/components/reservation/restaurantpage/shoppingcart';
 import Image from 'next/image';
 import ShoppingBag from '@/public/reservation/shoppingbag.svg'
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 

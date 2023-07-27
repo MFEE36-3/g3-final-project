@@ -98,7 +98,7 @@ export default function Navbar() {
                 </Link>
               )}
               {!isLogin ? (
-                <Link href="/member/login">
+                <Link href="/login">
                   <Btn text={'登入'} padding={'2px 5px'} />
                 </Link>
               ) : (
