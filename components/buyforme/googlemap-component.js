@@ -995,7 +995,8 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore,r
                 map: map,
                 icon: {
                     url: shop.src,
-                    labelOrigin: new window.google.maps.Point(30, 100)
+                    labelOrigin: new window.google.maps.Point(25, 70),
+                    scaledSize: new window.google.maps.Size(50, 50),
                 },
                 label: {
                     text: v.shop,
