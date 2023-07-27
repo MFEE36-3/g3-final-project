@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 import Layout from '@/components/layout/layout';
+import ResAuthContext, { ResContextProvider } from '@/context/ResAuthContext';
 import { AuthContextProvider } from '@/context/AuthContext';
 
 export default function MyApp({ Component, pageProps }) {
@@ -7,8 +8,10 @@ export default function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
   return (
-    <AuthContextProvider>
-      {getLayout(<Component {...pageProps} />)}
-    </AuthContextProvider>
+    <ResContextProvider>
+      <AuthContextProvider>
+        {getLayout(<Component {...pageProps} />)}
+      </AuthContextProvider>
+    </ResContextProvider>
   );
 }
