@@ -14,11 +14,12 @@ const H5span = styled.span`
 `;
 
 export default function Category() {
-  const { host, categories, dispatch, setSelectedCategory} = useContext(Host);
+  const { host, categories, dispatch, setSelectedCategory, selectedCategory, isReset} = useContext(Host);
   const router = useRouter();
   const [showAll, setShowAll] = useState(false);
-
+  const [initCate, setInitCate] = useState([])
   const handleChange = (event) => {
+    console.log('check change')
     const { value, checked } = event.target;
     dispatch({
       type: 'SET_CATEGORIES',
@@ -33,21 +34,6 @@ export default function Category() {
   };
 
   useEffect(() => {
-    const selectedCategoryIds = Object.keys(categories).filter((key) => categories[key].checked);
-    setSelectedCategory(selectedCategoryIds)
-    const query = { ...router.query };
-    if (selectedCategoryIds.length > 0) {
-      query.cate_id = selectedCategoryIds.join('%');
-    } else {
-      delete query.cate_id;
-    }
-    router.push({
-      pathname: router.pathname,
-      search: new URLSearchParams(query).toString(),
-    }, undefined, { scroll: false });
-  }, [categories]);
-
-  useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`${host}/api/category`);
       const { data } = await response.json();
@@ -59,20 +45,48 @@ export default function Category() {
         };
         return acc;
       }, {});
+      console.log('set cate init')
+      setInitCate(initialCategories)
       dispatch({
         type: 'SET_CATEGORIES',
         payload: initialCategories,
       });
+      
     };
-
     fetchData();
   }, []);
+  useEffect(()=>{
+    isReset &&  dispatch({
+      type: 'SET_CATEGORIES',
+      payload: initCate
+    });
+    setSelectedCategory([]);
+    console.log(`reset all ${selectedCategory}`)
+  },[isReset])
+
+  useEffect(() => {
+    if(isReset) return
+    const selectedCategoryIds = Object.keys(categories).filter((key) => categories[key].checked);
+    setSelectedCategory(selectedCategoryIds)
+    const query = { ...router.query };
+    if (selectedCategoryIds.length > 0) {
+      query.cate_ids = selectedCategoryIds.join('%');
+    }else{
+      delete query.cate_ids;
+    }
+    router.push({
+      pathname: router.pathname,
+      search: new URLSearchParams(query).toString(),
+    }, undefined, { scroll: false });
+    console.log('set query')
+  }, [categories]);
 
   const displayedCategories = showAll ? Object.entries(categories) : Object.entries(categories).slice(0, 5);
 
   return (
     <div className='border-bottom border-2 overflow-hidden'>
       <H4div className='mt-3'>分類</H4div>
+      {/* {console.log(selectedCategory)} */}
       <div className='d-flex w-100 mt-4 flex-column align-items-start '>
         {displayedCategories.map(([key, value]) => (
           <label key={key} style={{ cursor: 'pointer' }}>

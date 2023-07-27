@@ -27,7 +27,8 @@ const initialState = {
   sortby:'',
   order:'',
   isLoading:true,
-  page:''
+  page:1,
+  isReset:false,
 }
 
 const LoadingSvg = styled.img`
@@ -41,6 +42,11 @@ const LoadingSvg = styled.img`
   }
   }
   animation: LoadingRun 8s ease-in-out infinite
+`
+const HoverBtn = styled.button`
+  &:hover{
+    text-decoration:underline
+  }
 `
 
 function reducer(state, action) {
@@ -65,6 +71,10 @@ function reducer(state, action) {
       return { ...state, isLoading: action.payload }
     case 'SET_PAGE' :
       return { ...state, page: action.payload }
+    case 'SET_TOTALPAGES' :
+      return { ...state, totalPages: action.payload }
+    case 'SET_RESET' :
+      return { ...state, isReset: action.payload }
     default:
       return state
   }
@@ -80,47 +90,26 @@ const LoadingAni = () => {
 export default function ShopMallFinal() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [selectedCategory, setSelectedCategory] = useState([])
+  const [rating, setRating] = useState('')
   const router = useRouter()
-  // useEffect(()=>{
-  //   const query = {...router.query}
-  //   if(state.keyword) {
-  //     query.keyword = state.keyword
-  //   }
-  //   if(selectedCategory.length > 0) {
-  //     query.cate_ids = selectedCategory.join("%")
-  //   }else {
-  //     delete query.cate_ids
-  //   }
-  //   if(state.sortby) query.order_key = state.sortby
-  //   if(state.order) query.order_type = state.order
-  //   if(state.ratingFilter) query.rating_filter = state.ratingFilter
-  //   if(state.priceRange.min) query.price_min = state.priceRange.min
-  //   if(state.priceRange.max) query.price_max = state.priceRange.max
-  //   const queryUrl = new URLSearchParams(query).toString()
-  //   console.log(queryUrl)
-  //   // const url = state.keyword ? `${state.host}/api/item?${queryUrl}` : `${state.host}/api/item`
-  //   const url =`${state.host}/api/item?${queryUrl}`
-  //   const fetchData = async () => {
-  //     const response = await fetch(url)
-  //     const {data} = await response.json()
-  //     dispatch({
-  //       type:"SET_ITEMS",
-  //       payload: data
-  //     })
-  //   }
-  //   fetchData()
-  // },[state.keyword, selectedCategory, state.sortby, state.order, state.ratingFilter, state.priceRange.min, state.priceRange.max])
+  const resetButton = () => {
+    dispatch({
+      type: 'SET_RESET',
+      payload: true
+    });
+  }
   useEffect(() => {
-    const { keyword, cate_ids, order_key, order_type, rating_filter, price_min, price_max, page} = router.query;
+    const { keyword, cate_ids, order_key, order_type, rating_filter, price_min, price_max, page,} = router.query;
     dispatch({ type: 'SET_KEYWORD', payload: keyword || '' });
     dispatch({ type: 'SET_SORTBY', payload: order_key || '' });
     dispatch({ type: 'SET_ORDER', payload: order_type || '' });
     dispatch({ type: 'SET_RATING_FILTER', payload: rating_filter || '' });
     dispatch({ type: 'SET_MIN_PRICE', payload: price_min || '' });
     dispatch({ type: 'SET_MAX_PRICE', payload: price_max || '' });
-    dispatch({ type: 'SET_PAGE', payload: page || 1})
+    dispatch({ type: 'SET_PAGE', payload: page})
     const fetchData = async () => {
-      const query = {
+      let successSubscribe = true;
+      let query = {
         keyword: keyword || '',
         cate_ids: selectedCategory ? selectedCategory.join('%') : [],
         order_key: order_key || '',
@@ -130,36 +119,57 @@ export default function ShopMallFinal() {
         price_max: price_max || '',
         page: page || 1,
       };
-
       const queryUrl = new URLSearchParams(query).toString();
-      console.log(queryUrl);
-      const url = `${state.host}/api/item?${queryUrl}`;
-
+      const url = `${state.host}/api/item?${state.isReset ? '' : queryUrl}`;
+      console.log(`start fetching ${url}`);
       const response = await fetch(url);
-      const { data } = await response.json();
-      dispatch({
-        type: 'SET_ITEMS',
-        payload: data
-      });
-      dispatch({
-        type: 'SET_LOADING',
-        payload: false
-      })
+      const { data, pagination } = await response.json();
+      if(successSubscribe){
+        console.log(`start dispatch ${url}`);
+        dispatch({
+          type: 'SET_ITEMS',
+          payload: data
+        });
+        dispatch({
+          type: 'SET_LOADING',
+          payload: false
+        })
+        dispatch({
+          type: 'SET_TOTALPAGES',
+          payload: pagination.totalPages
+        })
+      }
+      return () =>{
+        console.log(`revoke fetching ${url}`);
+        successSubscribe = false
+      }
     };
     fetchData();
   }, [router.query]);
+  useEffect(()=>{
+    console.log('hi Goreset')
+    const query = { };
+    router.push({
+      pathname: router.pathname,
+      query: query
+    }, undefined, { scroll: false });
+    dispatch({
+      type:'SET_RESET',
+      payload: false
+    })
+  },[state.isReset])
   return (
-    <Host.Provider value={{ ...state, dispatch, selectedCategory, setSelectedCategory}}>
+    <Host.Provider value={{ ...state, dispatch, selectedCategory, setSelectedCategory, rating, setRating}}>
       <ShopContainer>
         <SearchBar/>
         <ShopBodyForSearch>
           <ShopFilter />
-          <div className='col-10'>
+          <div className='col-10 ps-0'>
             <ShopSearchTitle />
+            {!state.isLoading && <HoverBtn onClick={resetButton} className='border-0 mb-5 text-danger bg-transparent fs-3' >清除篩選條件</HoverBtn>}
             {state.isLoading ? LoadingAni() :<ShopCard/>}
-            <ShopPagination />
+            {!state.isLoading && <ShopPagination />}
           </div>
-          
         </ShopBodyForSearch>
       </ShopContainer>
     </Host.Provider>

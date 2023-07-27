@@ -1,16 +1,19 @@
 import styled from '@emotion/styled'
 import React, { useContext } from 'react'
-import { Cart } from '@/components/checkout/checkoutfinal'
+import { Cart } from '@/components/checkout/CheckOutFinal'
 
 const Page = styled.div`
     position:absolute;
-    width:5%;
+    font-size:20px;
+    text-align:center;
+    width:8%;
     top: 0%;
-    left: -5.1%;
+    left: -8.1%;
 `
 const PageTag = styled.div`
     &:hover{
-        background-color:#fff3cd;
+        background-color:#fff3ca;
+        cursor:pointer;
     }
 `
 export default function CheckOutPage() {
