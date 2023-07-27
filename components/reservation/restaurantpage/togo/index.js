@@ -5,7 +5,7 @@ import Products from './products'
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ShoppingCart from '../shoppingcart'
 import ShoppingBag from '@/public/reservation/shoppingbag.svg'
-import dayjs from 'dayjs';
+import Image from 'next/image';
 
 export default function Togo() {
 
@@ -22,7 +22,7 @@ export default function Togo() {
 
     return (
         <>
-            {/* <div>
+            <div>
                 <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
 
                 <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
@@ -33,7 +33,8 @@ export default function Togo() {
                         <ShoppingCart />
                     </Offcanvas.Body>
                 </Offcanvas>
-            </div> */}
+            </div>
+
             <CategoryDiv category={category} handleCategory={handleCategory} />
             <Products category={category} setCategory={setCategory} />
         </>

@@ -4,24 +4,26 @@ import InteriorPic from './interior'
 import SelectPerson from './person'
 import { TextareaAutosize } from '@mui/base';
 import style from '@/styles/reservation/style.module.css'
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
+export default function Reservation({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat }) {
 
-export default function Reservation({ date, setDate, time, setTime, person, setPerson, seat, setSeat }) {
   return (
     <>
       <div className={style.divmb}>
         <p className={style.subtitle}>用餐日期</p>
-        <Calendar date={date} setDate={setDate} setTime={setTime} setPerson={setPerson} setSeat={setSeat} />
+        <Calendar row={row} date={date} setDate={setDate} setTime={setTime} setPerson={setPerson} setSeat={setSeat} />
       </div>
 
       {date ? <div className={style.divmb}>
-        <DateTime date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} setSeat={setSeat} />
+        <DateTime row={row} date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} setSeat={setSeat} />
       </div> : ''}
 
       <div className={style.divmb}>
         <p className={style.subtitle}>用餐人數</p>
-        <SelectPerson time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} />
-        <InteriorPic seat={seat} setSeat={setSeat} person={person} />
+        <SelectPerson row={row} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} />
+        <InteriorPic row={row} seat={seat} setSeat={setSeat} person={person} />
       </div>
 
       <div className={style.divmb}>

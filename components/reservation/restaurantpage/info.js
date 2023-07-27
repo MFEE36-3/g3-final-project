@@ -11,25 +11,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { RowingSharp } from '@mui/icons-material';
 import dayjs from 'dayjs';
-export default function Info() {
+export default function Info({ row }) {
 
     const router = useRouter();
-    const [row, setRow] = useState({});
     const [isopen, setIsopen] = useState(false);
-
-    useEffect(() => {
-        if (router.query.sid) {
-            fetch(process.env.API_SERVER + "/search/" + router.query.sid)
-                .then((r) => r.json())
-                .then((data) => {
-                    if (data.success) {
-                        setRow(data.row);
-                    } else {
-                    }
-                })
-
-        };
-    }, [router.query]);
 
     useEffect(() => {
         // 確保 row 物件及其屬性不是 undefined，然後再處理日期和時間的分割

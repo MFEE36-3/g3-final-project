@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router';
 import style from '@/styles/reservation/style.module.css';
 import Rcarousel from '@/components/reservation/restaurantpage/carousel'
 import Info from '@/components/reservation/restaurantpage/info';
 import ReservationPage from '@/components/reservation/restaurantpage';
 import ShoppingCart from '@/components/reservation/restaurantpage/shoppingcart';
-import Image from 'next/image';
-import dayjs from 'dayjs';
 import ShoppingBag from '@/public/reservation/shoppingbag.svg'
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
@@ -13,43 +12,44 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 
 export default function RestaurantPage() {
 
-    const [show, setShow] = useState(false);
+    // const [show, setShow] = useState(false);
 
-    // const today = new Date();
+    // const nowdate = new Date();
     // const startDate = dayjs(today).add(1, 'day').toDate();
     const [date, setDate] = useState(); //dayjs(startDate)
     const [time, setTime] = useState('');
     const [person, setPerson] = useState('');
     const [seat, setSeat] = useState('');
+    const [row, setRow] = useState({});
 
-    //購物車Offcanvas
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (router.query.sid) {
+            fetch(process.env.API_SERVER + "/search/" + router.query.sid)
+                .then((r) => r.json())
+                .then((data) => {
+                    if (data.success) {
+                        setRow(data.row);
+                    } else {
+                    }
+                })
+
+        };
+    }, [router.query]);
 
     return (
         <>
             <div className={style.body}>
-                <Rcarousel />
+                <Rcarousel row={row} />
                 <div className="container">
                     <div className="row">
                         <div className={style.infodiv}>
-                            <Info />
+                            <Info row={row} />
                         </div>
 
                         <div className={style.reservationdiv}>
-                            {/* <div>
-                                <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
-
-                                <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
-                                    <Offcanvas.Header closeButton>
-                                        <Offcanvas.Title className={style.carttitle}>--您的購物車--</Offcanvas.Title>
-                                    </Offcanvas.Header>
-                                    <Offcanvas.Body>
-                                        <ShoppingCart />
-                                    </Offcanvas.Body>
-                                </Offcanvas>
-                            </div> */}
-                            <ReservationPage date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} />
+                            <ReservationPage row={row} date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} />
                         </div>
 
 
