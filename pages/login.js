@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import Avatar from '@mui/material/Avatar';
+import * as React from 'react';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,20 +9,19 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from '@/styles/member/mem-login.module.css';
 import Image from 'next/image';
-import MemMuiSwitch from '@/components/member/mem-muiSwitch';
+// import MemMuiSwitch from '@/components/common/member/mem-muiSwitch';
 import BlankLayout from '@/components/layout/blank-layout';
-import MemBtn from '@/components/member/mem-Btn';
+// import MemBtn from '@/components/common/member/mem-Btn';
 import MemLoginBtn from '@/components/member/mem-loginBtn';
-import AuthContext from '@/context/AuthContext';
+import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 
-//mui內建函式
 function Copyright(props) {
   return (
     <Typography
@@ -40,7 +40,6 @@ function Copyright(props) {
   );
 }
 
-//mui內建樣式
 const defaultTheme = createTheme();
 
 const Login = () => {
@@ -48,7 +47,6 @@ const Login = () => {
   const router = useRouter();
 
   //引入useContext存放的setState，之後會把localStorage裡面的token存進去
-  const { setAuth } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
     //mui內建寫好，取消表單內建事件
@@ -79,11 +77,75 @@ const Login = () => {
         router.push('/');
       });
   };
-  const [change, setChange] = useState(false);
+
+  const [loginInfo, setLoginInfo] = useState({
+    account: '',
+    password: '',
+  });
+  const getLoginInfo = (e) => {
+    const newLoginInfo = { ...loginInfo, [e.target.name]: e.target.value };
+    setLoginInfo(newLoginInfo);
+  };
+
+  // 設置要放登入後接住的帳號跟sid還有店名
+  const [loginSuccess, setLoginSuccess] = useState({
+    account: '',
+    shop: '',
+    sid: '',
+    error: '',
+  });
+
+  const resHandleSubmit = async (event) => {
+    event.preventDefault();
+    // const data = new FormData(event.currentTarget);
+    // console.log({
+    //   email: data.get('email'),
+    //   password: data.get('password'),
+    // });
+    fetch('http://localhost:3003/res-login', {
+      method: 'POST',
+      body: JSON.stringify(loginInfo),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          const newloginSuccess = {
+            ...loginSuccess,
+            account: data.rows[0].account,
+            shop: data.rows[0].shop,
+            sid: data.rows[0].sid,
+          };
+          setLoginSuccess(newloginSuccess);
+          localStorage.setItem('res-auth', JSON.stringify(data.data));
+
+          Swal.fire('登入成功!', '', 'success');
+          router.push('/res/item-management');
+        } else {
+          const newloginfail = { ...loginSuccess, error: data.error };
+          setLoginSuccess(newloginfail);
+        }
+      });
+  };
+
+  useEffect(() => {
+    if (loginSuccess.account == true) {
+      setLoginSuccess({ ...loginSuccess, error: '' });
+      console.log(loginSuccess);
+    }
+    if (loginSuccess.account == false) {
+      console.log(loginSuccess);
+    }
+  }, [loginSuccess]);
+
+  const [change, setChange] = React.useState(false);
 
   return (
     <div className={styles.container}>
-      <div className={styles.flex}>
+      <div>
         <div className={styles.logintext}>選擇登入身分</div>
         <MemLoginBtn change={change} setChange={setChange} />
       </div>
@@ -115,9 +177,34 @@ const Login = () => {
                   >
                     廠商登入
                   </Typography>
+                  <div class="mb-3">
+                    <input
+                      className=""
+                      type="email"
+                      name="account"
+                      class="form-control"
+                      id="account"
+                      placeholder="請輸入帳號"
+                      value={loginInfo.account}
+                      onChange={getLoginInfo}
+                    />
+                    <div style={{ color: 'red' }}>{loginSuccess.error}</div>
+                  </div>
+                  <div class="mb-3">
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="password"
+                      id="password"
+                      placeholder="請輸入密碼"
+                      onChange={getLoginInfo}
+                    />
+                    <div style={{ color: 'red' }}>{loginSuccess.error}</div>
+                  </div>
+
                   <Box
                     component="form"
-                    onSubmit={handleSubmit}
+                    onSubmit={resHandleSubmit}
                     noValidate
                     sx={{ mt: 1 }}
                   >
@@ -153,6 +240,8 @@ const Login = () => {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                       color="warning"
+                      onChange={() => {}}
+                      onSubmit={resHandleSubmit}
                     >
                       登入
                     </Button>
