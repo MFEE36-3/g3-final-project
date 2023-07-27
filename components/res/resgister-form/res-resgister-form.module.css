@@ -12,3 +12,34 @@
 .backGroundColor{
     background-color: #FFE2E2;
 }
+
+@media (max-width:400px){
+    .addressDisplay {
+        /* display: flex; */
+        flex-direction: column;
+        /* color: red; */
+        /* padding: ; */
+        justify-content: center;
+    }
+
+    /* .addressDisplay>input {
+        padding-bottom: 10px;
+    }
+
+    .addressDisplay>div {
+        display: none;
+    } */
+
+    .openTimes {
+        /* display: flex; */
+        flex-direction: column;
+        /* justify-content: center; */
+    }
+
+    .openDays {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+    }
+
+}

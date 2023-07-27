@@ -6,11 +6,22 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 15px;
-  overflow: hidden;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  overflow-y: scroll;
   border: 2px solid #921010;
   margin-bottom: 60px;
   font-weight: 800;
   margin-top: 40px;
+  height: 700px;
+}
+
+.area1::-webkit-scrollbar {
+  width: 3px; /* 設置滾輪寬度 */
+}
+
+.area1::-webkit-scrollbar-thumb {
+  background-color: #aeaeae; /* 設置滾輪顏色 */
 }
 
 .area2 {
@@ -18,38 +29,44 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  overflow: hidden;
+  border-radius: 15px;
+  overflow-y: scroll;
+  border: 2px solid #921010;
   margin-bottom: 60px;
   font-weight: 800;
-  border: 2px solid #921010;
-  border-radius: 15px;
   margin-top: 40px;
+  height: 500px;
+  background-color: #fff;
+}
+
+.area2::-webkit-scrollbar {
+  width: 3px; /* 設置滾輪寬度 */
+}
+
+.area2::-webkit-scrollbar-thumb {
+  background-color: #aeaeae; /* 設置滾輪顏色 */
 }
 
 .scrollArea {
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  width: 100%;
   background-color: #ffffff;
   border-bottom: 2px solid #921010;
-  padding-block: 15px;
+  padding: 15px;
 }
 
 .scroll {
-  height: 100%;
   width: 100%;
-  background-color: #ffffff;
+  height: 100%;
 }
 
 @media screen and (max-width: 391px) {
-  .area1 {
+  .actArea {
     width: 90%;
   }
 
-  .area2 {
-    width: 90%;
+  .scrollBtn {
+    font-size: 12px;
   }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
@@ -7,29 +7,34 @@ import styles from '@/components/res/item/item-management.module.css'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Swal from 'sweetalert2'
+import { AiTwotoneEdit, AiTwotoneDelete } from 'react-icons/ai'
+import { ImBoxRemove } from 'react-icons/im'
+import { TableContainer } from '@mui/material';
+import ResAuthContext from '@/context/ResAuthContext';
+import { headers } from 'next/dist/client/components/headers';
 
 export default function Management() {
   const router = useRouter()
+  const { resAuth, setResAuth, logout } = useContext(ResAuthContext)
 
   // 拿到物件資料
   const [foodItem, setFoodItem] = useState([]);
   const [originalFoodItem, setOriginalFoodItem] = useState([]); // 給filter用的array
 
   const getFoodItems = async () => {
-    const res = await axios.get('http://localhost:3003/res/item-management/');
-    // console.log(res)
-    // console.log(res.data.foodItems); // targetArray
-    setFoodItem(res.data.rows);
-    setOriginalFoodItem(res.data.rows)
+    // const res = await axios.get(`http://localhost:3003/res/item-management`);
+    fetch(`http://localhost:3003/res/item-management`,{
+      method:'POST',
+      body:JSON.stringify(resAuth),
+      headers:{"Content-Type" : "application/json"}
+    })
+    .then(r=>r.json())
+    .then(data => {
+      console.log(data)
+      setFoodItem(data.rows)
+      setOriginalFoodItem(data.rows)
+    })
   };
-
-
-  useEffect(() => {
-    getFoodItems();
-  }, []);
-
-  // imgLink
-  const imgLink = "http://localhost:3003/img/"
 
   // 搜尋分類的selectBox
   // 先做把後端資料的foodCate(1、2、3、4)轉換成字串的function(前菜、主菜、甜點、飲料)
@@ -47,18 +52,54 @@ export default function Management() {
       if (item.food_cate === 4) {
         return { ...item, foodCateToString: '飲料' };
       }
+      if (item.food_cate === 5) { // 增加這個部分來處理"湯品"
+        return { ...item, foodCateToString: '湯品' };
+      }
       return item; // 如果沒有符合的條件，直接返回原物件
     });
     setFoodItem(newFoodItem);
   };
+
+  // imgLink
+  const imgLink = "http://localhost:3003/img/"
+
+  // 拿context裡面的資料
+  // console.log(resAuth.account)
+  // console.log(resAuth)
+  const [takeContextInfo, setTakeContextInfo] = useState({})
+  const takeInfo = () => {
+    setTakeContextInfo(resAuth)
+  }
+
+  // useEffect(() => {
+  //   // takeInfo()
+  //   // getFoodItems();
+  //   // changeNumToString()
+  //   // console.log(takeContextInfo);
+  //   // console.log(resAuth);
+  // }, []);
+
+    // console.log(takeContextInfo)
+
+    useEffect(() => {
+      if(resAuth.account){
+        takeInfo()
+        getFoodItems();
+        changeNumToString()
+        console.log(takeContextInfo);
+        console.log(resAuth);
+      }
+
+    }, [resAuth]);
 
   useEffect(() => {
     changeNumToString()
   }, [foodItem])
 
   // 現在才開始做selectBox
-  const [foodCate, setFoodCate] = useState(0)
-  const foodCateOptions = ['全部商品', '前菜', '主菜', '甜點', '飲料']
+  const [foodCate, setFoodCate] = useState(6)
+  const [foodCateString, setFoodCateString] = useState('')
+  const foodCateOptions = ['全部商品', '前菜', '主菜', '甜點', '飲料', '湯品']
 
   const matchList = (e) => {
     if (e.target.value == '前菜') {
@@ -73,14 +114,17 @@ export default function Management() {
     if (e.target.value == '飲料') {
       setFoodCate(4)
     }
-    if (e.target.value == '全部商品') {
+    if (e.target.value == '湯品') {
       setFoodCate(5)
     }
+    if (e.target.value == '全部商品') {
+      setFoodCate(6)
+    }
+    setFoodCateString(e.target.value)
   }
 
-
   const foodCateFilter = () => {
-    if (foodCate == 5) {
+    if (foodCate == 6) {
       setFoodItem(originalFoodItem);
     } else {
       const newArray = originalFoodItem.filter((v) => v.food_cate == foodCate);
@@ -89,24 +133,66 @@ export default function Management() {
     // setFoodItem(newArray);
   };
 
-
-  useEffect(() => {
-    foodCateFilter()
-  }, [foodCate])
+  // useEffect(() => {
+  //   foodCateFilter()
+  // }, [foodCate])
 
   // 商品排序
+  const [itemOrder, setItemOrder] = useState('')
+  const orderOption = ['由新到舊', '由舊到新']
+
   // 由新到舊
   const newToOld = async (e) => {
-    const res = await axios.get('http://localhost:3003/res/item-management/DESC');
-    setFoodItem(res.data.rows);
-    setOriginalFoodItem(res.data.rows)
+    // const res = await axios.get('http://localhost:3003/res/item-management/DESC');
+
+    fetch(`http://localhost:3003/res/item-management/DESC`,{
+      method:'POST',
+      body:JSON.stringify(resAuth),
+      headers:{"Content-Type" : "application/json"}
+    })
+    .then(r=>r.json())
+    .then(data => {
+      setFoodItem(data.rows);
+      setOriginalFoodItem(data.rows)
+    })
+
+    // console.log(res)
+    // setFoodItem(res.data.rows);
+    // setOriginalFoodItem(res.data.rows)
   }
   // 由舊到新
   const OldToNew = async (e) => {
-    const res = await axios.get('http://localhost:3003/res/item-management/ASC');
-    setFoodItem(res.data.rows);
-    setOriginalFoodItem(res.data.rows)
+    // const res = await axios.get('http://localhost:3003/res/item-management/ASC');
+    fetch(`http://localhost:3003/res/item-management/ASC`,{
+      method:'POST',
+      body:JSON.stringify(resAuth),
+      headers:{"Content-Type" : "application/json"}
+    })
+    .then(r=>r.json())
+    .then(data => {
+      setFoodItem(data.rows);
+      setOriginalFoodItem(data.rows)
+    })
+    // console.log(res)
+    // setFoodItem(res.data.rows);
+    // setOriginalFoodItem(res.data.rows)
   }
+
+  useEffect(() => {
+    if (itemOrder) {
+      if (itemOrder == '由新到舊') {
+        newToOld()
+      } else if (itemOrder == '由舊到新') {
+        OldToNew()
+      }
+    }
+  }, [itemOrder])
+
+  useEffect(() => {
+    changeNumToString()
+    foodCateFilter()
+
+  }, [foodItem, foodCate])
 
   // 進入商品編輯頁面
   const editItem = () => {
@@ -139,7 +225,7 @@ export default function Management() {
   return (
     <>
       <h3 className="container">商品管理</h3>
-      <div className={`container-xxl-fluid container container-sm-fluid d-flex flex-column ${styles.formbgc} p-3 col-10 border border-4 rounded-4 border-black`}>
+      <div className={`container-xxl-fluid container container-sm-fluid d-flex flex-column ${styles.formbgc} p-3 col-10 border border-2 rounded-4 border-black`}>
         <div className='row'>
           <div className='col-xxl-12 col-sm-12'>
 
@@ -147,10 +233,24 @@ export default function Management() {
               <div className="">
                 <Link href={`/res/add-item`} className='me-3'><Btn text="新增商品" /></Link>
 
-                <button type="button" className='me-3 btn btn-warning' onClick={newToOld}>商品排序:由新到舊</button>
-                <button type="button" className='me-3 btn btn-warning' onClick={OldToNew}>商品排序:由舊到新</button>
+                <select className='form-select mt-3' value={itemOrder} onChange={(e) => {
+                  setItemOrder(e.target.value)
+                }}>
+                  <option value=''>請選擇商品排序:</option>
+                  {orderOption.map((v, i) => {
+                    return <option key={i} value={v}>{v}</option>
+                  })}
+                </select>
 
-                <select value={foodCate} onChange={matchList}>
+                {/* <button type="button" className='me-3 btn btn-warning' onClick={newToOld}>商品排序:由新到舊</button>
+                <button type="button" className='me-3 btn btn-warning' onClick={OldToNew}>商品排序:由舊到新</button> */}
+
+                {resAuth.account ? <><label className='mt-3 fw-bold'>歡迎回來，{resAuth.shop}</label> <button type='button' className='btn btn-primary' onClick={logout}>登出</button></> : ''}
+
+
+
+
+                <select value={foodCateString} onChange={matchList} className='form-select mt-3 col-2'>
                   <option value="">---請選擇分類---</option>
                   {foodCateOptions.map((v, i) => {
                     return <option key={i} value={v}>{v}</option>
@@ -192,9 +292,12 @@ export default function Management() {
             </div>
 
             <div className="">
-              <table className="table mt-3 border border-4 rounded-4 border-black table-danger table-striped">
+              <table className={`table mt-3 table-borderless rounded-5 border-black table-warning table-striped ${styles.itemTable}`}>
                 <thead>
                   <tr>
+                    <th scope="col" className="text-center">
+                      商品圖片
+                    </th>
                     <th scope="col" className="text-center">
                       商品名稱
                     </th>
@@ -207,23 +310,20 @@ export default function Management() {
                     <th scope="col" className="text-center">
                       分類
                     </th>
-                    <th scope="col" className="text-center">
-                      商品圖片
-                    </th>
-                    <th scope="col" className="text-center">
+                    {/* <th scope="col" className="text-center">
                       商品備註
-                    </th>
+                    </th> */}
                     <th scope="col" className="text-center">
                       商品建立時間:
                     </th>
                     <th scope="col" className="text-center">
-                      編輯商品
+                      編輯
                     </th>
                     <th scope="col" className="text-center">
-                      下架商品
+                      下架
                     </th>
                     <th scope="col" className="text-center">
-                      刪除商品
+                      刪除
                     </th>
                   </tr>
                 </thead>
@@ -232,33 +332,28 @@ export default function Management() {
                   {foodItem.map((v, i) => {
 
                     return (
-                      <tr className="" key={i}>
-                        <td className="text-center">{v.food_title}</td>
-                        <td className="text-center">{v.food_des}</td>
-                        <td className="text-center">{v.food_price}</td>
-                        <td className="text-center">{v.foodCateToString}</td>
+                      <tr className={``} style={{background:'gray'}} key={i}>
                         <td className={`text-center ${styles.imgSize}`}>
                           <img src={`${imgLink}${v.food_img}`} className={`${styles.imgSize}`}></img>
                         </td>
-                        <td className="text-center">{v.food_note}</td>
+                        <td className={`text-center`}>{v.food_title}</td>
+                        <td className={`text-center`} style={{ width: '100px', overflow: 'hidden', textOverflow: 'ellipsis', 'whiteSpace': 'nowrap' }}>{v.food_des}</td>
+                        <td className="text-center">{v.food_price}</td>
+                        <td className="text-center">{v.foodCateToString}</td>
+                        {/* <td className="text-center">{v.food_note}</td> */}
                         <td className={`text-center`}>{v.create_time}</td>
+
                         <td className={`text-center`}>
-                          <Link href={'/res/edit-item'}></Link>
-                          {/* <Btn text="編輯商品" /> */}
                           <Link href={`/res/item-management/edit-item/${v.food_id}`}>
-                            <button type="button" className='me-3 btn btn-warning' onClick={(e) => {
+                            <button type="button" className='me-3 btn btn-primary' onClick={(e) => {
                               router.push(`/res/item-management/edit-item/${v.food_id}`)
-                            }}>編輯商品</button>
+                            }}><AiTwotoneEdit /></button>
                           </Link>
-                          {/* <Link href={`/res/item-management/edit-item?food_id=${v.food_id}`}>
-                        <button type="button" className='me-3 btn btn-warning' onClick={(e) => {
-                          router.push(`/res/item-management/edit-item?food_id=${v.food_id}`)
-                        }}>編輯商品</button>
-                      </Link> */}
                         </td>
-                        <td className={`text-center`}> <button type="button" className='me-3 btn btn-warning' onClick={(e) => { }}>下架商品</button></td>
+
+                        <td className={`text-center`}> <button type="button" className='me-3 btn btn-primary' onClick={(e) => { }}><ImBoxRemove /></button></td>
                         <td className="text-center">
-                          <button type="button" className='me-3 btn btn-warning' onClick={() => {
+                          <button type="button" className='me-3 btn btn-primary' onClick={() => {
                             Swal.fire({
                               title: '您確定要刪除此項商品嗎?',
                               showDenyButton: true,
@@ -271,15 +366,19 @@ export default function Management() {
                                 fetch(`http://localhost:3003/res/item-management/deleteItem/${v.food_id}`,
                                   { method: 'DELETE', })
                                   .then(r => r.json())
-                                  .then(data => console.log(data))
-                                location.reload()
+                                  .then(data => {
+                                    console.log(data)
+                                    location.reload()
+                                  })
+
+
                                 // router.push(`/res/item-management/delete-item/${v.food_id}`)
 
                               } else if (result.isDenied) {
                                 Swal.fire('取消刪除', '', 'info')
                               }
                             })
-                          }}>刪除商品</button>
+                          }}><AiTwotoneDelete /></button>
                         </td>
                       </tr>
                     );

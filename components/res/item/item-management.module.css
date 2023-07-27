@@ -12,3 +12,19 @@
 /* .div {
     text-align: center;
 } */
+
+.itemTable {
+    border: 20px;
+}
+
+.disabled {
+    pointer-events: none; /* 阻止點擊事件 */
+    background-color: gray; 
+    /* color: #6c757d;  */
+    /* color: red; */
+    font-style: italic;
+    color: gray;
+    text-decoration: line-through;
+    
+    /* font-size: xx-large; */
+  }

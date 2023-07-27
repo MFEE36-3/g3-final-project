@@ -5,7 +5,7 @@ import BtnTest from '@/components/common/btn-test';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import registerformcss from './res-resgister-form.module.css';
+import styles from './res-resgister-form.module.css';
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -60,6 +60,8 @@ export default function RegisterForm() {
         close_time: '',
         open_days: [],
         table_number: '',
+        latitude:'',
+        longitude:'',
     })
 
     const [testShop, setTestShop] = useState({
@@ -194,8 +196,50 @@ export default function RegisterForm() {
     }, [city, area, areaOptions, pickArea, shop, switchTable, showImg, openDays, showImg, resCate,]);
 
 
+    // test google api
+    // const testGoogleAPI = () => {
+    //     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=台灣${shop.city}${shop.area}${shop.fulladdress1}&key=AIzaSyBcRKBsOJ9t8gpHAfAC_ZbY4eNTyDlBlMQ`)
+    //     .then(r => r.json())
+    //     .then(obj => {
+    //         console.log(obj)
+    //         const newShop = {...shop, latitude:obj.results[0].geometry.location.lat, longitude:obj.results[0].geometry.location.lng}
+    //         setShop(newShop)
+    //     })
+    // }
+
+    const testGoogleAPI = () => {
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=台灣${shop.city}${shop.area}${shop.fulladdress1}&key=AIzaSyBcRKBsOJ9t8gpHAfAC_ZbY4eNTyDlBlMQ`)
+          .then((r) => r.json())
+          .then((obj) => {
+            console.log(obj);
+            if (obj.results.length > 0) {
+              const newShop = {
+                ...shop,
+                latitude: obj.results[0].geometry.location.lat,
+                longitude: obj.results[0].geometry.location.lng
+              };
+              setShop(newShop);
+            } else {
+              // 處理 API 無結果的錯誤
+              console.error('錯誤：找不到結果。');
+            }
+          })
+          .catch((error) => {
+            // 處理 fetch 錯誤
+            console.error('獲取數據時出錯：', error);
+          });
+      };
+      
+
+    // 用useEffect在fulladdress1建立後拿到經緯度
+    // useEffect(()=>{
+    //     if(shop.fulladdress1){
+    //         testGoogleAPI()
+    //     }
+    // },[shop.fulladdress1])
+
     // 驗證表單:先建立error清單
-    const originErrors = { name: '', phone: '', account: '', password: '', password2: '', owner: '', description: '',avg_consumption:'', fulladdress: '', open_time: '', close_time: '', open_days: '' }
+    const originErrors = { name: '', phone: '', account: '', password: '', password2: '', owner: '', description: '', avg_consumption: '', fulladdress: '', open_time: '', close_time: '', open_days: '' }
     const [errors, setErrors] = useState(originErrors)
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -272,6 +316,7 @@ export default function RegisterForm() {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     Swal.fire('成功送出!', '', '確定')
+                    testGoogleAPI()
                     fetch('http://localhost:3003/res/res-register-form', {
                         method: 'POST',
                         body: JSON.stringify(shop),
@@ -304,7 +349,7 @@ export default function RegisterForm() {
             <div className="container">RegisterForm-Component</div>
             <div className="container container-sm-fluid">
                 <div className='row'>
-                    <form className={`${registerformcss.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-4`}
+                    <form className={`${styles.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-4`}
                     // onSubmit={handleSubmit}
                     >
                         <h1 className="d-flex justify-content-center fw-bold mt-3">商家註冊</h1>
@@ -363,16 +408,30 @@ export default function RegisterForm() {
                             <div className='password mx-5 d-flex justify-content-start align-items-center mt-3'>
 
                                 <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>密碼:</div>
-                                <input
+
+                                <div class="input-group mb-3 d-flex flex-row mb-3">
+                                    <input
+                                        type={showPassword ? 'text' : 'password'}
+                                        className="form-control  border-black"
+                                        id="shop_password"
+                                        placeholder="請輸入密碼，密碼須至少大於六個字:"
+                                        name='password'
+                                        value={shop.password}
+                                        onChange={handleChange}
+                                    />
+                                    <button type='button' className='btn btn-warning btn-outline-secondary' style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
+                                </div>
+
+                                {/* <input
                                     type={showPassword ? 'text' : 'password'}
-                                    className="form-control border-black me-3"
+                                    className="form-control  border-black me-3"
                                     id="shop_password"
                                     placeholder="請輸入密碼，密碼須至少大於六個字:"
                                     name='password'
                                     value={shop.password}
                                     onChange={handleChange}
                                 />
-                                <button type='button' className='btn btn-warning' style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
+                                <button type='button' className='btn btn-warning btn-outline-secondary' style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button> */}
 
                             </div>
 
@@ -412,54 +471,6 @@ export default function RegisterForm() {
 
                             <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.owner}</div>
 
-                            <div className='res_cate mx-5 d-flex justify-content-start align-items-center mt-3'>
-
-                                <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>餐廳分類:</div>
-                                <select value={resCate} onChange={(e) => {
-                                    setResCate(e.target.value)
-                                    setShop({ ...shop, res_cate: e.target.value })
-                                }}>
-                                    <option value={``}>---請選擇餐廳分類---</option>
-                                    {res_cateOptions.map((v, i) => {
-                                        return <option key={i} value={v} onChange={handleResCate}>{v}</option>
-                                    })}
-                                </select>
-
-                            </div>
-
-                            <div className="photo d-flex justify-content-start mt-3 mx-5">
-                                <div className="d-flex flex-row align-items-center">
-                                    <div htmlFor="res_photo" className="form-label mb-3">
-
-
-                                    </div>
-
-                                    <div className='d-flex flex-column mb-3'>
-                                        {showImg == false ? (<div htmlFor="res_photo" className={`${registerformcss.uploadImg} me-3`}>
-                                            商家圖片:
-                                        </div>) : (
-                                            <div
-                                                htmlFor="res_photo"
-                                                className={`${registerformcss.uploadImg} me-3`}
-                                                name='photo'
-                                                onChange={handleChange}>
-
-                                                <img src={`${imgPreview + showImg}`} style={{ height: '300px', width: '300px', overflow: 'static' }} alt="" />
-
-                                            </div>)}
-
-                                        <div className="mt-3">
-                                            <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
-                                            {/* <div id="res_photo" className="form-text"></div> */}
-
-                                        </div>
-                                    </div>
-
-
-                                    {/* https://github.com/mfee-react/example-projects/tree/main/%E5%9C%96%E6%AA%94%E4%B8%8A%E5%82%B3%E8%88%87%E9%A0%90%E8%A6%BD */}
-
-                                </div>
-                            </div>
 
                             <div className='description mx-5 d-flex justify-content-start align-items-center mt-3'>
 
@@ -492,26 +503,77 @@ export default function RegisterForm() {
 
                             </div>
 
+                            <div className='res_cate mx-5 d-flex justify-content-start align-items-center mt-3'>
+
+                                <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>餐廳分類:</div>
+                                <select value={resCate} onChange={(e) => {
+                                    setResCate(e.target.value)
+                                    setShop({ ...shop, res_cate: e.target.value })
+                                }}
+                                    className='form-select'
+                                >
+                                    <option value={``}>---請選擇餐廳分類---</option>
+                                    {res_cateOptions.map((v, i) => {
+                                        return <option key={i} value={v} onChange={handleResCate}>{v}</option>
+                                    })}
+                                </select>
+
+                            </div>
+
+                            <div className="photo d-flex justify-content-start mt-3 mx-5">
+                                <div className="d-flex flex-row align-items-center">
+                                    <div htmlFor="res_photo" className="form-label mb-3">
+
+
+                                    </div>
+
+                                    <div className='d-flex flex-column mb-3'>
+                                        {showImg == false ? (<div htmlFor="res_photo" className={`${styles.uploadImg} me-3`}>
+                                            商家圖片:
+                                        </div>) : (
+                                            <div
+                                                htmlFor="res_photo"
+                                                className={`${styles.uploadImg} me-3`}
+                                                name='photo'
+                                                onChange={handleChange}>
+                                                <img src={`${imgPreview + showImg}`} style={{ height: '300px', width: '300px', overflow: 'static' }} alt="" />
+                                            </div>)}
+                                        <div className="mt-3">
+                                            <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
+
+
+                                        </div>
+                                    </div>
+
+
+                                    {/* https://github.com/mfee-react/example-projects/tree/main/%E5%9C%96%E6%AA%94%E4%B8%8A%E5%82%B3%E8%88%87%E9%A0%90%E8%A6%BD */}
+
+                                </div>
+                            </div>
+
                             <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.avg_consumption}</div>
 
                             <div className='address mx-5 fw-bold mt-3'>請輸入完整地址:</div>
-                            <div className="d-flex justify-content-between mt-1 col-6 mx-5">
+                            <div className={`d-flex justify-content-between mt-1 col-xxl-3 col-sm-6 mx-5 ${styles.addressDisplay}`}
+                            // style={``}
+                            >
 
                                 <select name='city' value={city} onChange={(e) => {
                                     setCity(e.target.value)
                                     setShop({ ...shop, city: e.target.value })
-                                }} className='me-1'>
+                                }} className='me-1 form-select col-3'>
                                     <option value=''>---請選擇城市---</option>
                                     {cityOptions.map((v, i) => {
                                         return <option key={i} value={v}>{v}</option>
                                     })}
                                 </select>
-
+                                <div className={`d-flex align-items-center me-1  
+                                    ${styles.hideDash}`}>-</div>
                                 <select name='area' value={pickArea} onChange={(e) => {
                                     setPickArea(e.target.value)
                                     setShop({ ...shop, area: e.target.value })
                                 }}
-                                    className=''
+                                    className='form-select col-3'
                                 >
                                     <option value=''>---請選擇鄉鎮---</option>
                                     {area.map((v, i) => {
@@ -524,7 +586,7 @@ export default function RegisterForm() {
                             <div className="d-flex justify-content-between mt-3 mx-5">
                                 <div className="">
 
-                                    <div className='d-flex justify-content-start  align-items-center'>
+                                    <div className={`d-flex justify-content-start  align-items-center ${styles.addressDisplay}`}>
                                         <input
                                             type="text"
                                             className="form-control border-black"
@@ -542,13 +604,14 @@ export default function RegisterForm() {
                                             name='fulladdress1'
                                             value={shop.fulladdress1}
                                             onChange={handleChange}
-
+                                            onKeyDown={testGoogleAPI}
                                         />
                                     </div>
 
                                     <div id="shop" className="form-text">
                                         請填入完整地址
                                     </div>
+                                    <button type='button' className='btn btn-primary' onClick={testGoogleAPI}>測試api按鈕</button>
                                 </div>
                             </div>
 
@@ -558,8 +621,8 @@ export default function RegisterForm() {
                                 <div id="open_time" className="form-text fw-bold">
                                     請選擇營業時間
                                 </div>
-                                <div className="col-3">
-                                    <div className="d-flex flex-row">
+                                <div className={`col-3`}>
+                                    <div className={`d-flex flex-row ${styles.openTimes}`}>
                                         <select className="form-select col-3" value={shop.open_time} onChange={(e) => {
                                             setShop({ ...shop, open_time: e.target.value })
                                         }}>
@@ -591,14 +654,14 @@ export default function RegisterForm() {
                             <div className='error mx-5 pe-5 fs-5 fw-bold d-flex justify-content-start'>{errors.open_time}</div>
 
                             <div className="d-flex justify-content-between mt-3 mx-5">
-                                <div className="">
+                                <div className=''>
                                     <div id="open_time" className="form-text fw-bold">
                                         請選擇營業日期:
                                     </div>
 
                                     <div className="d-flex justify-content-between mt-2">
                                         {openDayOptions.map((v, i) => {
-                                            return <label key={i} className='me-4'>
+                                            return <label key={i} className={`me-4 ${styles.openDays}`} >
                                                 <input
                                                     className=''
                                                     type='checkbox'
@@ -617,11 +680,12 @@ export default function RegisterForm() {
                             <div className="col-5 mx-5">
                                 <div className="mt-3 fw-bold">如欲開放訂位功能，請勾選並填寫桌型:</div>
 
-                                <div className="d-flex flex-row my-3">
+                                <div className={`d-flex flex-row my-3 ${styles.openDays}`}>
 
                                     <button
-                                        className='form-label border border-black rounded-3 px-3 py-2 fw-bold me-5'
-                                        style={{ backgroundColor: '#FCC8A1' }}
+                                        type='button'
+                                        className='form-label  btn btn-primary rounded-3 px-3 py-2 fw-bold me-5'
+                                        // style={{ backgroundColor: '#FCC8A1' }}
                                         onClick={(e) => {
                                             setSwitchTable('normal')
                                             setShop({ ...shop, table_number: '' })
@@ -629,8 +693,9 @@ export default function RegisterForm() {
                                     >一般桌型</button>
 
                                     <button
-                                        className='form-label border border-black rounded-3 px-3 py-2 fw-bold ms-1'
-                                        style={{ backgroundColor: '#FCC8A1' }}
+                                        type='button'
+                                        className='form-label  btn btn-primary rounded-3 px-3 py-2 fw-bold ms-1'
+                                        // style={{ backgroundColor: '#FCC8A1' }}
                                         onClick={(e) => {
                                             setSwitchTable('advance')
                                             setShop({ ...shop, table_number: '' })
@@ -697,8 +762,11 @@ export default function RegisterForm() {
                                         id="shop_verify-num"
                                         placeholder="請填入驗證碼" />
                                     <button
-                                        className='form-label border border-black rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
-                                        style={{ backgroundColor: '#FCC8A1' }}>寄送驗證碼</button>
+                                        type='button'
+                                        className='form-label btn btn-primary rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
+                                    // style={{ backgroundColor: '#FCC8A1' }}
+                                    >
+                                        寄送驗證碼</button>
                                 </div>
                             </div>
 
@@ -709,7 +777,7 @@ export default function RegisterForm() {
                                     確認送出
                                 </button>
 
-                                <button type="reset" className="btn btn-primary my-3 mx-3">
+                                <button type="reset" className="btn btn-danger my-3 mx-3">
                                     取消填寫
                                 </button>
                             </div>

@@ -7,7 +7,7 @@
   justify-content: center;
   margin-top: 60px;
   margin-bottom: 60px;
-  font-family: 'Zen Maru Gothic', sans-serif;
+  font-family: var(--ff1);
 }
 
 .container {
@@ -165,26 +165,6 @@
 }
 
 /*表單會用到的*/
-.form {
-  width: 800px;
-  height: 1000px;
-  padding: 50px;
-  border-radius: 20px;
-  color: #921010;
-  font-weight: 800;
-  border: 2px solid #921010;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.formArea {
-  width: 100%;
-  margin-top: 0px;
-  margin-bottom: 50px;
-  display: flex;
-  justify-content: space-between;
-}
 
 @media screen and (max-width: 391px) {
   .body {
@@ -222,7 +202,7 @@
   .package {
     width: 100%;
     height: 180px;
-    margin-top: 15px;
+    margin-top: 20px;
     padding: 15px;
   }
 
@@ -234,6 +214,7 @@
 
   .packageMoney {
     font-size: 28px;
+    margin-bottom: 15px;
   }
 
   .packageImg {
