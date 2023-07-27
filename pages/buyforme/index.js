@@ -19,14 +19,54 @@ import zIndex from "@mui/material/styles/zIndex";
 import { HiOutlineChat } from "react-icons/hi";
 import CustomizedSwitches from "@/components/buyforme/switch";
 import { Chat } from "@mui/icons-material";
+import OpenShopForm from "@/components/buyforme/openshopform";
+
+
 
 
 
 
 const ramens = [
-    { shop: "双豚ラーメン", lat: 25.027492494837038, lng: 121.46519250548808, id: 1 },
-    { shop: "烹星", lat: 25.05607, lng: 121.52514, id: 2 },
-    { shop: "Okaeriお帰り你回來啦拉麵", lat: 25.04392, lng: 121.55372, id: 3 },
+    {
+        shop: "大稻埕魯肉飯", latitude
+            : 25.0509692896927, longitude: 121.514657965568, sid: 1, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
+    },
+    {
+        shop: "滷肉飯店", latitude
+            : 25.0519848661452, longitude: 121.545149955878, sid: 2, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
+    },
+    {
+        shop: "日日香小館", latitude
+            : 25.0291015596711, longitude: 121.54070734974, sid: 3, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
+    },
+    {
+        shop: "林東芳牛肉麵", latitude
+            : 25.0472560275676, longitude: 121.543080631394, sid: 4, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
+    },
+    {
+        shop: "頂好哨子麵", latitude
+            : 25.0422643891525, longitude: 121.546287823781, sid: 5, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
+    },
+    {
+        shop: "紅粟上海經典小吃", latitude
+            : 24.9810826373594, longitude: 121.523416460177, sid: 6, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
+    },
+    {
+        shop: "宵夜·排骨炒飯", latitude
+            : 24.996707774961, longitude: 121.511260168782, sid: 8, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
+    },
+    {
+        shop: "入魂燒味燒臘餐廳", latitude
+            : 25.0083616170896, longitude: 121.515609696722, sid: 7, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
+    },
+    {
+        shop: "紅昌吉豬血湯", latitude
+            : 25.065831499499012, longitude: 121.51676609152237, sid: 9, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
+    },
+    {
+        shop: "今大滷肉飯", latitude
+            : 25.064414236259736, longitude: 121.4915471374361, sid: 10, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
+    },
 ];
 
 const open_for_you = [
@@ -104,9 +144,27 @@ const chat_input_style = {
     },
 }
 
-const Buyforme = () => {
 
-    const [data, setData] = useState(ramens);
+//後端先取得資料庫的商家資料 跟 店家評論
+export async function getStaticProps() {
+    const response = await fetch(process.env.API_SERVER + '/buyforme');
+    const data = await response.json();
+
+    const response2 = await fetch(process.env.API_SERVER + '/buyforme/review');
+    const review_data = await response2.json();
+
+    return {
+        props: {
+            initialData: data.rows,
+            review_data: review_data,
+        },
+    };
+}
+
+const Buyforme = ({ initialData,review_data}) => {
+
+    const [originaldata, setOriginaldata] = useState(initialData);
+    const [data, setData] = useState(initialData);
     const [checkbuyforme, setCheckbuyforme] = useState(false);
     const [openorder, setOpenorder] = useState(open_for_you);
     const [openbuyforme, setOpenbuyforme] = useState(false);
@@ -116,6 +174,23 @@ const Buyforme = () => {
     const [chat, setChat] = useState('說點什麼......');
     const [openchat, setOpenchat] = useState(false);
     const [mapcolor, setMapcolor] = useState(false);
+    const [openForm, setOpenForm] = useState(false);
+    const [opentargetstore, setOpentargetstore] = useState(0);
+
+
+
+
+
+    // useEffect(() => {
+    //     // targetstore改了之後 去後端拿資料改shopfoods
+    //     const getshop = async () => {
+    //         await fetch(process.env.API_SERVER + '/buyforme')
+    //             .then(r => r.json())
+    //             .then(obj => {setData(obj.rows); console.log(obj)})
+    //     }
+
+    //     getshop();
+    // }, [])
 
 
     useEffect(() => {
@@ -136,8 +211,12 @@ const Buyforme = () => {
         setOpenbuyforme(false);
     };
 
+    const handleopenFormClose = () => {
+        setOpenForm(false);
+    };
+
     return (<>
-        <GoogleMapComponent data={data} chat={chat} mapcolor={mapcolor} />
+        <GoogleMapComponent data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} review_data={review_data} />
 
         <div className={styles.inputBox}>
             <TextField
@@ -148,9 +227,9 @@ const Buyforme = () => {
                 onBlur={(e) => {
                     //if(e.key !== 'Enter') return;
                     if (e.target.value === '') {
-                        setData(() => ramens)
+                        setData(() => originaldata)
                     } else {
-                        setData(() => ramens.filter(v => v.shop.includes(e.target.value)));
+                        setData(() => originaldata.filter(v => v.shop.includes(e.target.value)));
                         console.log(e.target.value)
                     }
                 }}
@@ -162,7 +241,7 @@ const Buyforme = () => {
         <OpenIconSpeedDial />
 
 
-        <div className={checkbuyforme === false ? styles.buyforme_hint : styles.buyforme_hint_active}>目前揪團數：6</div>
+        <div className={checkbuyforme === false ? styles.buyforme_hint : styles.buyforme_hint_active}>目前揪團數：{openorder.length}</div>
 
         <div className={checkbuyforme === false ? styles.buyforme_infobox_hide : styles.buyforme_infobox}>
             <div className={styles.buyforme_tabletitle}>誰在揪團</div>
@@ -212,23 +291,22 @@ const Buyforme = () => {
         <Dialog open={openbuyforme} onClose={handlebuyformeClose}>
 
             {/* 記得要用全部的資料去map 不是篩選後的 */}
-            {ramens.map((v) => {
-                if (targetstore === v.id)
-                    return (<>
-                        <DialogTitle>Subscribe</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                To subscribe to this website, please enter your email address here. We
-                                will send updates occasionally.
-                            </DialogContentText>
-                            <div>
-                                {JSON.stringify(v)}
-                            </div>
-                            <div style={{ width: '100%' }}>
-                                <InputArea onChange={(e) => { console.log('123'); setTestV(e.target.value) }} value={testV} fullWidth />
-                            </div>
-                        </DialogContent>
-                    </>)
+            {ramens.filter((v) => targetstore === v.sid).map((v) => {
+                return (<>
+                    <DialogTitle>Subscribe</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            To subscribe to this website, please enter your email address here. We
+                            will send updates occasionally.
+                        </DialogContentText>
+                        <div>
+                            {JSON.stringify(v)}
+                        </div>
+                        <div style={{ width: '100%' }}>
+                            <InputArea onChange={(e) => { console.log('123'); setTestV(e.target.value) }} value={testV} fullWidth />
+                        </div>
+                    </DialogContent>
+                </>)
             })}
 
 
@@ -249,6 +327,8 @@ const Buyforme = () => {
         <div className={styles.switch_box}>
             <CustomizedSwitches mapcolor={mapcolor} setMapcolor={setMapcolor} />
         </div>
+
+        <OpenShopForm openForm={openForm} handleopenFormClose={handleopenFormClose} opentargetstore={opentargetstore} data={data} />
 
 
 
