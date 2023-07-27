@@ -6,8 +6,8 @@ import dayjs from 'dayjs';
 
 export default function Calendar({ row, date, setDate, setTime, setPerson, setSeat }) {
     const today = new Date();
-    const minDate = dayjs(today).toDate(); // 計算今天往後一天的日期
-    const maxDate = dayjs(today).add(30, 'day').toDate(); // 計算30天後的日期
+    const minDate = dayjs(today).add(1, 'day').startOf('day').toDate(); // 明天的开始时间
+    const maxDate = dayjs(today).add(31, 'day').endOf('day').toDate(); // 31天后的结束时间
 
     // 從資料庫取得的店家營業時間
     const shopOpenTimeInfo = {
@@ -21,20 +21,25 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
     };
 
     const isShopOpenOnDate = (date) => {
-        const dayOfWeek = date.day(); // 取得星期幾的數字，0 為星期日，1 為星期一，依此類推
+        const dayOfWeek = date.day(); // 将 date 转换为 dayjs 对象，然后获取星期几的数值
         const dayOfWeekString = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek];
         return shopOpenTimeInfo[dayOfWeekString] === 1;
     };
 
+
     const shouldDisableDate = (date) => {
-        if (!date || !date.isAfter(minDate) || !date.isBefore(maxDate)) {
+        console.log('Selected Date:', date);
+        console.log('Min Date:', minDate);
+        console.log('Max Date:', maxDate);
+        if (!date || date.isBefore(minDate) || date.isAfter(maxDate)) {
             return true;
         }
         return !isShopOpenOnDate(date);
     };
 
     const handleDateChange = (selectedDate) => {
-        setDate(selectedDate.format('YYYY-MM-DD'));
+        const formattedDate = selectedDate.format('YYYY-MM-DD');
+        setDate(formattedDate);
         setTime('');
         setPerson('');
         setSeat('');
