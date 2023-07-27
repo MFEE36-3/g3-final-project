@@ -23,8 +23,8 @@ export default function RestaurantPage() {
     const [seat, setSeat] = useState('');
 
     //購物車Offcanvas
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    // const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
 
     return (
         <>
@@ -37,7 +37,7 @@ export default function RestaurantPage() {
                         </div>
 
                         <div className={style.reservationdiv}>
-                            <div>
+                            {/* <div>
                                 <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
 
                                 <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
@@ -48,9 +48,7 @@ export default function RestaurantPage() {
                                         <ShoppingCart />
                                     </Offcanvas.Body>
                                 </Offcanvas>
-
-
-                            </div>
+                            </div> */}
                             <ReservationPage date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} />
                         </div>
 

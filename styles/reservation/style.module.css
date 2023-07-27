@@ -139,6 +139,14 @@
   margin-right: 5px;
 }
 
+.openstyle{
+  color: rgb(56, 201, 56);
+}
+
+.closestyle{
+  color: red;
+}
+
 .map{
   width: 300px;
   height: 300px;
@@ -158,6 +166,7 @@
   background-color: #d9d9d9;
   border-radius: 10px;
   cursor: pointer;
+  border: none;
 }
 
 .timeblockactive{
@@ -165,6 +174,7 @@
   background-color: var(--main-color);
   color: white;
   border-radius: 10px;
+  border: none;
 }
 
 .timetext{

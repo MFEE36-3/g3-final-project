@@ -1,15 +1,20 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import { FaUtensils, FaLocationDot, FaPhone } from 'react-icons/fa6';
+import { BiSolidTimeFive } from 'react-icons/bi';
+import { BsCircleFill } from 'react-icons/bs';
 import { AiFillDollarCircle } from 'react-icons/ai';
 import { ImSpoonKnife } from 'react-icons/im';
+import { GoDotFill } from 'react-icons/go';
 import style from '@/styles/reservation/style.module.css'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { RowingSharp } from '@mui/icons-material';
 export default function Info() {
 
     const router = useRouter();
     const [row, setRow] = useState({});
+    const [isopen, setIsopen] = useState(false);
 
     useEffect(() => {
         if (router.query.sid) {
@@ -21,8 +26,28 @@ export default function Info() {
                     } else {
                     }
                 })
+
         };
     }, [router.query]);
+
+    useEffect(() => {
+        // 確保 row 物件及其屬性不是 undefined，然後再處理日期和時間的分割
+
+        if (row && row.open_time && row.close_time) {
+            const nowtime = new Date();//['Thu Jul 27 2023 11', '28', '30 GMT+0800 (台北標準時間)']
+            const timearr = nowtime.toString().split(':');
+            const timearr1 = timearr[0].slice(-2);
+            const timearr2 = timearr[1];
+            const inttime = Number(timearr1 + timearr2);
+
+            const opentime = parseInt(row.open_time.split(':').join(''));
+            const closetime = parseInt(row.close_time.split(':').join(''));
+
+            if (inttime >= opentime && inttime <= closetime) {
+                setIsopen(true);
+            }
+        }
+    }, [row]);
 
     return (
         <>
@@ -34,10 +59,10 @@ export default function Info() {
                         <FaLocationDot className={style.iconstyle} />
                         <div>{row?.cityname}{row?.areaname}{row?.location}</div>
                     </div>
-                    {/* <div className='pb-2 d-flex'>
-                                <div className={style.detailwidth}>營業時間</div>
-                                <div>|{time}</div>
-                            </div> */}
+                    <div className={style.infodetail}>
+                        <BiSolidTimeFive className={style.iconstyle} />
+                        <div className='d-flex align-items-center'><BsCircleFill className={`${isopen ? style.openstyle : style.closestyle} me-2`} />{row?.open_time} - {row?.close_time}</div>
+                    </div>
                     <div className={style.infodetail}>
                         <AiFillDollarCircle className={style.iconstyle} />
                         <div>$ {row?.avg_consumption} / per</div>
@@ -67,7 +92,8 @@ export default function Info() {
                         <iframe
                             className={style.map}
                             frameBorder={0}
-                            src={`https://www.google.com/maps/embed/v1/place?q=${row?.cityname}${row?.areaname}${row?.location}&key=`}
+                            // src={`https://www.google.com/maps/embed/v1/place?q=${row?.cityname}${row?.areaname}${row?.location}&key=`}
+                            src={`https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=${Number(row?.latitude)},${Number(row?.longitude)}&z=16&output=embed&t=`}
                         >
                         </iframe>
                     </div>

@@ -21,9 +21,10 @@ export default function Calendar({ date, setDate, setTime, setPerson, setSeat })
     };
 
     const handleDateChange = (selectedDate) => {
+        console.log(selectedDate);
         // const formattedDate = selectedDate.toISOString().split('T')[0];
         const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
-        // console.log(formattedDate)
+        console.log(formattedDate)
         setDate(formattedDate);
         setTime('');
         setPerson('');

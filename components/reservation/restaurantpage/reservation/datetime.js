@@ -27,10 +27,10 @@ export default function DateTime({ date, setDate, time, setTime, setPerson, setS
                 {availabletime.map((v) => {
                     const { id, name } = v;
                     return (
-                        <div className={time === name ? style.timeblockactive : style.timeblock} key={id} onClick={() => handleTime(name)}>
+                        <button className={time === name ? style.timeblockactive : style.timeblock} key={id} onClick={() => handleTime(name)}>
                             <div className={style.timetext}>{`${pickdate}`}</div>
                             <div className={style.timetext}>{name}</div>
-                        </div>
+                        </button>
                     )
                 })}
             </div>
