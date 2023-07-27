@@ -1,17 +1,13 @@
 import React from 'react';
 import styles from './kcard.module.css';
-export default function Kcard({img , title ,p}) {
+export default function Kcard({ img, title, p }) {
   return (
     <>
       <div className="container">
         <div classNameName="card mb-3 ">
           <div className="row g-0 mb-3 mt-5">
             <div className="col-md-4">
-              <img
-                src={img}
-                className="img-fluid rounded-start"
-                alt="..."
-              />
+              <img src={img} className="img-fluid rounded-start" alt="..." />
             </div>
             <div className="col-md-8 bg-white">
               <div className="card-body ">

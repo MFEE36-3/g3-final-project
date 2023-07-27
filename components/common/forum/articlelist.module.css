@@ -23,6 +23,11 @@
     font-size: var(--h7);
     margin-top: 10px;
     margin-bottom: 10px;
+    width: 700px; /* 設定文字區塊的寬度 */
+    white-space: nowrap; /* 防止文字換行 */
+    overflow: hidden; /* 超出範圍的文字隱藏 */
+    text-overflow: ellipsis; /* 超出範圍的文字顯示省略號 */
+
 }
 .flex2{
     display: flex;
@@ -57,10 +62,17 @@
     display: flex;
     border-bottom: 2px solid var(--main-color);
     padding-bottom: 10px;
+    justify-content: space-between;
 }
 .img{
     margin-top: 65px;
     width: 200px;
     height: 150px;
     margin-left: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.img img{
+    width: 100%;
+
 }

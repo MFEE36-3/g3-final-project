@@ -1,0 +1,98 @@
+.cardbody{
+    height: 350px;
+    padding: 0;
+    padding-right: 10px;
+    background-color: transparent;
+}
+.ptext{
+    font-size: var(--h7);
+    padding-top: 10px;
+    overflow: hidden;
+    width: 100%;
+    height: 60px;
+    margin-top: 10px;
+    font-family: var(--ff3);
+}
+.line{
+    margin-top: 10px;
+    border-bottom: 1px solid var(--main-color);
+    padding-bottom: 10px;
+}
+.card{
+    height: 200px;
+    overflow: hidden;
+    
+
+}
+.card img{
+width: 100%;
+height: auto;
+object-fit: fill;
+}
+
+.ptext:hover{
+    /* text-decoration: underline; */
+    color:var(--main-color)
+}
+
+/* 假設有一個包含這組按鈕的容器 div，假設 class 為 pagination-container */
+.pagination-container {
+    display: flex;
+    justify-content: center; /* 將子元素置中對齊 */
+    align-items: center; /* 將子元素垂直置中對齊 */
+  }
+  
+  /* 或是直接將 .pagination 設定為 flex container */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* 按鈕之間的間距 */
+  
+  .arrayleft{
+    margin: 0 10px;
+    color:var(--main-color) !important; 
+    border: 0;
+    width: 15px;
+    height: 30px;
+    margin-top: 20px;
+
+  }
+  .arrayright{
+    margin: 0 10px;
+    color:var(--main-color) !important; 
+    border: 0;
+    width: 15px;
+    height: 30px;
+    margin-top: 20px;
+  }
+  .btn:hover{
+    color:white
+  }
+  .flex{
+    display: flex;
+    justify-content: center;
+  }
+  .number{
+    margin-top: 20px;
+  }
+  .arrayleft:hover {
+    cursor: pointer;
+    color: rgb(109, 2, 2);
+  }
+  .arrayright:hover {
+    cursor: pointer;
+    color: rgb(109, 2, 2);
+  }
+  .cardbody:hover {
+    cursor: pointer;
+  }
+  .time{
+    font-size: var(--h9);
+    display: flex;
+    justify-content: end;
+  }
+
+ 
