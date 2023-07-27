@@ -19,6 +19,8 @@ import styles from '@/styles/member/mem-body.module.css';
 import styles2 from '@/styles/member/mem-activity.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MemBtn from '@/components/member/mem-Btn';
+import MemNologin from '@/components/member/mem-nologin';
+import { useRouter } from 'next/router';
 
 export default function Index() {
   const List1 = [
@@ -213,6 +215,10 @@ export default function Index() {
     <MemActivityRecord1 Record1={Record1} />
   );
 
+  const { auth } = useContext(AuthContext);
+
+  const router = useRouter();
+
   const changeList = (e) => {
     switch (e.currentTarget.value) {
       case '揪團':
@@ -252,6 +258,13 @@ export default function Index() {
         break;
     }
   };
+
+  // if (!auth.account) {
+  //   setTimeout(() => {
+  //     router.push('/');
+  //   }, 500);
+  //   return <MemNologin />;
+  // }
 
   return (
     <div className={styles.body}>

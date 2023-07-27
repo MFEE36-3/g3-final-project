@@ -10,28 +10,16 @@ import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import MemAllTitle from '@/components/member/mem-allTitle';
 import Btn from '@/components/common/btn';
+import MemNologin from '@/components/member/mem-nologin';
 
 export default function Info() {
   const router = useRouter();
   // 從useContext裡解構出驗證資料的auth及包含會員資料的memberData
-  const { auth, memberData } = useContext(AuthContext);
-
-  useEffect(() => {
-    // 如果非登入狀態，則跳轉至根目錄頁面
-    if (!auth) {
-      setTimeout(() => {
-        router.push('/');
-      }, 5000);
-    }
-  }, [auth, router]);
-
-  // if (!memberData) {
-  //   return <div>Loading...</div>;
-  // }
+  const { auth } = useContext(AuthContext);
 
   const {
     account,
-    achieve,
+    achieve_name,
     birthday,
     creat_at,
     level,
@@ -41,9 +29,20 @@ export default function Info() {
     photo,
     sid,
     wallet,
-  } = memberData;
+  } = auth;
 
-  const password = '*'.repeat(auth.length);
+  const [getImg, setGetImg] = useState('');
+
+  useEffect(() => {
+    if (photo) {
+      setGetImg(photo);
+    }
+  }, [auth]);
+
+  const local = process.browser
+    ? JSON.parse(localStorage.getItem('auth'))
+    : null;
+  const password = local ? '*'.repeat(local.length) : '';
 
   //不要顯示等級1or2，改為顯示會員等級名稱
   const lev = level === 1 ? '一般會員' : '尊榮會員';
@@ -65,6 +64,36 @@ export default function Info() {
     { tag: '加入時間', title: 'creat_at', content: creat },
   ];
 
+  const changeImg = (e) => {
+    e.preventDefault();
+    const fd = new FormData();
+    fd.append('preImg', e.target.files[0]);
+
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/changeImg', {
+        method: 'POST',
+        body: fd,
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setGetImg(data.filename);
+        });
+    }
+  };
+
+  // if (!auth.account) {
+  //   setTimeout(() => {
+  //     router.push('/');
+  //   }, 500);
+  //   return <MemNologin />;
+  // }
+
   return (
     <div className={styles.body}>
       <div className={styles.container}>
@@ -74,10 +103,10 @@ export default function Info() {
             <div className={styles2.imgflex}>
               <div className={styles2.img}>
                 <Image
-                  src={'http://localhost:3002/img/' + photo}
+                  src={'http://localhost:3002/img/' + getImg}
                   className={styles2.imgbig}
-                  width={350}
-                  height={350}
+                  width={300}
+                  height={300}
                   alt=""
                 />
               </div>
@@ -95,11 +124,13 @@ export default function Info() {
                   accept="image/*"
                   className={styles2.uploadInput}
                   title=""
+                  onChange={changeImg}
+                  name="preImg"
                 />
               </div>
             </div>
             <div className={styles2.achieveBox}>
-              <MemAllTitle title={achieve} />
+              <MemAllTitle title={achieve_name} />
               <Image
                 src={'/member/badge01.svg'}
                 style={{ objectFit: 'cover' }}

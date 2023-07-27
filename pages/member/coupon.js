@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { v4 } from 'uuid';
 import AuthContext from '@/context/AuthContext';
 import { useState, useEffect, useContext } from 'react';
+import MemNologin from '@/components/member/mem-nologin';
+import { useRouter } from 'next/router';
 
 export default function Index() {
   const mycoupon = [
@@ -86,6 +88,17 @@ export default function Index() {
       state: '過期',
     },
   ];
+
+  const { auth } = useContext(AuthContext);
+
+  const router = useRouter();
+
+  // if (!auth.account) {
+  //   setTimeout(() => {
+  //     router.push('/');
+  //   }, 500);
+  //   return <MemNologin />;
+  // }
 
   return (
     <div className={styles.body}>

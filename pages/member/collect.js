@@ -12,6 +12,8 @@ import MemCollectReocrd1 from '@/components/member/mem-collectRecord1';
 import MemCollectReocrd2 from '@/components/member/mem-collectRecord2';
 import MemCollectReocrd3 from '@/components/member/mem-collectRecord3';
 import MemBtn from '@/components/member/mem-Btn';
+import MemNologin from '@/components/member/mem-nologin';
+import { useRouter } from 'next/router';
 
 export default function Index() {
   const MyList = [
@@ -110,6 +112,17 @@ export default function Index() {
         break;
     }
   };
+
+  const { auth } = useContext(AuthContext);
+
+  const router = useRouter();
+
+  // if (!auth.account) {
+  //   setTimeout(() => {
+  //     router.push('/');
+  //   }, 500);
+  //   return <MemNologin />;
+  // }
 
   return (
     <div className={styles.body}>

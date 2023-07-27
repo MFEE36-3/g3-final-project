@@ -155,10 +155,6 @@
   font-weight: 900;
 }
 
-.imgbig {
-  object-fit: cover;
-}
-
 @media screen and (max-width: 391px) {
   .rightArea {
     width: 90%;

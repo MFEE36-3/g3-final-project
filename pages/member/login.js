@@ -48,7 +48,7 @@ const Login = () => {
   const router = useRouter();
 
   //引入useContext存放的setState，之後會把localStorage裡面的token存進去
-  const { handleLocalStorageChange } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
     //mui內建寫好，取消表單內建事件
@@ -75,8 +75,9 @@ const Login = () => {
           console.log(data.error || '帳密錯誤');
         }
       })
-      .then(handleLocalStorageChange())
-      .then(router.push('/'));
+      .then(() => {
+        router.push('/');
+      });
   };
   const [change, setChange] = useState(false);
 

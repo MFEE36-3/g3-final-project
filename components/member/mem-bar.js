@@ -19,7 +19,7 @@ export default function MemBar() {
   ];
 
   // 從useContext裡解構出auth驗證token跟基本會員資料memberData
-  const { auth, memberData } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
 
   // 由於useEffect重新渲染時會有第一次沒資料、第二次有資料的問題
   // 在填入變數時要在變數後面加上? 代表內容不是null或undefined才會訪問其屬性
@@ -28,9 +28,7 @@ export default function MemBar() {
       <div className={styles.memBtnTop}>
         <div className={styles.memImgBox}>
           <Image
-            src={
-              memberData ? 'http://localhost:3002/img/' + memberData?.photo : ''
-            }
+            src={'http://localhost:3002/img/' + auth?.photo}
             style={{ objectFit: 'cover' }}
             width={500}
             height={500}
@@ -45,7 +43,7 @@ export default function MemBar() {
             alt=""
           />
         </div>
-        <div className={styles.memText}>{memberData?.achieve}</div>
+        <div className={styles.memText}>{auth?.achieve_name}</div>
         <div className={styles.memText}>{auth?.nickname}</div>
         <div className={styles.memEmail}>{auth?.account}</div>
       </div>

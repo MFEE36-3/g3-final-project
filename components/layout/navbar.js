@@ -17,7 +17,6 @@ import AuthContext from '@/context/AuthContext';
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Btn from '../common/btn';
-import { first } from 'lodash';
 
 export default function Navbar() {
   // function active_btn (e){
@@ -43,6 +42,7 @@ export default function Navbar() {
     logout();
     setIsLogin(false);
     router.push('/');
+    // console.log(isLogin);
   };
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (auth.token) setIsLogin(true);
+    if (localStorage.getItem('auth')) setIsLogin(true);
   }, [auth, first]);
 
   //下面寫if判斷路由關鍵字 如果有符合就把router_title設成那個
