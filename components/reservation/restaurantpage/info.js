@@ -18,7 +18,6 @@ export default function Info({ row }) {
 
     useEffect(() => {
         // 確保 row 物件及其屬性不是 undefined，然後再處理日期和時間的分割
-
         if (row && row.open_time && row.close_time) {
             const nowtime = new Date();//['Thu Jul 27 2023 11', '28', '30 GMT+0800 (台北標準時間)']
             const timearr = nowtime.toString().split(':');
@@ -29,11 +28,16 @@ export default function Info({ row }) {
             const opentime = parseInt(row.open_time.split(':').join(''));
             const closetime = parseInt(row.close_time.split(':').join(''));
 
-            if (inttime >= opentime && inttime <= closetime) {
+            const today = dayjs().day(); // 获取当前星期几，0 为星期日，1 为星期一，依此类推
+            const dayOfWeekString = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][today];
+
+            if (inttime >= opentime && inttime <= closetime && row[dayOfWeekString] === 1) {
                 setIsopen(true);
             }
         }
     }, [row]);
+
+
 
     return (
         <>

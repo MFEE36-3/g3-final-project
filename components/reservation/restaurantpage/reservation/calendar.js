@@ -28,9 +28,6 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
 
 
     const shouldDisableDate = (date) => {
-        console.log('Selected Date:', date);
-        console.log('Min Date:', minDate);
-        console.log('Max Date:', maxDate);
         if (!date || date.isBefore(minDate) || date.isAfter(maxDate)) {
             return true;
         }
