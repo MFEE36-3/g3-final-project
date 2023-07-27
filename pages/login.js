@@ -178,7 +178,6 @@ const Login = () => {
                     廠商登入
                   </Typography>
                   <div class="mb-3">
-                    <label for="account" class="form-label"></label>
                     <input
                       className=""
                       type="email"
@@ -192,7 +191,6 @@ const Login = () => {
                     <div style={{ color: 'red' }}>{loginSuccess.error}</div>
                   </div>
                   <div class="mb-3">
-                    <label for="password" class="form-label"></label>
                     <input
                       type="password"
                       class="form-control"
