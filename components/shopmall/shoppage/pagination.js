@@ -11,9 +11,6 @@ export default function ShopPagination() {
       type:'SET_PAGE',
       payload: page,
     })
-  }
-  React.useEffect(()=>{
-    if(isReset) return
     const query = {...router.query}
     if(page) {
       query.page = page
@@ -22,7 +19,9 @@ export default function ShopPagination() {
       pathname:router.pathname,
       query:query
     })
-  },[page])
+  }
+
+
 
   return (
     <div className='w-100 d-flex justify-content-center mb-5 pb-5 mt-2'>

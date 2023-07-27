@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import jayni from '@/public/trycheckoutimage/jayni.png'
+import useLocalStorage from "@/components/hooks/useLocalStorage";
 import {  AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
 const style = {
@@ -66,6 +66,8 @@ export default function ShopCard() {
   const [open, setOpen] = React.useState(false);
   const [selectedItem, setSelectedItem] = useState(null)
   const [num, setNum] = useState(1)
+  const [userCart, setUserCart] = useLocalStorage("shop",  {})
+  // {subscribe:[], buy:[], order:[], shop:[]}
   const handleOpen = (item) => {
     setSelectedItem(item)
     setOpen(true)
@@ -78,8 +80,29 @@ export default function ShopCard() {
   const minus = () => {
     num > 1 && setNum(prev => prev - 1)
   }
-  const handleCart = () =>{
+  const handleCart = (item) =>{
     setOpen(false)
+    const itemInfo = {
+      itemId:item.item_id,
+      itemName: item.item_name,
+      src: item.img_url,
+      price: item.price,
+      amount: num,
+    };
+    // setUserCart((prevUserCart) => {
+    //     console.log(prevUserCart)
+    //     let cart = {
+    //       ...prevUserCart,
+    //       shopCart: [...prevUserCart.shopCart,itemInfo],
+    //     }
+    //     return cart;
+    // })
+    setUserCart({
+      ...userCart,
+      [item.item_id]: itemInfo  
+      }
+    )
+
   }
   const remain = 10
   const itemCardsMap = items.map(v =>
@@ -128,7 +151,7 @@ export default function ShopCard() {
                 </Typography>
                 <Typography id="modal-modal-description" variant="h5" className='d-flex flex-column justify-content-between h-75'>
                   <div className='d-flex justify-content-between mt-5'>
-                    <div className='fs-1 text-danger'>售價:{selectedItem.price}</div>
+                    <div className='fs-1 text-danger'>售價: {selectedItem.price}</div>
                   </div>
                   <div className='d-flex w-100 flex-column align-items-end'>
                       <div>廠商: {selectedItem.factory_name}</div>
@@ -144,7 +167,7 @@ export default function ShopCard() {
                       <AiOutlinePlus className='fs-1 p-1'/>
                     </Button>
                     </div>
-                    <Button variant="text" className='border-0 rounded-3 w-100 text-light fs-3' style={{background:"#911010"}} onClick={()=>handleCart(v)}>加入購物車</Button>
+                    <Button variant="text" className='border-0 rounded-3 w-100 text-light fs-3' style={{background:"#911010"}} onClick={()=>handleCart(selectedItem)}>加入購物車</Button>
                   </div>
                 </Typography>
               </div>
