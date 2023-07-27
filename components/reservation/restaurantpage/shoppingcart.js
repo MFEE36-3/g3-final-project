@@ -5,8 +5,6 @@ import { BsTrash } from "react-icons/bs";
 
 export default function ShoppingCart() {
 
-
-
     const shoppingfood = [
         { id: 1, name: "泰式打拋豬肉", price: 290, count: 5 },
         { id: 2, name: "月亮蝦餅", price: 220, count: 2 }

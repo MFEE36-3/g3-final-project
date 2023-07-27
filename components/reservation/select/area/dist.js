@@ -65,6 +65,7 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
 
     const strcity = router.query.city;
     const slideval = router.query.price;
+    const numstar = router.query.star;
     const searchkeyword = router.query.searchkeyword;
 
     const usp = new URLSearchParams();
@@ -79,6 +80,9 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
     }
     if(slideval) {
       usp.set('price', slideval);
+    }
+    if (numstar){
+      usp.set('star', numstar);
     }
     if (searchkeyword) {
       usp.set('searchkeyword', searchkeyword);
