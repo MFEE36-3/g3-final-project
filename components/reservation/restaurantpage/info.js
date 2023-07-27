@@ -10,6 +10,7 @@ import style from '@/styles/reservation/style.module.css'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { RowingSharp } from '@mui/icons-material';
+import dayjs from 'dayjs';
 export default function Info() {
 
     const router = useRouter();

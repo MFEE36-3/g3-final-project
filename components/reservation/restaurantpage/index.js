@@ -11,9 +11,7 @@ export default function ReservationPage({ date, setDate, time, setTime, person, 
     return (
         <>
             <div className='d-flex justify-content-center m-4'>
-                <ToggleButtonGroup
-                    page={page}
-                    setPage={setPage} />
+                <ToggleButtonGroup page={page} setPage={setPage} setDate={setDate} />
             </div>
             {page === '訂位' ? <Reservation date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} />
                 : <Togo />}
