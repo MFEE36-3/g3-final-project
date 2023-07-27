@@ -1,0 +1,39 @@
+.mainbody {
+  height: 30px;
+  width: 60px;
+  background-color: rgb(209, 209, 209);
+  border-radius: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0px 3px 3px rgb(157, 157, 157);
+}
+
+.ball {
+  position: relative;
+  height: 35px;
+  width: 35px;
+  background-color: #b91c1c;
+  border: 3px solid #921010;
+  border-radius: 50%;
+}
+
+.ball2 {
+  height: 35px;
+  width: 35px;
+  background-color: #b91c1c;
+  border: 3px solid #921010;
+  border-radius: 50%;
+  position: relative;
+  left: 27px;
+  /* animation: moveRightAnimation 0.5s ease forwards; */
+}
+
+/* @keyframes moveRightAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(50px);
+  }
+} */

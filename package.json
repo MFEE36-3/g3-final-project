@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fortawesome/fontawesome-free": "^6.4.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
@@ -27,6 +28,7 @@
     "dayjs": "^1.11.8",
     "escape-string-regexp": "^5.0.0",
     "eslint-config-next": "13.4.2",
+    "font-awesome": "^4.7.0",
     "lodash": "^4.17.21",
     "next": "13.4.2",
     "plotly.js": "^2.24.2",
@@ -34,13 +36,14 @@
     "plotly.js-dist-min": "^2.24.2",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
+    "react-bootstrap": "^2.8.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "react-plotly.js": "^2.6.0",
     "smooth-scroll-into-view-if-needed": "^2.0.0",
     "styled-components": "^6.0.2",
-    "uuid": "^9.0.0",
-    "react-plotly.js": "^2.6.0",
     "sweetalert2": "^11.7.18",
+    "uuid": "^9.0.0",
     "validator": "^13.9.0"
   },
   "devDependencies": {

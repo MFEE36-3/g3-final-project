@@ -9,6 +9,7 @@
     font-size: var(--h3);
     font-weight: bold;
     margin-bottom: 30px;
+  
 }
 .ptext{
     font-size: var(--h6);
@@ -22,7 +23,8 @@
 .img{
     overflow: hidden;
     width: 100%;
-    height: 100%;
+    height: 50%;
+    
 }
 .ptext3{
     padding-top: 10px;
@@ -30,5 +32,7 @@
 .time{
     font-size:var(--h8) ;
 }
-.top{
-    }
+.img img{
+    width: 100%;
+    height: auto;;
+}

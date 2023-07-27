@@ -12,9 +12,11 @@ export default function CheckoutRight() {
       <CardContainer>
         <CheckOutMember/>
         <Payment selected={selected} setSelected={setSelected}/>
-        {/* <PaymentBody selected={selected}/> */}
-        <SendAddress/>
-        <CheckOutTotalPrice/>
+        <div>
+          <SendAddress/>
+          <CheckOutTotalPrice/>
+        </div>
+        
       </CardContainer>
     </div>
   )

@@ -1,0 +1,118 @@
+.area1 {
+  font-size: 18px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+  font-weight: 800;
+  border: 2px solid #921010;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 40px;
+  background-color: #ffffff;
+}
+
+.area2 {
+  font-size: 18px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+  font-weight: 800;
+  overflow: hidden;
+}
+
+.scroll {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  height: 730px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 3px; /* 設置滾輪寬度 */
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #aeaeae; /* 設置滾輪顏色 */
+}
+
+.scroll > * {
+  flex-basis: calc(50% - 40px); /* 調整寬度以適應間距 */
+  margin: 20px; /* 設定卡片間的間距 */
+}
+
+.scrollCard2 {
+  width: 100%;
+  height: 70px;
+  box-shadow: 0px 5px 2px rgba(123, 123, 123, 0.5);
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  width: 100%;
+  height: 50px;
+  background-color: #921010;
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -5px -5px 5px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+.recordBox {
+  width: 100%;
+  border-radius: 15px;
+  border: 2px solid #921010;
+  overflow: hidden;
+  margin-top: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 500px;
+  background-color: #ffffff;
+}
+
+.recordBox::-webkit-scrollbar {
+  width: 3px; /* 設置滾輪寬度 */
+}
+
+.recordBox::-webkit-scrollbar-thumb {
+  background-color: #aeaeae; /* 設置滾輪顏色 */
+}
+
+@media screen and (max-width: 391px) {
+  .flexArea {
+    width: 90%;
+  }
+  .scroll {
+    width: 100%;
+    height: 550px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-inline: 10px;
+    margin-top: 0px;
+  }
+
+  .scroll > * {
+    flex-basis: calc(100%); /* 調整寬度以適應間距 */
+    margin: 15px; /* 設定卡片間的間距 */
+    font-size: 14px;
+  }
+
+  .recordBox {
+    height: 500px;
+  }
+}

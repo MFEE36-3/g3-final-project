@@ -297,8 +297,10 @@
 
 .bg_sushi {
     position: absolute;
-    bottom: 20px;
+    bottom: 0;
+    top: 390px;
     left: -150px;
+    transform: scale(0.9);
 }
 
 .candy_chief {
@@ -533,7 +535,7 @@
 
 /* ----------------RWD-------------------- */
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 391px) {
 
     .container {
         height: 100vh;
@@ -558,8 +560,8 @@
 
     .chocoCookie {
         transform: scale(0.4);
-        margin:0;
-        margin-top:-180%;
+        margin: 0;
+        margin-top: -180%;
         margin-bottom: 50%;
     }
 
@@ -570,13 +572,14 @@
     .slogan {
         /* flex-grow: 0.2; */
         transform: scale(0.45);
-        margin:0;
+        margin: 0;
         margin-top: 50%;
     }
 
     .buy_for_me {
-        height: 100vh;
+        height: 75vh;
         display: flex;
+        flex-direction: column-reverse;
         justify-content: space-between;
         overflow: hidden;
         padding: 10% 10% 10% 15%;
@@ -585,6 +588,7 @@
     .walkbag_line {
         width: 100%;
         height: 100%;
+        padding-bottom: 50px;
     }
 
     /* sidebar */
@@ -612,7 +616,7 @@
 
     .liBtn {
         cursor: pointer;
-        padding:10px 0px;
+        padding: 10px 0px;
         transition:
             padding 0.2s ease-in-out, color 0.2s ease-in-out;
         background-position: 0;
@@ -642,6 +646,7 @@
         /* position: absolute; */
         width: 100%;
         height: 100%;
+        padding-bottom: 50px;
         animation: walkbag_middle_run ease-in-out infinite 2s;
     }
 
@@ -660,6 +665,7 @@
         /* position: absolute; */
         width: 100%;
         height: 100%;
+        padding-bottom: 50px;
         animation: walkbag_last_run ease-in-out infinite 2s;
     }
 
@@ -675,61 +681,47 @@
     }
 
     .shadow_container {
-        height: 100%;
-        position: absolute;
+        transform: scale(0.3);
     }
 
     .shadow {
-        z-index: -1;
-        top: 100%;
-        /* left: -800%; */
-        position: absolute;
-        animation: shadow ease-in-out infinite 2s;
-        transform-origin: left;
-    }
-
-    @keyframes shadow {
-        0% {
-            transform: scaleX(0.5);
-            /* left: -200px; */
-        }
-
-        100% {
-            transform: scaleX(0.9);
-            left: 0;
-        }
-
+        animation: none;
+        top: 325px;
     }
 
     .buyme_left {
         display: flex;
-        width: 64.29%;
-        position: relative;
+        width: 50%;
+        margin-left: 5%;
+
     }
 
     .buyme_right {
         position: relative;
-        width: 31.63%;
+        width: 100%;
+        margin-left: 10%;
     }
 
     .buyme_right>p {
         margin: 0;
-        font-size: var(--h2);
+        font-size: var(--h3);
         font-family: var(--ff1);
         color: var(--main-color);
     }
 
     .buyme_right>div>p {
         margin: 5% 0;
-        font-size: var(--h4);
+        font-size: var(--h6);
         /* font-family: var(--ff1); */
-        font-weight: 600;
+        font-weight: 900;
         color: var(--main-color);
     }
 
     .sausage_container {
         position: relative;
-        margin-left: 50px;
+        margin-left: 0;
+        margin-top: -20px;
+        transform: scale(.5);
     }
 
     .sausage_left {
@@ -774,12 +766,6 @@
         animation-fill-mode: forwards;
     }
 
-    /* .sausage_right:hover {
-        margin-top: -101px;
-        margin-left: 175px;
-        position: absolute;
-        z-index: 1;
-    } */
 
     @keyframes sausage_right {
         0% {
@@ -791,29 +777,21 @@
         }
     }
 
-
-
-
     .goBtn {
         position: absolute;
-        bottom: 0;
-        right: 0;
+        bottom: -20%;
+        right: 10%;
     }
 
     /* togo & reservation */
 
     .togo_and_reservation {
-        height: 100vh;
-        display: flex;
-        position: relative;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow: hidden;
-        padding-bottom: 80px;
+        height: 80vh;
+        padding-bottom: 0;
     }
 
     .runpic_zone {
-        height: 400px;
+        height: 200px;
         width: 100%;
         background-color: var(--main-color);
         overflow: hidden;
@@ -822,7 +800,7 @@
     .runpic {
         display: flex;
         height: 100%;
-        animation: runpic linear infinite 10s;
+        animation: runpic linear infinite 8s;
     }
 
     @keyframes runpic {
@@ -831,7 +809,7 @@
         }
 
         100% {
-            transform: translateX(-115.5%);
+            transform: translateX(-281.8%);
         }
     }
 
@@ -848,9 +826,9 @@
 
     .candy_chief {
         position: absolute;
-        top: 300px;
-        right: 6%;
-        /* transform: scale(1.2); */
+        top: 110px;
+        right: -12%;
+        transform: scale(0.5);
     }
 
     .goReservationTitle {
@@ -858,20 +836,22 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding-bottom: 50px;
     }
 
     .goReservationTitle>p {
         font-family: var(--ff3);
         color: var(--main-color);
-        font-size: var(--h2);
-        font-weight: 800;
+        font-size: var(--h3);
+        padding-left: 20%;
+        padding-right: 5%;
+        padding-bottom: 10px;
     }
 
     .goReservationTitle>div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 65%;
+        width: 100%;
+        padding: 0 5% 0 20%;
+        z-index: 1;
     }
 
     .goReservationTitle>div>div {
@@ -883,16 +863,11 @@
     }
 
     .goReservationTitle>div>div>p:first-of-type {
-        font-family: var(--ff1);
-        font-size: var(--h4);
-        color: var(--main-color);
+        font-size: var(--h6);
     }
 
     .goReservationTitle>div>div>p:last-child {
-        /* font-family: var(--ff1); */
-        font-size: var(--h6);
-        color: var(--main-color);
-        font-weight: 600;
+        font-size: var(--h8);
     }
 
     .icon_outer {
@@ -900,130 +875,79 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        height: 200px;
+        height: 100px;
     }
 
     .ForkBowl {
-        transform: scale(10);
+        transform: scale(5);
         color: var(--main-color)
     }
 
     /* 論壇 */
 
     .forum {
-        height: 100vh;
+        height: 80vh;
         display: flex;
         position: relative;
-        flex-direction: column;
+        /* flex-direction: row; */
         justify-content: space-between;
         align-items: center;
-        padding: 5.5% 13%;
+        padding: 5.5% 10% 5.5% 20%;
     }
 
     .forum>div {
-        flex-grow: 0.43;
+        flex-grow: 0.45;
         width: 100%;
         background-color: var(--main-color);
         border-radius: 30px;
     }
 
     .bgBubbleTea {
-        position: absolute;
-        z-index: -1;
-        top: -280px;
+        top: -330px;
+        transform: scale(0.5);
     }
 
     .bgnews {
-        position: relative;
-        background-image: url('../public/main_page/news.jpg');
-        background-repeat: repeat-x;
-        background-size: contain;
-        overflow: hidden;
+        background-size: cover;
     }
 
     .bgforum {
-        position: relative;
-        background-image: url('../public/main_page/forum.jpg');
-        background-repeat: repeat-x;
-        background-size: contain;
-        overflow: hidden;
+        background-size: cover;
     }
 
-    .newsC {
-        position: absolute;
-        width: 1000px;
-        height: 1000px;
-        border-radius: 50%;
-        background-color: var(--main-color);
-        left: -450px;
-        top: -350px;
-        transition: 0.5s ease-in-out;
-    }
-
-    .newsC:hover {
-        transform: scale(1.5) translateY(150px);
-        background-color: var(--sub-color);
-    }
-
-    .forumC {
-        position: absolute;
-        width: 1000px;
-        height: 1000px;
-        border-radius: 50%;
-        background-color: var(--main-color);
-        right: -450px;
-        top: -350px;
-        transition: 0.5s ease-in-out;
-    }
-
-    .forumC:hover {
-        transform: scale(1.5) translateY(150px);
-        background-color: var(--sub-color);
-    }
-
-    .newsText {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        padding: 3%;
+    .newsC , .forumC {
+        display: none;
     }
 
     .bgnews>p {
-        position: absolute;
+        position: relative;
         font-family: var(--ff1);
-        font-size: var(--h2);
-        color: white;
-        left: 260px;
-        top: 20%;
-        pointer-events: none;
+        font-size: var(--h3);
+        left: 0;
+        text-align: center;
+        background-color: var(--main-color);
+        padding: 10px 0;
     }
 
     .newsBtn {
         position: absolute;
-        left: 80px;
+        left: 75px;
         bottom: 15%;
     }
 
-    .forumText {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        padding: 3%;
-    }
-
     .bgforum>p {
-        position: absolute;
+        position: relative;
         font-family: var(--ff1);
-        font-size: var(--h2);
-        color: white;
-        right: 260px;
-        top: 20%;
-        pointer-events: none;
+        font-size: var(--h3);
+        right: 0;
+        text-align: center;
+        background-color: var(--main-color);
+        padding: 10px 0;
     }
 
     .forumBtn {
         position: absolute;
-        right: 80px;
+        right: 70px;
         bottom: 15%;
     }
 
@@ -1033,18 +957,21 @@
     /* 聯絡 */
 
     .contact {
-        height: calc(100vh - 470px);
+        height: calc(80vh - 470px);
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
+    .contact>img{
+        transform: scale(2.0) translateY(10%);
+    }
 
     .contact_us {
-        font-size: var(--h2);
+        font-size: var(--h3);
         color: var(--main-color);
         font-family: var(--ff1);
-        margin: 0;
+        margin:35% 0 5% 0;
     }
 
     .icons {
@@ -1054,24 +981,27 @@
 
     .information_group {
         display: flex;
-        width: 580px;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
         justify-content: space-between;
-        margin-top: 40px;
+        margin-top: 0;
     }
 
     .information_box {
         display: flex;
+        align-items: center;
     }
 
     .information_box>p {
-        font-size: var(--h6);
+        font-size: var(--h8);
         color: var(--main-color);
         margin: 0;
         font-family: var(--ff3);
     }
 
     .information_box>div {
-        width: 30px;
+        transform: scale(0.8);
     }
 
 

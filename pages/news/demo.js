@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/news.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CarouselFadeExample from '../../components/common/UncontrolledExample';
-import Newscard from '../../components/common/news_card';
-import Newnav from '@/components/common/new_nav';
-import UncontrolledExample from '../../components/common/UncontrolledExample';
+import CarouselFadeExample from '../../components/common/news/UncontrolledExample';
+import Newscard from '../../components/common/news/news_card';
+import Newnav from '../../components/common/news/new_nav';
+import UncontrolledExample from '../../components/common/news/UncontrolledExample';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link';
 
@@ -25,10 +25,14 @@ export default function Demo() {
       {news.map((v, i) => {
         // 使用 Link 元件將 Newscard 元件包裹起來，設定 to 屬性為對應的路由
         return (
-        <Link href={`/news_detail/${v.news_sid}`} key={v.news_sid}>
-          <div key={i}>{v.header}</div>
-        </Link>
-      )})}
+          <Link
+            href={`http://localhost:3000/news/${v.news_sid}`}
+            key={v.news_sid}
+          >
+            <div key={i}>{v.header}</div>
+          </Link>
+        );
+      })}
       <div className={`${styles.container}`}>
         <Newnav />
         <h1 className={`${styles.title}`}>美食新聞</h1>
@@ -37,7 +41,7 @@ export default function Demo() {
         <div>
           <div className={`${styles.line2}`}></div>
 
-          <div className="container">
+          <div className="container-fluid">
             <div className="row">
               <Newscard />
             </div>

@@ -13,10 +13,10 @@ export default function AddNewItem() {
   const router = useRouter()
 
   const [foodCate, setFoodCate] = useState('')
-  const foodCateOptions = ['前菜', '主菜', '甜點', '飲料']
+  const foodCateOptions = ['前菜', '主菜', '甜點', '飲料','湯品']
 
   const [addItem, setAddItem] = useState({
-    shop_id: 1,
+    shop_id: 151,
     photo: '',
     name: '',
     description: '',
@@ -35,9 +35,10 @@ export default function AddNewItem() {
   const fileUrl = 'http://localhost:3003/previewImg'
   const imgLink = 'http://localhost:3003/img/'
 
+  // http://localhost:3003/img/img1.jpg
+
   const previewImg = async (e) => {
     e.preventDefault();
-    // const fd = new FormData(e.target); // 直接使用 event.target 作為參數
     const fd = new FormData(); // 建立一個新的 FormData 物件
     fd.append('preImg', e.target.files[0]); // 將選擇的文件加入到 FormData 物件中
 
@@ -123,7 +124,8 @@ export default function AddNewItem() {
             .then(data => {
               console.log(data);
             })
-          // router.push('/res/add-item-over')
+            // location.reload()
+          router.push('/res/add-item-over')
         } else if (result.isDenied) {
           Swal.fire('取消新增', '', 'info')
         }
@@ -145,12 +147,6 @@ export default function AddNewItem() {
       </style>
       <div className="container d-flex justify-content-center">
         <div>
-          <div className="container-sm">100% wide until small breakpoint</div>
-          <div className="container-md">100% wide until medium breakpoint</div>
-          <div className="container-lg">100% wide until large breakpoint</div>
-          <div className="container-xl">100% wide until extra large breakpoint</div>
-          <div className="container-xxl">100% wide until extra extra large breakpoint</div>
-
           <div className="card p-5 rounded-3 border-black border-3" style={{ backgroundColor: '#FFE2E2' }}>
             <div className="card-title d-flex justify-content-center fw-bold fs-5">
               <Btn text="新增商品" />

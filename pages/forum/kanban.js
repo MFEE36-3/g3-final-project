@@ -1,5 +1,5 @@
 import React from 'react';
-import Kcard from '@/components/common/k_card';
+import Kcard from '@/components/common/forum/k_card';
 
 export default function Kanban() {
   return (

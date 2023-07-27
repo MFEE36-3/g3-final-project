@@ -1,0 +1,242 @@
+/*所有頁面都會用到的*/
+.body {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  font-family: var(--ff1);
+}
+
+.container {
+  width: 75%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.rightArea {
+  width: 1000px;
+  height: 100%;
+  font-weight: 800;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.flex2 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.bigBox {
+  font-size: 18px;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  border: 10px solid #fcc8a1;
+  border-radius: 15px;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.box {
+  font-size: 18px;
+  width: calc(50% - 30px);
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  border: 10px solid #fcc8a1;
+  border-radius: 15px;
+  background-color: #fefdfb;
+  box-shadow: inset 2px 2px 2px rgba(123, 123, 123, 0.7);
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.title {
+  width: 100%;
+  height: 50px;
+  background-color: #921010;
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -5px -5px 5px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+/*信用卡會用到的*/
+.package {
+  width: 60%;
+  height: 250px;
+  background-color: rgb(213, 207, 207);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: inset -2px -2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.packageMoney {
+  font-size: 36px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.packageImg {
+  margin-left: 20px;
+  margin-right: 50px;
+}
+
+.packageBtn {
+  width: 70px;
+  height: 40px;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: 800;
+  padding: 5px;
+  color: white;
+  background-color: rgba(120, 120, 120, 1);
+  border: none;
+}
+
+.packageBtn:hover {
+  background-color: rgb(135, 135, 135);
+  transition: all 0.1s ease-in;
+}
+
+/*輪播牆會用到的*/
+.carousel {
+  font-size: 18px;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-top: 50px;
+  padding: 15px;
+}
+
+.scroll2 {
+  overflow-y: hidden;
+  height: 100%;
+  width: 100%;
+  margin-top: 20px;
+  background-color: #ffffff;
+  border: 2px solid #921010;
+  border-radius: 15px;
+}
+
+.scroll {
+  height: 100%;
+  width: 100%;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 0; /* 設置捲軸寬度 */
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: transparent; /* 設置捲軸軌道背景色 */
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: transparent; /* 設置捲軸滑塊顏色 */
+}
+
+/*表單會用到的*/
+
+@media screen and (max-width: 391px) {
+  .body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .rightArea {
+    width: 100%;
+    height: 100%;
+    font-weight: 800;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex {
+    width: 90%;
+    flex-direction: column;
+    margin-bottom: 5px;
+  }
+
+  .package {
+    width: 100%;
+    height: 180px;
+    margin-top: 20px;
+    padding: 15px;
+  }
+
+  .flex2 {
+    font-size: 12px;
+    height: 20px;
+    margin-bottom: 40px;
+  }
+
+  .packageMoney {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .packageImg {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+  }
+
+  .packageBtn {
+    width: 50px;
+    height: 30px;
+    font-size: 10px;
+  }
+
+  .imgRWD1 {
+    position: relative;
+    left: 65px;
+    width: 200px;
+    height: 200px;
+  }
+
+  .imgRWD2 {
+    display: none;
+  }
+}
