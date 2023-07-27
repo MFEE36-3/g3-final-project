@@ -1,8 +1,8 @@
 .cell {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 900;
   color: #921010;
-  font-family: 'Zen Maru Gothic', sans-serif;
+  font-family: var(--ff1);
 }
 
 .row {
@@ -13,7 +13,7 @@
   font-size: 18px;
   font-weight: 600;
   height: 70px;
-  font-family: 'Zen Maru Gothic', sans-serif;
+  font-family: var(--ff1);
 }
 
 .body {

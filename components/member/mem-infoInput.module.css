@@ -58,12 +58,13 @@
 @media screen and (max-width: 391px) {
   .listtag {
     font-size: 20px;
-    margin-right: 3px;
-    width: 140px;
+    width: 85%;
+    display: flex;
+    justify-content: start;
   }
 
   .listinput {
-    font-size: 18px;
+    font-size: 16px;
     padding: 0;
   }
 

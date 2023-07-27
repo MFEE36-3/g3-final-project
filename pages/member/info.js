@@ -1,44 +1,48 @@
-import MemrBar from '@/components/common/member/mem-bar';
-import MemInfoInput from '@/components/common/member/mem-infoInput';
-import styles from '@/styles/member-css/mem-body.module.css';
-import styles2 from '@/styles/member-css/mem-info.module.css';
+import MemrBar from '@/components/member/mem-bar';
+import MemInfoInput from '@/components/member/mem-infoInput';
+import styles from '@/styles/member/mem-body.module.css';
+import styles2 from '@/styles/member/mem-info.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'next/image';
 import { v4 } from 'uuid';
-import { useEffect, useState } from 'react';
+import AuthContext from '@/context/AuthContext';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import MemAllTitle from '@/components/common/member/mem-allTitle';
+import MemAllTitle from '@/components/member/mem-allTitle';
 import Btn from '@/components/common/btn';
+import MemNologin from '@/components/member/mem-nologin';
 
 export default function Info() {
   const router = useRouter();
-
-  const [info, setInfo] = useState({});
-
-  useEffect(() => {
-    fetch('http://localhost:3002/member')
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        const result = data[0];
-        setInfo(result);
-      });
-  }, [router.query]);
+  // 從useContext裡解構出驗證資料的auth及包含會員資料的memberData
+  const { auth, setAuth } = useContext(AuthContext);
 
   const {
-    sid,
     account,
-    nickname,
-    name,
-    password,
-    mobile,
-    wallet,
-    level,
+    achieve_name,
     birthday,
-    photo,
     creat_at,
-    achieve,
-  } = info;
+    level,
+    mobile,
+    name,
+    nickname,
+    photo,
+    sid,
+    wallet,
+  } = auth;
+
+  const [getImg, setGetImg] = useState('');
+
+  useEffect(() => {
+    if (photo) {
+      setGetImg(photo);
+    }
+  }, [auth]);
+
+  const local = process.browser
+    ? JSON.parse(localStorage.getItem('auth'))
+    : null;
+  const password = local ? '*'.repeat(local.length) : '';
 
   //不要顯示等級1or2，改為顯示會員等級名稱
   const lev = level === 1 ? '一般會員' : '尊榮會員';
@@ -60,6 +64,36 @@ export default function Info() {
     { tag: '加入時間', title: 'creat_at', content: creat },
   ];
 
+  const changeImg = (e) => {
+    e.preventDefault();
+    const fd = new FormData();
+    fd.append('preImg', e.target.files[0]);
+
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/changeImg', {
+        method: 'POST',
+        body: fd,
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setGetImg(data.filename);
+        });
+    }
+  };
+
+  // if (!auth.account) {
+  //   setTimeout(() => {
+  //     router.push('/');
+  //   }, 500);
+  //   return <MemNologin />;
+  // }
+
   return (
     <div className={styles.body}>
       <div className={styles.container}>
@@ -69,10 +103,10 @@ export default function Info() {
             <div className={styles2.imgflex}>
               <div className={styles2.img}>
                 <Image
-                  src={'http://localhost:3002/img/' + photo}
+                  src={'http://localhost:3002/img/' + getImg}
                   className={styles2.imgbig}
-                  width={350}
-                  height={350}
+                  width={300}
+                  height={300}
                   alt=""
                 />
               </div>
@@ -90,11 +124,13 @@ export default function Info() {
                   accept="image/*"
                   className={styles2.uploadInput}
                   title=""
+                  onChange={changeImg}
+                  name="preImg"
                 />
               </div>
             </div>
             <div className={styles2.achieveBox}>
-              <MemAllTitle title={achieve} />
+              <MemAllTitle title={achieve_name} />
               <Image
                 src={'/member/badge01.svg'}
                 style={{ objectFit: 'cover' }}
@@ -128,6 +164,8 @@ export default function Info() {
                   key={v4()}
                   sid={sid}
                   title={v.title}
+                  setAuth={setAuth}
+                  auth={auth}
                 />
               );
             })}

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,18 +12,17 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import styles from '@/styles/member-css/mem-login.module.css';
+import styles from '@/styles/member/mem-login.module.css';
 import Image from 'next/image';
-import MemMuiSwitch from '@/components/common/member/mem-muiSwitch';
+import MemMuiSwitch from '@/components/member/mem-muiSwitch';
 import BlankLayout from '@/components/layout/blank-layout';
-import MemBtn from '@/components/common/member/mem-Btn';
-import MemLoginBtn from '@/components/common/member/mem-loginBtn';
-import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2'
+import MemBtn from '@/components/member/mem-Btn';
+import MemLoginBtn from '@/components/member/mem-loginBtn';
+import AuthContext from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 
+//mui內建函式
 function Copyright(props) {
-  const router = useRouter()
   return (
     <Typography
       variant="body2"
@@ -41,86 +40,50 @@ function Copyright(props) {
   );
 }
 
+//mui內建樣式
 const defaultTheme = createTheme();
 
 const Login = () => {
-  const router = useRouter()
-  const [loginInfo, setLoginInfo] = useState({
-    account: '',
-    password: '',
-  })
-  const getLoginInfo = (e) => {
-    const newLoginInfo = { ...loginInfo, [e.target.name]: e.target.value }
-    setLoginInfo(newLoginInfo)
-  }
+  //引入useRouter，之後切換頁面時使用
+  const router = useRouter();
 
-  // 設置要放登入後接住的帳號跟sid還有店名
-  const [loginSuccess, setLoginSuccess] = useState({
-    account: '',
-    shop: '',
-    sid: '',
-    error: ''
-  })
+  //引入useContext存放的setState，之後會把localStorage裡面的token存進去
+  const { setAuth } = useContext(AuthContext);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
+    //mui內建寫好，取消表單內建事件
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-    fetch('http://localhost:3003/res-login', {
+
+    //創建一個FormData物件，把表單資料存進裡面
+    const data = new FormData(event.currentTarget);
+
+    //使用fetch方法，把FormData物件內的指定資料傳到後端
+    fetch(process.env.API_SERVER + '/memlogin', {
       method: 'POST',
-      body: JSON.stringify(loginInfo),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      body: JSON.stringify({
+        account: data.get('email'),
+        password: data.get('password'),
+      }),
+      headers: { 'Content-Type': 'application/json' },
     })
-      .then(r => r.json())
-      .then(data => {
-        console.log(data)
+      .then((r) => r.json())
+      .then((data) => {
         if (data.success) {
-          const newloginSuccess = {
-            ...loginSuccess,
-            account: data.rows[0].account,
-            shop: data.rows[0].shop,
-            sid: data.rows[0].sid
-          }
-          setLoginSuccess(newloginSuccess)
-          localStorage.setItem('res-auth', JSON.stringify(data.data))
-
-          Swal.fire(
-            '登入成功!',
-            '',
-            'success'
-          )
-          router.push('/res/item-management')
-          
-          
+          const obj = { ...data.data };
+          localStorage.setItem('auth', JSON.stringify(obj));
         } else {
-          const newloginfail = { ...loginSuccess, error: data.error }
-          setLoginSuccess(newloginfail)
+          console.log(data.error || '帳密錯誤');
         }
-      }
-      )
+      })
+      .then(() => {
+        router.push('/');
+      });
   };
-
-  useEffect(() => {
-    if (loginSuccess.account == true) {
-      setLoginSuccess({...loginSuccess, error:''})
-      console.log(loginSuccess)
-    }
-    if (loginSuccess.account == false) {
-      console.log(loginSuccess)
-    }
-
-  }, [loginSuccess])
-
-  const [change, setChange] = React.useState(false);
+  const [change, setChange] = useState(false);
 
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.flex}>
         <div className={styles.logintext}>選擇登入身分</div>
         <MemLoginBtn change={change} setChange={setChange} />
       </div>
@@ -152,22 +115,6 @@ const Login = () => {
                   >
                     廠商登入
                   </Typography>
-                  <div class="mb-3">
-
-                    <label for="account" class="form-label"></label>
-                    <input className='' type="email" name='account' class="form-control" id="account" placeholder='請輸入帳號' value={loginInfo.account}
-                      onChange={getLoginInfo}
-                    />
-                    <div style={{ color: 'red' }}>{loginSuccess.error}</div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="password" class="form-label"></label>
-                    <input type="password" class="form-control" name='password' id="password" placeholder='請輸入密碼'
-                      onChange={getLoginInfo}
-                    />
-                    <div style={{ color: 'red' }}>{loginSuccess.error}</div>
-                  </div>
-
                   <Box
                     component="form"
                     onSubmit={handleSubmit}
@@ -206,8 +153,6 @@ const Login = () => {
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                       color="warning"
-                      onChange={() => { }}
-                      onSubmit={handleSubmit}
                     >
                       登入
                     </Button>
@@ -320,5 +265,5 @@ const Login = () => {
   );
 };
 
-// Login.getLayout = BlankLayout;
+Login.getLayout = BlankLayout;
 export default Login;

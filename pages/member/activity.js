@@ -1,23 +1,26 @@
-import { useState } from 'react';
-import MemBar from '@/components/common/member/mem-bar';
+import AuthContext from '@/context/AuthContext';
+import { useState, useEffect, useContext } from 'react';
+import MemBar from '@/components/member/mem-bar';
 import {
   MemActivityRecord1,
   MemActivityRecord2,
   MemActivityRecord3,
   MemActivityRecord4,
-} from '@/components/common/member/mem-activityRecord';
+} from '@/components/member/mem-activityRecord';
 import {
   MemActivityList1,
   MemActivityList2,
   MemActivityList3,
   MemActivityList4,
-} from '@/components/common/member/mem-activityList';
-import MemAllTitle from '@/components/common/member/mem-allTitle';
-import MemChangeBtn from '@/components/common/member/mem-changeBtn';
-import styles from '@/styles/member-css/mem-body.module.css';
-import styles2 from '@/styles/member-css/mem-activity.module.css';
+} from '@/components/member/mem-activityList';
+import MemAllTitle from '@/components/member/mem-allTitle';
+import MemChangeBtn from '@/components/member/mem-changeBtn';
+import styles from '@/styles/member/mem-body.module.css';
+import styles2 from '@/styles/member/mem-activity.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MemBtn from '@/components/common/member/mem-Btn';
+import MemBtn from '@/components/member/mem-Btn';
+import MemNologin from '@/components/member/mem-nologin';
+import { useRouter } from 'next/router';
 
 export default function Index() {
   const List1 = [
@@ -212,6 +215,10 @@ export default function Index() {
     <MemActivityRecord1 Record1={Record1} />
   );
 
+  const { auth } = useContext(AuthContext);
+
+  const router = useRouter();
+
   const changeList = (e) => {
     switch (e.currentTarget.value) {
       case '揪團':
@@ -251,6 +258,13 @@ export default function Index() {
         break;
     }
   };
+
+  // if (!auth.account) {
+  //   setTimeout(() => {
+  //     router.push('/');
+  //   }, 500);
+  //   return <MemNologin />;
+  // }
 
   return (
     <div className={styles.body}>
