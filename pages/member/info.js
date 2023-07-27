@@ -15,7 +15,7 @@ import MemNologin from '@/components/member/mem-nologin';
 export default function Info() {
   const router = useRouter();
   // 從useContext裡解構出驗證資料的auth及包含會員資料的memberData
-  const { auth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
 
   const {
     account,
@@ -164,6 +164,8 @@ export default function Info() {
                   key={v4()}
                   sid={sid}
                   title={v.title}
+                  setAuth={setAuth}
+                  auth={auth}
                 />
               );
             })}

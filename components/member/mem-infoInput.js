@@ -4,7 +4,15 @@ import { useRouter } from 'next/router';
 import MemInfoInputDefault from './mem-infoinputDefault';
 import MemInfoInputChange from './mem-infoinputChange';
 
-export default function MemInfoInput({ tag, content, change, sid, title }) {
+export default function MemInfoInput({
+  tag,
+  content,
+  change,
+  sid,
+  title,
+  auth,
+  setAuth,
+}) {
   const router = useRouter();
 
   //把預設顯示的資料放在狀態變數，方便後續修改
@@ -30,8 +38,12 @@ export default function MemInfoInput({ tag, content, change, sid, title }) {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
-    setUpdate(false);
+    })
+      .then((r) => r.text())
+      .then((txt) => {
+        setUpdate(false);
+        setAuth({ ...auth, [title]: info });
+      });
   }
 
   // 預設資料會包含一個按鈕，點擊後會觸發此函式，把布林值改為true
