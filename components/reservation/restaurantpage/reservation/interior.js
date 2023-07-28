@@ -23,12 +23,28 @@ export default function InteriorPic({ row, date, time, person, seat, setSeat }) 
                 dayjs(booking.booking_date).format('YYYY-MM-DD') === date && booking.booking_time === time
         );
 
+
         // 從過濾後的資料中取得table值
         const bookedTables = filteredBookings?.map((booking) => booking.table);
-        console.log(bookedTables);
+        // console.log(bookedTables); ['4s1']
+
+        const updatedDisableSeats = row.seattype.reduce((acc, seatData) => {
+            const seatId = seatData.seat_id;
+            const seatNumber = seatData.seat_number;
+            const isSeatDisabled = bookedTables.includes(seatId) || person > seatNumber;
+
+            if (isSeatDisabled) {
+                acc.push(seatId);
+            }
+            return acc;
+        }, []);
+
+
+
+
         // 設定要disable的座位
-        setDisableSeats(bookedTables || []);
-    }, [date, time, row.booking]);
+        setDisableSeats(updatedDisableSeats);
+    }, [date, time, row.booking, row.seattype]);
 
 
 
