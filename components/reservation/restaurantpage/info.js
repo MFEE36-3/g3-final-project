@@ -28,10 +28,10 @@ export default function Info({ row }) {
             const opentime = parseInt(row.detail?.open_time.split(':').join(''));
             const closetime = parseInt(row.detail?.close_time.split(':').join(''));
 
-            const today = dayjs().day(); // 获取当前星期几，0 为星期日，1 为星期一，依此类推
+            const today = dayjs().day(); // 取得現在是星期幾
             const dayOfWeekString = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][today];
 
-            if (inttime >= opentime && inttime <= closetime && row[dayOfWeekString] === 1) {
+            if (inttime >= opentime && inttime <= closetime && row.detail[dayOfWeekString] === 1) {
                 setIsopen(true);
             }
         }

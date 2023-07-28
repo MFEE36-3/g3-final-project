@@ -37,7 +37,7 @@ export default function SelectPerson({ time, setTime, person, setPerson, setSeat
                                 label="Age"
                                 onChange={handleChange}
                                 color="primary"
-                                disabled={!time}
+                            // disabled={!time}
                             >
                                 <MenuItem value={1}>1人</MenuItem>
                                 <MenuItem value={2}>2人</MenuItem>

@@ -4,14 +4,19 @@ import style from '@/styles/reservation/style.module.css'
 import Interior from '@/public/reservation/interior.svg'
 
 
-export default function InteriorPic({ seat, setSeat, person }) {
+export default function InteriorPic({ row, seat, setSeat, person }) {
+
 
 
     const handleSeat = (e) => {
-        if (person) {
-            const selectedSeat = e.currentTarget.getAttribute('data-value');
-            setSeat(selectedSeat);
-        }
+        // if (person) {
+        //     const selectedSeat = e.currentTarget.getAttribute('data-value');
+        //     setSeat(selectedSeat);
+        // }
+
+        const selectedSeat = e.currentTarget.getAttribute('data-value');
+        setSeat(selectedSeat);
+
     }
 
     return (

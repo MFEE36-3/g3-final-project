@@ -24,6 +24,11 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
         <div className={style.divmb}>
           <p className={style.subtitle}>用餐人數</p>
           <SelectPerson row={row} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} />
+        </div> : ''}
+
+      {person ?
+        <div className={style.divmb}>
+          <p className={style.subtitle}>用餐座位</p>
           <InteriorPic row={row} seat={seat} setSeat={setSeat} person={person} />
         </div> : ''}
 
