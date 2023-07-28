@@ -30,8 +30,6 @@ export default function DateTime({ row, date, time, setTime, setPerson, setSeat 
         return v.booking_date;
     })
 
-    console.log(row?.booking.booking_date)
-
     return (
         <>
             <div className={style.timerow}>

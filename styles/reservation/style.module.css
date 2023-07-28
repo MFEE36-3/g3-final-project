@@ -602,6 +602,10 @@
     left: 380px;
 }
 
+.svgdisabled{
+  pointer-events: none;
+}
+
 /* --------------------------------------------- */
 /* 查詢餐廳-輸入文字區塊 */
 .searchbar {
