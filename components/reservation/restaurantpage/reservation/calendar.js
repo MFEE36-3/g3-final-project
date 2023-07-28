@@ -11,13 +11,13 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
 
     // 從資料庫取得的店家營業時間
     const shopOpenTimeInfo = {
-        Monday: row?.Monday, // 1 表示營業，0 表示不營業
-        Tuesday: row?.Tuesday,
-        Wednesday: row?.Wednesday,
-        Thursday: row?.Thursday,
-        Friday: row?.Friday,
-        Saturday: row?.Saturday,
-        Sunday: row?.Sunday,
+        Monday: row.detail?.Monday, // 1 表示營業，0 表示不營業
+        Tuesday: row.detail?.Tuesday,
+        Wednesday: row.detail?.Wednesday,
+        Thursday: row.detail?.Thursday,
+        Friday: row.detail?.Friday,
+        Saturday: row.detail?.Saturday,
+        Sunday: row.detail?.Sunday,
     };
 
     const isShopOpenOnDate = (date) => {

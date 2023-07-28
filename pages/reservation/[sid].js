@@ -20,8 +20,8 @@ export default function RestaurantPage() {
     const [time, setTime] = useState('');
     const [person, setPerson] = useState('');
     const [seat, setSeat] = useState('');
-    const [row, setRow] = useState({});
-
+    const [row, setRow] = useState({ detail: {}, booking: [] });
+    //{detail,booking}
     const router = useRouter();
 
     useEffect(() => {
@@ -29,12 +29,14 @@ export default function RestaurantPage() {
             fetch(process.env.API_SERVER + "/search/" + router.query.sid)
                 .then((r) => r.json())
                 .then((data) => {
+                    console.log(data)
                     if (data.success) {
-                        setRow(data.row);
+                        // setRow(data.row);
+                        setRow({ detail: data.detail, booking: data.booking })
+                        // console.log(data.booking)
                     } else {
                     }
                 })
-
         };
     }, [router.query]);
 

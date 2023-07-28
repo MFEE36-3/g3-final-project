@@ -2,11 +2,14 @@ import React from 'react'
 import style from '@/styles/reservation/style.module.css'
 import { FaUtensils } from 'react-icons/fa6';
 
-export default function ToggleButtonGroup({ page, setPage, setDate }) {
+export default function ToggleButtonGroup({ page, setPage, setDate, setTime }) {
 
   const handlesetPage = (page) => {
     setPage(page)
-    setDate(); // 清除date的state避免畫面切換殘留發生錯誤
+    setDate();
+    setTime();
+    // 清除date的state避免畫面切換殘留發生錯誤
+
   }
 
   return (
