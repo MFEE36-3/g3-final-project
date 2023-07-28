@@ -8,6 +8,7 @@ export default AuthContext;
 // 創建一個函式，之後子元件才能引入useContext並使用裡面的資料及修改狀態
 export const AuthContextProvider = function ({ children }) {
   // 預設auth物件暫時沒有資料
+
   const [auth, setAuth] = useState({});
 
   // 創建一個登出函式會清空localStorage，接著把auth物件清空

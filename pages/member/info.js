@@ -21,6 +21,7 @@ export default function Info() {
     account,
     achieve_name,
     birthday,
+    address,
     creat_at,
     level,
     mobile,
@@ -58,6 +59,7 @@ export default function Info() {
     { tag: '本名', title: 'name', content: name, change: '修改' },
     { tag: '密碼', title: 'password', content: password, change: '修改' },
     { tag: '手機', title: 'mobile', content: mobile, change: '修改' },
+    { tag: '地址', title: 'address', content: address, change: '修改' },
     { tag: '錢包', title: 'wallet', content: wallet },
     { tag: '會員等級', title: 'level', content: lev },
     { tag: '會員生日', title: 'birthday', content: birth },
@@ -83,6 +85,7 @@ export default function Info() {
         .then((res) => res.json())
         .then((data) => {
           setGetImg(data.filename);
+          // setAuth({ ...auth, [photo]: data.filename });
         });
     }
   };
