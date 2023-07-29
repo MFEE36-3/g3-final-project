@@ -16,6 +16,28 @@ import MemNologin from '@/components/member/mem-nologin';
 import { useRouter } from 'next/router';
 
 export default function Index() {
+  const { auth } = useContext(AuthContext);
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/memberCoupon', {
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setList(data);
+        });
+    }
+  }, [auth]);
+  console.log(auth);
+
   const MyList = [
     {
       type: '踩雷',
@@ -113,18 +135,20 @@ export default function Index() {
     }
   };
 
-  const { auth } = useContext(AuthContext);
-
   const router = useRouter();
 
-  // if (!auth.account) {
-  //   setTimeout(() => {
-  //     router.push('/');
-  //   }, 500);
-  //   return <MemNologin />;
-  // }
+  // 判斷式否登入，未登入跳轉回首頁
+  useEffect(() => {
+    if (!localStorage.getItem('auth')) {
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    }
+  }, []);
 
-  return (
+  return !auth.account ? (
+    <MemNologin />
+  ) : (
     <div className={styles.body}>
       <div className={styles.container}>
         <MemBar />

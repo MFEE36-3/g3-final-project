@@ -41,8 +41,9 @@ export default function Navbar() {
   const islogout = () => {
     logout();
     setIsLogin(false);
-    router.push('/');
-    // console.log(isLogin);
+    setTimeout(() => {
+      router.push('/');
+    }, 2000);
   };
 
   useEffect(() => {

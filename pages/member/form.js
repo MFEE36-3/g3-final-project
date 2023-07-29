@@ -107,7 +107,7 @@ export default function MemForm() {
 
     const fd = new FormData(formRef.current);
     console.log(fd);
-    fetch(process.env.API_SERVER + '/addmember', {
+    fetch(process.env.API_SERVER + '/member/add', {
       method: 'POST',
       body: fd,
       // headers: {

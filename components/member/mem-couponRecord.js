@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import styles from './mem-moneyReocrdTable.module.css';
 import { v4 } from 'uuid';
 
-export default function MemCouponRecord({ rows }) {
+export default function MemCouponRecord({ record }) {
   return (
     <TableContainer component={Paper} className={styles.body}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -40,7 +40,7 @@ export default function MemCouponRecord({ rows }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {record.map((row) => (
             <TableRow
               key={v4()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -55,7 +55,7 @@ export default function MemCouponRecord({ rows }) {
                 {row.time}
               </TableCell>
               <TableCell align="right" className={styles.td}>
-                {row.state}
+                {row.status === 2 ? '已使用' : '已過期'}
               </TableCell>
             </TableRow>
           ))}

@@ -24,7 +24,7 @@ export const AuthContextProvider = function ({ children }) {
     if (str) {
       const obj = JSON.parse(str);
       const Authorization = 'Bearer ' + obj.token;
-      fetch('http://localhost:3002/member', {
+      fetch(process.env.API_SERVER + '/member', {
         method: 'GET',
         headers: {
           Authorization,
