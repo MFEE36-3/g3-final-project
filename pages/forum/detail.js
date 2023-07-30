@@ -37,52 +37,45 @@ export default function Detail() {
     router.push(`?forum_keyword=${searchKeyword}`);
   };
 
-  const handleToggleSortOrder = (sortOrder) => {
-    setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc');
+  const handleToggleSortOrder = (selectedOrder) => {
+    setSortOrder(selectedOrder);
+  };
+  const handleSortOrderChange = (selectedOrder) => {
+    setSortOrder(selectedOrder);
+    // 在這裡重新排序文章列表
+    setArticles(sortArticles(articles, selectedOrder));
   };
 
   const sortArticles = (data, order) => {
-    const sortedData = [...data]; // 複製一份新的陣列
-    sortedData.sort((a, b) => {
+    return data.sort((a, b) => {
       if (order === 'asc') {
         return new Date(a.publishedTime) - new Date(b.publishedTime);
       } else {
         return new Date(b.publishedTime) - new Date(a.publishedTime);
       }
     });
-    return sortedData; // 返回排序後的新陣列
   };
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <Newnav />
-          <div className="col-2">
-            <div className={styles.category}>
-              <Forumbtn />
-            </div>
-          </div>
-          <div className="col-10">
-            <div className={styles.title}>
-              <Categorykanban
-                keyword={searchKeyword}
-                keywordHandler={(e) => {
-                  setSearchKeyword(e.target.value);
-                }}
-                handleToggleSortOrder={handleToggleSortOrder}
-                sentKeyword={sentKeyword}
-                sortOrder={sortOrder}
-                sortArticles={() =>
-                  setArticles(sortArticles(articles, sortOrder))
-                }
-              />
-
-              <Hotnew />
-              <Articlelist articles={articles} imgPreview={imgPreview} />
-            </div>
-            <div></div>
-          </div>
+      <div className={styles.container}>
+        <Newnav />
+        <div className={styles.category}>
+          <Forumbtn />
+        </div>
+        <div className={styles.title}>
+          <Categorykanban
+            keyword={searchKeyword}
+            keywordHandler={(e) => {
+              setSearchKeyword(e.target.value);
+            }}
+            handleToggleSortOrder={handleToggleSortOrder}
+            sentKeyword={sentKeyword}
+            sortOrder={sortOrder}
+            handleSortOrderChange={handleSortOrderChange}
+          />
+          <Hotnew />
+          <Articlelist articles={articles} imgPreview={imgPreview} />
         </div>
       </div>
     </>

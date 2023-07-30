@@ -1,26 +1,53 @@
-.avator{
+/* .avator{
     width: 84px;
     height: 84px;
     border-radius: 50%;
     background-color: rgb(53, 137, 211);
     display: flex;
     margin-bottom: 30px;
-}
+} */
 .ptext{
     font-size: var(--h3);
     margin-left: 40px;
     margin-bottom: 40px;
     font-weight: bolder;
+    font-family: var(--ff1);
+   
 }
 .container{
     display: flex;
+    justify-content: center;
     align-items: center;
 }
-.end{
-    display:flex;
+.end {
+    display: flex;
     justify-content: end;
-}
+  }
+  
 .put{
     border: 0;
     margin-bottom: 10px;
 }
+.border{
+    border: 0;
+}
+.inputBox{
+    border: 1px solid var(--main-color);
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+}
+.btn{
+    background-color: var(--main-color);
+    color: white;
+    border: 0;
+    width: 48px;
+    border-radius: 5px;
+}
+.end select {
+    padding: 8px; /* 调整 select 元素的内边距 */
+    border: 1px solid #ccc; /* 添加边框 */
+    border-radius: 4px; 
+    font-size: 14px; 
+    margin-bottom: 5px;
+  }

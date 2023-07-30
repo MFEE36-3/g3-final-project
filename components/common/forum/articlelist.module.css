@@ -19,16 +19,19 @@
     font-weight: bold;
     margin-top: 10px;
 }
-.ptext{
+.ptext {
     font-size: var(--h7);
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 700px; /* 設定文字區塊的寬度 */
-    white-space: nowrap; /* 防止文字換行 */
-    overflow: hidden; /* 超出範圍的文字隱藏 */
-    text-overflow: ellipsis; /* 超出範圍的文字顯示省略號 */
-
-}
+    width: 700px; /* 设置文字区块的宽度 */
+    height: 50px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* 显示两行文字 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
 .flex2{
     display: flex;
 }
@@ -65,14 +68,14 @@
     justify-content: space-between;
 }
 .img{
-    margin-top: 65px;
-    width: 200px;
-    height: 150px;
-    margin-left: 90px;
+    margin-top: 15px;
+    width: 260px;
+    height: 220px;
+    margin-left: 60px;
     object-fit: cover;
     border-radius: 10px;
 }
 .img img{
     width: 100%;
-
+    height: 100%;
 }

@@ -19,3 +19,9 @@
 .ptext2:hover{
     text-decoration: underline;
 }
+@media screen and (max-width:767px) {
+    .pad{
+        display: none;
+    }
+    
+}

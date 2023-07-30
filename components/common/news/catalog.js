@@ -29,9 +29,6 @@ export default function Catalog() {
               <Link href={`/news/${v.news_sid}`}>
                 <p className={styles.pline}>{v.header}</p>
               </Link>
-             
-      
-             
             </div>
           ))}
         </div>

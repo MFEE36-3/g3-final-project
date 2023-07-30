@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Forumbtn from '@/components/common/btn';
 import styles from './article_datail.module.css';
 import TagTime from '@/components/common/forum/tag_time';
 import DetailTitle from '@/components/common/forum/detail_title';
 import DetailP from '@/components/common/forum/detail_p';
 import Newnav from '@/components/common/news/new_nav';
+import Message from '@/components/common/forum/message';
+import MessageInput from '@/components/common/forum/messageinput';
 export default function ArticleDetail() {
   const router = useRouter();
   const { query } = router;
-  const [article, setArticle] = useState({});
+  const [article, setArticle] = useState([]);
+  const [message, setMessages] = useState([]);
+  const [replay, setReplay] = useState('');
   const imgPreview = `http://localhost:3002/img/forum/`;
 
   useEffect(() => {
@@ -19,37 +22,55 @@ export default function ArticleDetail() {
         .then((r) => r.json())
         .then((data) => {
           console.log(data);
-          setArticle(...data);
+
+          const { forum_data, messageData } = data;
+          setArticle(data);
+          setMessages(messageData);
+          if (messageData && messageData.length > 0) {
+            setMessages(messageData);
+          }
+          if (forum_data && forum_data.length > 0) {
+            setArticle(...forum_data);
+          }
+        })
+        .catch((error) => {
+          console.log(error.error);
         });
     }
   }, [query]);
-  console.log(article);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('送出訊息:', message);
+    setReplay('');
+  };
+
+  const handleChange = (e) => {
+    setReplay(e.target.value);
+  };
   return (
     <>
-      
-      <div className="container">
-      <Newnav />
-        <div className="row">
-          <div className="col-2">
-            <div className={styles.top}>
-              <Forumbtn />
-            </div>
+      <div className={styles.container}>
+        <Newnav />
+      </div>
+
+      <div className={styles.container}>
+        <div className={styles.vatar}></div>
+        <div className={styles.ptext}></div>
+        <DetailTitle data={article.header} />
+        <TagTime data={article.publishedTime} />
+        <div>
+          <div className="w-75">
+            <img
+              src={`${imgPreview + article.photo}`}
+              className="w-75 h-50 object-fit-contain "
+            />
           </div>
-          <div className="col-10">
-            <div className={styles.vatar}></div>
-            <div className={styles.ptext}></div>
-            <DetailTitle data={article.header} />
-            <TagTime data={article.publishedTime} />
-            <div className="w-75">
-              <img
-                src={`${imgPreview + article.photo}`}
-                className="w-75 h-50 object-fit-contain "
-              />
-              <pre>
-                <DetailP data={article.content} key={article.forum_sid} />
-              </pre>
-            </div>
-          </div>
+          <pre>
+            <DetailP data={article.content} key={article.forum_sid} />
+          </pre>
+          <MessageInput />
+          <Message messages={message} />
         </div>
       </div>
     </>

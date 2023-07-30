@@ -95,4 +95,14 @@ object-fit: fill;
     justify-content: end;
   }
 
- 
+ @media screen and (max-width:767px){
+  .ptext{
+    font-size: var(--h8);
+}
+  .cardbody{
+  height: 350px;
+  padding: 0;
+  padding-right: 10px;
+  background-color: transparent;
+}
+ }

@@ -26,17 +26,16 @@ export default function NewsDetailed() {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <Newnav />
-          <div className={styles.line}>
-            {article.length > 0 && (
-              <h1 className={styles.title}>{article[0].header}</h1>
-            )}
-          </div>
+      <div className={styles.container}>
+        <Newnav />
+        <div className={styles.line}>
+          {article.length > 0 && (
+            <h1 className={styles.title}>{article[0].header}</h1>
+          )}
         </div>
+  
         <div className="row">
-          <div className="col-7">
+          <div className="col-12 col-md-8">
             {article.length > 0 && (
               <div className={styles.time}>{article[0].publishedTime}</div>
             )}
@@ -53,7 +52,7 @@ export default function NewsDetailed() {
               <p className={styles.ptext3}></p>
             </div>
           </div>
-          <div className="col-4">
+          <div className="col-12 col-md-4 d-none d-md-block">
             <Catalog />
             <Article className={styles.top} />
             <HotArticle className={styles.top} />
@@ -63,4 +62,5 @@ export default function NewsDetailed() {
       </div>
     </>
   );
+  
 }

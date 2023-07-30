@@ -1,0 +1,34 @@
+
+.form {
+    display: flex;
+    margin-top: 20px;
+  }
+  
+  .inputContainer {
+    position: relative;
+    width: 100%;
+  }
+  
+  .input {
+    padding: 10px 40px 10px 10px; /* 為了留出空間放置 icon，這裡設置右側 padding 為 40px */
+    border: 1px solid var(--main-color);
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  
+  .iconButton {
+    position: absolute;
+    top: 50%; /* 垂直置中 */
+    right: 10px; /* 與 input 的右側間距 */
+    transform: translateY(-50%); /* 垂直居中 */
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .icon {
+    font-size: 25px;
+    color: var(--main-color);
+  }
+  
