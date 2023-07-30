@@ -11,6 +11,8 @@ import { useRouter } from 'next/router';
 import MemAllTitle from '@/components/member/mem-allTitle';
 import Btn from '@/components/common/btn';
 import MemNologin from '@/components/member/mem-nologin';
+import MemAchieveArea from '@/components/member/mem-achieveArea';
+import MemBtn from '@/components/member/mem-Btn';
 
 export default function Info() {
   const router = useRouter();
@@ -19,6 +21,7 @@ export default function Info() {
 
   const {
     account,
+    achieve_image,
     achieve_name,
     birthday,
     address,
@@ -31,6 +34,12 @@ export default function Info() {
     sid,
     wallet,
   } = auth;
+
+  const [showAchieve, setShowAchieve] = useState(false);
+
+  const openAchiece = function () {
+    setShowAchieve(!showAchieve);
+  };
 
   const [getImg, setGetImg] = useState('');
 
@@ -66,6 +75,7 @@ export default function Info() {
     { tag: '加入時間', title: 'creat_at', content: creat },
   ];
 
+  //更換照片
   const changeImg = (e) => {
     e.preventDefault();
     const fd = new FormData();
@@ -85,7 +95,7 @@ export default function Info() {
         .then((res) => res.json())
         .then((data) => {
           setGetImg(data.filename);
-          // setAuth({ ...auth, [photo]: data.filename });
+          setAuth({ ...auth, photo: data.filename });
         });
     }
   };
@@ -104,6 +114,11 @@ export default function Info() {
   ) : (
     <div className={styles.body}>
       <div className={styles.container}>
+        {showAchieve && (
+          <div className={styles2.AchieveArea}>
+            <MemAchieveArea openAchiece={openAchiece} />
+          </div>
+        )}
         <MemrBar />
         <div className={styles2.rightArea}>
           <div className={styles2.flex}>
@@ -139,11 +154,11 @@ export default function Info() {
             <div className={styles2.achieveBox}>
               <MemAllTitle title={achieve_name} />
               <Image
-                src={'/member/badge01.svg'}
+                src={'http://localhost:3002/img/' + auth?.achieve_image}
                 style={{ objectFit: 'cover' }}
                 className={styles2.box}
-                width={60}
-                height={60}
+                width={200}
+                height={200}
                 alt=""
               />
               <div className={styles2.achieveArea}>
@@ -155,7 +170,12 @@ export default function Info() {
                   }}
                 >
                   <div className={styles2.achBtn}>
-                    <Btn text="更換" padding={'5px 1px'} fs="var(--h7)" />
+                    <Btn
+                      text="更換"
+                      padding={'5px 1px'}
+                      fs="var(--h7)"
+                      onClick={openAchiece}
+                    />
                   </div>
                 </div>
               </div>

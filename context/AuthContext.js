@@ -34,6 +34,7 @@ export const AuthContextProvider = function ({ children }) {
         .then((data) => {
           // 後端回傳的資料後重新渲染+塞入預設物件裡面
           setAuth(data[0]);
+          console.log(auth);
         });
     }
   }, []);

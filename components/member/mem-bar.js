@@ -35,10 +35,11 @@ export default function MemBar() {
             alt=""
           />
           <Image
-            src="/member/badge01.svg"
-            width={300}
-            height={300}
+            src={'http://localhost:3002/img/member/' + auth?.achieve_image}
+            width={200}
+            height={200}
             className={styles.achImg}
+            style={{ objectFit: 'cover' }}
             alt=""
           />
         </div>
