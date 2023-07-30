@@ -10,7 +10,9 @@ import { useRouter } from 'next/router';
 
 export default function Reservation({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo }) {
 
-  const [isReservationSuccess, setIsReservationSuccess] = useState(false);
+  // const [isReservationSuccess, setIsReservationSuccess] = useState(false);
+
+  const router = useRouter();
 
   // 當點擊「送出訂位」按鈕時，處理資料提交
   const handleSubmit = () => {
@@ -60,12 +62,15 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
 
           // 整理要送出的資訊為一個物件
           const reservationData = {
-            shop: row.detail.shop,
+            id: 66,
+            shop_id: row.detail.sid,
             date: date,
             time: time,
             person: person,
             seat: seat,
+            rating: null,
             memo: memo,
+            status: '未完成',
           };
 
           // 將資料轉換為JSON格式
@@ -87,6 +92,9 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
                 title: '訂位成功！',
                 text: '您的訂位已成功提交。',
                 confirmButtonText: '確定',
+              }).then(() => {
+                // 返回原餐廳畫面
+                router.push(`/reservation/${row.detail.sid}`);
               });
 
               // 提交成功後，設置訂位成功狀態為 true
@@ -99,33 +107,24 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
         }
       });
     }
-
-
     else {
-      // 如果座位未選擇，可以顯示提示訊息給用戶
-      Swal.fire({
-        icon: 'error',
-        title: '座位未選擇',
-        text: '請先選擇座位。',
-        confirmButtonText: '確定',
-      });
     }
 
 
   };
 
 
-  // 使用 useEffect 監聽 isReservationSuccess 的變化
-  useEffect(() => {
-    // 當訂位成功後，返回到原畫面
-    if (isReservationSuccess) {
-      // 在這裡處理返回原畫面的相關操作
-      // ...
+  // // 使用 useEffect 監聽 isReservationSuccess 的變化
+  // useEffect(() => {
+  //   // 當訂位成功後，返回到原畫面
+  //   if (isReservationSuccess) {
+  //     // 在這裡處理返回原畫面的相關操作
+  //     // ...
 
-      // 返回原畫面後，重置訂位成功狀態為 false
-      setIsReservationSuccess(false);
-    }
-  }, [isReservationSuccess]);
+  //     // 返回原畫面後，重置訂位成功狀態為 false
+  //     setIsReservationSuccess(false);
+  //   }
+  // }, [isReservationSuccess]);
 
 
   return (
