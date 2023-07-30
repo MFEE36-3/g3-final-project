@@ -14,12 +14,11 @@ export default function RestaurantPage() {
 
     // const [show, setShow] = useState(false);
 
-    // const nowdate = new Date();
-    // const startDate = dayjs(today).add(1, 'day').toDate();
-    const [date, setDate] = useState(); //dayjs(startDate)
-    const [time, setTime] = useState('');
-    const [person, setPerson] = useState('');
-    const [seat, setSeat] = useState('');
+    const [date, setDate] = useState(); // 日期
+    const [time, setTime] = useState(''); // 時間
+    const [person, setPerson] = useState(''); //人數
+    const [seat, setSeat] = useState(''); // 座位
+    const [memo, setMemo] = useState('');
     const [row, setRow] = useState({ detail: {}, booking: [], seattype: [] });
     //{detail,booking,seattype}
     const router = useRouter();
@@ -51,7 +50,8 @@ export default function RestaurantPage() {
                         </div>
 
                         <div className={style.reservationdiv}>
-                            <ReservationPage row={row} date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} />
+                            <ReservationPage row={row} date={date} setDate={setDate} time={time} setTime={setTime}
+                                person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo} />
                         </div>
 
 

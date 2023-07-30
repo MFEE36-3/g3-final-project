@@ -4,7 +4,7 @@ import style from '@/styles/reservation/style.module.css'
 import { areArraysEqual } from '@mui/base';
 import { useEffect } from 'react';
 
-export default function DateTime({ row, date, time, setTime, setPerson, setSeat }) {
+export default function DateTime({ row, date, time, setTime, setPerson, setSeat, setMemo }) {
 
     // console.log(row.booking)
     // console.log(date)
@@ -23,6 +23,7 @@ export default function DateTime({ row, date, time, setTime, setPerson, setSeat 
         setTime(selectedtime)
         setPerson('');
         setSeat('');
+        setMemo('');
     }
 
     //取得當日訂位時間資料

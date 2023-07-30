@@ -4,7 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 
-export default function Calendar({ row, date, setDate, setTime, setPerson, setSeat }) {
+export default function Calendar({ row, date, setDate, setTime, setPerson, setSeat, setMemo }) {
     const today = new Date();
     const minDate = dayjs(today).add(1, 'day').startOf('day').toDate(); // 明天的开始时间
     const maxDate = dayjs(today).add(31, 'day').endOf('day').toDate(); // 31天后的结束时间
@@ -40,6 +40,7 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
         setTime('');
         setPerson('');
         setSeat('');
+        setMemo('');
     };
 
     return (
