@@ -20,64 +20,8 @@ import { HiOutlineChat } from "react-icons/hi";
 import CustomizedSwitches from "@/components/buyforme/switch";
 import { Chat } from "@mui/icons-material";
 import OpenShopForm from "@/components/buyforme/openshopform";
-
-
-
-
-
-
-const ramens = [
-    {
-        shop: "大稻埕魯肉飯", latitude
-            : 25.0509692896927, longitude: 121.514657965568, sid: 1, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
-    },
-    {
-        shop: "滷肉飯店", latitude
-            : 25.0519848661452, longitude: 121.545149955878, sid: 2, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
-    },
-    {
-        shop: "日日香小館", latitude
-            : 25.0291015596711, longitude: 121.54070734974, sid: 3, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
-    },
-    {
-        shop: "林東芳牛肉麵", latitude
-            : 25.0472560275676, longitude: 121.543080631394, sid: 4, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
-    },
-    {
-        shop: "頂好哨子麵", latitude
-            : 25.0422643891525, longitude: 121.546287823781, sid: 5, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
-    },
-    {
-        shop: "紅粟上海經典小吃", latitude
-            : 24.9810826373594, longitude: 121.523416460177, sid: 6, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
-    },
-    {
-        shop: "宵夜·排骨炒飯", latitude
-            : 24.996707774961, longitude: 121.511260168782, sid: 8, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
-    },
-    {
-        shop: "入魂燒味燒臘餐廳", latitude
-            : 25.0083616170896, longitude: 121.515609696722, sid: 7, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
-    },
-    {
-        shop: "紅昌吉豬血湯", latitude
-            : 25.065831499499012, longitude: 121.51676609152237, sid: 9, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
-    },
-    {
-        shop: "今大滷肉飯", latitude
-            : 25.064414236259736, longitude: 121.4915471374361, sid: 10, res_desc: "古色古香，魚龍混雜的裝潢，傳統經典的中式餐廳。"
-    },
-];
-
-const open_for_you = [
-    { open_sid: 1, open_member_id: 1, open_member_name: '小呆呆', meet_time: '2023-08-16 12:00', meet_place: '台大正門', target_store: 1, shop: '烹星', tip: '20' },
-    { open_sid: 2, open_member_id: 1, open_member_name: '小呆呆', meet_time: '2023-08-16 12:00', meet_place: '台大正門', target_store: 2, shop: '烹星', tip: '30' },
-    { open_sid: 3, open_member_id: 1, open_member_name: '小呆呆', meet_time: '2023-08-16 12:00', meet_place: '台大後門', target_store: 3, shop: '阿英羊肉羹', tip: '20' },
-    { open_sid: 4, open_member_id: 1, open_member_name: '小呆呆', meet_time: '2023-08-16 12:00', meet_place: '台大正門', target_store: 4, shop: '烹星', tip: '20' },
-    { open_sid: 5, open_member_id: 1, open_member_name: '小呆呆', meet_time: '2023-08-16 12:00', meet_place: '台大側門', target_store: 5, shop: '麥當勞', tip: '20' },
-    { open_sid: 6, open_member_id: 1, open_member_name: '小呆呆', meet_time: '2023-08-16 12:00', meet_place: '台大正門', target_store: 6, shop: '烹星', tip: '20' },
-    { open_sid: 7, open_member_id: 1, open_member_name: '小呆呆', meet_time: '2023-08-16 12:00', meet_place: '台大男一舍', target_store: 7, shop: '佐藤咖哩', tip: '25' },
-];
+import dayjs from "dayjs";
+import { useRouter } from "next/router";
 
 
 const search_input_style = {
@@ -145,28 +89,37 @@ const chat_input_style = {
 }
 
 
-//後端先取得資料庫的商家資料 跟 店家評論
+//後端先取得資料庫資料
 export async function getStaticProps() {
+
+    //拿店家資料
     const response = await fetch(process.env.API_SERVER + '/buyforme');
     const data = await response.json();
 
+    //拿店家評論
     const response2 = await fetch(process.env.API_SERVER + '/buyforme/review');
     const review_data = await response2.json();
+
+    //拿開團單
+    const response3 = await fetch(process.env.API_SERVER + '/buyforme/openforyou');
+    const open_sheet_data = await response3.json();
+
 
     return {
         props: {
             initialData: data.rows,
             review_data: review_data,
+            open_sheet_data: open_sheet_data.rows,
         },
     };
 }
 
-const Buyforme = ({ initialData,review_data}) => {
+const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
 
     const [originaldata, setOriginaldata] = useState(initialData);
     const [data, setData] = useState(initialData);
     const [checkbuyforme, setCheckbuyforme] = useState(false);
-    const [openorder, setOpenorder] = useState(open_for_you);
+    const [openorder, setOpenorder] = useState(open_sheet_data);
     const [openbuyforme, setOpenbuyforme] = useState(false);
     const [targetstore, setTargetstore] = useState(0);
     const [shopfoods, setShopfoods] = useState([]);
@@ -176,35 +129,19 @@ const Buyforme = ({ initialData,review_data}) => {
     const [mapcolor, setMapcolor] = useState(false);
     const [openForm, setOpenForm] = useState(false);
     const [opentargetstore, setOpentargetstore] = useState(0);
+    const [keyword, setKeyword] = useState('');
 
-
-
-
-
-    // useEffect(() => {
-    //     // targetstore改了之後 去後端拿資料改shopfoods
-    //     const getshop = async () => {
-    //         await fetch(process.env.API_SERVER + '/buyforme')
-    //             .then(r => r.json())
-    //             .then(obj => {setData(obj.rows); console.log(obj)})
-    //     }
-
-    //     getshop();
-    // }, [])
-
+    const router = useRouter();
 
     useEffect(() => {
-        // targetstore改了之後 去後端拿資料改shopfoods
-        const getfood = async () => {
-            // await fetch(process.env.API_SERVER + '/buyforme/food/' + targetstore)
-            //     .then(r => r.json())
-            //     .then(obj => setShopfoods(obj))
-            console.log(targetstore)
+        //console.log(router.query.keyword);
+        if (router.query.keyword) {
+            setKeyword(router.query.keyword);
+            setData(() => originaldata.filter(v => v.shop.includes(router.query.keyword)));
+        }else{
+            setData(() => originaldata);
         }
-
-        getfood();
-
-    }, [targetstore])
+    }, [router.query])
 
 
     const handlebuyformeClose = () => {
@@ -224,13 +161,18 @@ const Buyforme = ({ initialData,review_data}) => {
                 variant="outlined"
                 placeholder='搜尋美食...'
                 sx={search_input_style}
-                onBlur={(e) => {
+                defaultValue={router.query.keyword ? router.query.keyword : ''}
+                value={keyword}
+                onChange={(e) => { 
                     //if(e.key !== 'Enter') return;
+                    setKeyword(e.target.value); 
+                }}
+                onKeyUp={(e) => {
+                    if(e.key !== 'Enter') return;
                     if (e.target.value === '') {
-                        setData(() => originaldata)
+                        router.push('');
                     } else {
-                        setData(() => originaldata.filter(v => v.shop.includes(e.target.value)));
-                        console.log(e.target.value)
+                        router.push('?keyword='+e.target.value);
                     }
                 }}
             />
@@ -241,7 +183,12 @@ const Buyforme = ({ initialData,review_data}) => {
         <OpenIconSpeedDial />
 
 
-        <div className={checkbuyforme === false ? styles.buyforme_hint : styles.buyforme_hint_active}>目前揪團數：{openorder.length}</div>
+        <div className={checkbuyforme === false ? styles.buyforme_hint : styles.buyforme_hint_active}>
+            目前揪團數：{openorder.filter((v) => {
+                if (Date.now() < new Date(v.meet_time)) return;
+                return v
+            }).length}
+        </div>
 
         <div className={checkbuyforme === false ? styles.buyforme_infobox_hide : styles.buyforme_infobox}>
             <div className={styles.buyforme_tabletitle}>誰在揪團</div>
@@ -262,15 +209,18 @@ const Buyforme = ({ initialData,review_data}) => {
                         </thead>
                         <tbody>
                             {openorder.map((v, i) => {
+
+                                const compareTime = new Date(v.meet_time);
+
+                                if (Date.now() > compareTime) return;
                                 return (
                                     <tr key={v.open_sid}>
                                         <td>{v.open_sid}</td>
-                                        <td>{v.open_member_name}</td>
-                                        <td>{v.shop}</td>
-                                        {/* 應該是店家sid 記得要處理轉成店家名稱 應該是後端轉ㄅ */}
-                                        <td>{v.meet_time}</td>
+                                        <td>{v.nickname}</td>
+                                        <td className={v.shop.length > 15 ? styles.overlength_td : ''}>{v.shop}</td>
+                                        <td>{dayjs(v.meet_time).format('MM-DD HH:mm')}</td>
                                         <td>{v.meet_place}</td>
-                                        <td>{v.tip}</td>
+                                        <td>{v.tip !== 0 ? v.tip : '免費'}</td>
                                         <td><Btn text='跟團go!' padding='5px 10px' fs='var(--h9)' sx={{ zIndex: 0 }} onClick={() => {
                                             setOpenbuyforme(true);
                                             setTargetstore(v.target_store);
@@ -291,7 +241,7 @@ const Buyforme = ({ initialData,review_data}) => {
         <Dialog open={openbuyforme} onClose={handlebuyformeClose}>
 
             {/* 記得要用全部的資料去map 不是篩選後的 */}
-            {ramens.filter((v) => targetstore === v.sid).map((v) => {
+            {originaldata.filter((v) => targetstore === v.sid).map((v) => {
                 return (<>
                     <DialogTitle>Subscribe</DialogTitle>
                     <DialogContent>

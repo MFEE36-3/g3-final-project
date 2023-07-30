@@ -49,6 +49,18 @@
     border: 3px solid rgb(255, 119, 22);
 }
 
+.userLabel_small {
+    background-color: rgba(255, 179, 39, 0.75);
+    font-family: var(--ff1) !important;
+    font-size: var(--h7) !important;
+    color: rgba(255, 255, 255) !important;
+    text-shadow: 0 0 5px rgb(255, 119, 22);
+    border-radius: 10px;
+    padding: 0px 10px;
+    border: 3px solid rgb(255, 119, 22);
+    transform: scale(0.8);
+}
+
 .walkbag {
     position: absolute;
     right: 100px;
@@ -198,8 +210,12 @@
 
 .buyforme_table th,
 .buyforme_table td {
-    font-size: var(--h7);
+    font-size: var(--h8);
     font-weight: 600;
+}
+
+.buyforme_table .overlength_td {
+    font-size: var(--h9);
 }
 
 .nogroup {
@@ -266,12 +282,13 @@
 /* ---------shop_infowindow----------- */
 
 .shop_infowindow_title {
+    width: 530px;
     font-size: var(--h3);
     text-align: center;
     background-color: var(--main-color);
     color: white;
     border-radius: 10px 10px 0 0;
-    padding-top: 10px;
+    padding: 10px 10px 0 10px;
 }
 
 .shop_infowindow_description {

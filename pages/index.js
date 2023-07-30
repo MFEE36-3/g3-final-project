@@ -167,7 +167,7 @@ const Home = () => {
               <Image alt='sausageRight' src={sausageRight} className={sausage_open === false ? styles.sausage_right : styles.sausage_right_active} onClick={() => setSausage_Open(true)} />
             </div>
             <div className={styles.goBtn}>
-              <Link href={`/buyforme?keyword=${search}`}><Btn text='馬上GOGO!' /></Link>
+              <Link href={search !== '' ? `/buyforme?keyword=${search}` : '/buyforme'}><Btn text='馬上GOGO!' /></Link>
             </div>
           </div>
 
@@ -205,7 +205,7 @@ const Home = () => {
                 <p>輕鬆預約，享受便捷的訂位服務</p>
               </div>
               <div>
-                <Btn text='Order Now!' />
+                <Btn text='Order Now!' onClick={()=>(router.push('/reservation'))}/>
               </div>
               <div>
                 <div className={styles.icon_outer}>
@@ -228,7 +228,7 @@ const Home = () => {
 
             <p>美食新聞</p>
             <div className={styles.newsBtn}>
-              <Btn text='GO! NEWS' />
+              <Btn text='GO! NEWS' onClick={()=>(router.push('/news'))}/>
             </div>
 
           </div>
@@ -237,7 +237,7 @@ const Home = () => {
 
             <p>美食論壇</p>
             <div className={styles.forumBtn}>
-              <Btn text='GO! FORUM' />
+              <Btn text='GO! FORUM' onClick={()=>(router.push('/forum'))}/>
             </div>
           </div>
         </div>

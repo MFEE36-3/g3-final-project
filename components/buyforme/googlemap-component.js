@@ -822,7 +822,7 @@ const search_radius = [
 
 
 
-function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore,review_data}) {
+function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, review_data }) {
     const [center, setCenter] = useState({ lat: 44, lng: -80 });
     const [usercenter, setUserCenter] = useState({ lat: 44, lng: -80 });
     const routeAnimationRef = useRef(null);
@@ -989,6 +989,10 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore,r
             infowindow.open(map, userMarker);
         });
 
+
+
+        const markers = []; // 存儲所有的 shopMarker
+
         data.map((v, i) => {
             const shopMarker = new window.google.maps.Marker({
                 position: { lat: Number(v.latitude), lng: Number(v.longitude) },
@@ -1005,6 +1009,8 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore,r
                 animation: window.google.maps.Animation.DROP,
             });
 
+            markers.push(shopMarker); // 將每個 shopMarker 存入 markers 陣列
+
             const shop_infowindow = new google.maps.InfoWindow({
                 content: `
                 <div id="${v.shop}" class=${styles.shop_infowindow_title}>${v.shop}</div>
@@ -1020,19 +1026,19 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore,r
                 </div>
                 <div class=${styles.shop_infowindow_description}>${v.res_desc}</div>
                 ${review_data.rows.filter((review) => review.sid === v.sid) // 篩選符合 v.sid 的評論
-                .map((review) => {
-                    if(review.review)
-                    return review.review.map((reviewItem) => {
-                        const random_character = random_user[Math.floor(random_user.length * Math.random())];
-                        return (
-                          `<div class=${styles.shop_infowindow_review_box}>
+                        .map((review) => {
+                            if (review.review)
+                                return review.review.map((reviewItem) => {
+                                    const random_character = random_user[Math.floor(random_user.length * Math.random())];
+                                    return (
+                                        `<div class=${styles.shop_infowindow_review_box}>
                             <div style="background-image:url('/buyforme/map/user_icon/${random_character.img}')" class=${styles.shop_infowindow_review_img}></div>
                             <div class=${styles.shop_infowindow_review}>${reviewItem.text}</div>
                           </div>`
-                        );
-                      }).join('');
-                })
-                .join('')
+                                    );
+                                }).join('');
+                        })
+                        .join('')
                     }
                 <botton class='btn btn-info ${styles.shop_infowindow_btn}' id="btn_${v.sid}">開團GO!<botton>
                 `,
@@ -1040,13 +1046,13 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore,r
                 maxWidth: 600,
             });
 
-            console.log(review_data.rows)
+            //console.log(review_data.rows)
 
 
 
 
             const shop_click = shopMarker.addListener('click', () => {
-                // 點擊 Maker 的事件處理程式
+                // 點擊 Marker 的事件處理程式
                 map.setCenter({ lat: Number(v.latitude), lng: Number(v.longitude) });
                 console.log(`${v.shop} Shop Marker 被點擊了`);
                 setSelectedMarker(v.shop);
@@ -1066,7 +1072,65 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore,r
                     };
                 });
             });
-        })
+        });
+
+
+        //跑起來太卡 可惜了
+
+        // // 監聽地圖的縮放層級變化
+        // google.maps.event.addListener(map, "zoom_changed", function () {
+        //     const currentZoom = map.getZoom();
+        //     // 根據地圖縮放層級做相應處理
+        //     if (currentZoom >= 15) {
+        //         // 在這裡放入放大時標記大小及標籤的處理邏輯
+        //         markers.forEach((marker) => {
+        //             marker.setIcon({
+        //                 url: "https://maps.google.com/mapfiles/ms/icons/green-dot.png", // 新標記圖示
+        //                 scaledSize: new google.maps.Size(50, 50), // 新標記大小
+        //             });
+        //             marker.setLabel("B"); // 新標籤
+        //         });
+        //     } else {
+        //         // 在這裡放入縮小時標記大小及標籤的處理邏輯
+        //         markers.forEach((marker) => {
+        //             marker.setIcon({
+        //                 url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // 初始標記圖示
+        //                 scaledSize: new google.maps.Size(30, 30), // 初始標記大小
+        //             });
+        //             marker.setLabel("A"); // 初始標籤
+        //         });
+        //     }
+        // });
+        
+
+        // 監聽地圖的縮放層級變化
+        google.maps.event.addListener(map, "zoom_changed", function () {
+            const currentZoom = map.getZoom();
+            // 若地圖縮放層級大於等於某個值，改變標記大小及標籤
+            if (currentZoom >= 15) {                                           //放大後大小
+                userMarker.setIcon({
+                    url: '/buyforme/map/user_icon/' + random_character.img,
+                    scaledSize: new window.google.maps.Size(35, 35),
+                    labelOrigin: new window.google.maps.Point(17.5, 50)
+                });
+                userMarker.setLabel({
+                    text: random_character.title,
+                    className: styles.userLabel_small
+                });
+            } else {                                                           //原本大小
+                userMarker.setIcon({
+                    url: '/buyforme/map/user_icon/' + random_character.img,
+                    scaledSize: new window.google.maps.Size(60, 60),
+                    labelOrigin: new window.google.maps.Point(30, 80)
+                });
+                userMarker.setLabel({
+                    text: random_character.title,
+                    className: styles.userLabel
+                });
+            }
+        });
+
+
 
 
         return (() => {
