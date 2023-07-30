@@ -33,7 +33,7 @@ export default function NewsDetailed() {
             <h1 className={styles.title}>{article[0].header}</h1>
           )}
         </div>
-  
+
         <div className="row">
           <div className="col-12 col-md-8">
             {article.length > 0 && (
@@ -62,5 +62,4 @@ export default function NewsDetailed() {
       </div>
     </>
   );
-  
 }
