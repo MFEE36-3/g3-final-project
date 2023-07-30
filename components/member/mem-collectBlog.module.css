@@ -3,7 +3,7 @@
   height: 120px;
   box-shadow: 0px 5px 2px rgba(123, 123, 123, 0.5);
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   font-size: 20px;
 }
@@ -18,24 +18,25 @@
 }
 
 .box {
-  margin-inline: 10px;
   display: flex;
-  justify-content: end;
-  width: 40%;
+  justify-content: center;
+  width: 50px;
+  margin-left: 15px;
 }
 
 .box2 {
-  margin-inline: 10px;
-  display: flex;
-  justify-content: start;
-  width: 60%;
+  width: 600px;
+  display: inline-flex;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .box3 {
-  margin-inline: 10px;
   display: flex;
-  justify-content: start;
-  width: 60%;
+  justify-content: center;
+  width: 150px;
 }
 
 @media screen and (max-width: 391px) {

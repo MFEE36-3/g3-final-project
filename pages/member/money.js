@@ -10,43 +10,42 @@ import AuthContext from '@/context/AuthContext';
 import { useState, useEffect, useContext } from 'react';
 import MemNologin from '@/components/member/mem-nologin';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import Link from 'next/link';
+import IconImg from '@/public/member/icon.png';
 
 export default function Index() {
-  const rows = [
-    {
-      context: '升級尊榮會員三個月',
-      money: 549,
-      time: '2023/06/19 12:31',
-      id: 123456,
-    },
-    {
-      context: '升級尊榮會員三個月',
-      money: 549,
-      time: '2023/06/19 12:31',
-      id: 123457,
-    },
-    {
-      context: '升級尊榮會員三個月',
-      money: 549,
-      time: '2023/06/19 12:31',
-      id: 123458,
-    },
-    {
-      context: '升級尊榮會員三個月',
-      money: 549,
-      time: '2023/06/19 12:31',
-      id: 123459,
-    },
-    {
-      context: '升級尊榮會員三個月',
-      money: 549,
-      time: '2023/06/19 12:31',
-      id: 123450,
-    },
-  ];
-
   const { auth } = useContext(AuthContext);
   const router = useRouter();
+  const [record, setRecord] = useState([]);
+
+  useEffect(() => {
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/member/walletRecord', {
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setRecord(data);
+        });
+    }
+  }, [auth]);
+
+  const rows = record.map((v) => {
+    return {
+      content: v.content,
+      money: v.amount,
+      time: v.add_time?.substring(0, 10),
+    };
+  });
+
+  const totalMoney = rows.reduce((total, item) => total + item.money, 0);
 
   // 判斷式否登入，未登入跳轉回首頁
   useEffect(() => {
@@ -65,20 +64,36 @@ export default function Index() {
         <MemBar />
         <div className={styles.rightArea}>
           <div className={styles2.area0}>
-            <div className={styles2.area1}>
-              <MemAllTitle title={'我的錢包'} />
+            <div className={styles.package}>
+              <div className={styles.flex2}>
+                <div>食GoEat錢包</div>
+                <div>帳號 : {auth?.account}</div>
+              </div>
 
-              <div className={styles2.nowMoney}>NT$ {auth?.wallet}</div>
-              <div className={styles2.inputArea}>
-                <label className={styles2.label}>
-                  <div className={styles2.title}>儲值</div>
-                  <input type="text" className={styles2.input}></input>
-                </label>
-                <button className={styles2.btn}>確認</button>
+              <div className={styles.packageMoney}>
+                <Image
+                  src={IconImg}
+                  width={80}
+                  alt=""
+                  className={styles.packageImg}
+                />
+                NT$ {totalMoney}
+              </div>
+
+              <div className={styles.packDown}>
+                <input className={styles.inputArea}></input>
+                <Link href={''}>
+                  <button className={styles.packageBtn}>儲值+</button>
+                </Link>
               </div>
             </div>
+
             <div className={styles2.imgArea}>
-              <div className={styles2.imgText}>您的尊榮會員還有 21 天到期</div>
+              <div className={styles2.imgText}>
+                {auth.level === 1
+                  ? '歡迎加入食goEat會員享更多優惠'
+                  : '您的尊榮會員還有 21 天到期'}
+              </div>
             </div>
           </div>
           <div className={styles2.levelArea}>

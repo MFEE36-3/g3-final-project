@@ -24,7 +24,7 @@ export default function Index() {
     if (str) {
       const obj = JSON.parse(str);
       const Authorization = 'Bearer ' + obj.token;
-      fetch(process.env.API_SERVER + '/memberCoupon', {
+      fetch(process.env.API_SERVER + '/member/article', {
         method: 'GET',
         headers: {
           Authorization,
@@ -36,25 +36,15 @@ export default function Index() {
         });
     }
   }, [auth]);
-  console.log(auth);
+  // console.log(list);
 
-  const MyList = [
-    {
-      type: '踩雷',
-      title: '喜歡吃阿得快餐的人到底在想什麼',
-      time: '2023/07/08',
-    },
-    {
-      type: '推薦',
-      title: '信義路三段的隱藏美食-胡其林火鍋',
-      time: '2023/07/21',
-    },
-    {
-      type: '閒聊',
-      title: '求推薦東門站附近的午餐',
-      time: '2023/07/21',
-    },
-  ];
+  const MyList = list.map((v) => {
+    return {
+      type: v.category,
+      title: v.header,
+      time: v.publishedTime?.substring(0, 10),
+    };
+  });
 
   const ListForum = [
     {

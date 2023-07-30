@@ -8,17 +8,61 @@
 .card {
   width: 200px;
   height: 280px;
-  background-color: #d5d5d5;
+  background-image: url('/member/card3.png');
+  background-size: cover;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: inset -3px -3px 5px rgb(105, 89, 0);
 }
 
-.card:hover {
+.card2 {
+  width: 200px;
+  height: 280px;
+  background-image: url('/member/card3.png');
+  background-size: cover;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -3px -3px 5px rgb(105, 89, 0);
+}
+
+.card3 {
+  width: 200px;
+  height: 280px;
+  background-image: url('/member/card3.png');
+  background-size: cover;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -3px -3px 5px rgb(105, 89, 0);
+}
+
+.card4 {
+  width: 200px;
+  height: 280px;
+  background-image: url('/member/card3.png');
+  background-size: cover;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -3px -3px 5px rgb(105, 89, 0);
+}
+
+.card:hover,
+.card2:hover,
+.card3:hover,
+.card4:hover {
   transform: scale(1.1);
-  transition: all 0.1s ease-in;
+  transition: all 0.2s ease-in;
 }
 
 .link {
@@ -27,7 +71,7 @@
 }
 
 @media screen and (max-width: 391px) {
-  .card {
+  .card .card2 .card3 .card4 {
     width: 130px;
     height: 180px;
     font-size: 16px;
