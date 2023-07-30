@@ -2,7 +2,8 @@
   display: flex;
   justify-content: start;
   gap: 50px;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
+  margin-top: 15px;
 }
 
 .imgArea {
@@ -76,7 +77,7 @@
   border-radius: 15px;
   overflow: hidden;
   margin-top: 10px;
-  margin-bottom: 60px;
+  margin-bottom: 70px;
   font-weight: 800;
   border: 2px solid #921010;
   padding-top: 50px;

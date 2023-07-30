@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 22px;
+  color: #921010;
 }
 
 .card {
@@ -15,7 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: inset -3px -3px 5px rgb(105, 89, 0);
+  box-shadow: inset -3px -3px 5px rgb(177, 151, 0);
 }
 
 .card2 {
@@ -28,7 +29,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: inset -3px -3px 5px rgb(105, 89, 0);
+  box-shadow: inset -3px -3px 5px rgb(177, 151, 0);
 }
 
 .card3 {
@@ -41,7 +42,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: inset -3px -3px 5px rgb(105, 89, 0);
+  box-shadow: inset -3px -3px 5px rgb(177, 151, 0);
 }
 
 .card4 {
@@ -54,7 +55,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: inset -3px -3px 5px rgb(105, 89, 0);
+  box-shadow: inset -3px -3px 5px rgb(177, 151, 0);
 }
 
 .card:hover,
