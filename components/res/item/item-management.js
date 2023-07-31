@@ -194,11 +194,6 @@ export default function Management() {
 
   }, [foodItem, foodCate])
 
-  // 進入商品編輯頁面
-  const editItem = () => {
-    router.push(`item-management`)
-  }
-
   // 刪除商品
   const confirmDeleteItem = () => {
     Swal.fire({
@@ -215,10 +210,6 @@ export default function Management() {
         Swal.fire('取消刪除', '', 'info')
       }
     })
-  }
-
-  const deleteItem = async () => {
-
   }
 
 

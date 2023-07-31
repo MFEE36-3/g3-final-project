@@ -21,7 +21,7 @@ export const ResContextProvider = function ({ children }) {
     const logout = () => {
         localStorage.removeItem('auth')
         setResAuth(noLoginState)
-        router.push('/res/login')
+        router.push('/login')
     }
 
     useEffect(()=>{

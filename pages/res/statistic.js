@@ -1,4 +1,5 @@
 import React from 'react';
+import layoutRes from '@/components/layout/layoutRes'
 import dynamic from 'next/dynamic';
 
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
@@ -23,4 +24,5 @@ class App extends React.Component {
   }
 }
 
+App.getLayout = layoutRes
 export default App;
