@@ -6,15 +6,18 @@
   justify-content: space-around;
   align-items: center;
   font-size: 20px;
+  background-color: #fff3e7;
+  margin-bottom: 20px;
+  box-shadow: 3px 3px 3px rgb(119, 119, 119);
+  border-radius: 5px;
 }
 
 .card:hover {
-  background-color: #fff3e7;
+  background-color: #ffd8b7;
   color: rgb(0, 0, 0);
-  transform: scale(1.1);
+  height: 150px;
   transition: all 0.2s ease-in;
   color: #911010;
-  border-top: 5px solid rgba(123, 123, 123, 0.5);
 }
 
 .box {
