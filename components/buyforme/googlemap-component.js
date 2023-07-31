@@ -4,15 +4,18 @@ import axios from "axios";
 import styles from '@/styles/buyforme/map/map.module.css';
 import shop from '@/public/buyforme/map/shop_icon.svg';
 import Btn from "@/components/common/btn";
-import star from '@/public/buyforme/map/star.svg'
+import star from '@/public/buyforme/map/star.svg';
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
-export default function GoogleMapComponent({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, review_data }) {
+
+
+export default function GoogleMapComponent({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, review_data, destination }) {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     });
 
     if (!isLoaded) return <div>Loading...</div>;
-    return <Map data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} review_data={review_data} />;
+    return <Map data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} review_data={review_data} destination={destination} />;
 }
 
 {// const ramens = [
@@ -59,7 +62,37 @@ const random_user = [
     { img: 'chocoCookie.svg', title: '匿名餅乾' },
     { img: 'sushi.svg', title: '匿名壽司' },
     { img: 'hamburger.svg', title: '匿名漢堡' }
-]
+];
+
+const random_message = [
+    '好想吃咖哩!',
+    '要加香菜嗎',
+    '肚子好餓哦...',
+    '有人可以幫買漢堡咪?',
+    '怎麼可以這麼熱...',
+    '是不是只有兩碗粉',
+    '等等偷偷溜去吃滷肉飯，嘻嘻',
+    '一袋米要扛幾樓',
+    '已躺平zzz',
+    '出來打球啊!你當球!',
+    '不可能有人把芋頭丟進火鍋煮吧...',
+    '好想下班ˊˋ'
+];
+
+const random_position = [
+    { lat: 24.99883334798432, lng: 121.55824714153377 },
+    { lat: 24.996518543558725, lng: 121.51940435489351 },
+    { lat: 25.02657602887414, lng: 121.5267783670195 },
+    { lat: 25.052712344481815, lng: 121.46891973720228 },
+    { lat: 25.06665260769572, lng: 121.52485288879733 },
+    { lat: 25.055672073596742, lng: 121.60199310450444 },
+    { lat: 25.137069802019663, lng: 121.77767811412008 },
+    { lat: 25.135237830131906, lng: 121.54031159842071 },
+    { lat: 25.024071745923848, lng: 121.45247414736272 },
+    { lat: 25.198846967293726, lng: 121.4386946674482 },
+    { lat: 25.068210168775234, lng: 121.62938915434017 },
+    { lat: 24.96717931902334, lng: 121.43728609768444 },
+];
 
 
 // -----------地圖樣式------------
@@ -319,7 +352,7 @@ const red_style = [
             }
         ]
     }
-]
+];
 
 const blue_style = [
     {
@@ -655,7 +688,7 @@ const blue_style = [
             }
         ]
     }
-]
+];
 
 const pink_style = [
     {
@@ -802,7 +835,7 @@ const pink_style = [
             }
         ]
     }
-]
+];
 
 
 // ------------搜尋半徑樣式--------------
@@ -816,13 +849,13 @@ const search_radius = [
         color: '#999999',
         meter: 1000,
     },
-]
+];
 
 
 
 
 
-function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, review_data }) {
+function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, review_data, destination }) {
     const [center, setCenter] = useState({ lat: 44, lng: -80 });
     const [usercenter, setUserCenter] = useState({ lat: 44, lng: -80 });
     const routeAnimationRef = useRef(null);
@@ -846,7 +879,7 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
 
         //抓地點座標
         const geocoder = new google.maps.Geocoder();
-        let address = '台大'; //先給個測試地點
+        //let address = '台大'; //先給個測試地點
 
 
         //顯示路線
@@ -881,66 +914,87 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
         })
 
         //嘗試console地點座標
-        geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status === 'OK') {
-                console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng())
-                // map.setCenter(results[0].geometry.location);
-                const search_marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-            } else {
-                console.log(status);
-            }
-        });
+        // geocoder.geocode({ 'address': address }, function (results, status) {
+        //     if (status === 'OK') {
+        //         console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng())
+        //         // map.setCenter(results[0].geometry.location);
+        //         const search_marker = new google.maps.Marker({
+        //             map: map,
+        //             position: results[0].geometry.location
+        //         });
+        //     } else {
+        //         console.log(status);
+        //     }
+        // });
 
-        //放置路線圖層
-        directionsDisplay.setMap(map);
-        //測試路線
-        const request = {
-            origin: usercenter,
-            destination: { lat: 25.037906, lng: 121.549781 },
-            travelMode: 'WALKING'
-        };
-        // 繪製路線
-        directionsService.route(request, function (result, status) {
-            if (status === 'OK') {
-                // 回傳路線上每個步驟的細節
-                //console.log(result.routes[0].legs[0].steps);
-                directionsDisplay.setDirections(result);
+        if (destination.lat) {
+            //放置路線圖層
+            directionsDisplay.setMap(map);
+            //測試路線
 
-                //拿出設定的路線重畫路線
-                const routePath = result.routes[0].overview_path
-                const lineSymbol = {
-                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                    scale: 5,
-                    strokeColor: "#393",
-                };
+            const request = {
+                origin: usercenter,
+                destination: destination,
+                travelMode: 'WALKING'
+            };
+            // 繪製目的地路線
+            directionsService.route(request, function (result, status) {
+                if (status === 'OK') {
+                    // 回傳路線上每個步驟的細節
+                    //console.log(result.routes[0].legs[0].steps);
+                    directionsDisplay.setDirections(result);
 
-                const line = new google.maps.Polyline({
-                    path: routePath,
-                    strokeColor: 'yellow',
-                    strokeWeight: 5,
-                    icons: [
-                        {
-                            icon: lineSymbol,
-                            offset: "100%",
-                        },
-                    ],
-                    map: map,
-                });
+                    //拿出設定的路線重畫路線
+                    const routePath = result.routes[0].overview_path
+                    const lineSymbol = {
+                        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                        scale: 5,
+                        strokeColor: "#393",
+                    };
 
-                animateArrow(line);
+                    const line = new google.maps.Polyline({
+                        path: routePath,
+                        strokeColor: 'yellow',
+                        strokeWeight: 5,
+                        icons: [
+                            {
+                                icon: lineSymbol,
+                                offset: "100%",
+                            },
+                        ],
+                        map: map,
+                    });
 
-
-
-            } else {
-                console.log(status);
-            }
-        });
+                    animateArrow(line);
 
 
 
+                } else {
+                    console.log(status);
+                }
+            });
+
+            //目的地地標
+
+
+            const search_marker = new google.maps.Marker({
+                map: map,
+                position: destination,
+                label: {
+                    text: '取餐地點',
+                    className: styles.userLabel,
+                },
+                icon: {
+                    url: '/buyforme/map/destination.svg',
+                    scaledSize: new window.google.maps.Size(40, 40),
+                    labelOrigin: new window.google.maps.Point(20, 60)
+                },
+                animation: window.google.maps.Animation.BOUNCE,
+            });
+        }
+
+
+        // -------------- 使用者本人位置與圖標 ----------------
 
         const random_character = random_user[Math.floor(random_user.length * Math.random())];
 
@@ -968,19 +1022,6 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
             maxWidth: 300,
         });
 
-        const setcenter = new google.maps.event.addListener(infowindow, "domready", () => {
-            const infoWindowElement = document.getElementById("chatbox"); // 取得 InfoWindow DOM 元素
-            if (infoWindowElement) {
-                const click_chat = infoWindowElement.addEventListener("click", () => {
-                    // 在這裡處理 click 事件
-                    console.log("InfoWindow clicked!");
-                    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=台灣台北市萬華區康定路190號&key=你ㄉ金鑰')
-                        .then(r => r.json())
-                        .then(obj => console.log(obj))
-                });
-            };
-        });
-
         //預設開啟使用者聊天訊息
         infowindow.open(map, userMarker);
 
@@ -990,8 +1031,68 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
         });
 
 
+        // -------------- 隨機角色位置與圖標 ----------------
 
-        const markers = []; // 存儲所有的 shopMarker
+
+        //洗牌用 直接洗掉原陣列就好
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        shuffleArray(random_message);
+        shuffleArray(random_position);
+
+
+        random_position.map((v, i) => {
+            if (Math.random() < 0.5) return;
+
+            const random_player = random_user[Math.floor(random_user.length * Math.random())];
+
+            const playerMarker = new window.google.maps.Marker({
+                position: v,
+                map: map,
+                icon: {
+                    url: '/buyforme/map/user_icon/' + random_player.img,
+                    scaledSize: new window.google.maps.Size(60, 60),
+                    labelOrigin: new window.google.maps.Point(30, 80)
+                },
+                label: {
+                    text: random_player.title,
+                    className: styles.userLabel
+                },
+                opacity: 1,
+            });
+
+
+            //使用者聊天框框
+            const infowindow = new google.maps.InfoWindow({
+                content: `<div id="chatbox" class=${styles.chatbox_message}>${random_message[i]}</div>`,
+                pixelOffset: new google.maps.Size(0, -30),
+                maxWidth: 300,
+            });
+
+            const open_chat_message = playerMarker.addListener('click', () => {
+                // 點擊打開使用者聊天訊息
+                infowindow.open(map, playerMarker);
+            });
+
+        })
+
+
+
+
+        // -------------- 建立店家位置與圖標 ----------------
+
+        //const markers = []; // 存儲所有的 shopMarker
+
+
+        // 僅建立一個 infowindow 點擊時才設定資訊
+        const shop_infowindow = new google.maps.InfoWindow({
+            content: '',
+            pixelOffset: new google.maps.Size(0, -30),
+            maxWidth: 600,
+        });
+
 
         data.map((v, i) => {
             const shopMarker = new window.google.maps.Marker({
@@ -1009,13 +1110,18 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
                 animation: window.google.maps.Animation.DROP,
             });
 
-            markers.push(shopMarker); // 將每個 shopMarker 存入 markers 陣列
+            //markers.push(shopMarker); // 將每個 shopMarker 存入 markers 陣列
 
-            const shop_infowindow = new google.maps.InfoWindow({
-                content: `
+            const shop_click = shopMarker.addListener('click', () => {
+                // 點擊 Marker 的事件處理程式
+                map.setCenter({ lat: Number(v.latitude), lng: Number(v.longitude) });
+                setSelectedMarker(v.shop);
+                
+                // 設定視窗內容
+                shop_infowindow.setContent(`
                 <div id="${v.shop}" class=${styles.shop_infowindow_title}>${v.shop}</div>
                 <div class=${styles.shop_infowindow_img_box}>
-                <div class=${styles.shop_infowindow_img} style="background-image:url('/28a8513919088d3328aaa40284c6b13e.png')"></div>
+                <div class=${styles.shop_infowindow_img} style="background-image:url(${process.env.API_SERVER}/img/res-img/0f15caf1-60a3-4825-92df-dd14853ec9d5.jpg)"></div>
                 </div>
                 <div class=${styles.shop_infowindow_tag_star}>
                 <div class=${styles.shop_infowindow_star}>
@@ -1041,36 +1147,21 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
                         .join('')
                     }
                 <botton class='btn btn-info ${styles.shop_infowindow_btn}' id="btn_${v.sid}">開團GO!<botton>
-                `,
-                pixelOffset: new google.maps.Size(0, -30),
-                maxWidth: 600,
-            });
-
-            //console.log(review_data.rows)
-
-
-
-
-            const shop_click = shopMarker.addListener('click', () => {
-                // 點擊 Marker 的事件處理程式
-                map.setCenter({ lat: Number(v.latitude), lng: Number(v.longitude) });
-                console.log(`${v.shop} Shop Marker 被點擊了`);
-                setSelectedMarker(v.shop);
-                //getreview();
-                // 在這裡可以執行其他操作或觸發其他函式
+                `);
                 shop_infowindow.open(map, shopMarker);
 
-                //設定事件
-                google.maps.event.addListener(shop_infowindow, "domready", () => {
-                    const shop_infowindowElement = document.getElementById(`btn_${v.sid}`); // 取得 InfoWindow DOM 元素
-                    if (shop_infowindowElement) {
-                        shop_infowindowElement.addEventListener("click", () => {
-                            // 在這裡處理 click 事件
-                            setOpenForm(true);
-                            setOpentargetstore(v.sid);
-                        });
-                    };
-                });
+
+            });
+            //設定事件
+            google.maps.event.addListener(shop_infowindow, "domready", () => {
+                const shop_infowindowElement = document.getElementById(`btn_${v.sid}`); // 取得 InfoWindow DOM 元素
+                if (shop_infowindowElement) {
+                    shop_infowindowElement.addEventListener("click", () => {
+                        // 在這裡處理 click 事件
+                        setOpenForm(true);
+                        setOpentargetstore(v.sid);
+                    });
+                };
             });
         });
 
@@ -1101,7 +1192,7 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
         //         });
         //     }
         // });
-        
+
 
         // 監聽地圖的縮放層級變化
         google.maps.event.addListener(map, "zoom_changed", function () {
@@ -1117,6 +1208,17 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
                     text: random_character.title,
                     className: styles.userLabel_small
                 });
+                if (destination.lat) {
+                    // search_marker.setIcon({
+                    //     url: '/buyforme/map/destination.svg',
+                    //     scaledSize: new window.google.maps.Size(20, 20),
+                    //     labelOrigin: new window.google.maps.Point(0, 40)
+                    // });
+                    search_marker.setLabel({
+                        text: '取餐地點',
+                        className: styles.userLabel_small
+                    });
+                }
             } else {                                                           //原本大小
                 userMarker.setIcon({
                     url: '/buyforme/map/user_icon/' + random_character.img,
@@ -1127,6 +1229,17 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
                     text: random_character.title,
                     className: styles.userLabel
                 });
+                if (destination.lat) {
+                    search_marker.setIcon({
+                        url: '/buyforme/map/destination.svg',
+                        scaledSize: new window.google.maps.Size(40, 40),
+                        labelOrigin: new window.google.maps.Point(20, 60)
+                    });
+                    search_marker.setLabel({
+                        text: '取餐地點',
+                        className: styles.userLabel
+                    });
+                }
             }
         });
 
@@ -1147,7 +1260,7 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
         })
 
 
-    }, [data, center, chat, mapcolor, usercenter]);
+    }, [data, center, chat, mapcolor, usercenter, destination]);
 
     // Use the DOM setInterval() function to change the offset of the symbol
     // at fixed intervals.
@@ -1164,13 +1277,6 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
             // console.log(count)
         }, 30);
 
-    }
-
-    const getreview = async () => {
-        const response = await fetch(process.env.API_SERVER + '/buyforme/review');
-        const data = await response.json();
-        console.log(data);
-        setReview(data.rows);
     }
 
     return <div id="map" className={styles.map_container} />;

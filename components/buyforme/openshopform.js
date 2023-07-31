@@ -4,12 +4,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputArea from '../common/input';
+import { TextField } from '@mui/material';
 import styles from '@/styles/buyforme/opensheet.module.css';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker, DatePicker } from '@mui/x-date-pickers';
 import Slider from '@mui/material/Slider';
 import dayjs from 'dayjs';
+import Btn from '../common/btn';
+import { useState } from 'react';
 
 
 
@@ -60,7 +63,7 @@ const mui_style = {
     width: '100%',
 }
 
-const slider_style ={
+const slider_style = {
     color: 'var(--sub-color)',
     '& .MuiSlider-valueLabel': {
         backgroundColor: 'var(--main-color)',
@@ -80,7 +83,7 @@ const slider_style ={
         fontSize: 'var(--h9)',
         fontFamily: 'var(--ff1)'
     },
-    '& .MuiSlider-valueLabelOpen': {
+    '& .MuiSlider-valueLabel.MuiSlider-valueLabelOpen': {
         backgroundColor: 'var(--main-color)',
         transform: 'translateY(0px) rotate(-45deg)',
         borderRadius: '50% 50% 50% 0px',
@@ -106,6 +109,16 @@ const marks = [
 ];
 
 export default function OpenShopForm({ openForm, handleopenFormClose, opentargetstore, data }) {
+
+
+    const [opensheet,setOpensheet] = useState({
+        "open_member_id":2,
+        "meet_time":"",
+        "meet_place":"台大",
+        "target_store":0,
+        "tip":0,
+        "open_status":0
+    });
 
     return (<>
 
@@ -160,9 +173,22 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                             </div>
                         </LocalizationProvider>
 
-                        <div style={{ width: '100%' }}>
-                            <InputArea fullWidth />
+                        <div className={styles.labels}>
+                            <TextField fullWidth sx={mui_style} label='面交地點'/>
                         </div>
+                        <div style={{ textAlign: 'center' }}>
+                            <Btn text='開團!' padding='5px 20px' sx={{ width: '100%' }} onClick={()=>{
+                                fetch(process.env.API_SERVER+'/buyforme/openforyou',{
+                                    method: 'POST',
+                                    body: JSON.stringify(opensheet),
+                                    headers:{'Content-Type':'application/json'},
+                                })
+                                .then(r=>r.json())
+                                .then(obj=>{
+                                console.log(JSON.stringify(obj, null, 4))})
+                            }}/>
+                        </div>
+
                     </DialogContent>
                 </>)
             })}

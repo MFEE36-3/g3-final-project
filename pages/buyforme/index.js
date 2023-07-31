@@ -130,6 +130,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
     const [openForm, setOpenForm] = useState(false);
     const [opentargetstore, setOpentargetstore] = useState(0);
     const [keyword, setKeyword] = useState('');
+    const [destination, setDestination] = useState({});
 
     const router = useRouter();
 
@@ -138,7 +139,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
         if (router.query.keyword) {
             setKeyword(router.query.keyword);
             setData(() => originaldata.filter(v => v.shop.includes(router.query.keyword)));
-        }else{
+        } else {
             setData(() => originaldata);
         }
     }, [router.query])
@@ -152,8 +153,14 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
         setOpenForm(false);
     };
 
+    function getLatlng(site) {
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${site}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`)
+            .then(r => r.json())
+            .then(obj => setDestination(obj.results[0].geometry.location));
+    };
+
     return (<>
-        <GoogleMapComponent data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} review_data={review_data} />
+        <GoogleMapComponent data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} review_data={review_data} destination={destination}/>
 
         <div className={styles.inputBox}>
             <TextField
@@ -163,16 +170,15 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
                 sx={search_input_style}
                 defaultValue={router.query.keyword ? router.query.keyword : ''}
                 value={keyword}
-                onChange={(e) => { 
-                    //if(e.key !== 'Enter') return;
-                    setKeyword(e.target.value); 
+                onChange={(e) => {
+                    setKeyword(e.target.value);
                 }}
                 onKeyUp={(e) => {
-                    if(e.key !== 'Enter') return;
+                    if (e.key !== 'Enter') return;
                     if (e.target.value === '') {
                         router.push('');
                     } else {
-                        router.push('?keyword='+e.target.value);
+                        router.push('?keyword=' + e.target.value);
                     }
                 }}
             />
@@ -185,7 +191,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
 
         <div className={checkbuyforme === false ? styles.buyforme_hint : styles.buyforme_hint_active}>
             目前揪團數：{openorder.filter((v) => {
-                if (Date.now() < new Date(v.meet_time)) return;
+                if (Date.now() > new Date(v.meet_time)) return;
                 return v
             }).length}
         </div>
@@ -219,7 +225,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
                                         <td>{v.nickname}</td>
                                         <td className={v.shop.length > 15 ? styles.overlength_td : ''}>{v.shop}</td>
                                         <td>{dayjs(v.meet_time).format('MM-DD HH:mm')}</td>
-                                        <td>{v.meet_place}</td>
+                                        <td className={styles.meet_place_td} onClick={()=>getLatlng(v.meet_place)}>{v.meet_place}</td>
                                         <td>{v.tip !== 0 ? v.tip : '免費'}</td>
                                         <td><Btn text='跟團go!' padding='5px 10px' fs='var(--h9)' sx={{ zIndex: 0 }} onClick={() => {
                                             setOpenbuyforme(true);
