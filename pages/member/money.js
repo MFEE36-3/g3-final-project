@@ -101,8 +101,8 @@ export default function Index() {
             <div className={styles2.area2}>
               <MemMoneyCard />
               <div className={styles2.text}>
-                加入尊榮會員，每天可獲得2張揪團9折優惠券 ( 限當天使用
-                )，商城商品全享9折，不定時贈送各種優惠券
+                加入尊榮會員，每天可獲得2張商城9折優惠券 ( 限當天使用
+                )，揪團免外送費，商城免運費
               </div>
             </div>
           </div>

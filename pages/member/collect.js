@@ -24,7 +24,7 @@ export default function Index() {
     if (str) {
       const obj = JSON.parse(str);
       const Authorization = 'Bearer ' + obj.token;
-      fetch(process.env.API_SERVER + '/member/article', {
+      fetch(process.env.API_SERVER + '/member/forumPost', {
         method: 'GET',
         headers: {
           Authorization,
@@ -40,7 +40,6 @@ export default function Index() {
 
   const MyList = list.map((v) => {
     return {
-      type: v.category,
       title: v.header,
       time: v.publishedTime?.substring(0, 10),
     };
@@ -148,12 +147,7 @@ export default function Index() {
             <div className={styles2.scroll}>
               {MyList.map((v) => {
                 return (
-                  <MemCollectBlog
-                    type={v.type}
-                    title={v.title}
-                    time={v.time}
-                    key={v4()}
-                  />
+                  <MemCollectBlog title={v.title} time={v.time} key={v4()} />
                 );
               })}
             </div>
