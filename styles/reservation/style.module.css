@@ -246,10 +246,31 @@
   font-size: var(--h6);
 }
 
+.togomain{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+.togocontent{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 22% 22% 22% 22%;
+  justify-content: space-evenly;
+  /* grid-template-rows: repeat(7, 20%); */
+}
+
 /* card樣式 */
 .card{
   /* width:21%; */
   height:350px;
+  margin-bottom: 5px;
+  border: none;
+}
+
+.card2{
+  /* width:21%; */
+  /* height:300px; */
   margin-bottom: 5px;
   border: none;
 }
@@ -280,11 +301,29 @@
   transition: opacity 0.3s ease-in;
 }
 
+.togocardtext{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  color: #d9d9d9;
+  font-size: var(--h7);
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  padding: 5px 10px;
+  transition: opacity 0.3s ease-in;
+}
+
 .carddiv:hover .cardimg {
-  filter: brightness(0.5) blur(2px);
+  filter: brightness(0.6) blur(2px);
 }
 
 .carddiv:hover .cardtext {
+  opacity: 1;
+}
+
+.carddiv:hover .togocardtext {
   opacity: 1;
 }
 
@@ -919,7 +958,7 @@
   transform: translate(-50%, -50%);
   opacity: 0;
   color: #d9d9d9;
-  font-size: var(--h4);
+  font-size: var(--h6);
   border: 1px solid #d9d9d9;
   border-radius: 15px;
   padding: 4px 8px;

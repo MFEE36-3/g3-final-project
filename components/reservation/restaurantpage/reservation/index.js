@@ -62,7 +62,7 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
 
           // 整理要送出的資訊為一個物件
           const reservationData = {
-            id: 66,
+            id: 1,
             shop_id: row.detail.sid,
             date: date,
             time: time,

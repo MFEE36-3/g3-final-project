@@ -2,27 +2,30 @@ import React from 'react'
 import togocards from '@/data/reservation/togocards.json'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import style from '@/styles/reservation/style.module.css'
+import Link from "next/link";
 
-export default function Products({category}) {
+export default function Products({ category }) {
 
     const filterData = togocards.datas.filter((v) => v.category === category);
     return (
         <>
-            <div className='d-flex justify-content-center'>
-                <div className="d-flex justify-content-start row">
+            <div className={style.togomain}>
+                <div className={style.togocontent}>
                     {filterData.map((v) => {
                         return (
                             <Card
-                                className="m-2 co1-4 px-0"
-                                style={{ width: '21%', border: 'none' }}
+                                className={`${style.card2}`}
                                 key={v.id}
                             >
-                                <Card.Img
-                                    variant="top"
-                                    src="../../reservation/respic.jpeg"
-                                    className="rounded-top-3"
-                                    alt=""
-                                />
+                                <div className={style.carddiv}>
+                                    <Card.Img
+                                        variant="top"
+                                        src="../../reservation/respic.jpeg"
+                                        className={`${style.cardimg}`}
+                                    />
+                                    <div className={style.togocardtext}>查看餐點</div>
+                                </div>
 
                                 <Card.Body>
                                     <Card.Title>{v.name}</Card.Title>
@@ -30,6 +33,7 @@ export default function Products({category}) {
                                     <div className="d-flex align-item-center justify-content-between">
                                         <Button
                                             style={{
+                                                width: '100%',
                                                 fontSize: '12px',
                                                 background: '#911010',
                                                 borderRadius: 20,
