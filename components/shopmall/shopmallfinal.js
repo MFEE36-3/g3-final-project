@@ -14,7 +14,7 @@ import styled from '@emotion/styled'
 export const Host = createContext()
 
 const initialState = {
-  host: "http://127.0.0.1:3002",
+  host: process.env.API_SERVER,
   // host: "http://192.168.50.169:8000",
   categories: {},
   items: [],
