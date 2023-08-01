@@ -194,8 +194,6 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
         if(!localStorage.getItem('auth')) return;
         const authData = JSON.parse(localStorage.getItem('auth'));
         setOpensheet((prev) => { return { ...prev, open_member_id: authData.sid } })
-        console.log(authData.sid);
-        console.log(opensheet);
 
     }, [openForm])
 
@@ -258,7 +256,7 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                         </div>
                         <div style={{ textAlign: 'center' }}>
                             <Btn text='開團!' padding='5px 20px' sx={{ width: '100%' }} onClick={() => {
-                                console.log(opensheet.open_member_id)
+
                                 if (opensheet.meet_place === "") {
                                     Swal.fire({
                                         title: '請檢查所有欄位都有填寫哦~',
@@ -290,7 +288,7 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                                 })
                                     .then(r => r.json())
                                     .then(obj => {
-                                        console.log(JSON.stringify(obj, null, 4))
+
                                         if(obj.result.affectedRows !== 0){
                                             Swal.fire({
                                                 title: '開團成功!',
