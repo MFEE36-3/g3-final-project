@@ -77,7 +77,7 @@ export default function Navbar() {
           priority
         ></Image>
       </div>
-      <Link href="#">
+      <Link href="/">
         <Image
           src={littletitle}
           className={styles.little_title}
@@ -86,7 +86,7 @@ export default function Navbar() {
           priority
         ></Image>
       </Link>
-      <Link href="#">
+      <Link href="/checkout">
         <FaShoppingCart className={styles.cart} />
       </Link>
 
@@ -159,7 +159,7 @@ export default function Navbar() {
           >
             <button
               className={
-                router_title === '/buyforme'
+                router_title.includes('/buyforme')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }
@@ -176,7 +176,7 @@ export default function Navbar() {
           <Link href="/reservation" className={styles.btn_outer_link}>
             <button
               className={
-                router_title === '/reservation'
+                router_title.includes('/reservation')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }
@@ -193,7 +193,7 @@ export default function Navbar() {
           <Link href="/shopmall" className={styles.btn_outer_link}>
             <button
               className={
-                router_title === '/shopmall'
+                router_title.includes('/shopmall')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }
@@ -210,7 +210,7 @@ export default function Navbar() {
           <Link href="/forum" className={styles.btn_outer_link}>
             <button
               className={
-                router_title === '/forum' || '/news'
+                router_title.includes('/forum') || router_title.includes('/news')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }

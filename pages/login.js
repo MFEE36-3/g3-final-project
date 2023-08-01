@@ -56,7 +56,7 @@ const Login = () => {
     const data = new FormData(event.currentTarget);
 
     //使用fetch方法，把FormData物件內的指定資料傳到後端
-    fetch(process.env.API_SERVER + '/memlogin', {
+    fetch(process.env.API_SERVER + '/member/login', {
       method: 'POST',
       body: JSON.stringify({
         account: data.get('email'),

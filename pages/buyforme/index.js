@@ -168,7 +168,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
                 variant="outlined"
                 placeholder='搜尋美食...'
                 sx={search_input_style}
-                defaultValue={router.query.keyword ? router.query.keyword : ''}
+                //defaultValue={router.query.keyword ? router.query.keyword : ''}
                 value={keyword}
                 onChange={(e) => {
                     setKeyword(e.target.value);
@@ -284,7 +284,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
             <CustomizedSwitches mapcolor={mapcolor} setMapcolor={setMapcolor} />
         </div>
 
-        <OpenShopForm openForm={openForm} handleopenFormClose={handleopenFormClose} opentargetstore={opentargetstore} data={data} />
+        <OpenShopForm openForm={openForm} handleopenFormClose={handleopenFormClose} opentargetstore={opentargetstore} data={data} setOpenorder={setOpenorder}/>
 
 
 

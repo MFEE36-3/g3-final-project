@@ -34,6 +34,7 @@ import scrollIntoView from 'scroll-into-view-if-needed';
 
 const Home = () => {
 
+  const router = useRouter();
 
   const [sausage_open, setSausage_Open] = useState(false);
   const [search, setSearch] = useState('');
@@ -221,7 +222,7 @@ const Home = () => {
 
         <div className={`${styles.forum}`} id='forum'>
 
-          <Image src={bgBubbleTea} className={styles.bgBubbleTea} />
+          <Image src={bgBubbleTea} className={styles.bgBubbleTea} alt='bgBubbleTea'/>
 
           <div className={styles.bgnews}>
             <div className={styles.newsC}></div>
