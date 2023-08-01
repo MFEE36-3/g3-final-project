@@ -18,12 +18,9 @@ export default function Area({ keyword, setKeyword }) {
           if (keyword.city === v.cityname) {
             return v.areaname
           }
-          // else{
-
-          // }
         })
 
-        console.log(tpedist)
+        // console.log(tpedist)
         setDdata(tpedist)
       }
   
@@ -33,7 +30,7 @@ export default function Area({ keyword, setKeyword }) {
 
 
   return (
-    <div className={style.mb20}>
+    <div className={`${style.mb20}`}>
       <p>地區</p>
       <hr />
       <div className={style.mb10}>

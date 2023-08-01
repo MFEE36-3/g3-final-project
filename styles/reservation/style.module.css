@@ -1,11 +1,19 @@
 .body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 .dflex {
   display: flex;
+}
+
+.leftdiv{
+  width: 16%;
+}
+
+.rightdiv{
+  width: 83%;
 }
 
 .fonttitle {
@@ -25,10 +33,163 @@
   padding-top: 50px;
 }
 
+/* top5餐廳 */
+.top5div{
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  overflow: hidden;
+}
+
+.top5row{
+  width: 1350px;
+  position: relative;
+  display:  flex;
+  overflow:hidden;
+}
+
+.top5card{
+  position: absolute;
+  width: 270px;
+  min-width: 270px;
+  border: none;
+  background:none;
+  transition: transform 0.3s ease;
+}
+
+.top5cardbody{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 100%;
+}
+
+.top5button{
+  width: 40px;
+  height: 40px;
+  margin: 0px 5px;
+  color: var(--main-color);
+}
+
+.top5button:hover{
+  color: var(--sub-color);
+}
+
+.top5name{
+  display: flex;
+  justify-content: center;
+  align-items:flex-end;
+  height: 100%;
+  margin: 0;
+}
+
+.top5star{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ecbd18;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+
+/* 首頁推薦餐廳區塊 */
+.main{
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.maincontent{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 21% 21% 21% 21%;
+  justify-content: space-evenly;
+}
+
+/* 餐廳頁------*/
+.infodiv{
+  width: 30%;
+}
+
+.reservationdiv{
+  width: 65%;
+}
+
+.infodetail{
+  display: flex;
+  padding: 10px 0px;
+  align-items: center;
+  text-align: center;
+}
+
+.iconstyle{
+  font-size: var(--h5);
+  margin-right: 10px;
+  color: #a8a8a8;
+}
+
+.buttonicon{
+  margin-right: 5px;
+}
+
+.openstyle{
+  color: rgb(56, 201, 56);
+}
+
+.closestyle{
+  color: red;
+}
+
+.map{
+  width: 300px;
+  height: 300px;
+  border: 0;
+  border-radius: 10px;
+}
+
+/* 選取日期時間 */
+.timerow{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.timeblock{
+  padding: 5px 20px;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.timeblockactive{
+  padding: 5px 20px;
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 10px;
+  border: none;
+}
+
+.timetext{
+  text-align: center;
+}
+
 /* 餐廳頁-餐廳名稱 */
 .restauranttitle {
   font-family: var(--ff1);
   font-size: var(--h3);
+}
+
+.restaurantsubtitle{
+  font-size: var(--h5);
+  color: var(--main-color);
 }
 
 /* 餐廳頁-詳細資訊 */
@@ -51,6 +212,7 @@
   width: 20%;
   margin-bottom: 10px;
 }
+
 
 /* 外帶頁-nav */
 .categorynav{
@@ -80,11 +242,69 @@
   color: white;
 }
 
-
 .categoryfont{
   font-size: var(--h6);
 }
 
+/* card樣式 */
+.card{
+  /* width:21%; */
+  height:350px;
+  margin-bottom: 5px;
+  border: none;
+}
+
+.carddiv{
+  width: 100%;
+  height: 60%;
+  border-radius: 15px 15px 0px 0px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardimg{
+  position: relative;
+}
+
+.cardtext{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  color: #d9d9d9;
+  font-size: var(--h4);
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  padding: 8px 16px;
+  transition: opacity 0.3s ease-in;
+}
+
+.carddiv:hover .cardimg {
+  filter: brightness(0.5) blur(2px);
+}
+
+.carddiv:hover .cardtext {
+  opacity: 1;
+}
+
+.cardheart{
+  color: #911010;
+}
+
+.cardheart:hover{
+  color: #911010;
+}
+
+.paginationbar{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sortdiv{
+  width: 10%;
+}
 
 /* ---------------------------------------- */
 
@@ -202,6 +422,11 @@
   height: 40vh;
 }
 
+.carouselitem{
+  object-fit: cover; 
+  overflow: hidden;
+}
+
 .selectarea {
   height: 100%;
   margin: 30px;
@@ -279,8 +504,13 @@
 /* 餐廳座位圖 */
 
 .svgicon:hover *{
-  fill: #911010;
+  cursor: pointer;
   }
+ 
+.svgactive *{
+  fill: var(--main-color);
+  cursor: pointer;
+}
 
 .svg6{
   position: absolute;
@@ -373,19 +603,48 @@
 }
 
 /* --------------------------------------------- */
+/* 查詢餐廳-輸入文字區塊 */
 .searchbar {
   position: absolute;
   display: flex;
   align-items: center;
   top: 50%;
   left: 50%;
-  width: 300px;
-  height: 50px;
+  width: 500px;
+  height: 80px;
   transform: translate(-50%, -50%);
-  background-color: #e1e0dd;
+  background-color: white;
+  border-radius: 40px;
+  border:3px solid var(--main-color);
+  /* box-shadow: 0 0 5px 5px white;  */
+  /* border: none; */
+}
+.searchinput{
+  width:100%;
+  height: 100%;
+  font-size: var(--h5);
+  border: none;
+  outline: none;
+}
+
+.rwdselected{
+  display: none;
+}
+
+/* 查詢條件-條件區塊 */
+.clearselect{
+  width:50%;
+  text-align: center;
+  background-color: #911010;
+  color: white;
   border-radius: 20px;
   border: none;
+  padding: 5px 10px;
 }
+
+
+
+/* --------------------------------------------- */
 
 .bordernone {
   border: none;
@@ -408,6 +667,226 @@
   margin-bottom: 10px;
 }
 
+.me5{
+  margin-right: 5px;
+}
+
 .mb20 {
   margin-bottom: 20px;
+}
+
+
+/* ----------------------RWD---------------------- */
+
+@media screen and (max-width: 391px) {
+  /* .topdiv{
+    position: relative;
+  } */
+  .carousel{
+    /* position: relative; */
+    width: 100%;
+    margin-top: 30px;
+    height: 20vh;
+  }
+
+  .carouselitem{
+    object-fit: cover; 
+    overflow: hidden;
+  }
+  .searchbar {
+    position: none;
+    display: flex;
+    align-items: center;
+    width: 70%;
+    height: 50px;
+    margin-top: 80px;
+    background-color: white;
+    border-radius: 40px;
+    border:3px solid var(--main-color);
+  }
+  .searchinput{
+    width:100%;
+    height: 100%;
+    font-size: var(--h5);
+    border: none;
+    outline: none;
+  }
+  .rwdselected{
+    display: block;
+    position: relative;
+    color: var(--main-color);
+    width: 45px;
+    height: 45px;
+    margin: 10px 10px;
+  }
+  
+  /* 查詢條件-條件區塊 */
+  .clearselect{
+    width:50%;
+    text-align: center;
+    background-color: #911010;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    padding: 5px 10px;
+  }
+
+  .rwdarea{
+    display: none;
+  }
+
+  .rightdiv{
+    width: 100%;
+  }
+
+
+  /* top5餐廳 ------------*/
+.top5div{
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  overflow: hidden;
+}
+
+.top5row{
+  width: 1350px;
+  position: relative;
+  display:  flex;
+  overflow:hidden;
+}
+
+.top5card{
+  position: absolute;
+  width: 135px;
+  min-width: 135px;
+  border: none;
+  background:none;
+  transition: transform 0.3s ease;
+}
+
+.top5cardbody{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 100%;
+  font-size: var(--h8);
+}
+
+.top5button{
+  width: 40px;
+  height: 40px;
+  margin: 0px 5px;
+  color: var(--main-color);
+}
+
+.top5button:hover{
+  color: var(--sub-color);
+}
+
+.top5name{
+  display: flex;
+  justify-content: center;
+  align-items:flex-end;
+  height: 100%;
+  margin: 0;
+  font-size: var(--h7);
+}
+
+.top5star{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ecbd18;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.contentdiv{
+  display: flex;
+  justify-content: center;
+}
+
+
+.fonttitle {
+    font-size: var(--h5);
+}
+
+.main{
+  width: 97%;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-evenly;
+  align-items: center;
+  /* margin: 20px; */
+}
+
+.maincontent{
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: 21% 21% 21% 21%;
+    justify-content: space-evenly;
+}
+
+/* card樣式 -----------*/
+.card{
+  width: 50%;
+  height:300px;
+  border: none;
+}
+
+.carddiv{
+  width: 100%;
+  height: 60%;
+  border-radius: 15px 15px 0px 0px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardimg{
+  position: relative;
+}
+
+.cardtext{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  color: #d9d9d9;
+  font-size: var(--h4);
+  border: 1px solid #d9d9d9;
+  border-radius: 15px;
+  padding: 4px 8px;
+  transition: opacity 0.3s ease-in;
+}
+
+.carddiv:hover .cardimg {
+  filter: brightness(0.5) blur(2px);
+}
+
+.carddiv:hover .cardtext {
+  opacity: 1;
+}
+
+.cardheart{
+  color: #911010;
+}
+
+.cardheart:hover{
+  color: #911010;
+}
+
+
+
+
+
+
+
 }

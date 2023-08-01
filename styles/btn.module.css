@@ -1,28 +1,22 @@
 .btn {
-    background: linear-gradient(45deg, var(--main-color) 100%, #FF8E53 0%);
-    border-radius: 45px;
-    border: 0;
-    box-shadow: 0 1px 3px 1px #b1b1b1;
+  background: linear-gradient(45deg, var(--main-color) 100%, #ff8e53 0%);
+  border-radius: 45px;
+  border: 0;
+  box-shadow: 0 1px 3px 1px #b1b1b1;
 }
 
 .btn:hover {
-    background: linear-gradient(45deg, var(--sub-color) 100%, #FF8E53 0%);
+  background: linear-gradient(45deg, var(--sub-color) 100%, #ff8e53 0%);
 }
-
 
 .btn_text {
-    color: white;
-    font-family: 'Zen Maru Gothic', sans-serif;
-    /* font-family: 'Mochiy Pop One', sans-serif; */
+  color: white;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  /* font-family: 'Mochiy Pop One', sans-serif; */
 }
 
-
-
-
-
-@media screen and (max-width: 390px) {
-
-    .btn_text {
-        font-size: var(--h10) !important;
-    }
+@media screen and (max-width: 391px) {
+  .btn_text {
+    font-size: var(--h10) !important;
+  }
 }

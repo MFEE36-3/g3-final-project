@@ -1,0 +1,45 @@
+.uploadImg {
+    background-color:rgb(237, 232, 202);
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.backGroundColor{
+    background-color: #FFE2E2;
+}
+
+@media (max-width:400px){
+    .addressDisplay {
+        /* display: flex; */
+        flex-direction: column;
+        /* color: red; */
+        /* padding: ; */
+        justify-content: center;
+    }
+
+    /* .addressDisplay>input {
+        padding-bottom: 10px;
+    }
+
+    .addressDisplay>div {
+        display: none;
+    } */
+
+    .openTimes {
+        /* display: flex; */
+        flex-direction: column;
+        /* justify-content: center; */
+    }
+
+    .openDays {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+    }
+
+}

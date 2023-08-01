@@ -21,21 +21,29 @@
 
 .inputBox {
     position: absolute;
-    top: 25px;
+    top: 26.4px;
     left: 120px;
     /* z-index: 1; */
-    background-color: rgba(255, 255, 255, 0.5)
+    background-color: rgba(255, 255, 255, 0.75)
 }
 
 .mapLabel {
     background-color: rgba(250, 179, 179, 0.75);
+    font-family: var(--ff1) !important;
+    font-size: var(--h7) !important;
+    color: var(--main-color) !important;
     border-radius: 10px;
     padding: 0px 10px;
     border: 3px solid var(--main-color);
+    transform: scale(0.7);
 }
 
 .userLabel {
     background-color: rgba(255, 179, 39, 0.75);
+    font-family: var(--ff1) !important;
+    font-size: var(--h7) !important;
+    color: rgba(255, 255, 255) !important;
+    text-shadow: 0 0 5px rgb(255, 119, 22);
     border-radius: 10px;
     padding: 0px 10px;
     border: 3px solid rgb(255, 119, 22);
@@ -62,6 +70,7 @@
     font-size: var(--h5);
     color: var(--main-color);
     font-family: var(--ff1);
+    background-color: white;
 }
 
 
@@ -170,7 +179,7 @@
     position: sticky;
     top: 0;
     vertical-align: middle;
-    color:var(--main-color);
+    color: var(--main-color);
     font-family: var(--ff1);
 }
 
@@ -200,9 +209,162 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height:100%;
+    height: 100%;
     width: 100%;
     background-color: rgba(250, 179, 179, 0.3);
     border-radius: 15px;
 }
 
+.chat_inputbtn {
+    font-size: var(--h2);
+    color: var(--main-color);
+    position: absolute;
+    bottom: 52px;
+    left: 180px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 0 5px #999;
+    cursor: pointer;
+}
+
+.chat_inputbtn:hover {
+    background-color: #e0e0e0;
+}
+
+.chat_inputbox {
+    position: absolute;
+    bottom: 51px;
+    left: 190px;
+    background-color: white;
+    padding: 5px 30px 5px 50px;
+    border-radius: 30px;
+}
+
+.switch_box {
+    position: absolute;
+    top: 10px;
+    right: 60px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 30px;
+    padding: 3px 0;
+}
+
+
+
+
+/* ---------chatbox_infowindow----------- */
+
+
+.chatbox_message {
+    margin-right: 20px;
+}
+
+
+
+
+/* ---------shop_infowindow----------- */
+
+.shop_infowindow_title {
+    font-size: var(--h3);
+    text-align: center;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 10px 10px 0 0;
+    padding-top: 10px;
+}
+
+.shop_infowindow_description {
+    font-size: var(--h6);
+    font-family: var(--ff3);
+    font-weight: 600;
+    padding: 10px 15px;
+    margin-bottom: 30px;
+    width: 530px;
+    background-color: var(--main-color);
+    color: white;
+}
+
+.shop_infowindow_img_box {
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    padding: 15px;
+    background-color: var(--main-color);
+}
+
+.shop_infowindow_img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+}
+
+.shop_infowindow_btn {
+    background-color: var(--main-color) !important;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: var(--h7);
+    font-family: var(--ff2);
+    margin: 10px 0 20px 72%;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgb(176, 176, 176);
+}
+
+.shop_infowindow_btn:hover {
+    background-color: var(--sub-color) !important;
+    color: white;
+}
+
+.shop_infowindow_tag_star {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: var(--main-color);
+    padding: 0 15px;
+}
+
+.shop_infowindow_tag {
+    background-color: var(--sub-color);
+    padding: 0 10px;
+    margin-left: 20px;
+    border-radius: 20px;
+}
+
+.shop_infowindow_star {
+    color: gold;
+    display: flex;
+    align-items: center;
+}
+
+.shop_infowindow_review_box {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    margin: 10px;
+    display: flex;
+}
+
+.shop_infowindow_review {
+    width: 400px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--main-color);
+}
+
+.shop_infowindow_review_img {
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 0 20px 10px 10px;
+}
+
+.star_img {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    margin-right: 5px;
+}

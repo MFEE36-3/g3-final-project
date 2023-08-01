@@ -59,13 +59,14 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
 
     const selectedDist = event.target.value;
     setKeyword({ ...keyword, dist: selectedDist })
-
-
-
+    
     const arrfoodtype = router.query.foodtype ? router.query.foodtype.split(',') : [];
     const strfoodtype = arrfoodtype.join();
 
     const strcity = router.query.city;
+    const slideval = router.query.price;
+    const numstar = router.query.star;
+    const searchkeyword = router.query.searchkeyword;
 
     const usp = new URLSearchParams();
     if (strfoodtype) {
@@ -74,21 +75,32 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
     if (strcity) {
       usp.set('city', strcity);
     }
-
     if (selectedDist && selectedDist.length !== 0) {
       usp.set('dist', selectedDist);
+    }
+    if(slideval) {
+      usp.set('price', slideval);
+    }
+    if (numstar){
+      usp.set('star', numstar);
+    }
+    if (searchkeyword) {
+      usp.set('searchkeyword', searchkeyword);
     }
 
     // 使用 toString() 將 URL 查詢參數轉換成字串
     const queryString = usp.toString();
 
     // 修改 router.push 部分
-    let url = '/reservation';
+    let url = '';
     if (queryString) {
       url += '?' + queryString.replaceAll('%2C', ',');
     }
 
-    router.push(url);
+    router.push({
+      pathname: router.pathname,
+      search: url
+    }, undefined, { scroll: false });
 
   };
 
@@ -104,7 +116,7 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
             id="demo-multiple-chip"
             disabled={keyword.city ? false : true}
             multiple
-            value={dist}
+            value={keyword.dist}
             onChange={handleChange}
             color="primary"
             input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
