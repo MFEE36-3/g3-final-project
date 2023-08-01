@@ -12,7 +12,7 @@ export default function Add() {
   // 文章新增函式
   const handleAddPost = async () => {
     try {
-      const response = await fetch('http://localhost:3002/forum/forum', {
+      const response = await fetch('http://localhost:3002/forum/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

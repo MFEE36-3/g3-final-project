@@ -19,7 +19,7 @@ export default function ArticleDetail() {
     console.log(query);
     const { rid } = query;
     if (rid) {
-      fetch(`http://localhost:3002/forum2/forum/${rid}`)
+      fetch(`http://localhost:3002/forum/forum/${rid}`)
         .then((r) => r.json())
         .then((data) => {
           console.log(data);

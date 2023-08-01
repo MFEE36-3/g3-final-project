@@ -38,16 +38,16 @@ export default function Detail() {
     const keyword = router.query.forum_keyword;
     console.log('Keyword:', keyword);
     setSearchKeyword(keyword || '');
-
     const usp = new URLSearchParams(router.query);
     console.log(usp.toString());
 
-    fetch(`http://localhost:3002/message?${usp.toString()}`)
+    fetch(`http://localhost:3002/forum/message?${usp.toString()}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
-        const sortedData = sortArticles(data.messages, sortOrder);
-        setArticles(sortedData);
+        console.log(data.messages);
+        console.log(articles);
+        // const sortedData = sortArticles(data.messages, sortOrder);
+        setArticles(data.messages);
       })
       .catch((error) => console.error('Error fetching data:', error));
     console.log(keyword);
