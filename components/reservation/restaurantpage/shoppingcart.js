@@ -50,15 +50,7 @@ export default function ShoppingCart() {
 
                                     <div className={style.shoppingcartbody2}>
                                         <div className={style.shoppingcartbody3}>
-                                            <button
-                                                className={style.cartbutton}
-                                                onClick={() => {
-                                                    setProducts(add(products, v.id))
-                                                }}
-                                            >
-                                                +
-                                            </button>
-                                            <div className={style.cartcount}>{v.count}</div>
+
                                             <button
                                                 className={style.cartbutton}
                                                 onClick={() => {
@@ -75,6 +67,18 @@ export default function ShoppingCart() {
                                             >
                                                 –
                                             </button>
+
+                                            <div className={style.cartcount}>{v.count}</div>
+
+                                            <button
+                                                className={style.cartbutton}
+                                                onClick={() => {
+                                                    setProducts(add(products, v.id))
+                                                }}
+                                            >
+                                                +
+                                            </button>
+
                                         </div>
                                         <div className={style.cartprice}>
                                             ${price}
@@ -92,7 +96,7 @@ export default function ShoppingCart() {
             <div>
                 <Button className={style.cartsendbutton}
                 >
-                    加入購物車
+                    送出結帳
                 </Button>
             </div>
 

@@ -24,17 +24,16 @@ const stylemodal = {
     boxShadow: 24,
     p: 4,
 };
+
 const Inputborder = styled.input`
   &:focus{
     outline:none
   }
 `
 
-
 export default function Products({ row, category }) {
 
     const [itemdeatil, setItemdeatil] = useState(null);
-    console.log(itemdeatil);
     const [open, setOpen] = useState(false);
     const [num, setNum] = useState(1);
     const [cart, setCart] = useLocalStorage("order", {})
@@ -81,8 +80,6 @@ export default function Products({ row, category }) {
     }
 
 
-
-
     return (
         <>
             <div className={style.togomain}>
@@ -104,7 +101,7 @@ export default function Products({ row, category }) {
                                 <div className='px-1 py-2'>
                                     <Card.Title>{v.food_title}</Card.Title>
                                     <Card.Text className='fs-xl-3 text-xl-danger'>${v.food_price}</Card.Text>
-                                    {/* <div className="d-flex align-item-center justify-content-between">
+                                    <div className="d-flex align-item-center justify-content-between">
                                         <Button
                                             style={{
                                                 width: '100%',
@@ -118,7 +115,7 @@ export default function Products({ row, category }) {
                                         >
                                             加入購物車
                                         </Button>
-                                    </div> */}
+                                    </div>
                                 </div>
                             </Card>
                         )

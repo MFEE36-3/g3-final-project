@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   /* box-sizing: border-box; */
+  position: relative;
 }
 
 .dflex {
@@ -365,8 +366,8 @@
 
 .carticon{
   position: absolute;
-  right: 0;
-  top: 300px;
+  right: 20px;
+  top: 800px;
 }
 
 .carttitle{
