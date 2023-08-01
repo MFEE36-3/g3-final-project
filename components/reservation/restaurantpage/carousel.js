@@ -10,7 +10,6 @@ export default function Rcarousel() {
                 <img
                     className="d-block w-100"
                     src="../../reservation/one.jpeg"
-                    alt="First slide"
                     style={{ objectFit: 'cover', overFlow: 'hidden' }}
                 />
             </Carousel.Item>
@@ -18,7 +17,6 @@ export default function Rcarousel() {
                 <img
                     className="d-block w-100"
                     src="http://localhost:3000/reservation/two.jpeg"
-                    alt="Second slide"
                     style={{ objectFit: 'cover', overFlow: 'hidden' }}
                 />
             </Carousel.Item>
@@ -26,7 +24,6 @@ export default function Rcarousel() {
                 <img
                     className="d-block w-100"
                     src="http://localhost:3000/reservation/three.jpeg"
-                    alt="Third slide"
                     style={{ objectFit: 'cover', overFlow: 'hidden' }}
                 />
             </Carousel.Item>
