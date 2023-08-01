@@ -23,7 +23,7 @@ export default function City({ keyword, setKeyword, cdata, setCdata }) {
   const router = useRouter();
 
   useEffect(() => {
-    fetch(`${process.env.API_SERVER}/restaurants/city`)
+    fetch(`${process.env.API_SERVER}/reservation/city`)
       .then(r => r.json())
       .then(data => {
         console.log(data)
@@ -52,14 +52,14 @@ export default function City({ keyword, setKeyword, cdata, setCdata }) {
     }
     if (strcity) {
       usp.set('city', strcity);
-    } 
+    }
     // if (arrdist) {
     //   usp.set('dist', '');
     // }
     if (slideval) {
       usp.set('price', slideval);
     }
-    if (numstar){
+    if (numstar) {
       usp.set('star', numstar);
     }
     if (searchkeyword) {

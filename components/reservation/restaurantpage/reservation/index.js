@@ -5,15 +5,15 @@ import SelectPerson from './person'
 import Memo from './memo';
 import Swal from 'sweetalert2';
 import style from '@/styles/reservation/style.module.css'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
+import AuthContext from '@/context/AuthContext';
 
 export default function Reservation({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo }) {
 
-  // const [isReservationSuccess, setIsReservationSuccess] = useState(false);
-
+  const { auth, setAuth, logout } = useContext(AuthContext);
   const router = useRouter();
-
+  // console.log(auth)
   // 當點擊「送出訂位」按鈕時，處理資料提交
   const handleSubmit = () => {
     if (seat) {
@@ -62,7 +62,7 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
 
           // 整理要送出的資訊為一個物件
           const reservationData = {
-            id: 1,
+            id: auth.sid, // ?
             shop_id: row.detail.sid,
             date: date,
             time: time,
@@ -77,7 +77,7 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
           const jsonData = JSON.stringify(reservationData);
 
           // 使用fetch將資料送至後端處理
-          fetch(`${process.env.API_SERVER}/search`, {
+          fetch(`${process.env.API_SERVER}/reservation`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -112,19 +112,6 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
 
 
   };
-
-
-  // // 使用 useEffect 監聽 isReservationSuccess 的變化
-  // useEffect(() => {
-  //   // 當訂位成功後，返回到原畫面
-  //   if (isReservationSuccess) {
-  //     // 在這裡處理返回原畫面的相關操作
-  //     // ...
-
-  //     // 返回原畫面後，重置訂位成功狀態為 false
-  //     setIsReservationSuccess(false);
-  //   }
-  // }, [isReservationSuccess]);
 
 
   return (

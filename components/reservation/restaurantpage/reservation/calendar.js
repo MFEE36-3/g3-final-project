@@ -21,7 +21,7 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
     };
 
     const isShopOpenOnDate = (date) => {
-        const dayOfWeek = date.day(); // 将 date 转换为 dayjs 对象，然后获取星期几的数值
+        const dayOfWeek = date.day(); // 將 date 轉換為 dayjs，取得星期幾的值
         const dayOfWeekString = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek];
         return shopOpenTimeInfo[dayOfWeekString] === 1;
     };
@@ -47,7 +47,7 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
         <div style={{ width: "600px", display: "flex", justifyContent: "center" }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateCalendar
-                    shouldDisableDate={shouldDisableDate} // 禁用小於等於今天的日期
+                    shouldDisableDate={shouldDisableDate} // 禁用日期
                     value={date}
                     onChange={handleDateChange}
                 />

@@ -9,7 +9,6 @@ import ShoppingBag from '@/public/reservation/shoppingbag.svg'
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 
-
 export default function RestaurantPage() {
 
     // const [show, setShow] = useState(false);
@@ -19,19 +18,19 @@ export default function RestaurantPage() {
     const [person, setPerson] = useState(''); //人數
     const [seat, setSeat] = useState(''); // 座位
     const [memo, setMemo] = useState('');
-    const [row, setRow] = useState({ detail: {}, booking: [], seattype: [] });
+    const [row, setRow] = useState({ detail: {}, booking: [], seattype: [], fooditems: [] });
     //{detail,booking,seattype}
     const router = useRouter();
 
     useEffect(() => {
         if (router.query.sid) {
-            fetch(process.env.API_SERVER + "/search/" + router.query.sid)
+            fetch(process.env.API_SERVER + "/reservation/" + router.query.sid)
                 .then((r) => r.json())
                 .then((data) => {
-                    console.log(data)
+                    // console.log(data)
                     if (data.success) {
                         // setRow(data.row);
-                        setRow({ detail: data.detail, booking: data.booking, seattype: data.seattype })
+                        setRow({ detail: data.detail, booking: data.booking, seattype: data.seattype, fooditems: data.fooditems })
                         // console.log(data.booking)
                     } else {
                     }
