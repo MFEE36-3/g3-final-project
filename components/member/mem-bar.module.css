@@ -1,6 +1,6 @@
 .memBar {
   width: 300px;
-  height: 1180px;
+  height: 1150px;
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -9,7 +9,7 @@
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 15px;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
   background-color: rgb(255, 255, 255);
   border: 2px solid #921010;
 }
@@ -27,7 +27,7 @@
   padding-bottom: 30px;
   margin-bottom: 30px;
   background-color: #fff3e7;
-  border: #921010 2px solid;
+  border: 3px solid #fcc8a1;
 }
 
 .memBtn {
@@ -53,7 +53,7 @@
   font-weight: 800;
   border-radius: 20px;
   background-color: #fff3e7;
-  border: #921010 2px solid;
+  border: 3px solid #fcc8a1;
 }
 
 .memImgBox {
@@ -71,8 +71,9 @@
   height: 150px;
   border-radius: 50%;
   background-color: rgb(203, 203, 203);
-  margin-top: 50px;
-  border: 2px solid #921010;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  border: 3px solid #fcc8a1;
 }
 
 .memEmail {
@@ -82,12 +83,12 @@
 
 .memText {
   color: #921010;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .achImg {
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   float: left;
   position: relative;
   overflow: visible;

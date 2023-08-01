@@ -56,7 +56,7 @@ const Login = () => {
     const data = new FormData(event.currentTarget);
 
     //使用fetch方法，把FormData物件內的指定資料傳到後端
-    fetch(process.env.API_SERVER + '/memlogin', {
+    fetch(process.env.API_SERVER + '/member/login', {
       method: 'POST',
       body: JSON.stringify({
         account: data.get('email'),
@@ -69,12 +69,13 @@ const Login = () => {
         if (data.success) {
           const obj = { ...data.data };
           localStorage.setItem('auth', JSON.stringify(obj));
+          Swal.fire('登入成功!', '', 'success');
+          setTimeout(() => {
+            router.back();
+          }, 2000);
         } else {
-          console.log(data.error || '帳密錯誤');
+          alert('帳號或密碼錯誤');
         }
-      })
-      .then(() => {
-        router.back();
       });
   };
 

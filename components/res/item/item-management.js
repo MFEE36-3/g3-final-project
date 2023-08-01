@@ -71,16 +71,6 @@ export default function Management() {
     setTakeContextInfo(resAuth)
   }
 
-  // useEffect(() => {
-  //   // takeInfo()
-  //   // getFoodItems();
-  //   // changeNumToString()
-  //   // console.log(takeContextInfo);
-  //   // console.log(resAuth);
-  // }, []);
-
-    // console.log(takeContextInfo)
-
     useEffect(() => {
       if(resAuth.account){
         takeInfo()
@@ -194,11 +184,6 @@ export default function Management() {
 
   }, [foodItem, foodCate])
 
-  // 進入商品編輯頁面
-  const editItem = () => {
-    router.push(`item-management`)
-  }
-
   // 刪除商品
   const confirmDeleteItem = () => {
     Swal.fire({
@@ -215,10 +200,6 @@ export default function Management() {
         Swal.fire('取消刪除', '', 'info')
       }
     })
-  }
-
-  const deleteItem = async () => {
-
   }
 
 

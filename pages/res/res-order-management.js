@@ -1,12 +1,14 @@
 import { useState } from "react";
+import layoutRes from '@/components/layout/layoutRes'
 import OrderManagement from "@/components/res/order-management.js/order-management";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BlankLayout from "@/components/layout/blank-layout";
 
-export default function ResOrderManagement(){
+const ResOrderManagement = () => {
     return <>
         <div>ResOrderManagement</div>
         <OrderManagement />
     </>
 }
-ResOrderManagement.getLayout = BlankLayout
+ResOrderManagement.getLayout = layoutRes
+export default ResOrderManagement

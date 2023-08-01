@@ -11,7 +11,6 @@ import {
   MemActivityList1,
   MemActivityList2,
   MemActivityList3,
-  MemActivityList4,
 } from '@/components/member/mem-activityList';
 import MemAllTitle from '@/components/member/mem-allTitle';
 import MemChangeBtn from '@/components/member/mem-changeBtn';
@@ -32,14 +31,6 @@ export default function Index() {
       store: '光復牛肉麵',
       time: '2023/07/11',
     },
-    {
-      id: 'A124',
-      name: 'q02',
-      money: '300',
-      content: '鼎極鮮奶茶',
-      store: '上宇林大安復興店',
-      time: '2023/07/11',
-    },
   ];
   const List2 = [
     {
@@ -49,34 +40,8 @@ export default function Index() {
       store: '鼎泰豐',
       time: '2023/07/11',
     },
-    {
-      id: 'v12345',
-      money: '300',
-      content: '極品泰國蝦',
-      store: '外雙溪釣蝦場',
-      time: '2023/07/11',
-    },
-    {
-      id: 'v12345',
-      money: '300',
-      content: '極品泰國蝦',
-      store: '外雙溪釣蝦場',
-      time: '2023/07/11',
-    },
   ];
   const List3 = [
-    {
-      id: 'v12345',
-      store: '鼎泰豐',
-      number: 5,
-      time: '2023/07/11 12:00',
-    },
-    {
-      id: 'v12345',
-      store: '鼎泰豐',
-      number: 5,
-      time: '2023/07/11 12:00',
-    },
     {
       id: 'v12345',
       store: '鼎泰豐',
@@ -92,6 +57,8 @@ export default function Index() {
       store: '三玖水餃',
       time: '2023/07/11',
     },
+  ];
+  const List5 = [
     {
       id: 'v12345',
       money: 300,
@@ -221,20 +188,16 @@ export default function Index() {
 
   const changeList = (e) => {
     switch (e.currentTarget.value) {
-      case '揪團':
-        setList(<MemActivityList1 List1={List1} />);
+      case '餐廳訂位':
+        setList(<MemActivityList1 List3={List3} />);
         break;
 
-      case '訂位':
-        setList(<MemActivityList2 List2={List2} />);
+      case '外帶餐點':
+        setList(<MemActivityList2 List4={List4} />);
         break;
 
-      case '外帶':
-        setList(<MemActivityList3 List3={List3} />);
-        break;
-
-      case '商城':
-        setList(<MemActivityList4 List4={List4} />);
+      case '商城訂單':
+        setList(<MemActivityList3 List4={List5} />);
         break;
     }
   };
@@ -259,14 +222,18 @@ export default function Index() {
     }
   };
 
-  // if (!auth.account) {
-  //   setTimeout(() => {
-  //     router.push('/');
-  //   }, 500);
-  //   return <MemNologin />;
-  // }
+  // 判斷式否登入，未登入跳轉回首頁
+  useEffect(() => {
+    if (!localStorage.getItem('auth')) {
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    }
+  }, []);
 
-  return (
+  return !auth.account ? (
+    <MemNologin />
+  ) : (
     <div className={styles.body}>
       <div className={styles.container}>
         <MemBar />
@@ -274,31 +241,24 @@ export default function Index() {
           <div className={styles2.actArea}>
             <MemAllTitle title={'進行中的活動'} />
             <div className={styles2.area1}>
-              <div className={styles.scroll}>
-                <div className={styles2.scrollArea}>
-                  <MemBtn
-                    text={'揪團'}
-                    onClick={changeList}
-                    className={styles2.scrollBtn}
-                  />
-                  <MemBtn
-                    text={'訂位'}
-                    onClick={changeList}
-                    className={styles2.scrollBtn}
-                  />
-                  <MemBtn
-                    text={'外帶'}
-                    onClick={changeList}
-                    className={styles2.scrollBtn}
-                  />
-                  <MemBtn
-                    text={'商城'}
-                    onClick={changeList}
-                    className={styles2.scrollBtn}
-                  />
-                </div>
-                {list}
+              <div className={styles2.scrollArea}>
+                <MemBtn
+                  text={'餐廳訂位'}
+                  onClick={changeList}
+                  className={styles2.scrollBtn}
+                />
+                <MemBtn
+                  text={'外帶餐點'}
+                  onClick={changeList}
+                  className={styles2.scrollBtn}
+                />
+                <MemBtn
+                  text={'商城訂單'}
+                  onClick={changeList}
+                  className={styles2.scrollBtn}
+                />
               </div>
+              <div className={styles2.scroll}>{list}</div>
             </div>
             <MemAllTitle title={'活動紀錄'} />
             <div className={styles2.area2}>
@@ -308,7 +268,8 @@ export default function Index() {
                 <MemBtn text={'外帶'} onClick={changeRecord} />
                 <MemBtn text={'商城'} onClick={changeRecord} />
               </div>
-              {record}
+
+              <div className={styles2.scroll2}>{record}</div>
             </div>
           </div>
         </div>

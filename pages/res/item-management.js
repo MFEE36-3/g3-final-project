@@ -1,12 +1,15 @@
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import layoutRes from '@/components/layout/layoutRes'
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import Management from "@/components/res/item/item-management";
 
-export default function ItemManagement(){
+const ItemManagement = () => {
     return <>
         <h2 className="container mt-3">商品編輯</h2>
         <Management />
     </>
 }
+ItemManagement.getLayout = layoutRes
+export default ItemManagement

@@ -1,48 +1,73 @@
 import React from 'react';
 import MemBar from '@/components/member/mem-bar';
-import MemIndexCard from '@/components/member/mem-indexCard';
+import MemMoneyCard from '@/components/member/mem-moneyCard';
 import styles from '@/styles/member/mem-body.module.css';
+import styles2 from '@/styles/member/mem-money.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Image from 'next/image';
-import { v4 } from 'uuid';
-import Link from 'next/link';
-import IconImg from '@/public/member/icon.png';
 import MemAllTitle from '@/components/member/mem-allTitle';
+import MemMoneyReocrdTable from '@/components/member/mem-moneyReocrdTable';
 import AuthContext from '@/context/AuthContext';
 import { useState, useEffect, useContext } from 'react';
 import MemNologin from '@/components/member/mem-nologin';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import Link from 'next/link';
+import IconImg from '@/public/member/icon.png';
 
 export default function Index() {
   const { auth } = useContext(AuthContext);
   const router = useRouter();
+  const [record, setRecord] = useState([]);
 
-  const actNow = [
-    { title: '揪團', content: '半筋半肉牛肉麵(大碗)  光復牛肉麵' },
-    { title: '揪團', content: '鼎極鮮奶茶  上宇林大安復興店' },
-    { title: '商城', content: '鮮蝦水餃x100  三玖水餃' },
-    { title: '商城', content: '韭菜水餃x100  三玖水餃' },
-    { title: '外帶', content: '排骨炒飯 + 巧克力鍋  鼎泰豐' },
-    { title: '外帶', content: '極品泰國蝦x35  外雙溪釣蝦場' },
-  ];
+  useEffect(() => {
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/member/walletRecord', {
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setRecord(data);
+        });
+    }
+  }, [auth]);
 
-  // if (!auth.account) {
-  //   setTimeout(() => {
-  //     router.push('/');
-  //   }, 500);
-  //   return <MemNologin />;
-  // }
+  const rows = record.map((v) => {
+    return {
+      content: v.content,
+      money: v.amount,
+      time: v.add_time?.substring(0, 10),
+    };
+  });
 
-  return (
+  const totalMoney = rows.reduce((total, item) => total + item.money, 0);
+
+  // 判斷式否登入，未登入跳轉回首頁
+  useEffect(() => {
+    if (!localStorage.getItem('auth')) {
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    }
+  }, []);
+
+  return !auth.account ? (
+    <MemNologin />
+  ) : (
     <div className={styles.body}>
       <div className={styles.container}>
         <MemBar />
         <div className={styles.rightArea}>
-          <div className={styles.flex}>
+          <div className={styles2.area0}>
             <div className={styles.package}>
               <div className={styles.flex2}>
-                <div>我的錢包</div>
-                <div>帳號:{auth?.account}</div>
+                <div>食GoEat錢包</div>
+                <div>帳號 : {auth?.account}</div>
               </div>
 
               <div className={styles.packageMoney}>
@@ -52,57 +77,40 @@ export default function Index() {
                   alt=""
                   className={styles.packageImg}
                 />
-                NT$ {auth?.wallet}
+                NT$ {totalMoney}
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'end' }}>
-                <Link href={'./member/money'}>
+              <div className={styles.packDown}>
+                <input className={styles.inputArea}></input>
+                <Link href={''}>
                   <button className={styles.packageBtn}>儲值+</button>
                 </Link>
               </div>
             </div>
-            <Image
-              src="/member/cookie.png"
-              width={250}
-              height={250}
-              alt=""
-              className={styles.imgRWD1}
-            />
-            <Image
-              src="/member/cookie.png"
-              width={250}
-              height={250}
-              alt=""
-              className={styles.imgRWD2}
-            />
-          </div>
 
-          <div>
-            <div className={styles.carousel}>
-              <MemAllTitle title={'進行中的活動'} />
-              <div className={styles.scroll2}>
-                {actNow.map((v) => {
-                  return (
-                    <>
-                      <MemIndexCard
-                        title={v.title}
-                        content={v.content}
-                        key={v4()}
-                      />
-                    </>
-                  );
-                })}
-                {actNow.map((v) => {
-                  return (
-                    <>
-                      <MemIndexCard
-                        title={v.title}
-                        content={v.content}
-                        key={v4()}
-                      />
-                    </>
-                  );
-                })}
+            <div className={styles2.imgArea}>
+              <div className={styles2.imgText}>
+                {auth.level === 1
+                  ? '歡迎加入食goEat會員享更多優惠'
+                  : '您的尊榮會員還有 21 天到期'}
+              </div>
+            </div>
+          </div>
+          <div className={styles2.levelArea}>
+            <MemAllTitle title={'會員升級'} />
+            <div className={styles2.area2}>
+              <MemMoneyCard />
+              <div className={styles2.text}>
+                加入尊榮會員，每天可獲得2張揪團9折優惠券 ( 限當天使用
+                )，商城商品全享9折，不定時贈送各種優惠券
+              </div>
+            </div>
+          </div>
+          <div className={styles2.recordArea}>
+            <MemAllTitle title={'儲值紀錄'} />
+            <div className={styles2.area3}>
+              <div className={styles2.recordBox}>
+                <MemMoneyReocrdTable rows={rows} />
               </div>
             </div>
           </div>

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import { Cart } from '@/components/checkout/CheckOutFinal'
-import Swal from 'sweetalert2'
 import { styled } from 'styled-components';
 const Cusinput = styled.input`
     background:transparent;
@@ -35,9 +34,9 @@ export default function CheckOutCounter({itemId, amount}) {
         <span onClick={()=>{
             minus(i)
             }}
-        className='fs-2 ms-1' style={{ cursor: 'pointer' }}>-</span>
-        <Cusinput type='text' value={amount} className='mx-2 w-25 border-0 text-center fs-4 rounded-2' onChange={()=>{}} readOnly></Cusinput>
-        <span onClick={()=>(plus(i))} className='fs-2 me-1' style={{ cursor: 'pointer' }}>+</span>
+        className='fs-2 me-1' style={{ cursor: 'pointer' }}>-</span>
+        <Cusinput type='text' value={amount} className='mx-2 w-50 border-0 text-center fs-4 rounded-2 text-' onChange={()=>{}} readOnly></Cusinput>
+        <span onClick={()=>(plus(i))} className='fs-3 ms-1' style={{ cursor: 'pointer' }}>+</span>
     </div>
   )
 }

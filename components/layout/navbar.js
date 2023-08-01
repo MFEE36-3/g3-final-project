@@ -25,9 +25,9 @@ export default function Navbar() {
   //     console.log(e.target.classList);
   // }
 
-  const router_title = '';
   const router = useRouter();
 
+  const [router_title, setRouter_title] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [first, setFirst] = useState(false);
@@ -41,9 +41,16 @@ export default function Navbar() {
   const islogout = () => {
     logout();
     setIsLogin(false);
-    router.push('/');
-    // console.log(isLogin);
+    setTimeout(() => {
+      router.push('/');
+    }, 2000);
   };
+
+
+  useEffect(() => {
+    setRouter_title(router.asPath);
+  }, [router.asPath])
+
 
   useEffect(() => {
     setFirst(true);
@@ -71,7 +78,7 @@ export default function Navbar() {
           priority
         ></Image>
       </div>
-      <Link href="#">
+      <Link href="/">
         <Image
           src={littletitle}
           className={styles.little_title}
@@ -80,7 +87,7 @@ export default function Navbar() {
           priority
         ></Image>
       </Link>
-      <Link href="#">
+      <Link href="/checkout">
         <FaShoppingCart className={styles.cart} />
       </Link>
 
@@ -148,12 +155,12 @@ export default function Navbar() {
         ></Image>
         <div className={styles.btn_right_container}>
           <Link
-            href="#"
+            href="/buyforme"
             className={`${styles.btn_outer_link} ${styles.btn_hamburger}`}
           >
             <button
               className={
-                router_title === 'buyforme'
+                router_title.includes('/buyforme')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }
@@ -167,10 +174,10 @@ export default function Navbar() {
               <p className={styles.btn_text}>順路買買</p>
             </button>
           </Link>
-          <Link href="#" className={styles.btn_outer_link}>
+          <Link href="/reservation" className={styles.btn_outer_link}>
             <button
               className={
-                router_title === 'reservation-togo'
+                router_title.includes('/reservation')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }
@@ -184,10 +191,10 @@ export default function Navbar() {
               <p className={styles.btn_text}>訂位/外帶</p>
             </button>
           </Link>
-          <Link href="#" className={styles.btn_outer_link}>
+          <Link href="/shopmall" className={styles.btn_outer_link}>
             <button
               className={
-                router_title === 'shopping-mall'
+                router_title.includes('/shopmall')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }
@@ -201,10 +208,10 @@ export default function Navbar() {
               <p className={styles.btn_text}>美食商城</p>
             </button>
           </Link>
-          <Link href="#" className={styles.btn_outer_link}>
+          <Link href="/forum" className={styles.btn_outer_link}>
             <button
               className={
-                router_title === 'forum'
+                router_title.includes('/forum') || router_title.includes('/news')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }

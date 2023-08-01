@@ -1,3 +1,15 @@
 .tableBackGround {
     background-color: #F2F0E7;
 }
+
+.orderShow_hidden {
+    height: 100px;
+    /* visibility: hidden; */
+    overflow: hidden;
+}
+
+.orderShow_show {
+    height: 100%;
+    visibility: visible;
+    overflow: visible;
+}

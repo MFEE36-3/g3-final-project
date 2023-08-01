@@ -195,18 +195,6 @@ export default function RegisterForm() {
 
     }, [city, area, areaOptions, pickArea, shop, switchTable, showImg, openDays, showImg, resCate,]);
 
-
-    // test google api
-    // const testGoogleAPI = () => {
-    //     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=台灣${shop.city}${shop.area}${shop.fulladdress1}&key=AIzaSyBcRKBsOJ9t8gpHAfAC_ZbY4eNTyDlBlMQ`)
-    //     .then(r => r.json())
-    //     .then(obj => {
-    //         console.log(obj)
-    //         const newShop = {...shop, latitude:obj.results[0].geometry.location.lat, longitude:obj.results[0].geometry.location.lng}
-    //         setShop(newShop)
-    //     })
-    // }
-
     const testGoogleAPI = () => {
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=台灣${shop.city}${shop.area}${shop.fulladdress1}&key=AIzaSyBcRKBsOJ9t8gpHAfAC_ZbY4eNTyDlBlMQ`)
           .then((r) => r.json())
@@ -229,14 +217,6 @@ export default function RegisterForm() {
             console.error('獲取數據時出錯：', error);
           });
       };
-      
-
-    // 用useEffect在fulladdress1建立後拿到經緯度
-    // useEffect(()=>{
-    //     if(shop.fulladdress1){
-    //         testGoogleAPI()
-    //     }
-    // },[shop.fulladdress1])
 
     // 驗證表單:先建立error清單
     const originErrors = { name: '', phone: '', account: '', password: '', password2: '', owner: '', description: '', avg_consumption: '', fulladdress: '', open_time: '', close_time: '', open_days: '' }
@@ -317,7 +297,7 @@ export default function RegisterForm() {
                 if (result.isConfirmed) {
                     Swal.fire('成功送出!', '', '確定')
                     testGoogleAPI()
-                    fetch('http://localhost:3003/res/res-register-form', {
+                    fetch('http://localhost:3002/res/res-register-form', {
                         method: 'POST',
                         body: JSON.stringify(shop),
                         headers: {

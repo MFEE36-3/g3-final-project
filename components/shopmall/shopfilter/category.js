@@ -35,7 +35,7 @@ export default function Category() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${host}/api/category`);
+      const response = await fetch(`${host}/ecshop/category`);
       const { data } = await response.json();
       const initialCategories = data.reduce((acc, curr) => {
         const { cate_id, cate_name } = curr;

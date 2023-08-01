@@ -37,7 +37,7 @@ const actions = [
                 <div className={styles.iconText}>美食商城</div>
             </div>,
         name: '美食商城',
-        router: '/shopping-mall',
+        router: '/shopmall',
     },
     {
         icon:
@@ -46,7 +46,7 @@ const actions = [
                 <div className={styles.iconText}>訂位/外帶</div>
             </div>,
         name: '訂位/外帶',
-        router: '/shopping-mall',
+        router: '/reservation',
     },
     {
         icon:
@@ -97,7 +97,7 @@ export default function OpenIconSpeedDial() {
                             width: 100,
                             //backgroundColor: 'var(--sub-color)'
                         }}
-                        onClick={() => { router.push('/') }}
+                        onClick={() => { router.push(action.router) }}
                     />
                 ))}
             </SpeedDial>
