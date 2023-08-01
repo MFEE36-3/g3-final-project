@@ -46,7 +46,7 @@ export default function Top5() {
 
         <div className={style.top5row}>
           {data.map((v) => {
-            const { sid, photo, shop, rating } = v;
+            const { sid, removeBackgroundImage, shop, rating } = v;
             return (
               <Card
                 key={sid}
@@ -54,7 +54,7 @@ export default function Top5() {
                 style={{ transform: `translateX(${position}px)` }}
               >
                 <Image src={Crown} className='position-absolute top-0 start-0 ' alt="" />
-                <Card.Img src={`${process.env.API_SERVER}/img/res-img/${photo}`} className='position-relative pt-5' alt="" />
+                <Card.Img src={`${process.env.API_SERVER}/img/res-img/${removeBackgroundImage}`} className='position-relative pt-5' alt="" />
                 <Card.Body className={style.top5cardbody}>
                   <div className={style.top5star}>
                     <div className={style.me5}>{rating}</div>

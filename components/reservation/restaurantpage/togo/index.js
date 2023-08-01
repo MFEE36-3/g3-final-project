@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 export default function Togo({ row }) {
 
-    const [category, setCategory] = useState(0)
+    const [category, setCategory] = useState(100)
     const [show, setShow] = useState(false);
 
     //購物車Offcanvas
