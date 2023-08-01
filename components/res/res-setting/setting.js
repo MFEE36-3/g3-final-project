@@ -48,7 +48,7 @@ export default function RegisterForm() {
           password2: '',
           owner: data.owner,
           res_cate: data.category,
-          photo: showImg,
+          photo: data.photo,
           description: data.res_desc,
           avg_consumption: data.avg_consumption,
           fulladdress: '',
@@ -56,13 +56,13 @@ export default function RegisterForm() {
           open_time: data.open_time,
           close_time: data.close_time,
           open_days: [
-            data.Monday,
-            data.Tuesday,
-            data.Wednesday,
-            data.Thursday,
-            data.Friday,
-            data.Saturday,
-            data.Sunday,
+            data.Monday == 1 ? '星期一':'',
+            data.Tuesday == 1 ? '星期二':'',
+            data.Wednesday == 1 ? '星期三':'',
+            data.Thursday == 1 ? '星期四':'',
+            data.Friday == 1 ? '星期五':'',
+            data.Saturday == 1 ? '星期六':'',
+            data.Sunday == 1 ? '星期日':'',
           ],
           table_number: data.seats,
           latitude: '',
@@ -73,6 +73,7 @@ export default function RegisterForm() {
   }
 
   const [showImg, setShowImg] = useState('')
+  const oldImg = `http://localhost:3002/img/shops/`
   const imgPreview = `http://localhost:3003/img/`
   const previewImg = async (e) => {
     e.preventDefault()
@@ -131,13 +132,6 @@ export default function RegisterForm() {
 
   }, [shop]);
 
-  // useEffect(() => {
-  //   if (resAuth.account && !isShopDataFetched) {
-  //     getShopData();
-  //     console.log(shopRef.current); // 取得最新的 shop 值
-  //   }
-  // }, [resAuth, isShopDataFetched, shopRef]);
-
   const [testShop, setTestShop] = useState({
     name: '測試用自助餐店',
     phone: '0913654987',
@@ -178,6 +172,10 @@ export default function RegisterForm() {
   const handleShowImg = () => {
     setShop({ ...shop, photo: showImg })
   }
+
+  useEffect(() => {
+    handleShowImg()
+  }, [showImg])
 
   const handleChange = (e) => {
     const newShop = { ...shop, [e.target.name]: e.target.value };
@@ -263,7 +261,7 @@ export default function RegisterForm() {
 
   // handleShowImg()
 
-  // }, [city, area, areaOptions, pickArea, switchTable, showImg, openDays, showImg, resCate]);
+  // }, [city, area, areaOptions, pickArea, switchTable, showImg, openDays, resCate]);
 
   // useEffect(() => {
   //   areas()
@@ -598,7 +596,7 @@ export default function RegisterForm() {
                       setResCate(e.target.value);
                       setShop({ ...shop, res_cate: e.target.value });
                     }}
-                    // defaultValue={shop.res_cate}
+                  // defaultValue={shop.res_cate}
                   >
                     <option value={``}>---請選擇餐廳分類---</option>
                     {res_cateOptions.map((v, i) => {
@@ -613,9 +611,12 @@ export default function RegisterForm() {
                     <div htmlFor="res_photo" className="form-label mb-3"></div>
 
                     <div className='d-flex flex-column mb-3'>
-                      {showImg == false ? (<div htmlFor="res_photo" className={`${styles.uploadImg} me-3`}>
-                        商家圖片:
-                      </div>) : (
+                      {showImg == false ? (
+                        <img
+                          src={`${oldImg + shop.photo}`}
+                          style={{ height: '300px', width: '300px', overflow: 'static' }}
+                          alt="" />
+                      ) : (
                         <div
                           htmlFor="res_photo"
                           className={`${styles.uploadImg} me-3`}
@@ -641,24 +642,27 @@ export default function RegisterForm() {
                 <div className='address mx-5 fw-bold mt-3'>請輸入完整地址:</div>
                 <div className={`d-flex justify-content-between mt-1 col-xxl-3 col-sm-6 mx-5 ${styles.addressDisplay}`}
                 >
-                  <select name='city' value={city} onChange={areas}
+                  <select name='city' value={shop.city} onChange={areas}
                     className='me-1 form-select col-3'>
                     <option value=''>---請選擇城市---</option>
                     {cityOptions.map((v, i) => {
                       return <option key={i} value={v}>{v}</option>
                     })}
                   </select>
-                  <div className={`d-flex align-items-center me-1  
-                                    ${styles.hideDash}`}>-</div>
-                  <select name='area' value={pickArea} onChange={(e) => {
-                    setPickArea(e.target.value)
-                    setShop({ ...shop, area: e.target.value })
-                  }}
+                  <div className={`d-flex align-items-center me-1 ${styles.hideDash}`}>-</div>
+
+                  <select
+                    name='area'
+                    value={shop.area}
+                    onChange={(e) => {
+                      setPickArea(e.target.value);
+                      setShop({ ...shop, area: e.target.value });
+                    }}
                     className='form-select col-3'
                   >
                     <option value=''>---請選擇鄉鎮---</option>
                     {area.map((v, i) => {
-                      return <option key={i} value={v}>{v}</option>
+                      return <option key={i} value={v}>{v}</option>;
                     })}
                   </select>
 
@@ -674,7 +678,7 @@ export default function RegisterForm() {
                         id="fulladdress"
                         placeholder="請填入完整地址"
                         name='fulladdress'
-                        value={city + pickArea}
+                        value={shop.city + shop.area}
                         onChange={handleChange}
                       />
                       <div className='mx-2'>-</div>
@@ -742,12 +746,13 @@ export default function RegisterForm() {
 
                     <div className="d-flex justify-content-between mt-2">
                       {openDayOptions.map((v, i) => {
-                        return <label key={i} className={`me-4 ${styles.openDays}`} >
+                        return <label key={i} className={`me-4 ${styles.openDays}`}>
                           <input
                             className=''
                             type='checkbox'
                             value={v}
                             checked={shop.open_days.includes(v)}
+                            // checked={shop.open_days[i] == 1 ? true : false}
                             onChange={handleOpenDays}
                           />{v}
                         </label>

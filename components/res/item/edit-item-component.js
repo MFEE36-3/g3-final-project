@@ -52,7 +52,6 @@ export default function AddNewItem() {
   const [getImg, setGetImg] = useState(null)
   const fileUrl = 'http://localhost:3003/previewImg'
   const imgLink = 'http://localhost:3003/img/'
-
   const previewImg = async (e) => {
     e.preventDefault();
     // const fd = new FormData(e.target); // 直接使用 event.target 作為參數
