@@ -8,7 +8,7 @@ import TogoDateTime from './togodatetime';
 // import ShoppingBag from '@/public/reservation/shoppingbag.svg'
 // import Image from 'next/image';
 
-export default function Togo({ row }) {
+export default function Togo({ row, shoppingCart, setShoppingCart }) {
 
     const [category, setCategory] = useState(100)
     // const [show, setShow] = useState(false);
@@ -37,7 +37,7 @@ export default function Togo({ row }) {
             </div>
 
             <CategoryDiv category={category} handleCategory={handleCategory} />
-            <Products category={category} setCategory={setCategory} row={row} />
+            <Products category={category} setCategory={setCategory} row={row} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />
         </>
     )
 }

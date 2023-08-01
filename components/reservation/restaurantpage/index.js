@@ -5,7 +5,7 @@ import style from '@/styles/reservation/style.module.css'
 import Togo from './togo'
 
 
-export default function ReservationPage({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo }) {
+export default function ReservationPage({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo, shoppingCart, setShoppingCart }) {
 
     const [page, setPage] = useState('訂位');
 
@@ -16,7 +16,7 @@ export default function ReservationPage({ row, date, setDate, time, setTime, per
                     <ToggleButtonGroup page={page} setPage={setPage} setDate={setDate} setTime={setTime} setPerson={setPerson} setSeat={setSeat} />
                 </div>
                 {page === '訂位' ? <Reservation row={row} date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo} />
-                    : <Togo row={row} />}
+                    : <Togo row={row} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />}
             </div>
         </>
     )

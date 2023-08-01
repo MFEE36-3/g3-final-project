@@ -54,7 +54,9 @@ export default function RestaurantPage() {
 
                         <div className={style.reservationdiv}>
                             <ReservationPage row={row} date={date} setDate={setDate} time={time} setTime={setTime}
-                                person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo} />
+                                person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo}
+                                shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
+                            />
                         </div>
                     </div>
                 </div>

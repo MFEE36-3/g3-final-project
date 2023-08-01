@@ -31,7 +31,7 @@ const Inputborder = styled.input`
   }
 `
 
-export default function Products({ row, category }) {
+export default function Products({ row, category, shoppingCart, setShoppingCart }) {
 
     const [itemdeatil, setItemdeatil] = useState(null);
     const [open, setOpen] = useState(false);
@@ -79,6 +79,32 @@ export default function Products({ row, category }) {
         });
     }
 
+    // 將選中的商品資訊存儲在狀態中
+    const handleAddToCart = (item) => {
+        // 檢查購物車中是否已有該商品
+        if (item.food_id in shoppingCart) {
+            // 若有則更新數量
+            setShoppingCart(prevCart => ({
+                ...prevCart,
+                [item.food_id]: {
+                    ...prevCart[item.food_id],
+                    amount: (prevCart[item.food_id].amount || 0) + num,
+                },
+            }));
+        } else {
+            // 若無則新增該商品到購物車，並初始化數量為 num
+            setShoppingCart(prevCart => ({
+                ...prevCart,
+                [item.food_id]: {
+                    ...item,
+                    amount: num,
+                },
+            }));
+        }
+        // 重置商品數量
+        setNum(1);
+        console.log(shoppingCart);
+    };
 
     return (
         <>
@@ -112,6 +138,7 @@ export default function Products({ row, category }) {
                                                 color: 'white',
                                                 padding: '5px',
                                             }}
+                                            onClick={() => handleAddToCart(v)}
                                         >
                                             加入購物車
                                         </Button>
@@ -161,6 +188,7 @@ export default function Products({ row, category }) {
                     </Box>
                 </Modal>
                 }
+
             </div>
         </>
     )

@@ -3,13 +3,15 @@ import style from '@/styles/reservation/style.module.css'
 import { Button } from 'react-bootstrap';
 import { BsTrash } from "react-icons/bs";
 
-export default function ShoppingCart() {
+export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
 
-    const shoppingfood = [
-        { id: 1, name: "泰式打拋豬肉", price: 290, count: 5 },
-        { id: 2, name: "月亮蝦餅", price: 220, count: 2 }
-    ]
-    const [products, setProducts] = useState(shoppingfood)
+    const [products, setProducts] = useState(Object.values(shoppingCart)); // 使用 Object.values() 取得購物車商品陣列
+
+    // const shoppingfood = [
+    //     { id: 1, name: "泰式打拋豬肉", price: 290, count: 5 },
+    //     { id: 2, name: "月亮蝦餅", price: 220, count: 2 }
+    // ]
+    // const [products, setProducts] = useState(shoppingfood)
 
     const add = (products, id) => {
         return products.map((v) => {
@@ -34,17 +36,16 @@ export default function ShoppingCart() {
         <>
             {
                 products.map((v) => {
-                    const { id, name, price } = v;
                     return (
                         <>
-                            <div key={id} className={style.shoppingcartdiv}>
+                            <div key={v.food_id} className={style.shoppingcartdiv}>
 
                                 <div>
-                                    <img src="../../reservation/foodpic.png" className={style.cartimage}></img>
+                                    <img src={`${process.env.API_SERVER}/img/res-img/${v.food_img}`} className={style.cartimage}></img>
                                 </div>
                                 <div className={style.shoppingcartbody1}>
                                     <div className={style.shoppingcartbody2}>
-                                        <div>{name}</div>
+                                        <div>{v.food_title}</div>
                                         <div><BsTrash className={style.trashicon} /></div>
                                     </div>
 
@@ -68,7 +69,7 @@ export default function ShoppingCart() {
                                                 –
                                             </button>
 
-                                            <div className={style.cartcount}>{v.count}</div>
+                                            <div className={style.cartcount}>{v.amount}</div>
 
                                             <button
                                                 className={style.cartbutton}
@@ -81,7 +82,7 @@ export default function ShoppingCart() {
 
                                         </div>
                                         <div className={style.cartprice}>
-                                            ${price}
+                                            ${v.food_price}
                                         </div>
                                     </div>
                                     <div>
