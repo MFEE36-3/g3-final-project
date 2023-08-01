@@ -15,7 +15,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputArea from "@/components/common/input";
-import zIndex from "@mui/material/styles/zIndex";
 import { HiOutlineChat } from "react-icons/hi";
 import CustomizedSwitches from "@/components/buyforme/switch";
 import { Chat } from "@mui/icons-material";
@@ -284,7 +283,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
             <CustomizedSwitches mapcolor={mapcolor} setMapcolor={setMapcolor} />
         </div>
 
-        <OpenShopForm openForm={openForm} handleopenFormClose={handleopenFormClose} opentargetstore={opentargetstore} data={data} setOpenorder={setOpenorder}/>
+        <OpenShopForm openForm={openForm} handleopenFormClose={handleopenFormClose} opentargetstore={opentargetstore} data={data} setOpenorder={setOpenorder} setOpenForm={setOpenForm}/>
 
 
 
