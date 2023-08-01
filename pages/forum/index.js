@@ -46,7 +46,7 @@ export default function Detail() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
-        const sortedData = sortArticles(data, sortOrder);
+        const sortedData = sortArticles(data.messages, sortOrder);
         setArticles(sortedData);
       })
       .catch((error) => console.error('Error fetching data:', error));
