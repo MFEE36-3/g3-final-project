@@ -81,13 +81,13 @@ export default function SearchBar() {
     }
   
     router.push({
-      pathname: '/shopmall/shopmall',
+      pathname: '/shopmall',
       query: query,
     }, undefined, {scroll: false});
   };
   React.useEffect(()=> {
   const fetchCommandItems = async () => {
-    const response = await fetch(`${host}/api/item`) 
+    const response = await fetch(`${host}/ecshop/item`) 
     const {data} = await response.json()
     setCommandItems(data)
   }

@@ -14,7 +14,7 @@ import styled from '@emotion/styled'
 export const Host = createContext()
 
 const initialState = {
-  host: "http://127.0.0.1:8000",
+  host: "http://127.0.0.1:3002",
   // host: "http://192.168.50.169:8000",
   categories: {},
   items: [],
@@ -91,6 +91,11 @@ export default function ShopMallFinal() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [selectedCategory, setSelectedCategory] = useState([])
   const [rating, setRating] = useState('')
+  const [token, setToken] = useState({})
+  useEffect(()=>{
+    const memberToken = JSON.parse(localStorage.getItem('auth'));
+    setToken(memberToken)
+  },[])
   const router = useRouter()
   const resetButton = () => {
     dispatch({
@@ -99,7 +104,7 @@ export default function ShopMallFinal() {
     });
   }
   useEffect(() => {
-    const { keyword, cate_ids, order_key, order_type, rating_filter, price_min, price_max, page,} = router.query;
+    const { keyword, cate_ids, order_key, order_type, rating_filter, price_min, price_max, page} = router.query;
     dispatch({ type: 'SET_KEYWORD', payload: keyword || '' });
     dispatch({ type: 'SET_SORTBY', payload: order_key || '' });
     dispatch({ type: 'SET_ORDER', payload: order_type || '' });
@@ -120,7 +125,7 @@ export default function ShopMallFinal() {
         page: page || 1,
       };
       const queryUrl = new URLSearchParams(query).toString();
-      const url = `${state.host}/api/item?${state.isReset ? '' : queryUrl}`;
+      const url = `${state.host}/ecshop/item?${state.isReset ? '' : queryUrl}`;
       console.log(`start fetching ${url}`);
       const response = await fetch(url);
       const { data, pagination } = await response.json();
@@ -159,7 +164,7 @@ export default function ShopMallFinal() {
     })
   },[state.isReset])
   return (
-    <Host.Provider value={{ ...state, dispatch, selectedCategory, setSelectedCategory, rating, setRating}}>
+    <Host.Provider value={{ ...state, dispatch, selectedCategory, setSelectedCategory, rating, setRating, token}}>
       <ShopContainer>
         <SearchBar/>
         <ShopBodyForSearch>
