@@ -38,6 +38,8 @@ export default function MemAchieveArea({ openAchiece }) {
       <div className={styles.AchieveBtn}>
         <MemBtn
           text="關閉"
+          padding={'5px 1px'}
+          fs="var(--h7)"
           onClick={() => {
             openAchiece();
           }}

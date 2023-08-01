@@ -1,16 +1,8 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import styles from './mem-activityList.module.css';
-import { v4 } from 'uuid';
+import { useState, useEffect, useContext } from 'react';
+import Image from 'next/image';
 
 export function MemActivityList1({ List1 }) {
-  return '我訂的位';
+  return <Image src={'/member/car0.png'} width={1100} height={600} alt="" />;
 }
 
 export function MemActivityList2({ List2 }) {

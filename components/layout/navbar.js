@@ -46,11 +46,9 @@ export default function Navbar() {
     }, 2000);
   };
 
-
   useEffect(() => {
     setRouter_title(router.asPath);
-  }, [router.asPath])
-
+  }, [router.asPath]);
 
   useEffect(() => {
     setFirst(true);
@@ -211,7 +209,8 @@ export default function Navbar() {
           <Link href="/forum" className={styles.btn_outer_link}>
             <button
               className={
-                router_title.includes('/forum') || router_title.includes('/news')
+                router_title.includes('/forum') ||
+                router_title.includes('/news')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }
