@@ -23,17 +23,17 @@ export const AuthContextProvider = function ({ children }) {
     if (str) {
       const obj = JSON.parse(str);
       const Authorization = 'Bearer ' + obj.token;
-      fetch('http://localhost:3002/member', {
-        method: 'GET',
-        headers: {
-          Authorization,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          // 後端回傳的資料後重新渲染+塞入預設物件裡面
-          setAuth(data[0]);
-        });
+      // fetch('http://localhost:3002/member', {
+      //   method: 'GET',
+      //   headers: {
+      //     Authorization,
+      //   },
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     // 後端回傳的資料後重新渲染+塞入預設物件裡面
+      //     setAuth(data[0]);
+      //   });
     }
   }, []);
 
