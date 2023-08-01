@@ -191,7 +191,9 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                 "open_status": 0
             })
 
-        if(!localStorage.getItem('auth')) return;
+
+            // 用 AuthContext 或 localstorage 都可以
+        if (!localStorage.getItem('auth')) return;
         const authData = JSON.parse(localStorage.getItem('auth'));
         setOpensheet((prev) => { return { ...prev, open_member_id: authData.sid } })
 
@@ -289,7 +291,7 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                                     .then(r => r.json())
                                     .then(obj => {
 
-                                        if(obj.result.affectedRows !== 0){
+                                        if (obj.result.affectedRows !== 0) {
                                             Swal.fire({
                                                 title: '開團成功!',
                                                 icon: 'success',
