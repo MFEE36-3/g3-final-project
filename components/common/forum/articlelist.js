@@ -48,7 +48,7 @@ export default function Articlelist({
         <div key={c.forum_sid} className={styles.right}>
           <div className={styles.container}>
             <div className={styles.flex}>
-              {/* <div className={styles.avatar}>c.user_photo</div> */}
+              {/* <div className={styles.avatar}>{c.user_photo}</div> */}
               <div className={styles.nickname}>{c.nickname}</div>
             </div>
             <Link href={`/forum/${c.forum_sid}`}>
