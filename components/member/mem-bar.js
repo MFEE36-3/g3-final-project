@@ -27,7 +27,7 @@ export default function MemBar() {
       <div className={styles.memBtnTop}>
         <div className={styles.memImgBox}>
           <Image
-            src={'http://localhost:3002/img/' + auth?.photo}
+            src={'http://localhost:3002/img/member/' + auth?.photo}
             style={{ objectFit: 'cover' }}
             width={500}
             height={500}
