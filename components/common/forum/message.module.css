@@ -1,0 +1,27 @@
+.flex{
+    display: flex;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    
+}
+.avatar{
+    background-color: red;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+.box{
+    margin-top: 20px;
+}
+.nickname{
+    font-size: var(--h8);
+}
+.message{
+    font-size: var(--h7);
+}
+.time{
+    font-size: var(--h8);
+    padding-bottom: 20px;
+}

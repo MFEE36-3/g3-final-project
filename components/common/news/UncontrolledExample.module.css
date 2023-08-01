@@ -1,0 +1,11 @@
+.carouselContainer {
+    display: block; /* 預設顯示為區塊元素 */
+  }
+  
+  /* 在手機版時，將元件設定為不顯示 */
+  @media (max-width: 767px) {
+    .carouselContainer {
+      display: none;
+    }
+  }
+  

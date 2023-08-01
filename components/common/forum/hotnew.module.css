@@ -2,22 +2,40 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid var(--main-color);
+    margin-top: 15px;
 }
 
 .container1{
-
     display: flex;
 }
 .container2{
-    display: flex;
-   
+    display: flex;   
 }
 .ptext{
     font-size: var(--h4);
     padding-right: 30px;
-    /* font-weight: bold; */
     padding-left: 20px;
 }
 .ptext:hover{
     border-bottom: 3px solid var(--main-color);
+}
+@media screen and (max-width:767px) {
+    .ptext{
+        font-size: var(--h7);
+        padding-right: 30px;
+        padding-left: 20px;
+    }
+    .bigcontainer{
+        display: flex;
+        border-bottom: 2px solid var(--main-color);
+        margin-top: 15px;
+        
+    }
+    .container2{
+        display: none;
+    }
+    .container1{
+        width: 100%;
+        justify-content: space-around;
+    }
 }

@@ -6,63 +6,73 @@ import { FaRegBookmark } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function Articlelist({
+  data = [],
   forum_sid = '',
   imgPreview = '',
   articles = [],
- 
 }) {
-  // const [articles, setArticles] = useState([]);
-  // const [sortOrder, setSortOrder] = useState('desc'); // 初始排序方式，默认为降序
-  // const imgPreview = `http://localhost:3002/img/forum/`;
+  const [messageCounts, setMessageCounts] = useState({});
 
   // useEffect(() => {
-  //   fetch('http://localhost:3002/forum/detail')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       const sortedData = sortArticles(data, sortOrder);
-  //       setArticles(sortedData);
-  //     })
-  //     .catch((error) => console.error('Error fetching data:', error));
-  // }, [sortOrder]);
-  // const handleToggleSortOrder = () => {
-  //   setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc');
+  //   // 在這裡使用 map 函式來獲取每篇文章的留言數量
+  //   articles.forEach((article) => {
+  //     fetchMessageCount(article.forum_sid)
+  //       .then((count) => {
+  //         setMessageCounts((prevCounts) => ({
+  //           ...prevCounts,
+  //           [article.forum_sid]: count,
+  //         }));
+  //       })
+  //       .catch((error) => {
+  //         console.error('獲取留言數量時發生錯誤:', error);
+  //       });
+  //   });
+  // }, [articles]);
+
+  // const fetchMessageCount = async (forum_sid) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:3002/forum/${forum_sid}/messages`
+  //     );
+  //     const data = await response.json();
+  //     return data.length;
+  //   } catch (error) {
+  //     console.error('獲取留言數量時發生錯誤:', error);
+  //     return 0;
+  //   }
   // };
 
-  // const sortArticles = (data, order) => {
-  //   return data.sort((a, b) => {
-  //     if (order === 'asc') {
-  //       return new Date(a.publishedTime) - new Date(b.publishedTime);
-  //     } else {
-  //       return new Date(b.publishedTime) - new Date(a.publishedTime);
-  //     }
-  //   });
-  // };
   return (
     <>
       {articles.map((c, d) => (
         <div key={c.forum_sid} className={styles.right}>
-          <div>
+          <div className={styles.container}>
             <div className={styles.flex}>
-              <div className={styles.avatar}></div>
-              <div className={styles.nickname}>Heads</div>
+              {/* <div className={styles.avatar}>c.user_photo</div> */}
+              <div className={styles.nickname}>{c.nickname}</div>
             </div>
             <Link href={`/forum/${c.forum_sid}`}>
-              <div className={styles.title}>{c.header}</div>
-              <div className={styles.ptext}>{c.content}</div>
+              <div className={styles.articlecontainer}>
+                <div className={styles.left}>
+                  <div className={styles.title}>{c.header}</div>
+                  <div className={styles.ptext}>{c.forum_content}</div>
+                </div>
+                <div className={styles.image}>
+                  <img
+                    src={`${imgPreview + c.forum_photo}`}
+                    className={styles.img}
+                  />
+                </div>
+              </div>
             </Link>
             <div className={styles.flex2}>
               <BsSuitHeartFill className={styles.icon} />
               <div className={styles.like}>愛心</div>
               <BiSolidMessageAltDetail className={styles.message} />
-              <div className={styles.like}>留言</div>
+              <div className={styles.like}>{c.comment_count}</div>
               <FaRegBookmark className={styles.bookmark} />
               <div className={styles.like}>收藏</div>
             </div>
-          </div>
-          <div>
-            <Link href={`/forum/${c.forum_sid}`}>
-              <img src={`${imgPreview + c.photo}`} className={styles.img} />
-            </Link>
           </div>
         </div>
       ))}

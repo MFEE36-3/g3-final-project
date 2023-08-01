@@ -51,7 +51,7 @@ export default function Newscard({ news_sid = '', article = [] }) {
       {news.map((v, i) => {
         // 使用 Link 元件作為每個新聞卡片的容器，設定 to 屬性為對應的路由
         return (
-          <div className={`col-4 ${styles.cardbody}`} key={v.news_sid}>
+          <div className={`col-sm-12 col-md-4 ${styles.cardbody}`} key={v.news_sid}>
             <Link href={`/news/${v.news_sid}`}>
               <div className={styles.card}>
                 <img src={`${imgPreview + v.photo}`} className={styles.img} />

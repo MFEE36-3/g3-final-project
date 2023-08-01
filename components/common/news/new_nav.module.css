@@ -6,7 +6,6 @@
     font-size: var(--h5);
     font-weight: bold;
     border: 0;
-    border-right: 4px solid white;
     margin-top:10px ;
     transition: 0.5s;
     font-family: var(--ff2);
@@ -16,4 +15,18 @@
 } 
 .line{
     border-bottom: 2px solid var(--main-color);
+    display: flex;
+    gap: 10px;
+}
+@media screen and (max-width:767px) {
+    .nav{
+    font-size: var(--h7);
+    padding: 2px 18px;
+    }
+    .line{
+    margin-top: 80px;
+    display: flex;
+    border-bottom: 0;
+    justify-content: space-between;
+}
 }

@@ -11,6 +11,7 @@
 .text{
     font-size: var(--h6);
     margin-top: 30px;
+    font-family: var(--ff2);
 }
 
 .line{
@@ -55,6 +56,7 @@ resize: none;
     color: white;
     font-size: var(--h7);
     width: 50px;
+    border: 0;
 }
 .cancel{
     border-radius: 5px;
@@ -93,5 +95,13 @@ resize: none;
 .btn_text {
     color: white;
     font-size: var(--h7);
+}
+.container{
+    width: 75%;
+    margin: 0 auto;
+    width: 80%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    height: 640px;
 }
 

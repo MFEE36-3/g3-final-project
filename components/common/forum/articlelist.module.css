@@ -1,3 +1,11 @@
+.container{
+    width: 100%;
+}
+.articlecontainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
 .avatar{
     height: 25px;
     width: 25px;
@@ -19,25 +27,30 @@
     font-weight: bold;
     margin-top: 10px;
 }
-.ptext{
+.ptext {
     font-size: var(--h7);
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 700px; /* 設定文字區塊的寬度 */
-    white-space: nowrap; /* 防止文字換行 */
-    overflow: hidden; /* 超出範圍的文字隱藏 */
-    text-overflow: ellipsis; /* 超出範圍的文字顯示省略號 */
-
-}
+    /* width: 700px; 设置文字区块的宽度 */
+    height: 50px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
 .flex2{
     display: flex;
+}
+.p{
+    border: 1px solid green;
 }
 .icon{
     height: 20px;
     width: 20px;
     color: red;
     margin-right: 10px;
-    margin-top: 70px;
 }
 .message{
     height: 23px;
@@ -45,34 +58,121 @@
     color: lightblue;
     margin-left: 10px;
     margin-right: 10px;
-    margin-top: 70px;
 }
 .like{
     font-size: var(--h7);
-    margin-top: 70px;
 }
 .bookmark{
     margin-left: 10px;
     width: 20px;
     height: 18px;
     margin-right: 10px;
-    margin-top: 72px;
 }
 .right{
     display: flex;
     border-bottom: 2px solid var(--main-color);
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     justify-content: space-between;
+    width: 100%;
+    padding: 0;
 }
 .img{
-    margin-top: 65px;
+    width: 100%;
     width: 200px;
-    height: 150px;
-    margin-left: 90px;
+    height: 100%;
     object-fit: cover;
     border-radius: 10px;
 }
 .img img{
     width: 100%;
+    height: 100%;
+}
+.left{
+    width: 80%;
+}
+.image{
+    width: 13%;
+    height: 150px;
+    margin-right: 3%;
+}
+@media screen and (max-width:767px) {
+    .container{
+        flex:1;
+    }
+    .left{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .title{
+        font-size: var(--h6);
+        font-weight: bold;
+        /* width: 200px; */
+        margin: 0;
+        white-space: nowrap; /* 讓文字不換行 */
+        overflow: hidden; /* 隱藏超出容器的文字 */
+        text-overflow: ellipsis; /* 使用省略符號表示超出的文字 */
+        }
+    .ptext {
+        font-size: var(--h9);
+        display: flex;
+        /* width: 260px; */
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display:-webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        height: auto
+        /* white-space: nowrap;   */
+        /* text-overflow: ellipsis; 使用省略符號表示超出的文字 */
+        
+    }
+    .img{
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        margin-left: 0px;
+        margin-top: 0px;
 
+    }
+    .image{
+        height: 20%;
+        margin-right: 0;
+    }
+  
+    .avatar{
+        height: 15px;
+        width: 15px;
+        background-color: blue;
+        border-radius: 50%;
+    }
+    .nickname{
+        margin-left: 10px;
+        margin-top: 15px;
+        font-size: var(--h7);
+        font-weight: bold;
+    }
+    .right{
+        display: flex;
+        border-bottom: 2px solid var(--main-color);
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+      
+        
+    }
+    .like{
+        font-size: var(--h8);
+    }
+    .flex{
+        display: flex;
+        margin: 0;
+        width: 100%;
+    }
+    .articlecontainer{
+        display: flex;
+        width: 88%;
+        justify-content: space-between;
+    }
 }

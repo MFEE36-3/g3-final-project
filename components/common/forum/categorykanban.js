@@ -6,28 +6,27 @@ export default function Categorykanban({
   keyword = '',
   keywordHandler = () => {},
   sentKeyword = () => {},
-  handleToggleSortOrder = () => {},
   sortOrder = 'desc',
-  sortArticles = () => {},
+  handleSortOrderChange = () => {},
 }) {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.avator}>
-          <img></img>
-        </div>
         <div className={styles.ptext}>食GOEAT! 哈拉區</div>
       </div>
-      <button
-        onClick={() => {
-          handleToggleSortOrder(sortOrder); // 切換排序方式
-          sortArticles(); // 重新排序文章列表
-        }}
-      >
-        {sortOrder === 'desc' ? '排序方式：由新到舊' : '排序方式：由舊到新'}
-      </button>
+      <div className={styles.end}>
+      <select
+          value={sortOrder}
+          onChange={(e) => handleSortOrderChange(e.target.value)} // 綁定 onChange 事件
+        >
+          <option className={styles.border}>--排序方式--</option>
+          <option value="asc">由舊到新</option>
+          <option value="desc">由新到舊</option>
+        </select>
+        </div>
       <div className={styles.end}>
         <input
+          className={styles.inputBox}
           name="keyword"
           value={keyword}
           type="search"
@@ -35,11 +34,7 @@ export default function Categorykanban({
           aria-label="Search"
           onChange={keywordHandler}
         ></input>
-        <button
-          className="btn btn-outline-danger"
-          type="submit"
-          onClick={sentKeyword}
-        >
+        <button className={styles.btn} type="submit" onClick={sentKeyword}>
           <BiSearch />
         </button>
       </div>
