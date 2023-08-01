@@ -3,7 +3,7 @@ import styles from './mem-collectBlog.module.css';
 
 export default function MemCollectBlog({ title, time }) {
   let cutTitle = title;
-  if (title.length > 25) {
+  if (title?.length > 25) {
     cutTitle = title.substring(0, 25) + '...';
   }
 

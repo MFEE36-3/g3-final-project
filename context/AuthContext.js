@@ -34,10 +34,10 @@ export const AuthContextProvider = function ({ children }) {
         .then((data) => {
           // 後端回傳的資料後重新渲染+塞入預設物件裡面
           setAuth(data[0]);
-          console.log(auth);
         });
     }
   }, []);
+  // console.log(auth);
 
   // 完成建立Context.Provider頂層元件
   // 把裝著驗證token的auth、setAuth控制狀態、登出函式、基本會員資料分享給任何子元件

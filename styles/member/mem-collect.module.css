@@ -12,7 +12,7 @@
   font-weight: 800;
   margin-top: 40px;
   height: 600px;
-  padding: 7px;
+  padding: 3px;
 }
 
 .area2 {
@@ -29,17 +29,7 @@
   border-radius: 15px;
   margin-top: 40px;
   height: 500px;
-  overflow-y: scroll;
-  overflow-x: hidden;
   background-color: #fff;
-}
-
-.area2::-webkit-scrollbar {
-  width: 3px; /* 設置滾輪寬度 */
-}
-
-.area2::-webkit-scrollbar-thumb {
-  background-color: #aeaeae; /* 設置滾輪顏色 */
 }
 
 .scrollArea {
@@ -56,9 +46,10 @@
   height: 100%;
   width: 100%;
   background-color: #ffffff;
-  padding: 10px;
+  padding-right: 7px;
   overflow-y: scroll;
   overflow-x: hidden;
+  margin-right: 10px;
 }
 
 .scroll::-webkit-scrollbar {

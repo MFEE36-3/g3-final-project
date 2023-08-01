@@ -125,7 +125,7 @@ export default function Info() {
             <div className={styles2.imgflex}>
               <div className={styles2.img}>
                 <Image
-                  src={'http://localhost:3002/img/' + getImg}
+                  src={'http://localhost:3002/img/member/' + getImg}
                   className={styles2.imgbig}
                   width={300}
                   height={300}

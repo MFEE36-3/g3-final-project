@@ -11,8 +11,6 @@ import {
   MemActivityList1,
   MemActivityList2,
   MemActivityList3,
-  MemActivityList4,
-  MemActivityList5,
 } from '@/components/member/mem-activityList';
 import MemAllTitle from '@/components/member/mem-allTitle';
 import MemChangeBtn from '@/components/member/mem-changeBtn';
@@ -190,24 +188,16 @@ export default function Index() {
 
   const changeList = (e) => {
     switch (e.currentTarget.value) {
-      case '我開的團':
-        setList(<MemActivityList1 List1={List1} />);
+      case '餐廳訂位':
+        setList(<MemActivityList1 List3={List3} />);
         break;
 
-      case '我加的團':
-        setList(<MemActivityList2 List2={List2} />);
+      case '外帶餐點':
+        setList(<MemActivityList2 List4={List4} />);
         break;
 
-      case '我訂的位':
-        setList(<MemActivityList3 List3={List3} />);
-        break;
-
-      case '我點的餐':
-        setList(<MemActivityList4 List4={List4} />);
-        break;
-
-      case '我下的單':
-        setList(<MemActivityList5 List4={List5} />);
+      case '商城訂單':
+        setList(<MemActivityList3 List4={List5} />);
         break;
     }
   };
@@ -253,27 +243,17 @@ export default function Index() {
             <div className={styles2.area1}>
               <div className={styles2.scrollArea}>
                 <MemBtn
-                  text={'我開的團'}
+                  text={'餐廳訂位'}
                   onClick={changeList}
                   className={styles2.scrollBtn}
                 />
                 <MemBtn
-                  text={'我加的團'}
+                  text={'外帶餐點'}
                   onClick={changeList}
                   className={styles2.scrollBtn}
                 />
                 <MemBtn
-                  text={'我訂的位'}
-                  onClick={changeList}
-                  className={styles2.scrollBtn}
-                />
-                <MemBtn
-                  text={'我點的餐'}
-                  onClick={changeList}
-                  className={styles2.scrollBtn}
-                />
-                <MemBtn
-                  text={'我下的單'}
+                  text={'商城訂單'}
                   onClick={changeList}
                   className={styles2.scrollBtn}
                 />

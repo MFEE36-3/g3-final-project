@@ -10,21 +10,13 @@ import styles from './mem-activityList.module.css';
 import { v4 } from 'uuid';
 
 export function MemActivityList1({ List1 }) {
-  return '我開的團';
-}
-
-export function MemActivityList2({ List2 }) {
-  return '我加的團';
-}
-
-export function MemActivityList3({ List3 }) {
   return '我訂的位';
 }
 
-export function MemActivityList4({ List4 }) {
+export function MemActivityList2({ List2 }) {
   return '我點的餐';
 }
 
-export function MemActivityList5({ List5 }) {
+export function MemActivityList3({ List3 }) {
   return '我下的單';
 }
