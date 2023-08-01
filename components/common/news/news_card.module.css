@@ -102,7 +102,6 @@ object-fit: fill;
   .cardbody{
   height: 350px;
   padding: 0;
-  padding-right: 10px;
   background-color: transparent;
 }
  }

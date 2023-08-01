@@ -16,6 +16,7 @@ export default function ArticleDetail() {
   const imgPreview = `http://localhost:3002/img/forum/`;
 
   useEffect(() => {
+    console.log(query);
     const { rid } = query;
     if (rid) {
       fetch(`http://localhost:3002/forum2/forum/${rid}`)
@@ -52,26 +53,22 @@ export default function ArticleDetail() {
     <>
       <div className={styles.container}>
         <Newnav />
-      </div>
 
-      <div className={styles.container}>
         <div className={styles.vatar}></div>
         <div className={styles.ptext}></div>
         <DetailTitle data={article.header} />
         <TagTime data={article.publishedTime} />
-        <div>
-          <div className="w-75">
-            <img
-              src={`${imgPreview + article.photo}`}
-              className="w-75 h-50 object-fit-contain "
-            />
-          </div>
-          <pre>
-            <DetailP data={article.content} key={article.forum_sid} />
-          </pre>
-          <MessageInput />
-          <Message messages={message} />
+        <div className="w-75">
+          <img
+            src={`${imgPreview + article.photo}`}
+            className="w-75 h-50 object-fit-contain "
+          />
         </div>
+        <pre>
+          <DetailP data={article.content} key={article.forum_sid} />
+        </pre>
+        <MessageInput />
+        <Message messages={message} />
       </div>
     </>
   );

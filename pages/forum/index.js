@@ -15,6 +15,25 @@ export default function Detail() {
   const [sortOrder, setSortOrder] = useState('desc');
   const imgPreview = `http://localhost:3002/img/forum/`;
 
+  // useEffect(() => {
+  //   const keyword = router.query.forum_keyword;
+  //   console.log('Keyword:', keyword);
+  //   setSearchKeyword(keyword || '');
+
+  //   const usp = new URLSearchParams(router.query);
+  //   console.log(usp.toString());
+
+  //   fetch(`http://localhost:3002/forum?${usp.toString()}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data)
+  //       const sortedData = sortArticles(data, sortOrder);
+  //       setArticles(sortedData);
+  //     })
+  //     .catch((error) => console.error('Error fetching data:', error));
+  //   console.log(keyword);
+  // }, [router.query]);
+
   useEffect(() => {
     const keyword = router.query.forum_keyword;
     console.log('Keyword:', keyword);
@@ -23,16 +42,16 @@ export default function Detail() {
     const usp = new URLSearchParams(router.query);
     console.log(usp.toString());
 
-    fetch(`http://localhost:3002/forum/detail?${usp.toString()}`)
+    fetch(`http://localhost:3002/message?${usp.toString()}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         const sortedData = sortArticles(data, sortOrder);
         setArticles(sortedData);
       })
       .catch((error) => console.error('Error fetching data:', error));
     console.log(keyword);
   }, [router.query]);
-
   const sentKeyword = () => {
     router.push(`?forum_keyword=${searchKeyword}`);
   };
@@ -60,9 +79,6 @@ export default function Detail() {
     <>
       <div className={styles.container}>
         <Newnav />
-        <div className={styles.category}>
-          <Forumbtn />
-        </div>
         <div className={styles.title}>
           <Categorykanban
             keyword={searchKeyword}
