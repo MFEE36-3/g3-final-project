@@ -6,7 +6,7 @@ import styles from '@/components/res/order-management.js/order-management.module
 import ResAuthContext, { } from '@/context/ResAuthContext';
 
 export default function OrderManagement() {
-
+  
   // SELECT `open_sid`, `target_store`, `open_time`, `order_food`, `order_quantity`, `order_price` FROM `open_for_you` JOIN `buy_for_me_detail` ON `open_for_you`.`open_sid` = `buy_for_me_detail`.`order_sid`;
 
   // 串三張:

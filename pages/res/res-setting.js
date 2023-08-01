@@ -8,7 +8,6 @@ import Setting from '@/components/res/res-setting/setting';
 
 const ResSetting = () => {
     return <>
-        <h3 className='container'>ResSetting</h3>
         <Setting />
     </>
 }

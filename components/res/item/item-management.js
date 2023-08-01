@@ -71,16 +71,6 @@ export default function Management() {
     setTakeContextInfo(resAuth)
   }
 
-  // useEffect(() => {
-  //   // takeInfo()
-  //   // getFoodItems();
-  //   // changeNumToString()
-  //   // console.log(takeContextInfo);
-  //   // console.log(resAuth);
-  // }, []);
-
-    // console.log(takeContextInfo)
-
     useEffect(() => {
       if(resAuth.account){
         takeInfo()
