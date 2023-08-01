@@ -5,7 +5,6 @@ import styles from '@/styles/buyforme/map/map.module.css';
 import shop from '@/public/buyforme/map/shop_icon.svg';
 import Btn from "@/components/common/btn";
 import star from '@/public/buyforme/map/star.svg';
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 
 
