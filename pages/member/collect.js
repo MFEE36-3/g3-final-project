@@ -10,29 +10,59 @@ import { useState, useEffect, useContext } from 'react';
 import MemAllTitle from '@/components/member/mem-allTitle';
 import MemCollectReocrd1 from '@/components/member/mem-collectRecord1';
 import MemCollectReocrd2 from '@/components/member/mem-collectRecord2';
-import MemCollectReocrd3 from '@/components/member/mem-collectRecord3';
 import MemBtn from '@/components/member/mem-Btn';
 import MemNologin from '@/components/member/mem-nologin';
 import { useRouter } from 'next/router';
 
 export default function Index() {
-  const MyList = [
-    {
-      type: '踩雷',
-      title: '喜歡吃阿得快餐的人到底在想什麼',
-      time: '2023/07/08',
-    },
-    {
-      type: '推薦',
-      title: '信義路三段的隱藏美食-胡其林火鍋',
-      time: '2023/07/21',
-    },
-    {
-      type: '閒聊',
-      title: '求推薦東門站附近的午餐',
-      time: '2023/07/21',
-    },
-  ];
+  const { auth } = useContext(AuthContext);
+  const [list, setList] = useState([]);
+  const [store, setStore] = useState([]);
+
+  // 抓會員自己的發文
+  useEffect(() => {
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/member/forumPost', {
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setList(data);
+        });
+    }
+  }, [auth]);
+
+  const MyList = list.map((v) => {
+    return {
+      title: v.header,
+      time: v.publishedTime?.substring(0, 10),
+    };
+  });
+
+  // 抓會員收藏的店家
+  useEffect(() => {
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/member/favoritetStore', {
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setStore(data);
+        });
+    }
+  }, [auth]);
 
   const ListForum = [
     {
@@ -55,45 +85,6 @@ export default function Index() {
     },
   ];
 
-  const ListStore = [
-    {
-      store: '雅室牛排仁愛圓環店',
-      type: '西式',
-      address: '台北市大安區',
-    },
-    {
-      store: '五燈獎豬腳飯',
-      type: '中式',
-      address: '新北市三重區',
-    },
-    {
-      store: '金花子韓式料理',
-      type: '韓式',
-      address: '新北市中和區',
-    },
-  ];
-
-  const ListMarket = [
-    {
-      name: '極品蝦餃',
-      store: '宜靜水餃專賣',
-      price: 150,
-      type: '水餃',
-    },
-    {
-      name: '泰式雞腿排',
-      store: '阿鄉香雞排',
-      price: 110,
-      type: '炸物',
-    },
-    {
-      name: '阿母a愛心便當',
-      store: '黃老師便當官方商城',
-      price: 50,
-      type: '便當',
-    },
-  ];
-
   const [collect, setCollect] = useState(
     <MemCollectReocrd1 ListForum={ListForum} />
   );
@@ -104,27 +95,25 @@ export default function Index() {
         break;
 
       case '店家':
-        setCollect(<MemCollectReocrd2 ListStore={ListStore} />);
-        break;
-
-      case '商品':
-        setCollect(<MemCollectReocrd3 ListMarket={ListMarket} />);
+        setCollect(<MemCollectReocrd2 store={store} />);
         break;
     }
   };
 
-  const { auth } = useContext(AuthContext);
-
   const router = useRouter();
 
-  // if (!auth.account) {
-  //   setTimeout(() => {
-  //     router.push('/');
-  //   }, 500);
-  //   return <MemNologin />;
-  // }
+  // 判斷式否登入，未登入跳轉回首頁
+  useEffect(() => {
+    if (!localStorage.getItem('auth')) {
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    }
+  }, []);
 
-  return (
+  return !auth.account ? (
+    <MemNologin />
+  ) : (
     <div className={styles.body}>
       <div className={styles.container}>
         <MemBar />
@@ -134,12 +123,7 @@ export default function Index() {
             <div className={styles2.scroll}>
               {MyList.map((v) => {
                 return (
-                  <MemCollectBlog
-                    type={v.type}
-                    title={v.title}
-                    time={v.time}
-                    key={v4()}
-                  />
+                  <MemCollectBlog title={v.title} time={v.time} key={v4()} />
                 );
               })}
             </div>
@@ -150,12 +134,8 @@ export default function Index() {
               <MemBtn text={'貼文'} onClick={changeList} />
 
               <MemBtn text={'店家'} onClick={changeList} />
-
-              <MemBtn text={'商品'} onClick={changeList} />
             </div>
-            <div className={styles.scroll}>
-              <div>{collect}</div>
-            </div>
+            <div className={styles2.scroll}>{collect}</div>
           </div>
         </div>
       </div>

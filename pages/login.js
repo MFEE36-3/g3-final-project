@@ -69,12 +69,13 @@ const Login = () => {
         if (data.success) {
           const obj = { ...data.data };
           localStorage.setItem('auth', JSON.stringify(obj));
+          Swal.fire('登入成功!', '', 'success');
+          setTimeout(() => {
+            router.back();
+          }, 2000);
         } else {
-          console.log(data.error || '帳密錯誤');
+          alert('帳號或密碼錯誤');
         }
-      })
-      .then(() => {
-        router.back();
       });
   };
 

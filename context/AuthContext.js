@@ -8,6 +8,7 @@ export default AuthContext;
 // 創建一個函式，之後子元件才能引入useContext並使用裡面的資料及修改狀態
 export const AuthContextProvider = function ({ children }) {
   // 預設auth物件暫時沒有資料
+
   const [auth, setAuth] = useState({});
 
   // 創建一個登出函式會清空localStorage，接著把auth物件清空
@@ -23,7 +24,7 @@ export const AuthContextProvider = function ({ children }) {
     if (str) {
       const obj = JSON.parse(str);
       const Authorization = 'Bearer ' + obj.token;
-      fetch('http://localhost:3002/member', {
+      fetch(process.env.API_SERVER + '/member', {
         method: 'GET',
         headers: {
           Authorization,
@@ -36,6 +37,7 @@ export const AuthContextProvider = function ({ children }) {
         });
     }
   }, []);
+  // console.log(auth);
 
   // 完成建立Context.Provider頂層元件
   // 把裝著驗證token的auth、setAuth控制狀態、登出函式、基本會員資料分享給任何子元件

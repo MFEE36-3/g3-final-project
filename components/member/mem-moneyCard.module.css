@@ -3,31 +3,85 @@
   display: flex;
   justify-content: space-between;
   font-size: 22px;
+  color: #921010;
 }
 
 .card {
   width: 200px;
   height: 280px;
-  background-color: #d5d5d5;
+  background-image: url('/member/card3.png');
+  background-size: cover;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: inset -3px -3px 5px rgb(177, 151, 0);
+  border: none;
+  color: #921010;
 }
 
-.card:hover {
+.card2 {
+  width: 200px;
+  height: 280px;
+  background-image: url('/member/card3.png');
+  background-size: cover;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -3px -3px 5px rgb(177, 151, 0);
+  border: none;
+  color: #921010;
+}
+
+.card3 {
+  width: 200px;
+  height: 280px;
+  background-image: url('/member/card3.png');
+  background-size: cover;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -3px -3px 5px rgb(177, 151, 0);
+  border: none;
+  color: #921010;
+}
+
+.card4 {
+  width: 200px;
+  height: 280px;
+  background-image: url('/member/card3.png');
+  background-size: cover;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -3px -3px 5px rgb(177, 151, 0);
+  border: none;
+  color: #921010;
+}
+
+.card:hover,
+.card2:hover,
+.card3:hover,
+.card4:hover {
   transform: scale(1.1);
-  transition: all 0.1s ease-in;
+  transition: all 0.2s ease-in;
 }
 
 .link {
   text-decoration: none;
   color: black;
+  border: none;
 }
 
 @media screen and (max-width: 391px) {
-  .card {
+  .card .card2 .card3 .card4 {
     width: 130px;
     height: 180px;
     font-size: 16px;

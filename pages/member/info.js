@@ -11,6 +11,8 @@ import { useRouter } from 'next/router';
 import MemAllTitle from '@/components/member/mem-allTitle';
 import Btn from '@/components/common/btn';
 import MemNologin from '@/components/member/mem-nologin';
+import MemAchieveArea from '@/components/member/mem-achieveArea';
+import MemBtn from '@/components/member/mem-Btn';
 
 export default function Info() {
   const router = useRouter();
@@ -19,8 +21,10 @@ export default function Info() {
 
   const {
     account,
+    achieve_image,
     achieve_name,
     birthday,
+    address,
     creat_at,
     level,
     mobile,
@@ -30,6 +34,12 @@ export default function Info() {
     sid,
     wallet,
   } = auth;
+
+  const [showAchieve, setShowAchieve] = useState(false);
+
+  const openAchiece = function () {
+    setShowAchieve(!showAchieve);
+  };
 
   const [getImg, setGetImg] = useState('');
 
@@ -58,12 +68,14 @@ export default function Info() {
     { tag: '本名', title: 'name', content: name, change: '修改' },
     { tag: '密碼', title: 'password', content: password, change: '修改' },
     { tag: '手機', title: 'mobile', content: mobile, change: '修改' },
+    { tag: '地址', title: 'address', content: address, change: '修改' },
     { tag: '錢包', title: 'wallet', content: wallet },
     { tag: '會員等級', title: 'level', content: lev },
     { tag: '會員生日', title: 'birthday', content: birth },
     { tag: '加入時間', title: 'creat_at', content: creat },
   ];
 
+  //更換照片
   const changeImg = (e) => {
     e.preventDefault();
     const fd = new FormData();
@@ -73,7 +85,7 @@ export default function Info() {
     if (str) {
       const obj = JSON.parse(str);
       const Authorization = 'Bearer ' + obj.token;
-      fetch(process.env.API_SERVER + '/changeImg', {
+      fetch(process.env.API_SERVER + '/member/changeImage', {
         method: 'POST',
         body: fd,
         headers: {
@@ -83,27 +95,37 @@ export default function Info() {
         .then((res) => res.json())
         .then((data) => {
           setGetImg(data.filename);
+          setAuth({ ...auth, photo: data.filename });
         });
     }
   };
 
-  // if (!auth.account) {
-  //   setTimeout(() => {
-  //     router.push('/');
-  //   }, 500);
-  //   return <MemNologin />;
-  // }
+  // 判斷式否登入，未登入跳轉回首頁
+  useEffect(() => {
+    if (!localStorage.getItem('auth')) {
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    }
+  }, []);
 
-  return (
+  return !auth.account ? (
+    <MemNologin />
+  ) : (
     <div className={styles.body}>
       <div className={styles.container}>
+        {showAchieve && (
+          <div className={styles2.AchieveArea}>
+            <MemAchieveArea openAchiece={openAchiece} />
+          </div>
+        )}
         <MemrBar />
         <div className={styles2.rightArea}>
           <div className={styles2.flex}>
             <div className={styles2.imgflex}>
               <div className={styles2.img}>
                 <Image
-                  src={'http://localhost:3002/img/' + getImg}
+                  src={'http://localhost:3002/img/member/' + getImg}
                   className={styles2.imgbig}
                   width={300}
                   height={300}
@@ -132,11 +154,11 @@ export default function Info() {
             <div className={styles2.achieveBox}>
               <MemAllTitle title={achieve_name} />
               <Image
-                src={'/member/badge01.svg'}
+                src={'http://localhost:3002/img/' + auth?.achieve_image}
                 style={{ objectFit: 'cover' }}
                 className={styles2.box}
-                width={60}
-                height={60}
+                width={200}
+                height={200}
                 alt=""
               />
               <div className={styles2.achieveArea}>
@@ -148,7 +170,12 @@ export default function Info() {
                   }}
                 >
                   <div className={styles2.achBtn}>
-                    <Btn text="更換" padding={'5px 1px'} fs="var(--h7)" />
+                    <Btn
+                      text="更換"
+                      padding={'5px 1px'}
+                      fs="var(--h7)"
+                      onClick={openAchiece}
+                    />
                   </div>
                 </div>
               </div>
