@@ -93,13 +93,14 @@ export default function TogoDateTime({ row }) {
             <DatePicker
                 label="請選擇取餐日期"
                 shouldDisableDate={shouldDisableDate} // 禁用日期
-                value={togodate}
+                // value={togodate}
                 onChange={handleDateChange}
             />
+
             <TimePicker
                 label="請選擇取餐時間"
                 shouldDisableTime={shouldDisableTime}
-                value={togotime}
+                // value={togotime}
                 onChange={handleTimeChange}
                 minutesStep={15}
                 ampm={false}

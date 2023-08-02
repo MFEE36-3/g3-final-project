@@ -64,46 +64,95 @@ export default function Products({ row, category, shoppingCart, setShoppingCart 
     }
 
     //塞進LocalStorage
-    const handleCart = (item) => {
-        setOpen(false);
+    // const handleCart = (item) => {
+    //     setOpen(false);
+    //     const itemInfo = {
+    //         itemId: item.food_id,
+    //         itemName: item.food_title,
+    //         src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+    //         price: item.food_price,
+    //         amount: num
+    //     }
+    //     setCart({
+    //         ...cart,
+    //         [item.food_id]: itemInfo
+    //     });
+    // }
+
+    // 將選中的商品資訊存儲在狀態中
+
+    const handleAddToCart = (item) => {
+
+        //useLocalStorage
         const itemInfo = {
             itemId: item.food_id,
             itemName: item.food_title,
             src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
             price: item.food_price,
-            amount: num
+            amount: 1
         }
-        setCart({
-            ...cart,
-            [item.food_id]: itemInfo
-        });
-    }
+        // console.log(itemInfo);
 
-    // 將選中的商品資訊存儲在狀態中
-    const handleAddToCart = (item) => {
         // 檢查購物車中是否已有該商品
         if (item.food_id in shoppingCart) {
             // 若有則更新數量
-            setShoppingCart(prevCart => ({
-                ...prevCart,
-                [item.food_id]: {
-                    ...prevCart[item.food_id],
-                    amount: (prevCart[item.food_id].amount || 0) + num,
-                },
-            }));
+            setShoppingCart(prevCart => {
+                //更新LocalStorage
+                const oldCart = JSON.parse(localStorage.getItem('order'))
+                localStorage.setItem('order', JSON.stringify({
+                    ...oldCart,
+                    [item.food_id]: {
+                        itemId: item.food_id,
+                        itemName: item.food_title,
+                        src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+                        price: item.food_price,
+                        amount: (prevCart[item.food_id].amount || 0) + 1,
+                    }
+                }))
+                return ({
+                    ...prevCart,
+                    [item.food_id]: {
+                        ...prevCart[item.food_id],
+                        amount: (prevCart[item.food_id].amount || 0) + 1,
+                    },
+                })
+            });
+
+            // 更新LocalStorage中的數量
+            // setCart(prev => ({
+            //     ...prev,
+            //     [item.food_id]: { ...prev[item.food_id], amount: prev[item.food_id].amount + 1 }
+            // }));
+
         } else {
             // 若無則新增該商品到購物車，並初始化數量為 num
-            setShoppingCart(prevCart => ({
-                ...prevCart,
-                [item.food_id]: {
-                    ...item,
-                    amount: num,
-                },
-            }));
+            setShoppingCart(prevCart => {
+                //更新LocalStorage
+                const oldCart = JSON.parse(localStorage.getItem('order'))
+                localStorage.setItem('order', JSON.stringify({
+                    ...oldCart,
+                    [item.food_id]: {
+                        itemId: item.food_id,
+                        itemName: item.food_title,
+                        src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+                        price: item.food_price,
+                        amount: 1,
+                    }
+                }))
+                return ({
+                    ...prevCart,
+                    [item.food_id]: {
+                        ...item,
+                        amount: 1,
+                    },
+                })
+            });
+            // setCart({
+            //     ...cart,
+            //     [item.food_id]: itemInfo
+            // });
         }
-        // 重置商品數量
-        setNum(1);
-        console.log(shoppingCart);
+
     };
 
     return (
@@ -186,8 +235,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart 
                             </Typography>
                         </div>
                     </Box>
-                </Modal>
-                }
+                </Modal>}
 
             </div>
         </>

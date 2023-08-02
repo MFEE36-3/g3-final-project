@@ -5,45 +5,79 @@ import { BsTrash } from "react-icons/bs";
 
 export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
 
-    const [products, setProducts] = useState(Object.values(shoppingCart)); // 使用 Object.values() 取得購物車商品陣列
+    // const [products, setProducts] = useState(Object.values(shoppingCart)); // 使用 Object.values() 取得購物車商品陣列
 
-    // const [products, setProducts] = useState(shoppingfood)
+    const cartitem = localStorage.getItem('order')
+    // console.log(cartitem);
 
-    // const add = (products, id) => {
-    //     return products.map((v) => {
-    //         if (v.id === id) return { ...v, count: v.count + 1 }
-    //         return { ...v }
-    //     })
-    // }
+    const menuItems = JSON.parse(cartitem) || 0;
+    // console.log(menuItems);
 
-    // const sub = (products, id) => {
-    //     return products.map((v) => {
-    //         if (v.id === id) return { ...v, count: v.count - 1 }
-    //         return { ...v }
-    //     })
-    // }
+    const menuItemsArray = Object.values(menuItems);
+    // console.log(menuItemsArray);
 
-    // const remove = (products, id) => {
-    //     return products.filter((v) => v.id !== id)
-    // }
+    const [products, setProducts] = useState(menuItemsArray)
 
     //商品數量-增加
-    const handleAdd = (id) => {
+    const handleAdd = (item) => {
+
+        //更新LocalStorage
+        const oldCart = JSON.parse(localStorage.getItem('order'))
+        localStorage.setItem('order', JSON.stringify({
+            ...oldCart,
+            [item.itemId]: {
+                itemId: item.itemId,
+                itemName: item.itemName,
+                src: item.src,
+                price: item.price,
+                amount: item.amount + 1,
+            }
+        }))
+
         setProducts(prevProuducts => {
             return prevProuducts.map(product => {
-                if (product.food_id === id) {
+                if (product.itemId === item.itemId) {
                     return { ...product, amount: product.amount + 1 }
                 }
                 return product;
             })
         })
+
     }
+
     //商品數量-減少
-    const handleSub = (id) => {
+    const handleSub = (item) => {
+        if (item.amount > 1) {
+            //更新LocalStorage
+            const oldCart = JSON.parse(localStorage.getItem('order'))
+            localStorage.setItem('order', JSON.stringify({
+                ...oldCart,
+                [item.itemId]: {
+                    itemId: item.itemId,
+                    itemName: item.itemName,
+                    src: item.src,
+                    price: item.price,
+                    amount: item.amount - 1,
+                }
+            }))
+        }
+
         setProducts(prevProuducts => {
             return prevProuducts.map(product => {
-                if (product.food_id === id && product.amount > 1) {
+                if (product.itemId === item.itemId && product.amount > 1) {
                     return { ...product, amount: product.amount - 1 }
+                }
+                return product;
+            })
+        })
+
+    }
+    //商品數量-刪除
+    const handleRemove = (id) => {
+        setProducts(prevProuducts => {
+            return prevProuducts.filter(product => {
+                if (product.itemId !== id) {
+                    return { ...product }
                 }
                 return product;
             })
@@ -57,15 +91,15 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
                 products.map((v) => {
                     return (
                         <>
-                            <div key={v.food_id} className={style.shoppingcartdiv}>
+                            <div key={v.itemId} className={style.shoppingcartdiv}>
 
                                 <div>
-                                    <img src={`${process.env.API_SERVER}/img/res-img/${v.food_img}`} className={style.cartimage}></img>
+                                    <img src={v.src} className={style.cartimage}></img>
                                 </div>
                                 <div className={style.shoppingcartbody1}>
                                     <div className={style.shoppingcartbody2}>
-                                        <div>{v.food_title}</div>
-                                        <div><BsTrash className={style.trashicon} /></div>
+                                        <div>{v.itemName}</div>
+                                        <div><BsTrash className={style.trashicon} onClick={() => { handleRemove(v.food_id) }} /></div>
                                     </div>
 
                                     <div className={style.shoppingcartbody2}>
@@ -74,16 +108,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
                                             <button
                                                 className={style.cartbutton}
                                                 onClick={() => {
-                                                    // 預期: 目前商品數量是1，再按-按鈕，數量會變0 -> 就作移除
-                                                    // console.log(v.count)
-                                                    // if (v.count === 1) {
-                                                    //     // 作刪除
-                                                    //     setProducts(remove(products, v.id))
-                                                    // } else {
-                                                    //     // 作減數量
-                                                    //     setProducts(sub(products, v.id))
-                                                    // }
-                                                    handleSub(v.food_id)
+                                                    handleSub(v)
                                                 }}
                                             >
                                                 –
@@ -95,7 +120,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
                                                 className={style.cartbutton}
                                                 onClick={() => {
                                                     // setProducts(add(products, v.id))
-                                                    handleAdd(v.food_id)
+                                                    handleAdd(v)
                                                 }}
                                             >
                                                 +
@@ -103,7 +128,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
 
                                         </div>
                                         <div className={style.cartprice}>
-                                            ${v.food_price}
+                                            ${v.price}
                                         </div>
                                     </div>
                                     <div>

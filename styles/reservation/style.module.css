@@ -408,7 +408,13 @@
 }
 
 .trashicon{
-  font-size: 28px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.trashicon:hover{
+  font-size: 24px;
+  color: #911010;
 }
 
 .cartbutton{
