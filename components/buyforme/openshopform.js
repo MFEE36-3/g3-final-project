@@ -192,7 +192,7 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
             })
 
 
-            // 用 AuthContext 或 localstorage 都可以
+        // 用 AuthContext 或 localstorage 都可以
         if (!localStorage.getItem('auth')) return;
         const authData = JSON.parse(localStorage.getItem('auth'));
         setOpensheet((prev) => { return { ...prev, open_member_id: authData.sid } })
@@ -211,7 +211,7 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                     <DialogContent>
                         <div className={styles.labels}>
                             <div>開團店家：</div>
-                            <div className={styles.shopname}>{v.shop}</div>
+                            <div className={v.shop.length > 10 ? styles.shopname_small : styles.shopname}>{v.shop}</div>
                         </div>
 
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -254,7 +254,7 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                         </LocalizationProvider>
 
                         <div className={styles.labels}>
-                            <TextField fullWidth sx={mui_style} label='面交地點' onChange={(e) => changePlace(e.target.value)} />
+                            <TextField fullWidth sx={mui_style} label='面交地點' placeholder='你要送到哪' onChange={(e) => changePlace(e.target.value)} />
                         </div>
                         <div style={{ textAlign: 'center' }}>
                             <Btn text='開團!' padding='5px 20px' sx={{ width: '100%' }} onClick={() => {
