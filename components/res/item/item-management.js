@@ -23,7 +23,7 @@ export default function Management() {
 
   const getFoodItems = async () => {
     // const res = await axios.get(`http://localhost:3003/res/item-management`);
-    fetch(`http://localhost:3003/res/item-management`,{
+    fetch(`http://localhost:3002/res/item-management`,{
       method:'POST',
       body:JSON.stringify(resAuth),
       headers:{"Content-Type" : "application/json"}
@@ -61,7 +61,7 @@ export default function Management() {
   };
 
   // imgLink
-  const imgLink = "http://localhost:3003/img/"
+  const imgLink = "http://localhost:3002/img/res-img/"
 
   // 拿context裡面的資料
   // console.log(resAuth.account)
@@ -135,7 +135,7 @@ export default function Management() {
   const newToOld = async (e) => {
     // const res = await axios.get('http://localhost:3003/res/item-management/DESC');
 
-    fetch(`http://localhost:3003/res/item-management/DESC`,{
+    fetch(`http://localhost:3002/res/item-management/DESC`,{
       method:'POST',
       body:JSON.stringify(resAuth),
       headers:{"Content-Type" : "application/json"}
@@ -153,7 +153,7 @@ export default function Management() {
   // 由舊到新
   const OldToNew = async (e) => {
     // const res = await axios.get('http://localhost:3003/res/item-management/ASC');
-    fetch(`http://localhost:3003/res/item-management/ASC`,{
+    fetch(`http://localhost:3002/res/item-management/ASC`,{
       method:'POST',
       body:JSON.stringify(resAuth),
       headers:{"Content-Type" : "application/json"}
@@ -344,7 +344,7 @@ export default function Management() {
                             }).then((result) => {
                               if (result.isConfirmed) {
                                 Swal.fire('刪除成功!', '', 'success')
-                                fetch(`http://localhost:3003/res/item-management/deleteItem/${v.food_id}`,
+                                fetch(`http://localhost:3002/res/item-management/deleteItem/${v.food_id}`,
                                   { method: 'DELETE', })
                                   .then(r => r.json())
                                   .then(data => {

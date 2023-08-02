@@ -20,7 +20,7 @@ export default function RegisterForm() {
     const res_cateOptions = ['中式', '西式', '日式', '韓式', '美式', '泰式',]
 
     const [showImg, setShowImg] = useState('')
-    const imgPreview = `http://localhost:3003/img/`
+    const imgPreview = `http://localhost:3002/img/shops/`
     // previewImg()
     const previewImg = async (e) => {
         e.preventDefault()
@@ -28,7 +28,7 @@ export default function RegisterForm() {
         const fd = new FormData(); // 建立一個新的 FormData 物件
         fd.append('preImg', e.target.files[0]); // 將選擇的文件加入到 FormData 物件中
 
-        fetch('http://localhost:3003/previewImg', {
+        fetch('http://localhost:3002/res/shopPreviewImg', {
             method: 'POST',
             body: fd
         })
@@ -42,7 +42,7 @@ export default function RegisterForm() {
     }
 
     const [shop, setShop] = useState({
-        name: '',
+        shopname: '',
         phone: '',
         city: '',
         area: '',
@@ -54,14 +54,14 @@ export default function RegisterForm() {
         photo: showImg,
         description: '',
         avg_consumption: '',
-        fulladdress: '',
+        fulladdress:'',
         fulladdress1: '',
         open_time: '',
         close_time: '',
         open_days: [],
         table_number: '',
-        latitude:'',
-        longitude:'',
+        latitude: '',
+        longitude: '',
     })
 
     const [testShop, setTestShop] = useState({
@@ -101,19 +101,22 @@ export default function RegisterForm() {
         setShop({ ...shop, res_cate: e.target.value })
     }
 
-    const handleFullAddress = () => {
-        setShop({ ...shop, fulladdress })
-    }
-
     const handleShowImg = () => {
         setShop({ ...shop, photo: showImg })
     }
 
-    const handleChange = (e) => {
-        const newShop = { ...shop, [e.target.name]: e.target.value }
-        setShop(newShop)
+    // const handleChange = (e) => {
+    //     const newShop = { ...shop, [e.target.name]: e.target.value }
+    //     setShop(newShop)
+    // }
 
-    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setShop((prevShop) => ({
+            ...prevShop,
+            [name]: value,
+        }));
+    };
 
     const [city, setCity] = useState('')
     const cityOptions = ['台北市', '新北市', '基隆市']
@@ -180,43 +183,60 @@ export default function RegisterForm() {
         setShowPassword(!showPassword);
     };
 
-    useEffect(() => {
-        if (city === '台北市') {
-            setArea(areaOptions[0]);
-        } else if (city === '新北市') {
-            setArea(areaOptions[1]);
-        } else if (city === '基隆市') {
-            setArea(areaOptions[2]);
-        } else if (city === '') {
-            setArea(areaOptions[3])
-        }
-
-        handleShowImg()
-
-    }, [city, area, areaOptions, pickArea, shop, switchTable, showImg, openDays, showImg, resCate,]);
-
     const testGoogleAPI = () => {
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=台灣${shop.city}${shop.area}${shop.fulladdress1}&key=AIzaSyBcRKBsOJ9t8gpHAfAC_ZbY4eNTyDlBlMQ`)
-          .then((r) => r.json())
-          .then((obj) => {
-            console.log(obj);
-            if (obj.results.length > 0) {
-              const newShop = {
-                ...shop,
-                latitude: obj.results[0].geometry.location.lat,
-                longitude: obj.results[0].geometry.location.lng
-              };
-              setShop(newShop);
-            } else {
-              // 處理 API 無結果的錯誤
-              console.error('錯誤：找不到結果。');
-            }
-          })
-          .catch((error) => {
-            // 處理 fetch 錯誤
-            console.error('獲取數據時出錯：', error);
-          });
-      };
+            .then((r) => r.json())
+            .then((obj) => {
+                if (obj.results.length > 0) {
+                    const newShop = {
+                        ...shop,
+                        latitude: obj.results[0].geometry.location.lat,
+                        longitude: obj.results[0].geometry.location.lng
+                    };
+                    setShop(newShop);
+                } else {
+                    // 處理 API 無結果的錯誤
+                    console.error('錯誤：找不到結果。');
+                }
+            })
+            .catch((error) => {
+                // 處理 fetch 錯誤
+                console.error('獲取數據時出錯：', error);
+            });
+    };
+
+    //   useEffect(() => {
+    //     if (city === '台北市') {
+    //         setArea(areaOptions[0]);
+    //     } else if (city === '新北市') {
+    //         setArea(areaOptions[1]);
+    //     } else if (city === '基隆市') {
+    //         setArea(areaOptions[2]);
+    //     } else if (city === '') {
+    //         setArea(areaOptions[3])
+    //     }
+
+    //     handleShowImg()
+    // }, [city, area, areaOptions, pickArea, shop, switchTable, showImg, openDays, resCate,]);
+
+    useEffect(() => {
+        handleShowImg()
+    }, [showImg])
+
+    const areas = (e) => {
+        if (e.target.value === "台北市") {
+            setArea(areaOptions[0])
+        } else if (e.target.value === "新北市") {
+            setArea(areaOptions[1])
+        } else if (e.target.value === "基隆市") {
+            setArea(areaOptions[2])
+        } else if (e.target.value === '') {
+            setArea(areaOptions[3])
+        }
+        setCity(e.target.value)
+        setPickArea('')
+        setShop({ ...shop, city: e.target.value, area: '', }) // 這裡添加 fulladdress1 的設置
+    }
 
     // 驗證表單:先建立error清單
     const originErrors = { name: '', phone: '', account: '', password: '', password2: '', owner: '', description: '', avg_consumption: '', fulladdress: '', open_time: '', close_time: '', open_days: '' }
@@ -229,7 +249,7 @@ export default function RegisterForm() {
         let isPass = true
 
         // 開始檢查
-        if (!shop.name) {
+        if (!shop.shopname) {
             newError.name = '請輸入店名'
             isPass = false
         }
@@ -344,8 +364,8 @@ export default function RegisterForm() {
                                     className="form-control border-black"
                                     id="shop_name"
                                     placeholder="請輸入店名:"
-                                    name='name'
-                                    value={shop.name}
+                                    name='shopname'
+                                    value={shop.shopname}
                                     onChange={handleChange}
                                 />
                             </div>
@@ -389,7 +409,7 @@ export default function RegisterForm() {
 
                                 <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>密碼:</div>
 
-                                <div class="input-group mb-3 d-flex flex-row mb-3">
+                                <div className="input-group mb-3 d-flex flex-row mb-3">
                                     <input
                                         type={showPassword ? 'text' : 'password'}
                                         className="form-control  border-black"
@@ -538,10 +558,7 @@ export default function RegisterForm() {
                             // style={``}
                             >
 
-                                <select name='city' value={city} onChange={(e) => {
-                                    setCity(e.target.value)
-                                    setShop({ ...shop, city: e.target.value })
-                                }} className='me-1 form-select col-3'>
+                                <select name='city' value={city} onChange={areas} className='me-1 form-select col-3'>
                                     <option value=''>---請選擇城市---</option>
                                     {cityOptions.map((v, i) => {
                                         return <option key={i} value={v}>{v}</option>
@@ -549,12 +566,14 @@ export default function RegisterForm() {
                                 </select>
                                 <div className={`d-flex align-items-center me-1  
                                     ${styles.hideDash}`}>-</div>
+
                                 <select name='area' value={pickArea} onChange={(e) => {
                                     setPickArea(e.target.value)
                                     setShop({ ...shop, area: e.target.value })
                                 }}
                                     className='form-select col-3'
                                 >
+
                                     <option value=''>---請選擇鄉鎮---</option>
                                     {area.map((v, i) => {
                                         return <option key={i} value={v}>{v}</option>
@@ -573,7 +592,7 @@ export default function RegisterForm() {
                                             id="fulladdress"
                                             placeholder="請填入完整地址"
                                             name='fulladdress'
-                                            value={city + pickArea}
+                                            value={shop.city + shop.area}
                                             onChange={handleChange}
                                         />
                                         <div className='mx-2'>-</div>
@@ -584,7 +603,8 @@ export default function RegisterForm() {
                                             name='fulladdress1'
                                             value={shop.fulladdress1}
                                             onChange={handleChange}
-                                            onKeyDown={testGoogleAPI}
+                                            onBlur={testGoogleAPI}
+                                            // onKeyDown={testGoogleAPI}
                                         />
                                     </div>
 
