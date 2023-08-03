@@ -90,15 +90,16 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
               Swal.fire({
                 icon: 'success',
                 title: '訂位成功！',
-                text: '您的訂位已成功提交。',
+                text: '可前往會員中心查看。',
                 confirmButtonText: '確定',
               }).then(() => {
                 // 返回原餐廳畫面
-                router.push(`/reservation/${row.detail.sid}`);
+                window.location.reload();
               });
 
               // 提交成功後，設置訂位成功狀態為 true
-              setIsReservationSuccess(true);
+              // setIsReservationSuccess(true);
+              setDate('');
             })
             .catch((error) => {
               // 處理錯誤
