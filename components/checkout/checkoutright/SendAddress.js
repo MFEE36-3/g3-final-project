@@ -5,11 +5,11 @@ import { Cart } from '@/components/checkout/CheckOutFinal'
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 export default function SendAddress({setOrderInfo}) {
   const [formVerify, setFormVerify] = useState('');
-  const { member } = useContext(Cart);
+  const { memberInfo } = useContext(Cart);
   const [defaultInfo, setDefaultInfo] = useState(true)
-  const [name, setName] = useState(member.name);
-  const [address, setAddress] = useState(member.address);
-  const [phone, setPhone] = useState(member.phone);
+  const [name, setName] = useState(memberInfo.name);
+  const [address, setAddress] = useState(memberInfo.address);
+  const [phone, setPhone] = useState(memberInfo.phone);
   const handleDefaultInfo = () => {
       setDefaultInfo(!defaultInfo)
   }
@@ -23,43 +23,50 @@ export default function SendAddress({setOrderInfo}) {
   }
   return (
     <div className='row mt-1'>
-        <div className='col border-top pt-5 border-3 border-dark-subtle'>
+        <div className=' border-top pt-3 border-3 border-dark-subtle'>
             <TextField id="filled-basic" label="收件人姓名" variant="filled" required 
             InputProps={{
               style: {
-                fontSize: '25px', 
+                fontSize: '20px',
+                marginTop: '8px' ,
+                marginBottom: '5px'
               },
             }} 
-            defaultValue={member.name}
+            defaultValue={memberInfo.name}
             onChange={(e)=>setName(e.target.value)}
             onBlur={()=>handleInfo()}
-            value={defaultInfo ? member.name : ''}
+            value={defaultInfo ? memberInfo.name : ''}
             className='w-100 rounded-1'/>
             <TextField id="filled-basic" label="收件人地址" variant="filled" required 
             InputProps={{
               style: {
-                fontSize: '25px', 
+                fontSize: '20px',
+                marginTop: '8px' 
               },
             }} 
-            defaultValue={member.address}
-            value={defaultInfo ? member.address : ''}
+            defaultValue={memberInfo.address}
+            value={defaultInfo ? memberInfo.address : ''}
             onChange={(e)=>setAddress(e.target.value)}
             onBlur={()=>handleInfo()}
             className='w-100 rounded-1 mt-4'/>
             <TextField id="filled-basic" label="收件人電話" variant="filled" required
             InputProps={{
               style: {
-                fontSize: '25px', 
+                fontSize: '20px',
+                marginTop: '8px' 
               },
             }}
-            defaultValue={ member.phone }
+            defaultValue={ memberInfo.mobile }
             onChange={(e)=>setPhone(e.target.value)}
             onBlur={()=>handleInfo()}
-            value={defaultInfo ? member.phone : ''}
+            value={defaultInfo ? memberInfo.mobile : ''}
              className='w-100 rounded-1 mt-4'/>
         </div>
         <div className='d-flex align-items-center  border-bottom  border-3 border-dark-subtle'>
-              <Checkbox {...label} defaultChecked onChange={handleDefaultInfo}  className='mt-2'/>
+              <Checkbox {...label} 
+              defaultChecked 
+              onChange={handleDefaultInfo}  
+              />
               <span>同會員資訊</span>
         </div>
     </div>

@@ -21,7 +21,6 @@ export default function ShopFilter() {
       <Category/>
       <PriceRange/>
       <Star/>
-      <Link href={'http://localhost:3001/checkout'}>結帳測試</Link>
     </div>
   );
 }

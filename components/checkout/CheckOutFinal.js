@@ -3,12 +3,13 @@ import CheckOutContainer from '@/components/checkout/checkoutcontainer/CheckOutC
 import CheckOutPage from '@/components/checkout/checkoutpage/CheckOutPage'
 import CheckOutLeft from '@/components/checkout/checkoutleft/CheckOutLeft'
 import CheckOutRight from '@/components/checkout/checkoutright/CheckOutRight'
+import { useRouter } from 'next/router'
 export const Cart = createContext()
 export default function CheckOutFinal(){
     const [page, setPage] = useState('subscribe')
-    const [orderId, setOrderId] = useState('')
     // const host = "http://192.168.50.169:8000"
-    const host = "http://127.0.0.1:3002"
+    const host = process.env.API_SERVER
+    const router = useRouter()
     const [items, setItems] = useState(
         {
         subscribe: [],
@@ -31,15 +32,8 @@ export default function CheckOutFinal(){
                 return pages.shop
         }
     }
-    const [memberInfo, setMemberInfo] = useState({})
-  ///fetch api  localhost3000 blablablab / memberInfo.sid 
-    const member = {
-        sid:1,
-        nickname:'皮卡丘的朋友',
-        name:'解膩龜',
-        address:'全家',
-        phone:'0912345657',
-      }
+    const [memberInfo, setMemberInfo] = useState([])
+    const [memberCoupon, setMemberCoupon] = useState([])
     useEffect(() => {
         const subscribeItem = localStorage.getItem("subscribe");
         const buyItem = localStorage.getItem("buy");
@@ -59,7 +53,29 @@ export default function CheckOutFinal(){
         }))
         ///////member
         const member = JSON.parse(localStorage.getItem('auth'))
-        setMemberInfo(member)
+        const getInfo = async () =>{
+            const response = await fetch(`${host}/member`,{
+                method: 'GET',
+                headers:{
+                    'Authorization':`Bearer ${member.token}`
+                }})
+            const [data] = await response.json()
+            
+            setMemberInfo(data)
+        }
+        getInfo()
+        
+        const getMemberCoupon = async () => {
+            const response = await fetch(`${host}/member/coupon`,{
+                headers:{
+                    'Authorization' : `Bearer ${member.token}`
+                }
+            })
+            const data = await response.json()
+            setMemberCoupon(data)
+       } 
+
+       getMemberCoupon()
         }, []); 
         useEffect(()=>{
             const subscribeItem = JSON.parse(localStorage.getItem("subscribe"));
@@ -70,11 +86,27 @@ export default function CheckOutFinal(){
               result[item.itemId] = item
               return result
             },{})
+            const updatedOrderItems = items.order.reduce((result, item)=> {
+                result[item.itemId] = item
+                return result
+              },{})
+            const updatedBuyItems = items.buy.reduce((result, item)=> {
+                result[item.itemId] = item
+                return result
+              },{})
+            const updatedSubscribeItems = items.subscribe.reduce((result, item)=> {
+                result[item.itemId] = item
+                return result
+              },{})
             localStorage.setItem('shop',JSON.stringify(updatedShopItems))
+            localStorage.setItem('order',JSON.stringify(updatedOrderItems))
+            localStorage.setItem('buy',JSON.stringify(updatedBuyItems))
+            localStorage.setItem('subscribe',JSON.stringify(updatedSubscribeItems))
         },[items])
+        
     return (
     <>  
-        <Cart.Provider value={{page, setPage, items, setItems, showPages, memberInfo, member, host}}>
+        <Cart.Provider value={{page, setPage, items, setItems, showPages, memberInfo, memberInfo, host, memberCoupon}}>
             <div className='overflow-hidden'>
                 <CheckOutContainer>
                     <CheckOutPage />

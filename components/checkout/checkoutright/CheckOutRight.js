@@ -7,6 +7,7 @@ import CheckOutTotalPrice from './CheckOutTotalPrice'
 import SendAddress from './SendAddress'
 export default function CheckoutRight() {
   const [payment,setPayment] = useState('')
+  const [clickConfirm, setClickConfirm] = useState()
   const [orderInfo, setOrderInfo] = useState({name:'', address:'', phone:''})
   return (
     <div className='col-5'>
