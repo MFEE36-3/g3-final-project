@@ -77,8 +77,9 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
         "nickname": '',
         "mobile_number": '',   //order_amount後端給 ??
         "order_instructions": '',
-        "open_status": 0,
+        "order_status": 0,
         "order_detail": [],
+        "order_amount":opendetail[0],
         "open_sid": opendetail[1]
     });
 
@@ -130,8 +131,9 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                 "nickname": '',
                 "mobile_number": '',
                 "order_instructions": '',
-                "open_status": 0,
+                "order_status": 0,
                 "order_detail": [],
+                "order_amount":opendetail[0],
                 "open_sid": opendetail[1]
             })
 
@@ -221,10 +223,10 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
 
 
                 <div className={styles.labels}>
-                    <TextField fullWidth sx={mui_style} label='暱稱' placeholder='該怎麼稱呼你' onChange={(e) => changeNickname(e.target.value)} />
+                    <TextField fullWidth sx={mui_style} label='暱稱' placeholder='該怎麼稱呼你' onChange={(e) => changeNickname(e.target.value)} required/>
                 </div>
                 <div className={styles.labels}>
-                    <TextField fullWidth sx={mui_style} label='聯絡方式' placeholder='手機 or 電話' onChange={(e) => changeMobileNumber(e.target.value)} />
+                    <TextField fullWidth sx={mui_style} label='聯絡方式' placeholder='手機 or 電話' onChange={(e) => changeMobileNumber(e.target.value)} required/>
                 </div>
                 <div className={styles.labels}>
                     <TextField fullWidth sx={mui_style} label='備註' placeholder='有什麼想說的？' onChange={(e) => changeInstructions(e.target.value)} />
@@ -232,16 +234,16 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                 <div style={{ textAlign: 'center' }}>
                     <Btn text='跟團!' padding='5px 20px' sx={{ width: '100%' }} onClick={() => {
 
-                        if (opensheet.meet_place === "") {
+                        if (ordersheet.nickname === "" || ordersheet.mobile_number === "") {
                             Swal.fire({
-                                title: '請檢查所有欄位都有填寫哦~',
+                                title: '請檢查暱稱及聯絡方式都有填寫哦',
                                 icon: 'warning',
                                 showConfirmButton: false,
                                 timer: 1500
                             })
                             return;
                         }
-                        if (opensheet.open_member_id === 0) {
+                        if (ordersheet.order_member_id === 0) {
                             Swal.fire({
                                 title: '請先登入',
                                 icon: 'warning',
@@ -256,19 +258,19 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                             return;
                         }
 
-                        fetch(process.env.API_SERVER + '/buyforme/openforyou', {
+                        fetch(process.env.API_SERVER + '/buyforme/setbuyforme', {
                             method: 'POST',
-                            body: JSON.stringify(opensheet),
+                            body: JSON.stringify(ordersheet),
                             headers: { 'Content-Type': 'application/json' },
                         })
                             .then(r => r.json())
                             .then(obj => {
 
-                                if (obj.result.affectedRows !== 0) {
+                                if (obj.result.affectedRows !== 0  && !obj.result2.includes(0)) {
                                     Swal.fire({
                                         title: '跟團成功!',
                                         icon: 'success',
-                                        showConfirmButton: false,
+                                        showConfirmButton: true,
                                         showDenyButton: true,
                                         confirmButtonText: '前往結帳',
                                         denyButtonText: '晚點再說',
