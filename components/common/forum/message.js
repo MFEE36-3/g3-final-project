@@ -9,7 +9,9 @@ export default function Message({ messages }) {
       {messages.map((message) => (
         <div key={message.message_sid} className={styles.flex}>
           <div>
-            <img className={styles.avatar}>{message.user_photo}</img>
+            <div className={styles.avatar}>
+            <img src={`http://localhost:3002/img/member/${message.photo}`} />
+            </div>
           </div>
           <div className={styles.box}>
             <div className={styles.nickname}>{message.nickname}</div>

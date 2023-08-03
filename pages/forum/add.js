@@ -10,19 +10,30 @@ export default function Add() {
   const [header, setHeader] = useState('');
   const [content, setContent] = useState('');
   // 文章新增函式
-  const handleAddPost = async () => {
+  const handleheader = (e) => {
+    console.log('header');
+    setHeader(e.target.value);
+  };
+  const handlecontent = (e) => {
+    console.log('content');
+    setContent(e.target.value);
+  };
+  const handleAddPost = async (e) => {
+    console.log('yes');
+    e.preventDefault();
+    const postData = {
+      header: header,
+      content: content,
+      photo: '',
+      user_id: '',
+    };
     try {
       const response = await fetch('http://localhost:3002/forum/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          header: header,
-          content: content,
-          photo: '',
-          user_id: 'your_user_id_here',
-        }),
+        body: JSON.stringify(postData),
       });
 
       const data = await response.json();
@@ -44,7 +55,6 @@ export default function Add() {
     <>
       <div className={styles.container}>
         <Newnav />
-
         <h3 className={styles.text}>新增貼文</h3>
         <div className={styles.line}></div>
         {/* <Button
@@ -53,17 +63,13 @@ export default function Add() {
         >
           <div className={styles.btn_text}>點擊選擇看板</div>
         </Button> */}
-        <div></div>
-        <div>
-          <div></div>
-        </div>
         <div>
           <input
             type="text"
             placeholder="請輸入標題"
             value={header}
             className={styles.input1}
-            onChange={(e) => setHeader(e.target.value)}
+            onChange={handleheader}
           ></input>
         </div>
         <textarea
@@ -71,14 +77,19 @@ export default function Add() {
           placeholder="敘述"
           value={content}
           className={styles.input2}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={handlecontent}
         ></textarea>
-
         <div className={styles.between}>
           <FontAwesomeIcon icon={faImage} className={styles.icon} />
           <div className={styles.end}>
             <button className={styles.cancel}>取消</button>
-            <button className={styles.addbtn}>新增</button>
+            <button
+              className={styles.addbtn}
+              onClick={handleAddPost}
+              roles="presentation"
+            >
+              新增
+            </button>
           </div>
         </div>
       </div>
