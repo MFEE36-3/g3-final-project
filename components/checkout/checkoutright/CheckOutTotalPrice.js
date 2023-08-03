@@ -8,8 +8,13 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
+import { styled } from 'styled-components';
+const Fs23pxSpan = styled.span`
+    font-size:23px;
+    
+`
 export default function CheckOutTotalPrice({payment, orderInfo}) {
-    const {items, showPages, host, memberCoupon} = useContext(Cart)
+    const {items, showPages, host, memberCoupon, memberInfo} = useContext(Cart)
     const router = useRouter()
     const pagePrice = () => {
     return showPages(items).length > 0 ? showPages(items).map(item => item.price * item.amount).reduce((p ,c) => p + c) : 0
@@ -34,11 +39,15 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
             onChange={handleChange}
             sx={{textAlign:"center",display:'flex',alignItems:"center"}}
             >
-            
-            {memberCoupon.filter(coupon => coupon.coupon_status_sid === 1).map(c => <MenuItem value={c.get_coupon_sid} className='d-flex justify-content-between' key={c.get_coupon_sid}>
-            {c.coupon_title}
-            <span className='ms-3 text-danger'>${c.coupon_discount}</span>
-            </MenuItem>)}
+            <MenuItem value={0} className='d-flex justify-content-center' >
+                不使用優惠卷
+            </MenuItem>
+            {memberCoupon.filter(coupon => coupon.coupon_status_sid === 1).map(c => 
+                <MenuItem value={c.get_coupon_sid} className='d-flex justify-content-between' key={c.get_coupon_sid}>
+                    {c.coupon_title}
+                    <span className='ms-3 text-danger'>${c.coupon_discount}</span>
+                </MenuItem>
+            )}
             </Select>
         </FormControl>
     </Box>
@@ -89,12 +98,10 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
             },
             payment_info : {
                 payment_type: payment,
-                coupon_sid: couponId
+                coupon_sid: couponId !== 0 ? couponId : null,
+                shipfee: fee,
             }
         }
-        console.log(orderData)
-        console.log(orderInfo)
-        console.log(memberCoupon)
         const createOrder = async () =>{
             const member = JSON.parse(localStorage.getItem('auth'))
             const response = await fetch(url,{
@@ -106,42 +113,49 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                 body:JSON.stringify(orderData)
             })
             const data = await response.json();
-            if(data.message === 'Order created successful!') {
-                const redirect = () =>  data.linepay_redirect ? setTimeout(()=>{window.location.href=data.linepay_redirect},6000) : 
-                setTimeout(()=>{router.push({pathname:'http://localhost:3000/completeorder'})},6000)
-                createOrderLoading(redirect())
-            } 
+            return data
         }
         try{
-            await createOrder()
-            console.log('success')
+            const response = await createOrder()
+            if(response.message === 'Order created successful!') {
+                const redirect = () =>  response.linepay_redirect ? setTimeout(()=>{window.location.href=response.linepay_redirect},6000) : 
+                setTimeout(()=>{router.push({pathname:'http://localhost:3000/completeorder'})},6000)
+                createOrderLoading(redirect())
+            }
+            else {
+                throw new Error(response.error)
+            }
         }catch(error){
             console.log('error', error)
+            //跳錯
         }
     }
   return (
     <div className='mb-2 '>
         <div className='mt-3 mx-1'>
             <div className='d-flex justify-content-between'>
-                <span style={{fontSize:"18px"}}>商品價格</span>
-                <span style={{fontSize:"18px"}}>$ {pagePrice()}</span>
+                <Fs23pxSpan>商品價格</Fs23pxSpan>
+                <Fs23pxSpan>$ {pagePrice()}</Fs23pxSpan>
             </div>
             <div className='d-flex justify-content-between mt-4'>
-                <span style={{fontSize:"18px"}}>運費/外送費</span>
-                <span style={{fontSize:"18px"}}>$ {showPages(items).length > 0 ? fee : 0}</span>
+                <Fs23pxSpan>運費/外送費(會員免運)</Fs23pxSpan>
+                <Fs23pxSpan style={memberInfo.level === 2 ? {textDecoration:"line-through"} :{}} 
+                className={memberInfo.level === 2 ? 'text-danger' : ''}
+                >{memberInfo.level === 2 ? `$ 0` : showPages(items).length > 0 ? `$ ${fee}` : 0}</Fs23pxSpan>
             </div>
             <div className='d-flex justify-content-between align-items-center mt-4'>
-                <span style={{fontSize:"18px"}}>折價卷</span>
-                <span>    
+                <Fs23pxSpan>折價卷</Fs23pxSpan>
+                <Fs23pxSpan>    
                     {coupon}
-                </span>
+                </Fs23pxSpan>
             </div>
             <div className='d-flex justify-content-between mt-4'>
-                <span style={{fontSize:"18px"}}>總金額</span>
-                <span style={{fontSize:"18px"}} className='text-danger'>$ {showPages(items).length > 0 ? `${pagePrice()+ (showPages(items).length > 0 ? fee : 0 ) - discount}` : 0}</span>
+                <Fs23pxSpan>總金額</Fs23pxSpan>
+                <Fs23pxSpan className='text-danger'>$ {showPages(items).length > 0 ? `${pagePrice()+ (memberInfo.level === 2 ? 0 : showPages(items).length > 0 ? fee : 0) - discount}` : 0}</Fs23pxSpan>
             </div>
         </div>
-        <Button variant="contained" className='w-100 d-flex align-items-center mx-auto p-1  bg-warning rounded-4 mt-5 mb-2 border-0 justify-content-center fs-4' onClick={handleOrder}>結&nbsp;&nbsp;&nbsp;&nbsp;帳</Button>
+        {console.log(memberInfo.level)}
+        <Button variant="contained" className='w-100 d-flex align-items-center mx-auto p-1  bg-warning rounded-4 mt-4 mb-2 border-0 justify-content-center fs-4' onClick={handleOrder}>結&nbsp;&nbsp;&nbsp;&nbsp;帳</Button>
     </div>
   )
 }

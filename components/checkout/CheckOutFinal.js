@@ -103,7 +103,6 @@ export default function CheckOutFinal(){
             localStorage.setItem('buy',JSON.stringify(updatedBuyItems))
             localStorage.setItem('subscribe',JSON.stringify(updatedSubscribeItems))
         },[items])
-        
     return (
     <>  
         <Cart.Provider value={{page, setPage, items, setItems, showPages, memberInfo, memberInfo, host, memberCoupon}}>

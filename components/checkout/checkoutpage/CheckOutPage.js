@@ -28,7 +28,7 @@ export default function CheckOutPage() {
         }, undefined, { scroll : false })
     }
     useEffect(()=>{
-        setPage(router.query.page)
+        setPage(router.query.page || 'subscribe')
     },[router])
     
   return (
