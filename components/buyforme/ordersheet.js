@@ -79,7 +79,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
         "order_instructions": '',
         "order_status": 0,
         "order_detail": [],
-        "order_amount":opendetail[0],
+        "order_amount": opendetail[0],
         "open_sid": opendetail[1]
     });
 
@@ -108,7 +108,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
     // }
 
     // 資料格式是陣列裝物件的寫法
-    function changeOrderDatail(food_quantity, food_id, food_title, food_price) {
+    function changeOrderDatail(food_quantity, food_id, food_title, food_price, food_img, tip) {
 
         setOrdersheet((prev) => {
             return { ...prev, order_detail: prev.order_detail.filter((v) => v.food_id !== food_id) }
@@ -117,7 +117,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
         if (food_quantity === 0) return;
 
         setOrdersheet((prev) => {
-            prev.order_detail.push({ food_id: food_id, food_title: food_title, food_quantity: food_quantity, food_price: food_price })
+            prev.order_detail.push({ food_id: food_id, food_title: food_title, food_quantity: food_quantity, food_price: food_price, food_img: food_img, tip: tip })
             return { ...prev, order_detail: prev.order_detail }
         });
 
@@ -133,7 +133,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                 "order_instructions": '',
                 "order_status": 0,
                 "order_detail": [],
-                "order_amount":opendetail[0],
+                "order_amount": opendetail[0],
                 "open_sid": opendetail[1]
             })
 
@@ -174,7 +174,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                                                 id="demo-simple-select"
                                                 //value={age}
                                                 label="Age"
-                                                onChange={(e) => changeOrderDatail(e.target.value, v.food_id, v.food_title, v.food_price)}
+                                                onChange={(e) => changeOrderDatail(e.target.value, v.food_id, v.food_title, v.food_price, v.food_img, opendetail[0])}
                                                 sx={mui_select_style}
                                             >
                                                 {menuItem.map((v) => {
@@ -223,10 +223,10 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
 
 
                 <div className={styles.labels}>
-                    <TextField fullWidth sx={mui_style} label='暱稱' placeholder='該怎麼稱呼你' onChange={(e) => changeNickname(e.target.value)} required/>
+                    <TextField fullWidth sx={mui_style} label='暱稱' placeholder='該怎麼稱呼你' onChange={(e) => changeNickname(e.target.value)} required />
                 </div>
                 <div className={styles.labels}>
-                    <TextField fullWidth sx={mui_style} label='聯絡方式' placeholder='手機 or 電話' onChange={(e) => changeMobileNumber(e.target.value)} required/>
+                    <TextField fullWidth sx={mui_style} label='聯絡方式' placeholder='手機 or 電話' onChange={(e) => changeMobileNumber(e.target.value)} required />
                 </div>
                 <div className={styles.labels}>
                     <TextField fullWidth sx={mui_style} label='備註' placeholder='有什麼想說的？' onChange={(e) => changeInstructions(e.target.value)} />
@@ -266,7 +266,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                             .then(r => r.json())
                             .then(obj => {
 
-                                if (obj.result.affectedRows !== 0  && !obj.result2.includes(0)) {
+                                if (obj.result.affectedRows !== 0 && !obj.result2.includes(0)) {
                                     Swal.fire({
                                         title: '跟團成功!',
                                         icon: 'success',
@@ -278,6 +278,16 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                                         function (result) {
                                             if (result.value) router.push('/checkout')
                                         });
+
+
+                                    // 傳給購物車用的
+                                    const buyforme_order_data = {}
+
+                                    ordersheet.order_detail.forEach((v) => {
+                                        buyforme_order_data[v.food_id] = { itemId: v.food_id, itemName: v.food_title, price: v.food_price, amount: v.food_price * v.food_quantity, src: process.env.API_SERVER + '/img/res-img/' + v.food_img, tip: v.tip }
+                                    })
+
+                                    localStorage.setItem('buy', JSON.stringify(buyforme_order_data))
                                 }
                             })
                     }} />
