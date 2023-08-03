@@ -19,6 +19,8 @@ export default function RestaurantPage() {
     const [memo, setMemo] = useState('');
     const [row, setRow] = useState({ detail: {}, booking: [], seattype: [], fooditems: [] }); //{detail,booking,seattype}
     const [shoppingCart, setShoppingCart] = useState([]);
+    const [togodate, setTogodate] = useState();
+    const [togotime, setTogotime] = useState();
 
     const [show, setShow] = useState(false);
 
@@ -55,7 +57,8 @@ export default function RestaurantPage() {
                         <div className={style.reservationdiv}>
                             <ReservationPage row={row} date={date} setDate={setDate} time={time} setTime={setTime}
                                 person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo}
-                                shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
+                                shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} togodate={togodate} setTogodate={setTogodate}
+                                togotime={togotime} setTogotime={setTogotime}
                             />
                         </div>
                     </div>
@@ -66,7 +69,8 @@ export default function RestaurantPage() {
                         <Offcanvas.Title className={style.carttitle}>--您的購物車--</Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
-                        <ShoppingCart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />
+                        <ShoppingCart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
+                            togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} />
                     </Offcanvas.Body>
                 </Offcanvas>
             </div>

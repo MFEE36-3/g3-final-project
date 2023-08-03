@@ -8,10 +8,7 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-export default function TogoDateTime({ row }) {
-
-    const [togodate, setTogodate] = useState();
-    const [togotime, setTogotime] = useState();
+export default function TogoDateTime({ row, togodate, setTogodate, togotime, setTogotime }) {
 
     const today = new Date();
     const minDate = dayjs(today).add(1, 'day').startOf('day').toDate(); // 明天的开始时间
@@ -93,7 +90,7 @@ export default function TogoDateTime({ row }) {
             <DatePicker
                 label="請選擇取餐日期"
                 shouldDisableDate={shouldDisableDate} // 禁用日期
-                // value={togodate}
+                value={togodate}
                 onChange={handleDateChange}
             />
 

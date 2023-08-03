@@ -31,7 +31,7 @@ const Inputborder = styled.input`
   }
 `
 
-export default function Products({ row, category, shoppingCart, setShoppingCart }) {
+export default function Products({ row, category, shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime }) {
 
     const [itemdeatil, setItemdeatil] = useState(null);
     const [open, setOpen] = useState(false);

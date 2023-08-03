@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import style from '@/styles/reservation/style.module.css'
 import { Button } from 'react-bootstrap';
 import { BsTrash } from "react-icons/bs";
+import { GiShoppingCart } from "react-icons/gi";
 
-export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
+export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime }) {
 
     // const [products, setProducts] = useState(Object.values(shoppingCart)); // 使用 Object.values() 取得購物車商品陣列
 
@@ -44,7 +45,6 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
         })
 
     }
-
     //商品數量-減少
     const handleSub = (item) => {
         if (item.amount > 1) {
@@ -100,6 +100,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
 
     return (
         <>
+
             {products.length > 0 ?
                 <div>
                     {
@@ -156,7 +157,14 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
                         })
                     } </div>
                 :
-                <div>aaa</div>
+                <div className={style.cartemptydiv}>
+                    <GiShoppingCart className={style.cartemptyicon} />
+                    <div className={style.cartemptytext}>購物車中沒有商品</div>
+                </div>
+            }
+
+            {products.length > 0 && togodate ?
+                <div>{togodate}</div> : ''
             }
             <div>
                 <Button className={style.cartsendbutton}
