@@ -284,7 +284,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                                     const buyforme_order_data = {}
 
                                     ordersheet.order_detail.forEach((v) => {
-                                        buyforme_order_data[v.food_id] = { itemId: v.food_id, itemName: v.food_title, price: v.food_price, amount: v.food_price * v.food_quantity, src: process.env.API_SERVER + '/img/res-img/' + v.food_img, tip: v.tip }
+                                        buyforme_order_data[v.food_id] = { itemId: v.food_id, itemName: v.food_title, price: v.food_price, amount: v.food_quantity, src: process.env.API_SERVER + '/img/res-img/' + v.food_img, tip: v.tip }
                                     })
 
                                     localStorage.setItem('buy', JSON.stringify(buyforme_order_data))
