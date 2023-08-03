@@ -123,3 +123,16 @@ a:active {
   border-radius: 50px !important;
   letter-spacing: 1px;
 }
+
+/* .swal2-popup{
+  border: 5px solid var(--main-color);
+  border-radius: 10px;
+} */
+
+.swal2-confirm {
+  background-color: var(--main-color) !important;
+}
+
+.swal2-deny {
+  background-color: var(--sub-color) !important;
+}
