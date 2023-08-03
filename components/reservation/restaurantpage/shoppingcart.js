@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import style from '@/styles/reservation/style.module.css'
 import { Button } from 'react-bootstrap';
 import { BsTrash } from "react-icons/bs";
@@ -12,11 +12,11 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
 
     const menuItems = JSON.parse(cartitem) || 0;
     // console.log(menuItems);
-
     const menuItemsArray = Object.values(menuItems);
     // console.log(menuItemsArray);
 
     const [products, setProducts] = useState(menuItemsArray)
+
 
     //商品數量-增加
     const handleAdd = (item) => {
@@ -73,72 +73,90 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart }) {
 
     }
     //商品數量-刪除
-    const handleRemove = (id) => {
-        setProducts(prevProuducts => {
-            return prevProuducts.filter(product => {
-                if (product.itemId !== id) {
-                    return { ...product }
-                }
-                return product;
-            })
-        })
+    const handleRemove = (item) => {
+
+        //更新LocalStorage
+        const oldCart = JSON.parse(localStorage.getItem('order'))
+        delete oldCart[item.itemId];
+        localStorage.setItem('order', JSON.stringify(oldCart));
+
+        // 检查localStorage是否为空，如果为空，则删除该localStorage项
+        if (Object.keys(oldCart).length === 0) {
+            localStorage.removeItem('order');
+        }
+
+        // // 重新从localStorage中获取数据并更新products数组
+        // const updatedCart = JSON.parse(localStorage.getItem('order')) || {};
+        // const updatedProducts = Object.values(updatedCart);
+
+        // // 使用setProducts函数更新products数组
+        // setProducts(updatedProducts);
+
+        setProducts(prevProducts => {
+            return prevProducts.filter(product => product.itemId !== item.itemId);
+        });
     }
 
 
     return (
         <>
-            {
-                products.map((v) => {
-                    return (
-                        <>
-                            <div key={v.itemId} className={style.shoppingcartdiv}>
+            {products.length > 0 ?
+                <div>
+                    {
+                        products.map((v) => {
+                            return (
+                                <>
+                                    <div key={v.itemId} className={style.shoppingcartdiv}>
 
-                                <div>
-                                    <img src={v.src} className={style.cartimage}></img>
-                                </div>
-                                <div className={style.shoppingcartbody1}>
-                                    <div className={style.shoppingcartbody2}>
-                                        <div>{v.itemName}</div>
-                                        <div><BsTrash className={style.trashicon} onClick={() => { handleRemove(v.food_id) }} /></div>
-                                    </div>
-
-                                    <div className={style.shoppingcartbody2}>
-                                        <div className={style.shoppingcartbody3}>
-
-                                            <button
-                                                className={style.cartbutton}
-                                                onClick={() => {
-                                                    handleSub(v)
-                                                }}
-                                            >
-                                                –
-                                            </button>
-
-                                            <div className={style.cartcount}>{v.amount}</div>
-
-                                            <button
-                                                className={style.cartbutton}
-                                                onClick={() => {
-                                                    // setProducts(add(products, v.id))
-                                                    handleAdd(v)
-                                                }}
-                                            >
-                                                +
-                                            </button>
-
+                                        <div>
+                                            <img src={v.src} className={style.cartimage}></img>
                                         </div>
-                                        <div className={style.cartprice}>
-                                            ${v.price}
+                                        <div className={style.shoppingcartbody1}>
+                                            <div className={style.shoppingcartbody2}>
+                                                <div>{v.itemName}</div>
+                                                <div><BsTrash className={style.trashicon} onClick={() => { handleRemove(v) }} /></div>
+                                            </div>
+
+                                            <div className={style.shoppingcartbody2}>
+                                                <div className={style.shoppingcartbody3}>
+
+                                                    <button
+                                                        className={style.cartbutton}
+                                                        onClick={() => {
+                                                            handleSub(v)
+                                                        }}
+                                                    >
+                                                        –
+                                                    </button>
+
+                                                    <div className={style.cartcount}>{v.amount}</div>
+
+                                                    <button
+                                                        className={style.cartbutton}
+                                                        onClick={() => {
+                                                            // setProducts(add(products, v.id))
+                                                            handleAdd(v)
+                                                        }}
+                                                    >
+                                                        +
+                                                    </button>
+
+                                                </div>
+                                                <div className={style.cartprice}>
+                                                    ${v.price}
+                                                </div>
+                                            </div>
+                                            <div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr className={style.hrcolor} />
-                        </>
-                    )
-                })
+                                    <hr className={style.hrcolor} />
+                                </>
+                            )
+                        })
+                    } </div>
+                :
+                <div>aaa</div>
             }
             <div>
                 <Button className={style.cartsendbutton}

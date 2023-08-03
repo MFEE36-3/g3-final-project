@@ -35,7 +35,7 @@ export default function MainContent({ favorite, setFavorite }) {
       <div className={style.main}>
         <div className={style.maincontent}>
           {data.map((v) => {
-            const { sid, picture, shop, res_cate, rating, location } = v;
+            const { sid, photo, shop, res_cate, rating, location } = v;
             return (
               <Card
                 className={`${style.card}`}
@@ -45,7 +45,7 @@ export default function MainContent({ favorite, setFavorite }) {
                   <Link href={"/reservation/" + sid}>
                     <Card.Img
                       variant="top"
-                      src="../../reservation/respic.jpeg"
+                      src={`${process.env.API_SERVER}/img/shops/${photo}`}
                       className={`${style.cardimg}`}
                     />
                     <div className={style.cardtext}>進入餐廳</div>
