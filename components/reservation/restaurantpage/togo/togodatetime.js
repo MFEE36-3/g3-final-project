@@ -2,7 +2,6 @@ import * as React from 'react';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import dayjs from 'dayjs';
@@ -43,6 +42,17 @@ export default function TogoDateTime({ row, togodate, setTogodate, togotime, set
     const handleDateChange = (selectedDate) => {
         const formattedDate = selectedDate.format('YYYY-MM-DD');
         setTogodate(formattedDate);
+
+        const oldCart = JSON.parse(localStorage.getItem('order'));
+        if (oldCart) {
+            for (const itemId in oldCart) {
+                if (oldCart.hasOwnProperty(itemId)) {
+                    oldCart[itemId].togodate = formattedDate;
+                }
+            }
+            localStorage.setItem('order', JSON.stringify(oldCart));
+        }
+
     };
 
 
@@ -63,6 +73,17 @@ export default function TogoDateTime({ row, togodate, setTogodate, togotime, set
     const handleTimeChange = (selectedTime) => {
         const formattedTime = selectedTime.format('HH:mm');
         setTogotime(formattedTime);
+
+        // 更新localStorage中所有数据的togotime字段
+        const oldCart = JSON.parse(localStorage.getItem('order'));
+        if (oldCart) {
+            for (const itemId in oldCart) {
+                if (oldCart.hasOwnProperty(itemId)) {
+                    oldCart[itemId].togotime = formattedTime;
+                }
+            }
+            localStorage.setItem('order', JSON.stringify(oldCart));
+        }
     };
 
     const shouldDisableTime = (time) => {
@@ -80,17 +101,10 @@ export default function TogoDateTime({ row, togodate, setTogodate, togotime, set
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            {/* <DateTimePicker
-                label="請選擇取餐時間"
-                value={ordertime}
-                shouldDisableDate={shouldDisableDate} // 禁用日期
-                shouldDisableTime={shouldDisableTime} // 禁用時間
-                onChange={handledatetime}
-            /> */}
             <DatePicker
                 label="請選擇取餐日期"
                 shouldDisableDate={shouldDisableDate} // 禁用日期
-                value={togodate}
+                // value={togodate}
                 onChange={handleDateChange}
             />
 

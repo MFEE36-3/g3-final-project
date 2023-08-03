@@ -8,6 +8,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
 
     // const [products, setProducts] = useState(Object.values(shoppingCart)); // 使用 Object.values() 取得購物車商品陣列
 
+
     const cartitem = localStorage.getItem('order')
     // console.log(cartitem);
 
@@ -32,6 +33,8 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
                 src: item.src,
                 price: item.price,
                 amount: item.amount + 1,
+                togodate: togodate,
+                togotime: togotime,
             }
         }))
 
@@ -58,6 +61,8 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
                     src: item.src,
                     price: item.price,
                     amount: item.amount - 1,
+                    togodate: togodate,
+                    togotime: togotime,
                 }
             }))
         }
@@ -84,13 +89,6 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
         if (Object.keys(oldCart).length === 0) {
             localStorage.removeItem('order');
         }
-
-        // // 重新从localStorage中获取数据并更新products数组
-        // const updatedCart = JSON.parse(localStorage.getItem('order')) || {};
-        // const updatedProducts = Object.values(updatedCart);
-
-        // // 使用setProducts函数更新products数组
-        // setProducts(updatedProducts);
 
         setProducts(prevProducts => {
             return prevProducts.filter(product => product.itemId !== item.itemId);
