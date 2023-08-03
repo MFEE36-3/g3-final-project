@@ -3,6 +3,7 @@ import style from '@/styles/reservation/style.module.css'
 import { Button } from 'react-bootstrap';
 import { BsTrash } from "react-icons/bs";
 import { GiShoppingCart } from "react-icons/gi";
+import { BsFillCalendar3WeekFill } from "react-icons/bs";
 
 export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime }) {
 
@@ -95,6 +96,9 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
         });
     }
 
+    const getTotalAmount = () => {
+        return products.reduce((total, product) => total + (product.amount * product.price), 0);
+    }
 
     return (
         <>
@@ -103,6 +107,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
                 <div>
                     {
                         products.map((v) => {
+                            const totalAmount = v.amount * v.price;
                             return (
                                 <>
                                     <div key={v.itemId} className={style.shoppingcartdiv}>
@@ -142,7 +147,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
 
                                                 </div>
                                                 <div className={style.cartprice}>
-                                                    ${v.price}
+                                                    ${totalAmount}
                                                 </div>
                                             </div>
                                             <div>
@@ -153,7 +158,9 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
                                 </>
                             )
                         })
-                    } </div>
+                    }
+                    <div className={style.totalprice}>總金額: ${getTotalAmount()}</div>
+                </div>
                 :
                 <div className={style.cartemptydiv}>
                     <GiShoppingCart className={style.cartemptyicon} />
@@ -162,7 +169,9 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
             }
 
             {products.length > 0 && togodate ?
-                <div>{togodate}</div> : ''
+                <div className={style.togotime}>
+                    <BsFillCalendar3WeekFill className='me-1' /> 取餐時間 {togodate}  {togotime} </div>
+                : ''
             }
             <div>
                 <Button className={style.cartsendbutton}

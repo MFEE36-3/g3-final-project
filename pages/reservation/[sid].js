@@ -66,7 +66,7 @@ export default function RestaurantPage() {
                 <Image src={ShoppingBag} variant="primary" onClick={handleShow} className={style.carticon} />
                 <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title className={style.carttitle}>--您的購物車--</Offcanvas.Title>
+                        <Offcanvas.Title><div className={style.carttitle}>--您的購物車--</div></Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <ShoppingCart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
