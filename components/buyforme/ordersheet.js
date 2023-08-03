@@ -276,7 +276,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                                         denyButtonText: '晚點再說',
                                     }).then(
                                         function (result) {
-                                            if (result.value) router.push('/checkout')
+                                            if (result.value) router.push('/checkout?page=buy')
                                         });
 
 
