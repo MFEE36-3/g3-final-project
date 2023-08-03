@@ -167,7 +167,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                                     <div className={styles.food_des}>{v.food_des}</div>
                                     <div className={styles.food_price_number}>
                                         <div className={styles.food_price}>NT$ {v.food_price}</div>
-                                        <FormControl sx={{ width: 100, '& .MuiFormLabel-root': { color: 'var(--main-color)', fontFamily: 'var(--ff1)' } }} size="small">
+                                        <FormControl sx={{ width: 100, '& .MuiFormLabel-root': { color: 'var(--main-color) !important', fontFamily: 'var(--ff1)' } }} size="small">
                                             <InputLabel>數量</InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-label"
