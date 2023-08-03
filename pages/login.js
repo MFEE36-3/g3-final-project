@@ -98,12 +98,7 @@ const Login = () => {
 
   const resHandleSubmit = async (event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-    fetch('http://localhost:3003/res-login', {
+    fetch('http://localhost:3002/res-login', {
       method: 'POST',
       body: JSON.stringify(loginInfo),
       headers: {
@@ -253,7 +248,7 @@ const Login = () => {
                         </Link>
                       </Grid>
                       <Grid item>
-                        <Link href="#" variant="body2" className={styles.text}>
+                        <Link href="/res/res-register-form" variant="body2" className={styles.text}>
                           {'尚未註冊?'}
                         </Link>
                       </Grid>

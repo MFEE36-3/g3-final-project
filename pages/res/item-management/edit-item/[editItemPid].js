@@ -1,14 +1,3 @@
-// import React from "react";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import EditItemComponent from "@/components/res/item/edit-item-component";
-
-// export default function EditItem(){
-//     return<>
-//         <div className="container">EditItem</div>
-//         <EditItemComponent />
-//     </>
-// }
-
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Btn from '@/components/common/btn';
@@ -45,12 +34,23 @@ export default function AddNewItem() {
 
   const router = useRouter()
 
+  // const getSingleItem = async (food_id) => {
+  //   fetch(`http://localhost:3002/res/item-management/editItem/${food_id}`)
+  //     .then(r => r.json())
+  //     .then(data => {
+  //       console.log(data)
+  //       setGotData(data.data[0])
+  //     })
+  // }
+
   const getSingleItem = async (food_id) => {
-    fetch(`http://localhost:3003/res/item-management/editItem/${food_id}`)
+    fetch(`http://localhost:3002/res/item-management/editItem/${food_id}`)
       .then(r => r.json())
       .then(data => {
         console.log(data)
-        setGotData(data.data[0])
+        if (data.data) {
+          setGotData(data.data[0])
+        }
       })
   }
 
@@ -86,8 +86,8 @@ export default function AddNewItem() {
 
 
   const [getImg, setGetImg] = useState(null)
-  const fileUrl = 'http://localhost:3003/previewImg'
-  const imgLink = 'http://localhost:3003/img/'
+  const fileUrl = 'http://localhost:3002/res/foodItemPreviewImg'
+  const imgLink = 'http://localhost:3002/img/res-img/'
 
   const previewImg = async (e) => {
     e.preventDefault();
@@ -172,8 +172,8 @@ export default function AddNewItem() {
         denyButtonText: `取消編輯`,
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire('新增成功!', '', 'success')
-          fetch(`http://localhost:3003/res/${gotData.food_id}`, {
+          Swal.fire('編輯成功!', '', 'success')
+          fetch(`http://localhost:3002/res/${gotData.food_id}`, {
             method: 'PUT',
             body: JSON.stringify(gotData),
             headers: {
