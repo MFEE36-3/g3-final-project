@@ -28,6 +28,12 @@
     font-size: var(--h6);
     font-weight: bold;
 }
+.time{
+    margin-left: 20px;
+    margin-top: 25px;
+    font-size: var(--h8);
+    font-weight: bold;
+}
 .title{
     font-size: var(--h4);
     font-weight: bold;

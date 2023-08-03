@@ -4,6 +4,7 @@ import { BsSuitHeartFill } from 'react-icons/bs';
 import { BiSolidMessageAltDetail } from 'react-icons/bi';
 import { FaRegBookmark } from 'react-icons/fa';
 import Link from 'next/link';
+import dayjs from 'dayjs';
 
 export default function Articlelist({
   data = [],
@@ -23,7 +24,9 @@ export default function Articlelist({
                 <img src={`http://localhost:3002/img/member/${c.user_photo}`} />
               </div>
               <div className={styles.nickname}>{c.nickname}</div>
-              <div>{}</div>
+              <div className={styles.time}>
+                {dayjs(c.publishedTime).format('YYYY年MM月DD日')}
+              </div>
             </div>
             <Link href={`/forum/${c.forum_sid}`}>
               <div className={styles.articlecontainer}>

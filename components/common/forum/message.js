@@ -17,7 +17,7 @@ export default function Message({ messages }) {
             <div className={styles.nickname}>{message.nickname}</div>
             <div className={styles.message}>{message.comment_content}</div>
             <div className={styles.time}>
-              {dayjs(message.publishedTime).format('YYYY-MM-DD HH:mm:ss')}
+              {dayjs(message.publishedTime).format('YYYY年MM月DD日')}
               {/* 使用 dayjs 或其他日期時間處理庫來轉換日期時間格式 */}
             </div>
           </div>
