@@ -54,7 +54,7 @@ export default function RegisterForm() {
         photo: showImg,
         description: '',
         avg_consumption: '',
-        fulladdress:'',
+        fulladdress: '',
         fulladdress1: '',
         open_time: '',
         close_time: '',
@@ -62,6 +62,7 @@ export default function RegisterForm() {
         table_number: '',
         latitude: '',
         longitude: '',
+        verifyEmail:false
     })
 
     const [testShop, setTestShop] = useState({
@@ -205,20 +206,6 @@ export default function RegisterForm() {
             });
     };
 
-    //   useEffect(() => {
-    //     if (city === '台北市') {
-    //         setArea(areaOptions[0]);
-    //     } else if (city === '新北市') {
-    //         setArea(areaOptions[1]);
-    //     } else if (city === '基隆市') {
-    //         setArea(areaOptions[2]);
-    //     } else if (city === '') {
-    //         setArea(areaOptions[3])
-    //     }
-
-    //     handleShowImg()
-    // }, [city, area, areaOptions, pickArea, shop, switchTable, showImg, openDays, resCate,]);
-
     useEffect(() => {
         handleShowImg()
     }, [showImg])
@@ -238,8 +225,76 @@ export default function RegisterForm() {
         setShop({ ...shop, city: e.target.value, area: '', }) // 這裡添加 fulladdress1 的設置
     }
 
+    // 寄送驗證信:
+    // 1、點擊發送，連結到send的後端api
+    // 送出前先用一個state接住等等傳回來的Codes
+    const [code, setCodes] = useState({
+        sixDigitCode: '',
+        matchCode: ''
+    })
+    const handleCodeChange = (e) => {
+        const inputValue = e.target.value;
+        // 使用正則表達式驗證輸入是否為六位數整數
+        const regex = /^\d{0,6}$/;
+        if (regex.test(inputValue)) {
+            // 符合條件的輸入才更新state
+            setCodes({ ...code, [e.target.name]: e.target.value })
+        }
+    }
+
+    const [sendMailHint, setSendMailHint] = useState('')
+    const sendVerifyCodeEmail = async () => {
+        setSendMailHint('已送出驗證信件,信件將在60秒後過期!')
+        fetch('http://localhost:3002/res/sendVerifyCode', {
+            method: 'POST',
+            body: JSON.stringify(shop),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(r => r.json())
+            .then(data => {
+                console.log(data)
+                setCodes({...code, sixDigitCode:'',matchCode:''})
+                const newCodes = { ...code, matchCode: data.matchCode }
+                setCodes(newCodes)
+                // console.log(code)
+            })
+    }
+
+    useEffect(() => {
+        console.log(code); // {sixDigitCode: '', matchCode: '57048000'}
+    }, [code])
+
+    // 拿到驗證碼輸入完blur後要跟資料庫對比
+    const [showMessage, setShowMessage] = useState('')
+    const checkSixDigitCode = async (e) => {
+        if(code.sixDigitCode.length != 0){
+            fetch('http://localhost:3002/res/checkVerifyCode', {
+                method: 'POST',
+                body: JSON.stringify(code),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(r => r.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.success) {
+                        setShowMessage('驗證碼正確!')
+                        setShop({...shop,verifyEmail:true})
+                    } else {
+                        setShowMessage('驗證碼不正確!')
+                    }
+                })
+        }else{
+            setShowMessage('並未填入驗證碼!')
+        }
+    }
+
+    console.log('-------')
     // 驗證表單:先建立error清單
-    const originErrors = { name: '', phone: '', account: '', password: '', password2: '', owner: '', description: '', avg_consumption: '', fulladdress: '', open_time: '', close_time: '', open_days: '' }
+    const originErrors = { name: '', phone: '', account: '', password: '', password2: '', owner: '', description: '', avg_consumption: '', fulladdress: '', open_time: '', close_time: '', open_days: '',verifyEmail:'' }
     const [errors, setErrors] = useState(originErrors)
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -260,7 +315,8 @@ export default function RegisterForm() {
             isPass = false
         }
 
-        const email_reg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+        const email_reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+        // const email_reg = /^[a-zA-Z0-9._%+-]+?\.[a-zA-Z]{2,3}$/
         if (email_reg.test(shop.account) == false) {
             newError.account = '信箱不符合格式!'
             isPass = false
@@ -299,6 +355,11 @@ export default function RegisterForm() {
 
         if (!shop.open_time || !shop.close_time) {
             newError.open_time = '請填寫營業時間!'
+            isPass = false
+        }
+
+        if(!shop.verifyEmail){
+            newError.verifyEmail = '請驗證信箱!'
             isPass = false
         }
 
@@ -604,7 +665,7 @@ export default function RegisterForm() {
                                             value={shop.fulladdress1}
                                             onChange={handleChange}
                                             onBlur={testGoogleAPI}
-                                            // onKeyDown={testGoogleAPI}
+                                        // onKeyDown={testGoogleAPI}
                                         />
                                     </div>
 
@@ -760,16 +821,34 @@ export default function RegisterForm() {
                                         type="text"
                                         className="form-control border-black"
                                         id="shop_verify-num"
-                                        placeholder="請填入驗證碼" />
+                                        name='sixDigitCode'
+                                        value={code.sixDigitCode}
+                                        onChange={handleCodeChange}
+                                        placeholder="請填入六位數驗證碼"
+                                        onBlur={checkSixDigitCode}
+                                    // onKeyUp={(e)=>{
+                                    //     if(e.code === 'Enter'){
+                                    //         checkSixDigitCode
+                                    //     }
+                                    // }}
+                                    />
                                     <button
                                         type='button'
                                         className='form-label btn btn-primary rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
-                                    // style={{ backgroundColor: '#FCC8A1' }}
+                                        // style={{ backgroundColor: '#FCC8A1' }}
+                                        onClick={sendVerifyCodeEmail}
                                     >
                                         寄送驗證碼</button>
+                                    <div className='ms-3 fw-bold' style={{ color: 'black' }}>{sendMailHint}</div>
                                 </div>
-                            </div>
 
+                            </div>
+                            <div 
+                            className={`d-flex justify-content-between mx-5 fw-bold`}
+                            style={{color:`${showMessage == '驗證碼正確!' ? 'green':'red'}`}}
+                            >{showMessage}
+                            </div>
+                            <div className='error me-5 ms-5 pe-5 fs-5 fw-bold d-flex justify-content-start'>{errors.verifyEmail}</div>
                             <hr />
 
                             <div className='d-flex justify-content-center'>

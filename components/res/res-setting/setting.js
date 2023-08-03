@@ -39,6 +39,7 @@ export default function resSetting() {
         console.log(data)
         setShop({
           ...shop,
+          shopId:resAuth.id,
           shopname: data.shop,
           phone: data.phone,
           city: data.city,
@@ -95,6 +96,7 @@ export default function resSetting() {
   }
 
   const [shop, setShop] = useState({
+    shopId:'',
     shopname: '',
     phone: '',
     city: '',
@@ -325,7 +327,7 @@ export default function resSetting() {
     const newError = { ...originErrors }
     let isPass = true
     // 開始檢查
-    if (!shop.name) {
+    if (!shop.shopname) {
       newError.name = '請輸入店名'
       isPass = false
     }
@@ -339,17 +341,6 @@ export default function resSetting() {
     const email_reg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
     if (email_reg.test(shop.account) == false) {
       newError.account = '信箱不符合格式!'
-      isPass = false
-    }
-
-    if (shop.password.length < 6 || shop.password.length > 12) {
-      newError.password = '密碼要6~12個字元'
-      isPass = false
-    }
-
-    if (shop.password2 !== shop.password) {
-      newError.password = '密碼與確認密碼不同!'
-      newError.password2 = '密碼與確認密碼不同!'
       isPass = false
     }
 
@@ -393,8 +384,8 @@ export default function resSetting() {
         if (result.isConfirmed) {
           Swal.fire('成功送出!', '', '確定')
           testGoogleAPI()
-          fetch('http://localhost:3002/res/res-register-form', {
-            method: 'POST',
+          fetch('http://localhost:3002/res/res-setting', {
+            method: 'PUT',
             body: JSON.stringify(shop),
             headers: {
               'Content-Type': 'application/json'
@@ -403,7 +394,7 @@ export default function resSetting() {
             .then(r => r.json())
             .then(data => {
               console.log(data)
-              router.push('/res/reg-success')
+              // router.push('/res/reg-success')
             })
         } else if (result.isDenied) {
           Swal.fire('已取消送出!', '', '確定')
@@ -548,7 +539,7 @@ export default function resSetting() {
                     className="form-control border-black"
                     id="shop_name"
                     placeholder="請輸入店名:"
-                    name='name'
+                    name='shopname'
                     value={shop.shopname}
                     onChange={handleChange}
                   />
@@ -651,8 +642,6 @@ export default function resSetting() {
                       </div>
                     </div>
 
-                    {/* https://github.com/mfee-react/example-projects/tree/main/%E5%9C%96%E6%AA%94%E4%B8%8A%E5%82%B3%E8%88%87%E9%A0%90%E8%A6%BD */}
-
                   </div>
                 </div>
 
@@ -715,7 +704,6 @@ export default function resSetting() {
                     <div id="shop" className="form-text">
                       請填入完整地址
                     </div>
-                    {/* <button type='button' className='btn btn-primary' onClick={testGoogleAPI}>測試api按鈕</button> */}
                   </div>
                 </div>
 
@@ -800,7 +788,6 @@ export default function resSetting() {
                     <button
                       type='button'
                       className='form-label  btn btn-primary rounded-3 px-3 py-2 fw-bold ms-1'
-                      // style={{ backgroundColor: '#FCC8A1' }}
                       onClick={(e) => {
                         setSwitchTable('advance')
                         setShop({ ...shop, table_number: '' })
@@ -850,7 +837,6 @@ export default function resSetting() {
                           className='form-label border border-black rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
                           style={{ backgroundColor: '#FCC8A1' }}
                           onClick={(e) => {
-                            // addTable.createElement('<select>')
                           }}
                         >+新增桌型</button>
                       </div>
@@ -865,11 +851,13 @@ export default function resSetting() {
 
               <div className='d-flex justify-content-center'>
                 <button type="submit" className="btn btn-primary my-3 mx-3" onSubmit={handleSubmit} onClick={handleSubmit}>
-                  確認送出
+                  確認編輯
                 </button>
 
-                <button type="reset" className="btn btn-danger my-3 mx-3">
-                  取消填寫
+                <button type="reset" className="btn btn-danger my-3 mx-3" onClick={()=>{
+                  router.push('/res/res-order-management')
+                }}>
+                  取消編輯
                 </button>
               </div>
             </div>
