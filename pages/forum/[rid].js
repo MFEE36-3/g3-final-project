@@ -13,13 +13,15 @@ export default function ArticleDetail() {
   const [article, setArticle] = useState([]);
   const [message, setMessages] = useState([]);
   const [replay, setReplay] = useState('');
+  const [authorPhoto, setAuthorPhoto] = useState('');
   const imgPreview = `http://localhost:3002/img/forum/`;
 
   useEffect(() => {
     console.log(query);
     const { rid } = query;
+
     if (rid) {
-      fetch(`http://localhost:3002/forum2/forum/${rid}`)
+      fetch(`http://localhost:3002/forum/forum/${rid}`)
         .then((r) => r.json())
         .then((data) => {
           console.log(data);
@@ -27,6 +29,10 @@ export default function ArticleDetail() {
           const { forum_data, messageData } = data;
           setArticle(data);
           setMessages(messageData);
+          console.log(forum_data);
+
+          console.log(messageData);
+
           if (messageData && messageData.length > 0) {
             setMessages(messageData);
           }
@@ -53,19 +59,25 @@ export default function ArticleDetail() {
     <>
       <div className={styles.container}>
         <Newnav />
-
-        <div className={styles.vatar}></div>
+        <div className={styles.flex}>
+          <div className={styles.avatar}>
+            <img
+              src={`http://localhost:3002/img/member/${article.user_photo}`}
+            />
+          </div>
+          <div className={styles.nickname}>{article.nickname}</div>
+        </div>
         <div className={styles.ptext}></div>
         <DetailTitle data={article.header} />
         <TagTime data={article.publishedTime} />
         <div className="w-75">
           <img
-            src={`${imgPreview + article.photo}`}
+            src={`${imgPreview + article.forum_photo}`}
             className="w-75 h-50 object-fit-contain "
           />
         </div>
         <pre>
-          <DetailP data={article.content} key={article.forum_sid} />
+          <DetailP data={article.forum_content} key={article.forum_sid} />
         </pre>
         <MessageInput />
         <Message messages={message} />

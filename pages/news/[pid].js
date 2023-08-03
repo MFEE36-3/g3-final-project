@@ -15,7 +15,7 @@ export default function NewsDetailed() {
   useEffect(() => {
     const { pid } = query;
     if (pid) {
-      fetch(`http://localhost:3002/news2/news/${pid}`)
+      fetch(`http://localhost:3002/news/news/${pid}`)
         .then((r) => r.json())
         .then((data) => {
           console.log(data);
