@@ -36,30 +36,6 @@ export default function Management() {
       })
   };
 
-  // 搜尋分類的selectBox
-  // 先做把後端資料的foodCate(1、2、3、4)轉換成字串的function(前菜、主菜、甜點、飲料)
-  const changeNumToString = () => {
-    const newFoodItem = foodItem.map((item) => {
-      if (item.food_cate === 1) {
-        return { ...item, foodCateToString: '前菜' };
-      }
-      if (item.food_cate === 2) {
-        return { ...item, foodCateToString: '主菜' };
-      }
-      if (item.food_cate === 3) {
-        return { ...item, foodCateToString: '甜點' };
-      }
-      if (item.food_cate === 4) {
-        return { ...item, foodCateToString: '飲料' };
-      }
-      if (item.food_cate === 5) { // 增加這個部分來處理"湯品"
-        return { ...item, foodCateToString: '湯品' };
-      }
-      return item; // 如果沒有符合的條件，直接返回原物件
-    });
-    setFoodItem(newFoodItem);
-  };
-
   // imgLink
   const imgLink = "http://localhost:3002/img/res-img/"
 
@@ -75,16 +51,12 @@ export default function Management() {
     if (resAuth.account) {
       takeInfo()
       getFoodItems();
-      changeNumToString()
+      // changeNumToString()
       console.log(takeContextInfo);
       console.log(resAuth);
     }
 
   }, [resAuth]);
-
-  useEffect(() => {
-    changeNumToString()
-  }, [foodItem])
 
   // 現在才開始做selectBox
   const [foodCate, setFoodCate] = useState(6)
@@ -93,19 +65,19 @@ export default function Management() {
 
   const matchList = (e) => {
     if (e.target.value == '前菜') {
-      setFoodCate(1)
+      setFoodCate('前菜')
     }
     if (e.target.value == '主菜') {
-      setFoodCate(2)
+      setFoodCate('主菜')
     }
     if (e.target.value == '甜點') {
-      setFoodCate(3)
+      setFoodCate('甜點')
     }
     if (e.target.value == '飲料') {
-      setFoodCate(4)
+      setFoodCate('飲料')
     }
     if (e.target.value == '湯品') {
-      setFoodCate(5)
+      setFoodCate('湯品')
     }
     if (e.target.value == '全部商品') {
       setFoodCate(6)
@@ -115,17 +87,13 @@ export default function Management() {
 
   const foodCateFilter = () => {
     if (foodCate == 6) {
+      router.push('/res/item-management')
       setFoodItem(originalFoodItem);
     } else {
       const newArray = originalFoodItem.filter((v) => v.food_cate == foodCate);
       setFoodItem(newArray);
     }
-    // setFoodItem(newArray);
   };
-
-  // useEffect(() => {
-  //   foodCateFilter()
-  // }, [foodCate])
 
   // 商品排序
   const [itemOrder, setItemOrder] = useState('')
@@ -146,13 +114,9 @@ export default function Management() {
         setOriginalFoodItem(data.rows)
       })
 
-    // console.log(res)
-    // setFoodItem(res.data.rows);
-    // setOriginalFoodItem(res.data.rows)
   }
   // 由舊到新
   const OldToNew = async (e) => {
-    // const res = await axios.get('http://localhost:3003/res/item-management/ASC');
     fetch(`http://localhost:3002/res/item-management/ASC`, {
       method: 'POST',
       body: JSON.stringify(resAuth),
@@ -163,50 +127,43 @@ export default function Management() {
         setFoodItem(data.rows);
         setOriginalFoodItem(data.rows)
       })
-    // console.log(res)
-    // setFoodItem(res.data.rows);
-    // setOriginalFoodItem(res.data.rows)
   }
 
   // 關鍵字搜尋
-  const [searchKeyword,setSearchKeyword] = useState('')
+  const [searchKeyword, setSearchKeyword] = useState('')
   const search = (e) => {
     setSearchKeyword(e.target.value)
     console.log(searchKeyword)
-    // setSearchKeyword(e.target.value)
   }
 
-  // useEffect(()=>{
-  //   search
-  // },[searchKeyword])
 
-  const getSearchQuery = async(e) => {
+  const getSearchQuery = async (e) => {
 
-      router.push(`?keyword=${searchKeyword}`) // 連到query
-      console.log(router)
-      // const keyword = new URLSearchParams()
-  
-      // fetch(`http://localhost:3002/res/item-search`, {
-      //   method : 'POST',
-      //   body: JSON.stringify(searchKeyword),
-      //   headers:{
-      //     'Content-Type':'application/json'
-      //   }
-      // })
-      // .then(r => r.json())
-      // .then(data => {
-      //   console.log(data)
-      // })
-    
+    if (searchKeyword && resAuth.id) {
+      router.push(`?keyword=${searchKeyword}&shop_id=${resAuth.id}`);
+    }else{
+      setFoodItem(originalFoodItem)
+      router.push('/res/item-management')
+    }
+    // router.push(`?keyword=${searchKeyword}&shop_id=${resAuth.id}`) // 連到query
+    console.log(router)
+
   }
-
   // console.log(router)
-
-  // useEffect(()=>{
-  //   if(router.query){
-  //     passSearch()
-  //   }
-  // },[router.query])
+  // 拿到router.query後fetch到後端去
+  useEffect(() => {
+    if (Object.keys(router.query).length > 0) {
+      const usp = new URLSearchParams(router.query) // {keyword:abc}
+      fetch(`http://localhost:3002/res/item-management?${usp.toString()}`, {
+        method: 'GET'
+      })
+        .then(r => r.json())
+        .then(data => {
+          console.log(data)
+          setFoodItem(data.rows)
+        })
+    }
+  }, [router.query])
 
   useEffect(() => {
     if (itemOrder) {
@@ -218,11 +175,15 @@ export default function Management() {
     }
   }, [itemOrder])
 
+  // useEffect(() => {
+  //   foodCateFilter()
+
+  // }, [foodItem, foodCate])
+
   useEffect(() => {
-    changeNumToString()
     foodCateFilter()
 
-  }, [foodItem, foodCate])
+  }, [foodCate])
 
   // 刪除商品
   const confirmDeleteItem = () => {
@@ -305,11 +266,11 @@ export default function Management() {
                 </div>
               </div>
               <div>
-                <Input label="搜尋商品" 
-                placeholder="請輸入搜尋文字" 
-                name='keyword'
-                value={searchKeyword} 
-                onChange={search}/>
+                <Input label="搜尋商品"
+                  placeholder="請輸入搜尋文字"
+                  name='keyword'
+                  value={searchKeyword}
+                  onChange={search} />
               </div>
               <button type='button' className='btn btn-primary' onClick={getSearchQuery}>搜尋</button>
             </div>
