@@ -1145,7 +1145,9 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
                         })
                         .join('')
                     }
+                    <div class=${styles.shop_infowindow_btn_box}>
                 <botton class='btn btn-info ${styles.shop_infowindow_btn}' id="btn_${v.sid}">開團GO!<botton>
+                </div>
                 `);
                 shop_infowindow.open(map, shopMarker);
 

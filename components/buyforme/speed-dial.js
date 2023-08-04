@@ -77,6 +77,11 @@ export default function OpenIconSpeedDial() {
                     },
                     '& .MuiFab-root.MuiSpeedDial-fab': {
                         backgroundColor: 'var(--main-color)'
+                    },
+                    '@media screen and (max-width: 576px)':{
+                        transform:'scale(0.8)',
+                        left:8,
+                        bottom:-20
                     }
 
                 }}
