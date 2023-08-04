@@ -193,7 +193,7 @@ export default function Navbar() {
                 alt="candychief"
                 priority
               ></Image>
-              <p className={styles.btn_text}>訂位/外帶</p>
+              <p className={styles.btn_text}>訂位外帶</p>
             </button>
           </Link>
           <Link href="/shopmall" className={styles.btn_outer_link}>

@@ -65,9 +65,15 @@ main {
   src: url('/fonts/MochiyPopOne-Regular.ttf') format('truetype');
 }
 
+@media screen and (max-width: 768px) {
+  main {
+    min-height: calc(100vh - 60px);
+  }
+}
+
 @media screen and (max-width: 391px) {
   main {
-    min-height: calc(100vh - 470px);
+    min-height: calc(100vh - 60px);
   }
 }
 
