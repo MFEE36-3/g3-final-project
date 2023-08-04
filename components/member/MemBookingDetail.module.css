@@ -40,3 +40,12 @@
 
   /* border: 5px solid rgb(5, 45, 15); */
 }
+
+.star {
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.star:hover {
+  transform: scale(1.1);
+}

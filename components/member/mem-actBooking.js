@@ -37,6 +37,14 @@ export default function MemActBooking() {
   return (
     <div className={styles.body}>
       <div className={styles.title}>
+        <div className={styles.img0}>
+          <Image
+            src={'http://localhost:3002/img/member/restaurant.svg'}
+            width={35}
+            height={35}
+            alt=""
+          />
+        </div>
         <div>餐廳</div>
         <div>地址</div>
         <div>訂位時間</div>
@@ -58,6 +66,14 @@ export default function MemActBooking() {
                 className={styles.row}
                 onClick={() => openDetail(v)}
               >
+                <div className={styles.td0}>
+                  <Image
+                    src={'http://localhost:3002/img/member/restaurant.svg'}
+                    width={35}
+                    height={35}
+                    alt=""
+                  />
+                </div>
                 <div className={styles.td}>{v.shop}</div>
                 <div className={styles.td}>{v.location}</div>
                 <div className={styles.td}>

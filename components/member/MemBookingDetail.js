@@ -85,7 +85,7 @@ export default function MemBookingDetail({ openDetail, data }) {
                   height={30}
                   alt=""
                   onClick={changeStar1}
-                  style={{ cursor: 'pointer' }}
+                  className={styles.star}
                 />
               ) : (
                 <Image
@@ -94,7 +94,7 @@ export default function MemBookingDetail({ openDetail, data }) {
                   height={30}
                   alt=""
                   onClick={changeStar1}
-                  style={{ cursor: 'pointer' }}
+                  className={styles.star}
                 />
               )}
             </div>
@@ -106,7 +106,7 @@ export default function MemBookingDetail({ openDetail, data }) {
                   height={30}
                   alt=""
                   onClick={changeStar2}
-                  style={{ cursor: 'pointer' }}
+                  className={styles.star}
                 />
               ) : (
                 <Image
@@ -115,7 +115,7 @@ export default function MemBookingDetail({ openDetail, data }) {
                   height={30}
                   alt=""
                   onClick={changeStar2}
-                  style={{ cursor: 'pointer' }}
+                  className={styles.star}
                 />
               )}
             </div>
@@ -127,7 +127,7 @@ export default function MemBookingDetail({ openDetail, data }) {
                   height={30}
                   alt=""
                   onClick={changeStar3}
-                  style={{ cursor: 'pointer' }}
+                  className={styles.star}
                 />
               ) : (
                 <Image
@@ -136,7 +136,7 @@ export default function MemBookingDetail({ openDetail, data }) {
                   height={30}
                   alt=""
                   onClick={changeStar3}
-                  style={{ cursor: 'pointer' }}
+                  className={styles.star}
                 />
               )}
             </div>
@@ -148,7 +148,7 @@ export default function MemBookingDetail({ openDetail, data }) {
                   height={30}
                   alt=""
                   onClick={changeStar4}
-                  style={{ cursor: 'pointer' }}
+                  className={styles.star}
                 />
               ) : (
                 <Image
@@ -157,7 +157,7 @@ export default function MemBookingDetail({ openDetail, data }) {
                   height={30}
                   alt=""
                   onClick={changeStar4}
-                  style={{ cursor: 'pointer' }}
+                  className={styles.star}
                 />
               )}
             </div>
@@ -169,7 +169,7 @@ export default function MemBookingDetail({ openDetail, data }) {
                   height={30}
                   alt=""
                   onClick={changeStar5}
-                  style={{ cursor: 'pointer' }}
+                  className={styles.star}
                 />
               ) : (
                 <Image
@@ -178,7 +178,7 @@ export default function MemBookingDetail({ openDetail, data }) {
                   height={30}
                   alt=""
                   onClick={changeStar5}
-                  style={{ cursor: 'pointer' }}
+                  className={styles.star}
                 />
               )}
             </div>

@@ -11,7 +11,7 @@ export default function MemBar() {
   // 創建一個陣列，包含此navbar需要的按鈕名與路徑
   const arr = [
     { name: '會員中心', url: '/member' },
-    { name: '我的訂單', url: '/member/activity' },
+    { name: '我的錢包', url: '/member/money' },
     { name: '個人資料', url: '/member/info' },
     { name: '貼文與收藏', url: '/member/collect' },
     { name: '活動紀錄', url: '/member/record' },
