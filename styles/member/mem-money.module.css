@@ -1,6 +1,6 @@
 .area0 {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 50px;
   margin-bottom: 80px;
   margin-top: 15px;

@@ -3,7 +3,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-block: 50px;
+  height: 90%;
+  font-family: var(--ff1);
+  position: relative;
+  top: 50px;
 }
 
 .flex {
@@ -11,6 +14,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.littleBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .cardBody {

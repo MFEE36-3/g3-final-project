@@ -12,7 +12,8 @@
   font-weight: 800;
   margin-top: 40px;
   height: 600px;
-  padding: 3px;
+  padding: 7px;
+  background-color: #fff;
 }
 
 .area2 {
@@ -46,10 +47,11 @@
   height: 100%;
   width: 100%;
   background-color: #ffffff;
-  padding-right: 7px;
   overflow-y: scroll;
   overflow-x: hidden;
-  margin-right: 10px;
+  margin-right: 5px;
+  margin-top: 10px;
+  padding-right: 10px;
 }
 
 .scroll::-webkit-scrollbar {
@@ -57,6 +59,24 @@
 }
 
 .scroll::-webkit-scrollbar-thumb {
+  background-color: #aeaeae; /* 設置滾輪顏色 */
+}
+
+.scroll2 {
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.scroll2::-webkit-scrollbar {
+  width: 3px; /* 設置滾輪寬度 */
+}
+
+.scroll2::-webkit-scrollbar-thumb {
   background-color: #aeaeae; /* 設置滾輪顏色 */
 }
 

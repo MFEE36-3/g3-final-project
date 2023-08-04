@@ -17,6 +17,7 @@ import AuthContext from '@/context/AuthContext';
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Btn from '../common/btn';
+import Swal from 'sweetalert2';
 
 export default function Navbar() {
   // function active_btn (e){
@@ -41,16 +42,17 @@ export default function Navbar() {
   const islogout = () => {
     logout();
     setIsLogin(false);
-    setTimeout(() => {
-      router.push('/');
-    }, 2000);
+    Swal.fire({ title: '已登出', timer: 1500, icon: 'success' });
+    if (router_title.includes('/member')) {
+      setTimeout(() => {
+        router.push('/');
+      }, 500);
+    }
   };
-
 
   useEffect(() => {
     setRouter_title(router.asPath);
-  }, [router.asPath])
-
+  }, [router.asPath]);
 
   useEffect(() => {
     setFirst(true);
@@ -87,49 +89,55 @@ export default function Navbar() {
           priority
         ></Image>
       </Link>
-      <Link href={
-        router_title.includes('/shopmall')
-        ?"/checkout?page=shop":router_title.includes('/reservation')
-        ?"/checkout?page=order":router_title.includes('/member')
-        ?"/checkout?page=subscribe":"/checkout"
-        }>
+      <Link
+        href={
+          router_title.includes('/shopmall')
+            ? '/checkout?page=shop'
+            : router_title.includes('/reservation')
+            ? '/checkout?page=order'
+            : router_title.includes('/member')
+            ? '/checkout?page=subscribe'
+            : '/checkout'
+        }
+      >
         <FaShoppingCart className={styles.cart} />
       </Link>
 
-      {auth ? (
-        <button className={styles.member_icon} onClick={handleToggle}>
+      {auth.photo ? (
+        <button
+          className={styles.member_icon}
+          onClick={handleToggle}
+          style={{
+            backgroundImage: `url(http://localhost:3002/img/member/${auth.photo})`,
+          }}
+        >
           {isOpen && (
             <div className={styles.iconArea}>
-              {!isLogin ? (
-                <Link href="/member/form">
-                  <Btn text={'註冊'} padding={'2px 5px'} />
-                </Link>
-              ) : (
-                <Link href="/member">
-                  <Btn text={'會員中心'} padding={'2px 5px'} />
-                </Link>
-              )}
-              {!isLogin ? (
-                <Link href="/login">
-                  <Btn text={'登入'} padding={'2px 5px'} />
-                </Link>
-              ) : (
-                <div>
-                  <Btn text={'登出'} padding={'2px 5px'} onClick={islogout} />
-                </div>
-              )}
+              <Link href="/member">
+                <Btn text={'會員中心'} padding={'2px 5px'} />
+              </Link>
+
+              <div>
+                <Btn text={'登出'} padding={'2px 5px'} onClick={islogout} />
+              </div>
             </div>
           )}
         </button>
       ) : (
-        <button className={styles.member_icon} onClick={handleToggle}>
+        <button
+          className={styles.member_icon}
+          onClick={handleToggle}
+          style={{
+            backgroundImage: `url(http://localhost:3002/img/member/member.jpg)`,
+          }}
+        >
           {isOpen && (
             <div className={styles.iconArea}>
-              <Link href="/member/login">
-                <Btn text={'會員登入'} padding={'2px 5px'} />
+              <Link href="/login">
+                <Btn text={'登入'} padding={'2px 5px'} />
               </Link>
               <Link href="/member/form">
-                <Btn text={'註冊會員'} padding={'2px 5px'} />
+                <Btn text={'註冊'} padding={'2px 5px'} />
               </Link>
             </div>
           )}
@@ -216,7 +224,8 @@ export default function Navbar() {
           <Link href="/forum" className={styles.btn_outer_link}>
             <button
               className={
-                router_title.includes('/forum') || router_title.includes('/news')
+                router_title.includes('/forum') ||
+                router_title.includes('/news')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }

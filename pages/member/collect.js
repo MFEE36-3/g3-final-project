@@ -135,7 +135,7 @@ export default function Index() {
 
               <MemBtn text={'店家'} onClick={changeList} />
             </div>
-            <div className={styles2.scroll}>{collect}</div>
+            <div className={styles2.scroll2}>{collect}</div>
           </div>
         </div>
       </div>
