@@ -70,12 +70,14 @@ export default function ArticleDetail() {
         <div className={styles.ptext}></div>
         <DetailTitle data={article.header} />
         <TagTime data={article.publishedTime} />
-        <div className="w-75">
-          <img
-            src={`${imgPreview + article.forum_photo}`}
-            className="w-75 h-50 object-fit-contain "
-          />
-        </div>
+        {article.forum_photo && (
+          <div className="w-75">
+            <img
+              src={`${imgPreview + article.forum_photo}`}
+              className="w-75 h-50 object-fit-contain"
+            />
+          </div>
+        )}
         <pre>
           <DetailP data={article.forum_content} key={article.forum_sid} />
         </pre>

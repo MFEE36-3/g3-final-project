@@ -3,14 +3,14 @@ import dayjs from 'dayjs'; // 載入 dayjs 或其他日期時間處理庫
 import styles from './message.module.css';
 
 export default function Message({ messages }) {
-  console.log(messages)
+  console.log(messages);
   return (
     <>
       {messages.map((message) => (
         <div key={message.message_sid} className={styles.flex}>
           <div>
             <div className={styles.avatar}>
-            <img src={`http://localhost:3002/img/member/${message.photo}`} />
+              <img src={`http://localhost:3002/img/member/${message.photo}`} />
             </div>
           </div>
           <div className={styles.box}>
