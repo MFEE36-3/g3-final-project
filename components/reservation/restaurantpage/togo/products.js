@@ -11,6 +11,7 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 
 const stylemodal = {
@@ -38,6 +39,10 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
     const [open, setOpen] = useState(false);
     const [num, setNum] = useState(1);
     // const [cart, setCart] = useLocalStorage("order", {})
+    const pastcart = JSON.parse(localStorage.getItem('order')) || {};
+    const router = useRouter()
+    const id = router.query.sid;
+    const shopId = parseInt(id)
 
     const handleOpen = (item) => {
         setItemdeatil(item);
@@ -94,6 +99,16 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
             return;
         }
 
+        const nowcart = Object.entries(pastcart).map(item => item.pop());
+        console.log(Object.values(nowcart))
+        if (Object.values(nowcart)[0]?.shop_id !== shopId) {
+            localStorage.removeItem('order')
+        }
+        // console.log(nowcart.filter(item => item.shop_id === shopId))
+        // if (pastcart !== {}) {
+        //     if (nowcart.filter(item => item.shop_id !== shopId)) localStorage.removeItem('order')
+        // }
+
 
 
         // //更新LocalStorage
@@ -138,14 +153,14 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
             amount: (oldCart[itemId]?.amount || 0) + 1,
             togodate: togodate,
             togotime: togotime,
+            shop_id: row.detail.sid,
         };
-
+        // console.log(updatedItem);
         // 更新LocalStorage
         localStorage.setItem('order', JSON.stringify({
             ...oldCart,
             [itemId]: updatedItem,
         }));
-
 
 
         // 檢查購物車中是否已有該商品

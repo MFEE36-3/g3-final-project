@@ -4,25 +4,28 @@ import { Button } from 'react-bootstrap';
 import { BsTrash } from "react-icons/bs";
 import { GiShoppingCart } from "react-icons/gi";
 import { BsFillCalendar3WeekFill } from "react-icons/bs";
+import { useRouter } from 'next/router';
 
 export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime }) {
 
     // const [products, setProducts] = useState(Object.values(shoppingCart)); // 使用 Object.values() 取得購物車商品陣列
 
-
+    // const router = useRouter()
+    // const id = router.query.sid;
+    // const shopId = parseInt(id)
     const cartitem = localStorage.getItem('order')
     // console.log(cartitem);
 
     const menuItems = JSON.parse(cartitem) || 0;
     // console.log(menuItems);
+
     const menuItemsArray = Object.values(menuItems);
     // console.log(menuItemsArray);
-
     const [products, setProducts] = useState(menuItemsArray)
-
-
     //商品數量-增加
     const handleAdd = (item) => {
+
+        // if (products.filter(item => item.shop_id === shopId) === []) localStorage.removeItem('order')
 
         //更新LocalStorage
         const oldCart = JSON.parse(localStorage.getItem('order'))
@@ -168,9 +171,9 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
                 </div>
             }
 
-            {products.length > 0 && togodate ?
+            {products.length > 0 && togodate && togotime ?
                 <div className={style.togotime}>
-                    <BsFillCalendar3WeekFill className='me-1' /> 取餐時間 {togodate}  {togotime} </div>
+                    <BsFillCalendar3WeekFill className='me-1' /> 取餐時間 {togodate} {togotime}</div>
                 : ''
             }
             <div>
