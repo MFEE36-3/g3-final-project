@@ -6,7 +6,7 @@ import BlankLayout from "@/components/layout/blank-layout";
 
 const ResOrderManagement = () => {
     return <>
-        <div>ResOrderManagement</div>
+        {/* <div>ResOrderManagement</div> */}
         <OrderManagement />
     </>
 }

@@ -285,6 +285,7 @@ export default function resSetting() {
   // 傳到後端
   const changePassword = (e) => {
     e.preventDefault()
+    setPasswordErrors(originPasswordError)
 
     const newError = { ...originPasswordError }
 
@@ -303,16 +304,18 @@ export default function resSetting() {
         .then(r => r.json())
         .then(data => {
           console.log(data)
-          if (data.success == true) {
+          if (data.success) {
             setChangePwdSuccess('修改密碼成功!')
-          }
-          if (data.success == false) {
+          }else {
+            console.log(data)
             newError.oldPassword = '輸入密碼與舊密碼不相符!'
             setPasswordErrors(newError)
           }
         })
+    } else{
+      setPasswordErrors(newError)
     }
-    setPasswordErrors(newError)
+    
   }
 
   const handleChangePassword = async (e) => {
@@ -415,7 +418,7 @@ export default function resSetting() {
       </style>
       <div className="container container-sm-fluid mt-4">
         <div className='row'>
-          <form className={`${styles.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-4`}
+          <form className={`${styles.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-3`}
           >
             <h1 className="d-flex justify-content-center fw-bold mt-3">商家設定</h1>
             <hr />

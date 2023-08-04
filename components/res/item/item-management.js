@@ -23,41 +23,17 @@ export default function Management() {
 
   const getFoodItems = async () => {
     // const res = await axios.get(`http://localhost:3003/res/item-management`);
-    fetch(`http://localhost:3002/res/item-management`,{
-      method:'POST',
-      body:JSON.stringify(resAuth),
-      headers:{"Content-Type" : "application/json"}
+    fetch(`http://localhost:3002/res/item-management`, {
+      method: 'POST',
+      body: JSON.stringify(resAuth),
+      headers: { "Content-Type": "application/json" }
     })
-    .then(r=>r.json())
-    .then(data => {
-      console.log(data)
-      setFoodItem(data.rows)
-      setOriginalFoodItem(data.rows)
-    })
-  };
-
-  // 搜尋分類的selectBox
-  // 先做把後端資料的foodCate(1、2、3、4)轉換成字串的function(前菜、主菜、甜點、飲料)
-  const changeNumToString = () => {
-    const newFoodItem = foodItem.map((item) => {
-      if (item.food_cate === 1) {
-        return { ...item, foodCateToString: '前菜' };
-      }
-      if (item.food_cate === 2) {
-        return { ...item, foodCateToString: '主菜' };
-      }
-      if (item.food_cate === 3) {
-        return { ...item, foodCateToString: '甜點' };
-      }
-      if (item.food_cate === 4) {
-        return { ...item, foodCateToString: '飲料' };
-      }
-      if (item.food_cate === 5) { // 增加這個部分來處理"湯品"
-        return { ...item, foodCateToString: '湯品' };
-      }
-      return item; // 如果沒有符合的條件，直接返回原物件
-    });
-    setFoodItem(newFoodItem);
+      .then(r => r.json())
+      .then(data => {
+        console.log(data)
+        setFoodItem(data.rows)
+        setOriginalFoodItem(data.rows)
+      })
   };
 
   // imgLink
@@ -71,20 +47,16 @@ export default function Management() {
     setTakeContextInfo(resAuth)
   }
 
-    useEffect(() => {
-      if(resAuth.account){
-        takeInfo()
-        getFoodItems();
-        changeNumToString()
-        console.log(takeContextInfo);
-        console.log(resAuth);
-      }
-
-    }, [resAuth]);
-
   useEffect(() => {
-    changeNumToString()
-  }, [foodItem])
+    if (resAuth.account) {
+      takeInfo()
+      getFoodItems();
+      // changeNumToString()
+      console.log(takeContextInfo);
+      console.log(resAuth);
+    }
+
+  }, [resAuth]);
 
   // 現在才開始做selectBox
   const [foodCate, setFoodCate] = useState(6)
@@ -93,19 +65,19 @@ export default function Management() {
 
   const matchList = (e) => {
     if (e.target.value == '前菜') {
-      setFoodCate(1)
+      setFoodCate('前菜')
     }
     if (e.target.value == '主菜') {
-      setFoodCate(2)
+      setFoodCate('主菜')
     }
     if (e.target.value == '甜點') {
-      setFoodCate(3)
+      setFoodCate('甜點')
     }
     if (e.target.value == '飲料') {
-      setFoodCate(4)
+      setFoodCate('飲料')
     }
     if (e.target.value == '湯品') {
-      setFoodCate(5)
+      setFoodCate('湯品')
     }
     if (e.target.value == '全部商品') {
       setFoodCate(6)
@@ -115,17 +87,13 @@ export default function Management() {
 
   const foodCateFilter = () => {
     if (foodCate == 6) {
+      router.push('/res/item-management')
       setFoodItem(originalFoodItem);
     } else {
       const newArray = originalFoodItem.filter((v) => v.food_cate == foodCate);
       setFoodItem(newArray);
     }
-    // setFoodItem(newArray);
   };
-
-  // useEffect(() => {
-  //   foodCateFilter()
-  // }, [foodCate])
 
   // 商品排序
   const [itemOrder, setItemOrder] = useState('')
@@ -135,38 +103,67 @@ export default function Management() {
   const newToOld = async (e) => {
     // const res = await axios.get('http://localhost:3003/res/item-management/DESC');
 
-    fetch(`http://localhost:3002/res/item-management/DESC`,{
-      method:'POST',
-      body:JSON.stringify(resAuth),
-      headers:{"Content-Type" : "application/json"}
+    fetch(`http://localhost:3002/res/item-management/DESC`, {
+      method: 'POST',
+      body: JSON.stringify(resAuth),
+      headers: { "Content-Type": "application/json" }
     })
-    .then(r=>r.json())
-    .then(data => {
-      setFoodItem(data.rows);
-      setOriginalFoodItem(data.rows)
-    })
+      .then(r => r.json())
+      .then(data => {
+        setFoodItem(data.rows);
+        setOriginalFoodItem(data.rows)
+      })
 
-    // console.log(res)
-    // setFoodItem(res.data.rows);
-    // setOriginalFoodItem(res.data.rows)
   }
   // 由舊到新
   const OldToNew = async (e) => {
-    // const res = await axios.get('http://localhost:3003/res/item-management/ASC');
-    fetch(`http://localhost:3002/res/item-management/ASC`,{
-      method:'POST',
-      body:JSON.stringify(resAuth),
-      headers:{"Content-Type" : "application/json"}
+    fetch(`http://localhost:3002/res/item-management/ASC`, {
+      method: 'POST',
+      body: JSON.stringify(resAuth),
+      headers: { "Content-Type": "application/json" }
     })
-    .then(r=>r.json())
-    .then(data => {
-      setFoodItem(data.rows);
-      setOriginalFoodItem(data.rows)
-    })
-    // console.log(res)
-    // setFoodItem(res.data.rows);
-    // setOriginalFoodItem(res.data.rows)
+      .then(r => r.json())
+      .then(data => {
+        setFoodItem(data.rows);
+        setOriginalFoodItem(data.rows)
+      })
   }
+
+  // 關鍵字搜尋
+  const [searchKeyword, setSearchKeyword] = useState('')
+  const search = (e) => {
+    setSearchKeyword(e.target.value)
+    console.log(searchKeyword)
+  }
+
+
+  const getSearchQuery = async (e) => {
+
+    if (searchKeyword && resAuth.id) {
+      router.push(`?keyword=${searchKeyword}&shop_id=${resAuth.id}`);
+    }else{
+      setFoodItem(originalFoodItem)
+      router.push('/res/item-management')
+    }
+    // router.push(`?keyword=${searchKeyword}&shop_id=${resAuth.id}`) // 連到query
+    console.log(router)
+
+  }
+  // console.log(router)
+  // 拿到router.query後fetch到後端去
+  useEffect(() => {
+    if (Object.keys(router.query).length > 0) {
+      const usp = new URLSearchParams(router.query) // {keyword:abc}
+      fetch(`http://localhost:3002/res/item-management?${usp.toString()}`, {
+        method: 'GET'
+      })
+        .then(r => r.json())
+        .then(data => {
+          console.log(data)
+          setFoodItem(data.rows)
+        })
+    }
+  }, [router.query])
 
   useEffect(() => {
     if (itemOrder) {
@@ -178,11 +175,15 @@ export default function Management() {
     }
   }, [itemOrder])
 
+  // useEffect(() => {
+  //   foodCateFilter()
+
+  // }, [foodItem, foodCate])
+
   useEffect(() => {
-    changeNumToString()
     foodCateFilter()
 
-  }, [foodItem, foodCate])
+  }, [foodCate])
 
   // 刪除商品
   const confirmDeleteItem = () => {
@@ -212,64 +213,66 @@ export default function Management() {
 
             <div className="d-flex justify-content-between mt-3">
               <div className="">
-                <Link href={`/res/add-item`} className='me-3'><Btn text="新增商品" /></Link>
+                <div className='d-flex justify-content-between align-items-center'>
+                  <Link href={`/res/add-item`} className='me-3'><Btn text="新增商品" /></Link>
 
-                <select className='form-select mt-3' value={itemOrder} onChange={(e) => {
-                  setItemOrder(e.target.value)
-                }}>
-                  <option value=''>請選擇商品排序:</option>
-                  {orderOption.map((v, i) => {
-                    return <option key={i} value={v}>{v}</option>
-                  })}
-                </select>
+                  <div className="mt-3">
+                    <ul className="pagination">
+                      <li className="page-item disabled">
+                        <a className="page-link">Previous</a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          1
+                        </a>
+                      </li>
+                      <li className="page-item active" aria-current="page">
+                        <a className="page-link" href="#">
+                          2
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          3
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href="#">
+                          Next
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
 
-                {/* <button type="button" className='me-3 btn btn-warning' onClick={newToOld}>商品排序:由新到舊</button>
-                <button type="button" className='me-3 btn btn-warning' onClick={OldToNew}>商品排序:由舊到新</button> */}
+                  {resAuth.account ? <><label className='ms-3 fw-bold'>歡迎回來，{resAuth.shop}</label> <button type='button' className='ms-3 btn btn-primary' onClick={logout}>登出</button></> : ''}
+                </div>
+                <div className='d-flex justify-content-between'>
 
-                {resAuth.account ? <><label className='mt-3 fw-bold'>歡迎回來，{resAuth.shop}</label> <button type='button' className='btn btn-primary' onClick={logout}>登出</button></> : ''}
+                  <select className='form-select mt-3 ms-3' value={itemOrder} onChange={(e) => {
+                    setItemOrder(e.target.value)
+                  }}>
+                    <option value=''>請選擇商品排序:</option>
+                    {orderOption.map((v, i) => {
+                      return <option key={i} value={v}>{v}</option>
+                    })}
+                  </select>
 
-
-
-
-                <select value={foodCateString} onChange={matchList} className='form-select mt-3 col-2'>
-                  <option value="">---請選擇分類---</option>
-                  {foodCateOptions.map((v, i) => {
-                    return <option key={i} value={v}>{v}</option>
-                  })}
-                </select>
-
+                  <select value={foodCateString} onChange={matchList} className='form-select mt-3 ms-3'>
+                    <option value="">---請選擇分類---</option>
+                    {foodCateOptions.map((v, i) => {
+                      return <option key={i} value={v}>{v}</option>
+                    })}
+                  </select>
+                </div>
               </div>
               <div>
-                <Input label="搜尋商品" placeholder="請輸入搜尋文字" />
+                <Input label="搜尋商品"
+                  placeholder="請輸入搜尋文字"
+                  name='keyword'
+                  value={searchKeyword}
+                  onChange={search} />
               </div>
-            </div>
-
-            <div className="mt-3">
-              <ul className="pagination">
-                <li className="page-item disabled">
-                  <a className="page-link">Previous</a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item active" aria-current="page">
-                  <a className="page-link" href="#">
-                    2
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    3
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
+              <button type='button' className='btn btn-primary' onClick={getSearchQuery}>搜尋</button>
             </div>
 
             <div className="">
@@ -288,9 +291,9 @@ export default function Management() {
                     <th scope="col" className="text-center">
                       價格
                     </th>
-                    <th scope="col" className="text-center">
+                    {/* <th scope="col" className="text-center">
                       分類
-                    </th>
+                    </th> */}
                     {/* <th scope="col" className="text-center">
                       商品備註
                     </th> */}
@@ -313,14 +316,14 @@ export default function Management() {
                   {foodItem.map((v, i) => {
 
                     return (
-                      <tr className={``} style={{background:'gray'}} key={i}>
+                      <tr className={``} style={{ background: 'gray' }} key={i}>
                         <td className={`text-center ${styles.imgSize}`}>
                           <img src={`${imgLink}${v.food_img}`} className={`${styles.imgSize}`}></img>
                         </td>
                         <td className={`text-center`}>{v.food_title}</td>
                         <td className={`text-center`} style={{ width: '100px', overflow: 'hidden', textOverflow: 'ellipsis', 'whiteSpace': 'nowrap' }}>{v.food_des}</td>
                         <td className="text-center">{v.food_price}</td>
-                        <td className="text-center">{v.foodCateToString}</td>
+                        {/* <td className="text-center">{v.foodCateToString}</td> */}
                         {/* <td className="text-center">{v.food_note}</td> */}
                         <td className={`text-center`}>{v.create_time}</td>
 

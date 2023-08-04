@@ -269,7 +269,7 @@ export default function RegisterForm() {
     // 拿到驗證碼輸入完blur後要跟資料庫對比
     const [showMessage, setShowMessage] = useState('')
     const checkSixDigitCode = async (e) => {
-        if(code.sixDigitCode.length != 0){
+        if(code.sixDigitCode.length != 0 && code.matchCode){
             fetch('http://localhost:3002/res/checkVerifyCode', {
                 method: 'POST',
                 body: JSON.stringify(code),
@@ -288,7 +288,7 @@ export default function RegisterForm() {
                     }
                 })
         }else{
-            setShowMessage('並未填入驗證碼!')
+            setShowMessage('尚未寄送驗證信!')
         }
     }
 
@@ -410,7 +410,7 @@ export default function RegisterForm() {
             <div className="container">RegisterForm-Component</div>
             <div className="container container-sm-fluid">
                 <div className='row'>
-                    <form className={`${styles.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-4`}
+                    <form className={`${styles.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-3`}
                     // onSubmit={handleSubmit}
                     >
                         <h1 className="d-flex justify-content-center fw-bold mt-3">商家註冊</h1>
@@ -597,7 +597,9 @@ export default function RegisterForm() {
                                                 className={`${styles.uploadImg} me-3`}
                                                 name='photo'
                                                 onChange={handleChange}>
+
                                                 <img src={`${imgPreview + showImg}`} style={{ height: '300px', width: '300px', overflow: 'static' }} alt="" />
+                                                
                                             </div>)}
                                         <div className="mt-3">
                                             <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
