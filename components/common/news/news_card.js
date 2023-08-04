@@ -9,9 +9,10 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 export default function Newscard({ news_sid = '', article = [] }) {
-  // 將 article 作為 prop 傳遞進來
   const Btn = styled.button`
     background: var(--main-color);
   `;
@@ -34,16 +35,8 @@ export default function Newscard({ news_sid = '', article = [] }) {
     connect(1);
   }, []);
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      connect(currentPage - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      connect(currentPage + 1);
-    }
+  const handlePageChange = (event, newPage) => {
+    connect(newPage);
   };
 
   return (
@@ -51,7 +44,10 @@ export default function Newscard({ news_sid = '', article = [] }) {
       {news.map((v, i) => {
         // 使用 Link 元件作為每個新聞卡片的容器，設定 to 屬性為對應的路由
         return (
-          <div className={`col-sm-12 col-md-4 ${styles.cardbody}`} key={v.news_sid}>
+          <div
+            className={`col-sm-12 col-md-4 ${styles.cardbody}`}
+            key={v.news_sid}
+          >
             <Link href={`/news/${v.news_sid}`}>
               <div className={styles.card}>
                 <img src={`${imgPreview + v.photo}`} className={styles.img} />
@@ -68,22 +64,26 @@ export default function Newscard({ news_sid = '', article = [] }) {
           </div>
         );
       })}
-      <div className={styles.flex}>
-        <div className={styles.arrayleft}>
-          <FontAwesomeIcon
-            icon={faChevronLeft}
-            onClick={handlePreviousPage}
-            disabled={currentPage === 1}
+      <div className="w-100 d-flex justify-content-center mb-5 pb-5 mt-2">
+        <Stack spacing={2}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            sx={{
+              '& .MuiPaginationItem-root': {
+                fontSize: 25,
+              },
+              '& .Mui-selected': {
+                fontSize: 30,
+              },
+              '& .MuiPaginationItem-page': {
+                minWidth: '50px',
+                padding: '7px',
+              },
+            }}
           />
-        </div>
-        <span className={styles.number}>{currentPage}</span>
-        <div className={styles.arrayright}>
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-          />
-        </div>
+        </Stack>
       </div>
     </>
   );

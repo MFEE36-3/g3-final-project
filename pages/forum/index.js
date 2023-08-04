@@ -7,7 +7,8 @@ import Categorykanban from '@/components/common/forum/categorykanban';
 import Hotnew from '@/components/common/forum/hotnew';
 import Articlelist from '@/components/common/forum/articlelist';
 import Newnav from '@/components/common/news/new_nav';
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 export default function Detail() {
   const router = useRouter();
@@ -60,16 +61,8 @@ export default function Detail() {
     router.push(`?${queryParams.toString()}`);
   };
 
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-    }
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
   };
 
   return (
@@ -93,16 +86,26 @@ export default function Detail() {
             imgPreview={imgPreview}
           />
         </div>
-        <div>
-          <button onClick={handlePrevPage} disabled={currentPage === 1}>
-            上一頁
-          </button>
-          <button
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-          >
-            下一頁
-          </button>
+        <div className="w-100 d-flex justify-content-center mb-5 pb-5 mt-2">
+          <Stack spacing={2}>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  fontSize: 25,
+                },
+                '& .Mui-selected': {
+                  fontSize: 30,
+                },
+                '& .MuiPaginationItem-page': {
+                  minWidth: '50px',
+                  padding: '7px',
+                },
+              }}
+            />
+          </Stack>
         </div>
       </div>
     </>
