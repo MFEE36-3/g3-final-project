@@ -85,3 +85,10 @@
   position: relative;
   left: 20px;
 }
+
+.file {
+  position: relative;
+  left: -215px;
+  width: 300px;
+  object-fit: cover;
+}

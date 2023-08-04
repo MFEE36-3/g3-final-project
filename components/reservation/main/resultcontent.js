@@ -43,7 +43,7 @@ export default function ResultContent(favorite, setFavorite) {
       const usp = new URLSearchParams(router.query)
       // console.log(`${process.env.API_SERVER}/search?${decodeURI(usp.toString()).replaceAll('%2C', ',')}`)
 
-      fetch(`${process.env.API_SERVER}/search` + window.location.search)
+      fetch(`${process.env.API_SERVER}/reservation/restaurant` + window.location.search)
         .then(r => r.json())
         .then(data => {
           // console.log(data)
@@ -52,11 +52,12 @@ export default function ResultContent(favorite, setFavorite) {
     }
   }, [router.query])
 
-  // const handleFavorite = () => {
-  //   setFavorite((prev) => {
-  //     return !prev;
-  //   })
-  // }
+  const handleFavorite = () => {
+    setFavorite((prev) => {
+      return !prev;
+    })
+  }
+
   const [currentPage, setCurrentPage] = useState();
 
   // 處理pagination
@@ -131,7 +132,7 @@ export default function ResultContent(favorite, setFavorite) {
       <div className={style.main}>
         <div className={style.maincontent}>
           {data.rows.map((v) => {
-            const { sid, picture, shop, res_cate, rating, location } = v;
+            const { sid, photo, shop, res_cate, rating, location } = v;
             return (
               <Card
                 className={`${style.card}`}
@@ -141,7 +142,7 @@ export default function ResultContent(favorite, setFavorite) {
                   <Link href={"/reservation/" + sid}>
                     <Card.Img
                       variant="top"
-                      src="../../reservation/respic.jpeg"
+                      src={`${process.env.API_SERVER}/img/shops/${photo}`}
                       className={`${style.cardimg}`}
                     />
                     <div className={style.cardtext}>進入餐廳</div>
@@ -150,35 +151,42 @@ export default function ResultContent(favorite, setFavorite) {
                 <Card.Body>
                   <Card.Title>{shop}</Card.Title>
                   <Card.Text>{location}</Card.Text>
+
+
                   <div className="d-flex align-item-center justify-content-between">
-                    <div
-                      style={{
-                        fontSize: '14px',
-                        background: '#911010',
-                        borderRadius: 20,
-                        border: 0,
-                        color: 'white',
-                        padding: '5px',
-                      }}
-                    >
-                      <FaUtensils className={style.buttonicon} />
-                      {res_cate}
-                    </div>
-                    <div className="d-flex align-item-center">
-                      <AiFillStar
-                        className="fs-4 h-100 text-warning"
-                      // style={{ color: '#ecbd18' }}
-                      />
-                      <div className="d-flex align-item-center">
-                        {rating}
+
+                    <div className='d-flex'>
+                      <div
+                        style={{
+                          fontSize: '14px',
+                          background: '#911010',
+                          borderRadius: 20,
+                          border: 0,
+                          color: 'white',
+                          padding: '5px',
+                        }}
+                      >
+                        <FaUtensils className={style.buttonicon} />
+                        {res_cate}
+                      </div>
+                      <div className="d-flex align-item-center ms-1">
+                        <AiFillStar
+                          className="fs-4 h-100 text-warning"
+                        // style={{ color: '#ecbd18' }}
+                        />
+                        <div className="d-flex align-item-center fs-5">
+                          {rating}
+                        </div>
                       </div>
                     </div>
-                    <div className="d-flex align-item-center">
+
+                    <div className="d-flex align-item-center" onClick={handleFavorite}>
                       {favorite ?
                         <FaHeart className={`${style.cardheart} fs-4 h-100`} /> :
                         <FaRegHeart className={`${style.cardheart} fs-4 h-100`} />
                       }
                     </div>
+
                   </div>
                 </Card.Body>
               </Card>

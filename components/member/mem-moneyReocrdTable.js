@@ -16,14 +16,9 @@ export default function MemMoneyReocrdTable({ rows }) {
         <TableHead>
           <TableRow className={styles.row}>
             <TableCell className={styles.cell}>儲值內容</TableCell>
-            <TableCell align="right" className={styles.cell}>
-              儲值金額
-            </TableCell>
+            <TableCell className={styles.cell}>儲值金額</TableCell>
             <TableCell align="right" className={styles.cell}>
               儲值時間
-            </TableCell>
-            <TableCell align="right" className={styles.cell}>
-              交易序號
             </TableCell>
           </TableRow>
         </TableHead>
@@ -34,16 +29,11 @@ export default function MemMoneyReocrdTable({ rows }) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row" className={styles.td}>
-                {row.context}
+                {row.content}
               </TableCell>
-              <TableCell align="right" className={styles.td}>
-                {row.money}
-              </TableCell>
+              <TableCell className={styles.td}>{row.money}</TableCell>
               <TableCell align="right" className={styles.td}>
                 {row.time}
-              </TableCell>
-              <TableCell align="right" className={styles.td}>
-                {row.id}
               </TableCell>
             </TableRow>
           ))}

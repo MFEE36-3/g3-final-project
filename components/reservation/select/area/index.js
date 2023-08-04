@@ -11,19 +11,19 @@ export default function Area({ keyword, setKeyword }) {
   // 取得dist資料(判斷city後的資料)
   useEffect(() => {
     const getData = async () => {
-      const r = await fetch(`${process.env.API_SERVER}/restaurants/dist`)
+      const r = await fetch(`${process.env.API_SERVER}/reservation/dist`)
       const data = await r.json()
-      
-        const tpedist = data.rows.filter((v) => {
-          if (keyword.city === v.cityname) {
-            return v.areaname
-          }
-        })
 
-        // console.log(tpedist)
-        setDdata(tpedist)
-      }
-  
+      const tpedist = data.rows.filter((v) => {
+        if (keyword.city === v.cityname) {
+          return v.areaname
+        }
+      })
+
+      // console.log(tpedist)
+      setDdata(tpedist)
+    }
+
     getData();
 
   }, [keyword.city])

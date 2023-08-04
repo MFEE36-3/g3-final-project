@@ -37,10 +37,9 @@ export default function Demo() {
         <Newnav />
         <h1 className={`${styles.title}`}>美食新聞</h1>
         <div className={`${styles.line1}`}></div>
-        <CarouselFadeExample />
+        <div className={styles.rwd}><CarouselFadeExample /></div>
         <div>
           <div className={`${styles.line2}`}></div>
-
           <div className="container-fluid">
             <div className="row">
               <Newscard />

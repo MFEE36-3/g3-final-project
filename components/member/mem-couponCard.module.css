@@ -1,7 +1,7 @@
 .card {
   height: 200px;
-  box-shadow: 3px 3px 3px rgba(123, 123, 123, 0.5);
-  background-color: #fed7b9;
+  background-image: url('../../public/member/couponArea.png');
+  background-size: cover;
   border-radius: 10px;
   margin-top: 5px;
   display: flex;
@@ -16,10 +16,18 @@
 }
 
 .box {
-  margin-inline: 30px;
+  margin-inline: 20px;
   display: flex;
   justify-content: start;
   align-items: center;
+}
+
+.money {
+  margin-inline: 20px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 35px;
 }
 
 .detail {

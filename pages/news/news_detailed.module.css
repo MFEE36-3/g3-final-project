@@ -3,17 +3,14 @@
     padding-left: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
-    
 }
 .title{
     font-size: var(--h3);
     font-weight: bold;
     margin-bottom: 30px;
-  
 }
 .ptext{
     font-size: var(--h6);
-    /* font-weight: bold; */
     margin-top: 30px;
 }
 .container1{
@@ -35,4 +32,29 @@
 .img img{
     width: 100%;
     height: auto;;
+}
+.container{
+    width: 75%;
+    margin: 0 auto;
+}
+@media screen and (max-width:767px) {
+    .line{
+        border-left: 6px solid transparent;
+        padding-left: 0;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .title{
+        font-size: var(--h5);
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+    .col-md-12 {
+        display: block; /* 將 col-md-12 變成 block，佔滿整行 */
+        width: 100%; /* 佔滿整行的寬度 */
+      }
+      .col-md-4 {
+        display: none; /* 手機版時隱藏 col-md-4 */
+      }
+    
 }

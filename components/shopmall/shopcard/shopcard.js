@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState, useReducer} from 'react'
+import React, { useContext, useEffect, useState} from 'react'
 import styled from '@emotion/styled'
 import {AiFillStar} from 'react-icons/ai'
 import { Host } from '@/components/shopmall/shopmallfinal';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Swal from 'sweetalert2'
+import 'animate.css';
 import Modal from '@mui/material/Modal';
 import useLocalStorage from "@/components/hooks/useLocalStorage";
 import {  AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
@@ -61,17 +63,30 @@ const ImageCss = styled.img`
   font-size:var(--h5)
   `
 
+
 export default function ShopCard() {
-  const {items} = useContext(Host);
+  const {items, token} = useContext(Host);
   const [open, setOpen] = React.useState(false);
   const [selectedItem, setSelectedItem] = useState(null)
   const [num, setNum] = useState(1)
+  const [verify, setVerify] = useState(false)
   const [userCart, setUserCart] = useLocalStorage("shop",  {})
+  // const [user, setUser] = useLocalStorage('auth', {})
   // {subscribe:[], buy:[], order:[], shop:[]}
+  useEffect(()=>{
+    if(token === null) return
+    if(token.token) setVerify(true)
+  },[token])
   const handleOpen = (item) => {
     setSelectedItem(item)
     setOpen(true)
     setNum(1)
+    // setUser({
+    //   sid: 1,
+    //   account: "123456",
+    //   nickname: "皮卡丘的朋友",
+    //   token: true,
+    // })
   };
   const handleClose = () => setOpen(false);
   const plus = () => {
@@ -80,8 +95,33 @@ export default function ShopCard() {
   const minus = () => {
     num > 1 && setNum(prev => prev - 1)
   }
+  const loginAlert = () => {
+    Swal.fire({
+      title: '請先登入會員',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      icon: 'warning',
+      confirmButtonText: '前往登入',
+      customClass: {
+        confirmButton: 'bg-danger'
+      }
+    }).then(result => {
+      if(result.isConfirmed){
+        window.location.href = 'http://localhost:3001/login'
+      }
+    })
+  }
   const handleCart = (item) =>{
+    {verify === false && 
+    <div style={{ zIndex: 9999 }}>
+    {loginAlert()}
+    </div>}
     setOpen(false)
+    if(verify === false) return
     const itemInfo = {
       itemId:item.item_id,
       itemName: item.item_name,
@@ -102,11 +142,12 @@ export default function ShopCard() {
       [item.item_id]: itemInfo  
       }
     )
-
+     
   }
+  
   const remain = 10
   const itemCardsMap = items.map(v =>
-  <ItemCard className='w-100 d-flex pb-3 flex-column justify-content-between mb-5' key={v.item_id} onClick={()=>handleOpen(v)}>
+  <ItemCard className="w-100 d-flex pb-3 flex-column justify-content-between mb-5" key={v.item_id} style={{zIndex:"1"}} onClick={()=>handleOpen(v)}>
       <div>
       <ImageCss src={v.img_url} className='w-100'/>
         <div className='px-3 mt-2'>
@@ -139,7 +180,7 @@ export default function ShopCard() {
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
-            className='container-fulid '
+            className={`container-fulid `}
           >
             <Box sx={style} className='d-flex row'>
               <div className='col-7 h-100 overflow-hidden object-fit-cover'>

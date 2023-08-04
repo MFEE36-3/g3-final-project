@@ -2,7 +2,7 @@
     /* display: flex;
     justify-content: center;
     align-items: center; */
-    width: 80%;
+    width: 75%;
     margin: 0 auto;
     /* box-sizing: border-box; */
     /* height: 640px; */
@@ -48,4 +48,26 @@
     gap: 20px;
     padding-top: 20px;
     /* flex-wrap: wrap; */
+}
+@media screen and (max-width:767px) {
+    
+    .line2{
+        border-bottom: 1px solid transparent;
+        display: none;
+        margin: 0;
+    }
+    .line1{
+        border-bottom: 1px solid var(--main-color);
+        width: 100%;
+        margin-bottom: 0;
+    }
+    .container{
+        /* display: flex;
+        justify-content: center;
+        align-items: center; */
+        width: 100%;
+        margin: 0 auto;
+        /* box-sizing: border-box; */
+        /* height: 640px; */
+    }
 }

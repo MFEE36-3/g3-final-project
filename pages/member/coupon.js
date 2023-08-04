@@ -13,94 +13,63 @@ import MemNologin from '@/components/member/mem-nologin';
 import { useRouter } from 'next/router';
 
 export default function Index() {
-  const mycoupon = [
-    {
-      src: '/member/coupon.png',
-      name: '首儲好禮1',
-      content: '第一次儲值錢包',
-      money: '50元',
-      time: '2023 / 11 / 01',
-    },
-    {
-      src: '/member/coupon.png',
-      name: '首儲好禮2',
-      content: '第一次儲值錢包',
-      money: '50元',
-      time: '2023 / 11 / 01',
-    },
-    {
-      src: '/member/coupon.png',
-      name: '首儲好禮3',
-      content: '第一次儲值錢包',
-      money: '50元',
-      time: '2023 / 11 / 01',
-    },
-    {
-      src: '/member/coupon.png',
-      name: '首儲好禮4',
-      content: '第一次儲值錢包',
-      money: '50元',
-      time: '2023 / 11 / 01',
-    },
-    {
-      src: '/member/coupon.png',
-      name: '首儲好禮5',
-      content: '第一次儲值錢包',
-      money: '50元',
-      time: '2023 / 11 / 01',
-    },
-    {
-      src: '/member/coupon.png',
-      name: '首儲好禮6',
-      content: '第一次儲值錢包',
-      money: '50元',
-      time: '2023 / 11 / 01',
-    },
-    {
-      src: '/member/coupon.png',
-      name: '首儲好禮7',
-      content: '第一次儲值錢包',
-      money: '50元',
-      time: '2023 / 11 / 01',
-    },
-  ];
-
-  const rows = [
-    {
-      name: '生日快樂1',
-      content: '送給您的生日禮物',
-      money: 100,
-      time: '2023/04/15 17:20',
-      state: '過期',
-    },
-    {
-      name: '生日快樂2',
-      content: '送給您的生日禮物',
-      money: 100,
-      time: '2023/04/16 17:20',
-      state: '過期',
-    },
-    {
-      name: '生日快樂3',
-      content: '送給您的生日禮物',
-      money: 100,
-      time: '2023/04/17 17:20',
-      state: '過期',
-    },
-  ];
-
   const { auth } = useContext(AuthContext);
+  const [coupon, setCoupon] = useState([]);
 
   const router = useRouter();
 
-  // if (!auth.account) {
-  //   setTimeout(() => {
-  //     router.push('/');
-  //   }, 500);
-  //   return <MemNologin />;
-  // }
+  // 抓可使用的優惠券資料
+  useEffect(() => {
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/member/coupon', {
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setCoupon(data);
+        });
+    }
+  }, [auth]);
 
-  return (
+  const mycoupon = coupon
+    .filter((v) => v.coupon_status_sid === 1)
+    .map((v) => {
+      return {
+        name: v.coupon_title,
+        money: v.coupon_discount + '元',
+        time: v.coupon_dead_time?.substring(0, 10),
+      };
+    });
+
+  const record = coupon
+    .filter((v) => v.coupon_status_sid !== 1)
+    .map((v) => {
+      return {
+        name: v.coupon_title,
+        money: v.coupon_discount + '元',
+        time: v.coupon_dead_time?.substring(0, 10),
+        status: v.coupon_status_sid,
+      };
+    });
+
+  // 判斷式否登入，未登入跳轉回首頁
+  useEffect(() => {
+    if (!localStorage.getItem('auth')) {
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    }
+  }, []);
+
+  return !auth.account ? (
+    <MemNologin />
+  ) : (
     <div className={styles.body}>
       <div className={styles.container}>
         <MemBar />
@@ -112,9 +81,7 @@ export default function Index() {
                 {mycoupon.map((v) => {
                   return (
                     <MemCouponCard
-                      src={v.src}
                       name={v.name}
-                      content={v.content}
                       money={v.money}
                       time={v.time}
                       key={v4()}
@@ -123,10 +90,10 @@ export default function Index() {
                 })}
               </div>
             </div>
-            <MemAllTitle title={'已使用 / 失效 / 過期'} />
+            <MemAllTitle title={'已使用 /已過期'} />
             <div className={styles2.area2}>
               <div className={styles2.recordBox}>
-                <MemCouponRecord rows={rows} />
+                <MemCouponRecord record={record} />
               </div>
             </div>
           </div>

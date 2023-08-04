@@ -12,7 +12,7 @@ export default function MainContent({ favorite, setFavorite }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.API_SERVER}/restaurants/cards`)
+    fetch(`${process.env.API_SERVER}/reservation/cards`)
       .then(r => r.json())
       .then(data => {
         // console.log(data)
@@ -20,11 +20,11 @@ export default function MainContent({ favorite, setFavorite }) {
       })
   }, [])
 
-  // const handleFavorite = () => {
-  //   setFavorite((prev) => {
-  //     return !prev;
-  //   })
-  // }
+  const handleFavorite = () => {
+    setFavorite((prev) => {
+      return !prev;
+    })
+  }
 
 
   return (
@@ -35,7 +35,7 @@ export default function MainContent({ favorite, setFavorite }) {
       <div className={style.main}>
         <div className={style.maincontent}>
           {data.map((v) => {
-            const { sid, picture, shop, res_cate, rating, location } = v;
+            const { sid, photo, shop, res_cate, rating, location } = v;
             return (
               <Card
                 className={`${style.card}`}
@@ -45,7 +45,7 @@ export default function MainContent({ favorite, setFavorite }) {
                   <Link href={"/reservation/" + sid}>
                     <Card.Img
                       variant="top"
-                      src="../../reservation/respic.jpeg"
+                      src={`${process.env.API_SERVER}/img/shops/${photo}`}
                       className={`${style.cardimg}`}
                     />
                     <div className={style.cardtext}>進入餐廳</div>
@@ -77,7 +77,7 @@ export default function MainContent({ favorite, setFavorite }) {
                         {rating}
                       </div>
                     </div>
-                    <div className="d-flex align-item-center">
+                    <div className="d-flex align-item-center" onClick={handleFavorite}>
                       {favorite ?
                         <FaHeart className={`${style.cardheart} fs-4 h-100`} /> :
                         <FaRegHeart className={`${style.cardheart} fs-4 h-100`} />

@@ -7,7 +7,7 @@ const Page = styled.div`
     font-size:20px;
     text-align:center;
     width:8%;
-    top: 0%;
+    top: 2%;
     left: -8.1%;
 `
 const PageTag = styled.div`
@@ -23,10 +23,10 @@ export default function CheckOutPage() {
     }
   return (
     <Page>
-        <PageTag className={page === 'subscribe' ? 'border-top border-start border-bottom rounded-3 p-3 bg-warning':'border-top border-start border-bottom rounded-3 p-3'} onClick={()=>handlePage("subscribe")}>訂閱</PageTag>
-        <PageTag className={page === 'buy' ? 'border-top border-start border-bottom rounded-3 p-3 bg-warning':'border-top border-start border-bottom rounded-3 p-3'} onClick={()=>handlePage("buy")}>買買</PageTag>
-        <PageTag className={page === 'order' ? 'border-start border-bottom rounded-3 p-3 bg-warning' : 'border-start border-bottom rounded-3 p-3'} onClick={()=>handlePage("order")}>外帶</PageTag>
-        <PageTag className={page === 'shop' ? 'border-start border-bottom rounded-3 p-3 bg-warning' : 'border-start border-bottom rounded-3 p-3'} onClick={()=>handlePage("shop")}>商城</PageTag>
+        <PageTag className={page === 'subscribe' ? 'border-top  border-start border-bottom rounded-3 border-secondary-subtle border-3 p-3 bg-warning':'border-top border-start border-bottom  border-3 border-secondary-subtle rounded-3 p-3'} onClick={()=>handlePage("subscribe")}>訂閱</PageTag>
+        <PageTag className={page === 'buy' ? 'border-start border-bottom rounded-3 p-3 bg-warning border-secondary-subtle border-3':' border-3 border-secondary-subtle border-start border-bottom rounded-3 p-3'} onClick={()=>handlePage("buy")}>買買</PageTag>
+        <PageTag className={page === 'order' ? 'border-start border-bottom rounded-3 p-3 bg-warning border-secondary-subtle border-3' : 'border-start border-3 border-secondary-subtle border-bottom rounded-3 p-3'} onClick={()=>handlePage("order")}>外帶</PageTag>
+        <PageTag className={page === 'shop' ? 'border-start border-bottom rounded-3 p-3 bg-warning border-secondary-subtle border-3' : 'border-start border-3 border-secondary-subtle border-bottom rounded-3 p-3'} onClick={()=>handlePage("shop")}>商城</PageTag>
     </Page>
   )
 }

@@ -6,10 +6,12 @@ export default function Newnav() {
   return (
     <>
       <div className={styles.line}>
-        <Link href="/news/demo">
+        <Link href="/news">
           <button className={styles.nav}>新聞區</button>
         </Link>
-        <button className={styles.nav}>哈拉區</button>
+        <Link href="/forum">
+          <button className={styles.nav}>哈拉區</button>
+        </Link>
         <button className={styles.nav}>文章列表</button>
       </div>
     </>

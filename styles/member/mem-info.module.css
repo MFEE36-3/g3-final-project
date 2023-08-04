@@ -9,6 +9,23 @@
   border: 2px solid #921010;
 }
 
+.AchieveArea {
+  width: 1600px;
+  height: 700px;
+  border: 5px solid #921010;
+  border-radius: 20px;
+  background-color: #ffffff;
+  z-index: 30;
+  position: absolute;
+  left: 50%;
+  top: -25px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .content {
   width: 50px;
   height: 50px;
@@ -189,8 +206,8 @@
   }
 
   .box {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     position: relative;
     left: 8px;
   }

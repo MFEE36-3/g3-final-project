@@ -7,7 +7,7 @@ export default function Catalog() {
   const [article, setArticle] = useState([]);
 
   const connect = async () => {
-    fetch('http://localhost:3002/news2/rand2')
+    fetch('http://localhost:3002/news/rand2')
       .then((r) => r.json())
       .then((data) => {
         setArticle(data);
@@ -29,9 +29,6 @@ export default function Catalog() {
               <Link href={`/news/${v.news_sid}`}>
                 <p className={styles.pline}>{v.header}</p>
               </Link>
-             
-      
-             
             </div>
           ))}
         </div>

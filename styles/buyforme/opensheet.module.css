@@ -1,0 +1,37 @@
+.open_title {
+    text-align: center;
+    color: var(--main-color);
+    font-family: var(--ff1);
+    font-size: var(--h4);
+    border-bottom: 2px solid var(--main-color);
+    padding: 10px 0 0 0;
+    margin: 0 20px 0 20px;
+}
+
+.shopname {
+    text-align: center;
+    font-weight: 900;
+    margin: 10px 40px 30px 40px;
+    font-size: var(--h3);
+}
+
+.shopname_small {
+    text-align: center;
+    font-weight: 900;
+    margin: 10px 40px 30px 40px;
+    font-size: var(--h4);
+}
+
+.labels {
+    color: var(--main-color);
+    font-weight: 600;
+    font-size: var(--h8);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: var(--ff1);
+}
+
+.silder{
+    padding: 0 16px;
+    margin-top: 40px;
+}

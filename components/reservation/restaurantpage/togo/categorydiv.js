@@ -4,56 +4,56 @@ import { FaMartiniGlassCitrus } from "react-icons/fa6";
 import { LuSoup } from "react-icons/lu";
 import style from '@/styles/reservation/style.module.css'
 
-export default function CategoryDiv({category, handleCategory}) {
+export default function CategoryDiv({ category, handleCategory }) {
 
     return (
         <div className={style.categorynav}>
-            <div className={category === '所有餐點' ? style.categorydivactive : style.categorydiv}
+            <div className={category === 100 ? style.categorydivactive : style.categorydiv}
                 onClick={() => {
-                    handleCategory('所有餐點')
+                    handleCategory(100)
                 }}>
                 <GiKnifeFork />
                 <div className={style.categoryfont}>所有餐點</div>
             </div>
 
-            <div className={category === '開胃菜' ? style.categorydivactive : style.categorydiv}
+            <div className={category === 1 ? style.categorydivactive : style.categorydiv}
                 onClick={() => {
-                    handleCategory('開胃菜')
+                    handleCategory(1)
                 }}>
                 <GiFruitBowl />
                 <div className={style.categoryfont}>開胃菜</div>
             </div>
 
-            <div className={category === '主餐' ? style.categorydivactive : style.categorydiv}
+            <div className={category === 2 ? style.categorydivactive : style.categorydiv}
                 onClick={() => {
-                    handleCategory('主餐')
+                    handleCategory(2)
                 }}>
                 <GiHotMeal />
                 <div className={style.categoryfont}>主餐</div>
             </div>
 
-            <div className={category === '湯品' ? style.categorydivactive : style.categorydiv}
+            <div className={category === 3 ? style.categorydivactive : style.categorydiv}
                 onClick={() => {
-                    handleCategory('湯品')
+                    handleCategory(3)
                 }}>
                 <LuSoup />
                 <div className={style.categoryfont}>湯品</div>
             </div>
 
-            <div className={category === '甜點' ? style.categorydivactive : style.categorydiv}
+            <div className={category === 4 ? style.categorydivactive : style.categorydiv}
                 onClick={() => {
-                    handleCategory('甜點')
+                    handleCategory(4)
                 }}>
                 <GiCakeSlice />
                 <div className={style.categoryfont}>甜點</div>
             </div>
 
-            <div className={category === '飲品' ? style.categorydivactive : style.categorydiv}
+            <div className={category === 5 ? style.categorydivactive : style.categorydiv}
                 onClick={() => {
-                    handleCategory('飲品')
+                    handleCategory(5)
                 }}>
                 <FaMartiniGlassCitrus />
-                <div className={style.categoryfont}>飲品</div>
+                <div className={style.categoryfont}>飲料</div>
             </div>
 
         </div>

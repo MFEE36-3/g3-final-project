@@ -6,15 +6,16 @@ import PaymentBody from './PaymentBody'
 import CheckOutTotalPrice from './CheckOutTotalPrice'
 import SendAddress from './SendAddress'
 export default function CheckoutRight() {
-  const [selected,setSelected] = useState(0)
+  const [payment,setPayment] = useState('')
+  const [orderInfo, setOrderInfo] = useState({name:'', address:'', phone:''})
   return (
     <div className='col-5'>
       <CardContainer>
         <CheckOutMember/>
-        <Payment selected={selected} setSelected={setSelected}/>
+        <Payment payment={payment} setPayment={setPayment}/>
         <div>
-          <SendAddress/>
-          <CheckOutTotalPrice/>
+          <SendAddress orderInfo={orderInfo} setOrderInfo={setOrderInfo}/>
+          <CheckOutTotalPrice payment={payment} orderInfo={orderInfo}/>
         </div>
         
       </CardContainer>

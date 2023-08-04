@@ -1,0 +1,15 @@
+.carouselContainer {
+    display: block; /* 預設顯示為區塊元素 */
+  }
+  .up{
+    padding-bottom: 18px;
+    font-size: var(--h5);
+  }
+  
+  /* 在手機版時，將元件設定為不顯示 */
+  @media (max-width: 767px) {
+    .carouselContainer {
+      display: none;
+    }
+  }
+  
