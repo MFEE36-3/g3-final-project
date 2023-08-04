@@ -5,22 +5,28 @@ import Rcarousel from '@/components/reservation/restaurantpage/carousel'
 import Info from '@/components/reservation/restaurantpage/info';
 import ReservationPage from '@/components/reservation/restaurantpage';
 import ShoppingCart from '@/components/reservation/restaurantpage/shoppingcart';
-import ShoppingBag from '@/public/reservation/shoppingbag.svg'
 import Offcanvas from 'react-bootstrap/Offcanvas';
-
+import Image from 'next/image';
+import ShoppingBag from '@/public/reservation/shoppingbag.svg'
 
 export default function RestaurantPage() {
 
-    // const [show, setShow] = useState(false);
-
+    const router = useRouter();
     const [date, setDate] = useState(); // 日期
     const [time, setTime] = useState(''); // 時間
     const [person, setPerson] = useState(''); //人數
     const [seat, setSeat] = useState(''); // 座位
     const [memo, setMemo] = useState('');
-    const [row, setRow] = useState({ detail: {}, booking: [], seattype: [], fooditems: [] });
-    //{detail,booking,seattype}
-    const router = useRouter();
+    const [row, setRow] = useState({ detail: {}, booking: [], seattype: [], fooditems: [] }); //{detail,booking,seattype}
+    const [shoppingCart, setShoppingCart] = useState([]);
+    const [togodate, setTogodate] = useState();
+    const [togotime, setTogotime] = useState();
+
+    const [show, setShow] = useState(false);
+
+    //購物車Offcanvas
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         if (router.query.sid) {
@@ -50,13 +56,23 @@ export default function RestaurantPage() {
 
                         <div className={style.reservationdiv}>
                             <ReservationPage row={row} date={date} setDate={setDate} time={time} setTime={setTime}
-                                person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo} />
+                                person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo}
+                                shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} togodate={togodate} setTogodate={setTogodate}
+                                togotime={togotime} setTogotime={setTogotime}
+                            />
                         </div>
-
-
                     </div>
                 </div>
-
+                <Image src={ShoppingBag} variant="primary" onClick={handleShow} className={style.carticon} />
+                <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title><div className={style.carttitle}>--您的購物車--</div></Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body>
+                        <ShoppingCart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
+                            togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} />
+                    </Offcanvas.Body>
+                </Offcanvas>
             </div>
         </>
     );

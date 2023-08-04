@@ -48,7 +48,7 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateCalendar
                     shouldDisableDate={shouldDisableDate} // 禁用日期
-                    value={date}
+                    // value={date}
                     onChange={handleDateChange}
                 />
             </LocalizationProvider>

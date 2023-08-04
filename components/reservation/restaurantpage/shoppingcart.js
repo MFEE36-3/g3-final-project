@@ -1,98 +1,182 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import style from '@/styles/reservation/style.module.css'
 import { Button } from 'react-bootstrap';
 import { BsTrash } from "react-icons/bs";
+import { GiShoppingCart } from "react-icons/gi";
+import { BsFillCalendar3WeekFill } from "react-icons/bs";
 
-export default function ShoppingCart() {
+export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime }) {
 
-    const shoppingfood = [
-        { id: 1, name: "泰式打拋豬肉", price: 290, count: 5 },
-        { id: 2, name: "月亮蝦餅", price: 220, count: 2 }
-    ]
-    const [products, setProducts] = useState(shoppingfood)
+    // const [products, setProducts] = useState(Object.values(shoppingCart)); // 使用 Object.values() 取得購物車商品陣列
 
-    const add = (products, id) => {
-        return products.map((v) => {
-            if (v.id === id) return { ...v, count: v.count + 1 }
-            return { ...v }
+
+    const cartitem = localStorage.getItem('order')
+    // console.log(cartitem);
+
+    const menuItems = JSON.parse(cartitem) || 0;
+    // console.log(menuItems);
+    const menuItemsArray = Object.values(menuItems);
+    // console.log(menuItemsArray);
+
+    const [products, setProducts] = useState(menuItemsArray)
+
+
+    //商品數量-增加
+    const handleAdd = (item) => {
+
+        //更新LocalStorage
+        const oldCart = JSON.parse(localStorage.getItem('order'))
+        localStorage.setItem('order', JSON.stringify({
+            ...oldCart,
+            [item.itemId]: {
+                itemId: item.itemId,
+                itemName: item.itemName,
+                src: item.src,
+                price: item.price,
+                amount: item.amount + 1,
+                togodate: togodate,
+                togotime: togotime,
+            }
+        }))
+
+        setProducts(prevProuducts => {
+            return prevProuducts.map(product => {
+                if (product.itemId === item.itemId) {
+                    return { ...product, amount: product.amount + 1 }
+                }
+                return product;
+            })
         })
-    }
 
-    const sub = (products, id) => {
-        return products.map((v) => {
-            if (v.id === id) return { ...v, count: v.count - 1 }
-            return { ...v }
+    }
+    //商品數量-減少
+    const handleSub = (item) => {
+        if (item.amount > 1) {
+            //更新LocalStorage
+            const oldCart = JSON.parse(localStorage.getItem('order'))
+            localStorage.setItem('order', JSON.stringify({
+                ...oldCart,
+                [item.itemId]: {
+                    itemId: item.itemId,
+                    itemName: item.itemName,
+                    src: item.src,
+                    price: item.price,
+                    amount: item.amount - 1,
+                    togodate: togodate,
+                    togotime: togotime,
+                }
+            }))
+        }
+
+        setProducts(prevProuducts => {
+            return prevProuducts.map(product => {
+                if (product.itemId === item.itemId && product.amount > 1) {
+                    return { ...product, amount: product.amount - 1 }
+                }
+                return product;
+            })
         })
+
+    }
+    //商品數量-刪除
+    const handleRemove = (item) => {
+
+        //更新LocalStorage
+        const oldCart = JSON.parse(localStorage.getItem('order'))
+        delete oldCart[item.itemId];
+        localStorage.setItem('order', JSON.stringify(oldCart));
+
+        // 检查localStorage是否为空，如果为空，则删除该localStorage项
+        if (Object.keys(oldCart).length === 0) {
+            localStorage.removeItem('order');
+        }
+
+        setProducts(prevProducts => {
+            return prevProducts.filter(product => product.itemId !== item.itemId);
+        });
     }
 
-    const remove = (products, id) => {
-        return products.filter((v) => v.id !== id)
+    const getTotalAmount = () => {
+        return products.reduce((total, product) => total + (product.amount * product.price), 0);
     }
-
 
     return (
         <>
-            {
-                products.map((v) => {
-                    const { id, name, price } = v;
-                    return (
-                        <>
-                            <div key={id} className={style.shoppingcartdiv}>
 
-                                <div>
-                                    <img src="../../reservation/foodpic.png" className={style.cartimage}></img>
-                                </div>
-                                <div className={style.shoppingcartbody1}>
-                                    <div className={style.shoppingcartbody2}>
-                                        <div>{name}</div>
-                                        <div><BsTrash className={style.trashicon} /></div>
-                                    </div>
+            {products.length > 0 ?
+                <div>
+                    {
+                        products.map((v) => {
+                            const totalAmount = v.amount * v.price;
+                            return (
+                                <>
+                                    <div key={v.itemId} className={style.shoppingcartdiv}>
 
-                                    <div className={style.shoppingcartbody2}>
-                                        <div className={style.shoppingcartbody3}>
-                                            <button
-                                                className={style.cartbutton}
-                                                onClick={() => {
-                                                    setProducts(add(products, v.id))
-                                                }}
-                                            >
-                                                +
-                                            </button>
-                                            <div className={style.cartcount}>{v.count}</div>
-                                            <button
-                                                className={style.cartbutton}
-                                                onClick={() => {
-                                                    // 預期: 目前商品數量是1，再按-按鈕，數量會變0 -> 就作移除
-                                                    console.log(v.count)
-                                                    if (v.count === 1) {
-                                                        // 作刪除
-                                                        setProducts(remove(products, v.id))
-                                                    } else {
-                                                        // 作減數量
-                                                        setProducts(sub(products, v.id))
-                                                    }
-                                                }}
-                                            >
-                                                –
-                                            </button>
+                                        <div>
+                                            <img src={v.src} className={style.cartimage}></img>
                                         </div>
-                                        <div className={style.cartprice}>
-                                            ${price}
+                                        <div className={style.shoppingcartbody1}>
+                                            <div className={style.shoppingcartbody2}>
+                                                <div>{v.itemName}</div>
+                                                <div><BsTrash className={style.trashicon} onClick={() => { handleRemove(v) }} /></div>
+                                            </div>
+
+                                            <div className={style.shoppingcartbody2}>
+                                                <div className={style.shoppingcartbody3}>
+
+                                                    <button
+                                                        className={style.cartbutton}
+                                                        onClick={() => {
+                                                            handleSub(v)
+                                                        }}
+                                                    >
+                                                        –
+                                                    </button>
+
+                                                    <div className={style.cartcount}>{v.amount}</div>
+
+                                                    <button
+                                                        className={style.cartbutton}
+                                                        onClick={() => {
+                                                            // setProducts(add(products, v.id))
+                                                            handleAdd(v)
+                                                        }}
+                                                    >
+                                                        +
+                                                    </button>
+
+                                                </div>
+                                                <div className={style.cartprice}>
+                                                    ${totalAmount}
+                                                </div>
+                                            </div>
+                                            <div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr className={style.hrcolor} />
-                        </>
-                    )
-                })
+                                    <hr className={style.hrcolor} />
+                                </>
+                            )
+                        })
+                    }
+                    <div className={style.totalprice}>總金額: ${getTotalAmount()}</div>
+                </div>
+                :
+                <div className={style.cartemptydiv}>
+                    <GiShoppingCart className={style.cartemptyicon} />
+                    <div className={style.cartemptytext}>購物車中沒有商品</div>
+                </div>
+            }
+
+            {products.length > 0 && togodate ?
+                <div className={style.togotime}>
+                    <BsFillCalendar3WeekFill className='me-1' /> 取餐時間 {togodate}  {togotime} </div>
+                : ''
             }
             <div>
                 <Button className={style.cartsendbutton}
                 >
-                    加入購物車
+                    送出結帳
                 </Button>
             </div>
 

@@ -113,3 +113,26 @@ a:active {
   font-family: var(--ff1);
   font-size: var(--h7);
 }
+
+.swal2-container {
+  z-index: 2000; /* 使用你需要的數字 */
+}
+
+.swal2-styled{
+  font-family: var(--ff1);
+  border-radius: 50px !important;
+  letter-spacing: 1px;
+}
+
+/* .swal2-popup{
+  border: 5px solid var(--main-color);
+  border-radius: 10px;
+} */
+
+.swal2-confirm {
+  background-color: var(--main-color) !important;
+}
+
+.swal2-deny {
+  background-color: var(--sub-color) !important;
+}

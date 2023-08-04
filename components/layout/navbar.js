@@ -87,7 +87,12 @@ export default function Navbar() {
           priority
         ></Image>
       </Link>
-      <Link href="/checkout">
+      <Link href={
+        router_title.includes('/shopmall')
+        ?"/checkout?page=shop":router_title.includes('/reservation')
+        ?"/checkout?page=order":router_title.includes('/member')
+        ?"/checkout?page=subscribe":"/checkout"
+        }>
         <FaShoppingCart className={styles.cart} />
       </Link>
 

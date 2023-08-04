@@ -42,8 +42,11 @@ const Home = () => {
 
   useEffect(() => {
     const node = document.getElementById('buyForMe')
+    const main_page_container = document.getElementById('mainpage_container');
+
+
     const timer = setTimeout(() => {
-      if (window.scrollY === 0) {
+      if (main_page_container.scrollTop === 0) {
         scrollIntoView(node, { behavior: 'smooth' })
       }
     }, 1000);
@@ -61,7 +64,7 @@ const Home = () => {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.container} id='mainpage_container'>
         <div className={styles.first_page} id='firstPage'>
           <div className={styles.blank_area}></div>
           <Image src={slogan} className={styles.slogan} alt='slogan' priority />

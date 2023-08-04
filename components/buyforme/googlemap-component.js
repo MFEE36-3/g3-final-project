@@ -1120,7 +1120,7 @@ function Map({ data, chat, mapcolor, openForm, setOpenForm, setOpentargetstore, 
                 shop_infowindow.setContent(`
                 <div id="${v.shop}" class=${styles.shop_infowindow_title}>${v.shop}</div>
                 <div class=${styles.shop_infowindow_img_box}>
-                <div class=${styles.shop_infowindow_img} style="background-image:url(${process.env.API_SERVER}/img/res-img/0f15caf1-60a3-4825-92df-dd14853ec9d5.jpg)"></div>
+                <div class=${styles.shop_infowindow_img} style="background-image:url(${process.env.API_SERVER}/img/shops/${v.photo})"></div>
                 </div>
                 <div class=${styles.shop_infowindow_tag_star}>
                 <div class=${styles.shop_infowindow_star}>

@@ -10,6 +10,7 @@ import useLocalStorage from "@/components/hooks/useLocalStorage";
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import Swal from 'sweetalert2';
 
 
 const stylemodal = {
@@ -24,20 +25,19 @@ const stylemodal = {
     boxShadow: 24,
     p: 4,
 };
+
 const Inputborder = styled.input`
   &:focus{
     outline:none
   }
 `
 
-
-export default function Products({ row, category }) {
+export default function Products({ row, category, shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime }) {
 
     const [itemdeatil, setItemdeatil] = useState(null);
-    console.log(itemdeatil);
     const [open, setOpen] = useState(false);
     const [num, setNum] = useState(1);
-    const [cart, setCart] = useLocalStorage("order", {})
+    // const [cart, setCart] = useLocalStorage("order", {})
 
     const handleOpen = (item) => {
         setItemdeatil(item);
@@ -65,23 +65,121 @@ export default function Products({ row, category }) {
     }
 
     //塞進LocalStorage
-    const handleCart = (item) => {
-        setOpen(false);
-        const itemInfo = {
-            itemId: item.food_id,
+    // const handleCart = (item) => {
+    //     setOpen(false);
+    //     const itemInfo = {
+    //         itemId: item.food_id,
+    //         itemName: item.food_title,
+    //         src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+    //         price: item.food_price,
+    //         amount: num
+    //     }
+    //     setCart({
+    //         ...cart,
+    //         [item.food_id]: itemInfo
+    //     });
+    // }
+
+    // 將選中的商品資訊存儲在狀態中
+
+    const handleAddToCart = (item) => {
+
+        if (!togodate || !togotime) {
+            Swal.fire({
+                icon: 'warning',
+                // title: '請先選擇訂餐日期及時間',
+                text: '請先選擇訂餐日期及時間',
+                confirmButtonText: '確定',
+            })
+            return;
+        }
+
+
+
+        // //更新LocalStorage
+        // const oldCart = JSON.parse(localStorage.getItem('order'))
+        // localStorage.setItem('order', JSON.stringify({
+        //     ...oldCart,
+        //     [item.food_id]: {
+        //         itemId: item.food_id,
+        //         itemName: item.food_title,
+        //         src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+        //         price: item.food_price,
+        //         amount: (oldCart[item.food_id]?.amount || 0) + 1,
+        //         togodate: togodate,
+        //         togotime: togotime,
+        //     }
+        // }))
+
+        // //更新LocalStorage
+        // const oldCart = JSON.parse(localStorage.getItem('order'))
+        // localStorage.setItem('order', JSON.stringify({
+        //     ...oldCart,
+        //     [item.food_id]: {
+        //         itemId: item.food_id,
+        //         itemName: item.food_title,
+        //         src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+        //         price: item.food_price,
+        //         amount: 1,
+        //         togodate: togodate,
+        //         togotime: togotime,
+        //     }
+        // }))
+
+        // 檢查購物車中是否已有該商品
+
+        const oldCart = JSON.parse(localStorage.getItem('order')) || {};
+        const itemId = item.food_id;
+        const updatedItem = {
+            itemId: itemId,
             itemName: item.food_title,
             src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
             price: item.food_price,
-            amount: num
+            amount: (oldCart[itemId]?.amount || 0) + 1,
+            togodate: togodate,
+            togotime: togotime,
+        };
+
+        // 更新LocalStorage
+        localStorage.setItem('order', JSON.stringify({
+            ...oldCart,
+            [itemId]: updatedItem,
+        }));
+
+
+
+        // 檢查購物車中是否已有該商品
+        if (item.food_id in shoppingCart) {
+
+            // 若有則更新數量
+            setShoppingCart(prevCart => {
+
+                return ({
+                    ...prevCart,
+                    [item.food_id]: {
+                        ...prevCart[item.food_id],
+                        amount: (prevCart[item.food_id].amount || 0) + 1,
+                    },
+                })
+            });
+
+
+        } else {
+            // 若無則新增該商品到購物車，並初始化數量為 num
+            setShoppingCart(prevCart => {
+
+                return ({
+                    ...prevCart,
+                    [item.food_id]: {
+                        ...item,
+                        amount: 1,
+                    },
+                })
+            });
+
         }
-        setCart({
-            ...cart,
-            [item.food_id]: itemInfo
-        });
-    }
 
-
-
+    };
 
     return (
         <>
@@ -104,7 +202,7 @@ export default function Products({ row, category }) {
                                 <div className='px-1 py-2'>
                                     <Card.Title>{v.food_title}</Card.Title>
                                     <Card.Text className='fs-xl-3 text-xl-danger'>${v.food_price}</Card.Text>
-                                    {/* <div className="d-flex align-item-center justify-content-between">
+                                    <div className="d-flex align-item-center justify-content-between">
                                         <Button
                                             style={{
                                                 width: '100%',
@@ -115,10 +213,11 @@ export default function Products({ row, category }) {
                                                 color: 'white',
                                                 padding: '5px',
                                             }}
+                                            onClick={() => handleAddToCart(v)}
                                         >
                                             加入購物車
                                         </Button>
-                                    </div> */}
+                                    </div>
                                 </div>
                             </Card>
                         )
@@ -162,8 +261,8 @@ export default function Products({ row, category }) {
                             </Typography>
                         </div>
                     </Box>
-                </Modal>
-                }
+                </Modal>}
+
             </div>
         </>
     )
