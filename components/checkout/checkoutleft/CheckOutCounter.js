@@ -1,17 +1,17 @@
-import React, { useContext, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { Cart } from '@/components/checkout/CheckOutFinal'
 import { styled } from 'styled-components';
-const Cusinput = styled.input`
+     const Cusinput = styled.input`
     background:transparent;
     &:focus{
         outline:none
     }
-`
+    `
 export default function CheckOutCounter({itemId, amount}) {
-    const {items, setItems, page} = useContext(Cart);
+    const {setItems, page} = useContext(Cart);
     const i = itemId;
     const p = page;
-    const minus = (id) => {
+    const minus = useCallback((id) => {
         setItems(prev => {
             const updatedAmount = {...prev};
             const itemIndex = updatedAmount[p].findIndex(item => item.itemId === id);
@@ -20,15 +20,15 @@ export default function CheckOutCounter({itemId, amount}) {
               }
             return updatedAmount;
         })
-    }
-    const plus = (id) => {
+    },[])
+    const plus = useCallback((id) => {
         setItems(prev => {
             const updatedAmount = {...prev};
             const itemIndex = updatedAmount[p].findIndex(item => item.itemId === id);
             updatedAmount[p][itemIndex].amount += 1
             return updatedAmount;
         })
-    }
+    },[])
   return (
     <div className='d-flex justify-content-center align-items-center w-25' key={i} >
         <span onClick={()=>{

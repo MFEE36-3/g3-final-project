@@ -8,24 +8,30 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
-import { styled } from 'styled-components';
+import styled from '@emotion/styled';
 const Fs23pxSpan = styled.span`
-    font-size:23px;
-    
+font-size:23px;
 `
+Fs23pxSpan.defaultProps = {
+    style: {
+      fontSize: '23px',
+    },
+  };
 export default function CheckOutTotalPrice({payment, orderInfo}) {
-    const {items, showPages, host, memberCoupon, memberInfo} = useContext(Cart)
+
+    const {items, showPages, host, memberCoupon, memberInfo, page} = useContext(Cart)
     const router = useRouter()
     const pagePrice = () => {
     return showPages(items).length > 0 ? showPages(items).map(item => item.price * item.amount).reduce((p ,c) => p + c) : 0
     }
     const fee = 60
-    const [couponId, setCouponId] =useState('');
+    const [couponId, setCouponId] = useState('')
     const [discount, setDiscount] = useState('')
+    const [walletError, setWalletError] = useState(false)
     const handleChange = (event) => {
         setCouponId(event.target.value);
     };
-
+    const totalPrice = showPages(items).length > 0 ? `${pagePrice()+ (memberInfo.level === 2 ? 0 : showPages(items).length > 0 ? fee : 0) - discount}` : 0
     const coupon = 
     <Box sx={{ minWidth: 200, textAlign: "center" }}>
         <FormControl fullWidth >
@@ -51,11 +57,19 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
             </Select>
         </FormControl>
     </Box>
+    const walletAlert = () => {
+        setWalletError(!walletError)
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '錢包餘額不足!',
+          })
+    }
     useEffect(() => {
         const selectedCoupon = memberCoupon.find((coupon) => coupon.get_coupon_sid === couponId);
         if (selectedCoupon) {
           setDiscount(selectedCoupon.coupon_discount);
-        }
+        }else setDiscount(0)
       }, [couponId, memberCoupon]);
     const createOrderLoading = (href) => {
         let timerInterval
@@ -82,9 +96,11 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
         })
         )
         }
+        
     const handleOrder = async () => {
         if(showPages(items).length === 0) return
         if(!payment) return
+        if(memberInfo.wallet < totalPrice && payment === 'wallet') setWalletError(true)
         const url = `${host}/ecshop/checkout`
         const orderData = {
             items : showPages(items).map(item => ({
@@ -119,7 +135,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
             const response = await createOrder()
             if(response.message === 'Order created successful!') {
                 const redirect = () =>  response.linepay_redirect ? setTimeout(()=>{window.location.href=response.linepay_redirect},6000) : 
-                setTimeout(()=>{router.push({pathname:'http://localhost:3000/completeorder'})},6000)
+                setTimeout(()=>{router.push({pathname:'http://localhost:3000/completeorder/success'})},6000)
                 createOrderLoading(redirect())
             }
             else {
@@ -127,7 +143,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
             }
         }catch(error){
             console.log('error', error)
-            //跳錯
+            
         }
     }
   return (
@@ -138,10 +154,18 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                 <Fs23pxSpan>$ {pagePrice()}</Fs23pxSpan>
             </div>
             <div className='d-flex justify-content-between mt-4'>
-                <Fs23pxSpan>運費/外送費(會員免運)</Fs23pxSpan>
-                <Fs23pxSpan style={memberInfo.level === 2 ? {textDecoration:"line-through"} :{}} 
-                className={memberInfo.level === 2 ? 'text-danger' : ''}
-                >{memberInfo.level === 2 ? `$ 0` : showPages(items).length > 0 ? `$ ${fee}` : 0}</Fs23pxSpan>
+                {page === 'order' ? 
+                <>
+                    <Fs23pxSpan>取餐時間</Fs23pxSpan>
+                    <Fs23pxSpan>{showPages(items).length > 0 ? `這邊放時間` : '-'}</Fs23pxSpan>
+                </> :
+                <>
+                    <Fs23pxSpan>運費/外送費(會員免運)</Fs23pxSpan>
+                    <Fs23pxSpan style={memberInfo.level === 2 ? {textDecoration:"line-through"} :{}} 
+                    className={memberInfo.level === 2 ? 'text-danger' : ''}
+                    >{memberInfo.level === 2 ? `$ 0` : showPages(items).length > 0 ? `$ ${fee}` : 0}</Fs23pxSpan>
+                </>
+                }
             </div>
             <div className='d-flex justify-content-between align-items-center mt-4'>
                 <Fs23pxSpan>折價卷</Fs23pxSpan>
@@ -151,10 +175,10 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
             </div>
             <div className='d-flex justify-content-between mt-4'>
                 <Fs23pxSpan>總金額</Fs23pxSpan>
-                <Fs23pxSpan className='text-danger'>$ {showPages(items).length > 0 ? `${pagePrice()+ (memberInfo.level === 2 ? 0 : showPages(items).length > 0 ? fee : 0) - discount}` : 0}</Fs23pxSpan>
+                <Fs23pxSpan className='text-danger'>$ {totalPrice}</Fs23pxSpan>
             </div>
         </div>
-        {console.log(memberInfo.level)}
+        {walletError && walletAlert()}
         <Button variant="contained" className='w-100 d-flex align-items-center mx-auto p-1  bg-warning rounded-4 mt-4 mb-2 border-0 justify-content-center fs-4' onClick={handleOrder}>結&nbsp;&nbsp;&nbsp;&nbsp;帳</Button>
     </div>
   )

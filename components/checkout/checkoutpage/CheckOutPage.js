@@ -2,20 +2,20 @@ import styled from '@emotion/styled'
 import React, { useContext, useEffect } from 'react'
 import { Cart } from '@/components/checkout/CheckOutFinal'
 import { useRouter } from 'next/router'
-const Page = styled.div`
-    position:absolute;
-    font-size:17px;
-    text-align:center;
-    width:8%;
-    top: 2%;
-    left: -8.1%;
-`
-const PageTag = styled.div`
-    &:hover{
+    const Page = styled.div`
+        position:absolute;
+        font-size:17px;
+        text-align:center;
+        width:8%;
+        top: 2%;
+        left: -8.1%;
+    `
+    const PageTag = styled.div`
+        &:hover{
         background-color:#fff3ca;
         cursor:pointer;
-    }
-`
+        }
+    `
 export default function CheckOutPage() {
     const {page, setPage} = useContext(Cart)
     const router = useRouter()

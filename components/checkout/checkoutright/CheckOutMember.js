@@ -3,7 +3,6 @@ import { Cart } from '@/components/checkout/CheckOutFinal'
 import Money from '@/public/trycheckoutimage/money.svg'
 
 import styled from '@emotion/styled';
-
 const Money1 = styled.img`
     @keyframes MoneyRun{
         0%{
@@ -23,8 +22,8 @@ export default function CheckOutMember() {
   return (
     <div className='d-flex mt-3 mb-2 align-items-center justify-content-between'>
       <div className='d-flex align-items-center w-75'>
-        <img src={`${process.env.API_SERVER}/img/member/${memberInfo.photo}`} alt={memberInfo.nickname} className='border rounded-circle h-100 border-2' style={{width:"40%"}}></img>
-      <div className='fs-5 ms-2'>{memberInfo.nickname}</div>
+        <img src={`${process.env.API_SERVER}/img/member/${memberInfo.photo}`} alt={memberInfo.nickname} className=' rounded-circle h-100' style={{width:"40%"}}></img>
+      <div className='fs-4 ms-2'>{memberInfo.nickname}</div>
       </div>
       <div className='d-flex w-50 align-items-center'>
         <div className=' w-50 fs-4 text-secondary'>餘額:</div>

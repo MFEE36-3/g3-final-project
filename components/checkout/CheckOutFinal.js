@@ -3,13 +3,10 @@ import CheckOutContainer from '@/components/checkout/checkoutcontainer/CheckOutC
 import CheckOutPage from '@/components/checkout/checkoutpage/CheckOutPage'
 import CheckOutLeft from '@/components/checkout/checkoutleft/CheckOutLeft'
 import CheckOutRight from '@/components/checkout/checkoutright/CheckOutRight'
-import { useRouter } from 'next/router'
 export const Cart = createContext()
 export default function CheckOutFinal(){
     const [page, setPage] = useState('subscribe')
-    // const host = "http://192.168.50.169:8000"
     const host = process.env.API_SERVER
-    const router = useRouter()
     const [items, setItems] = useState(
         {
         subscribe: [],
@@ -39,10 +36,10 @@ export default function CheckOutFinal(){
         const buyItem = localStorage.getItem("buy");
         const orderItem = localStorage.getItem("order");
         const shopItem = localStorage.getItem("shop");
-        const parsedSubscribeItem = subscribeItem && Object.entries(JSON.parse(subscribeItem)).map(items => items.pop()) || [];
-        const parsedBuyItem = buyItem &&  Object.entries(JSON.parse(buyItem)).map(items => items.pop())|| [];
-        const parsedOrderItem = orderItem && Object.entries(JSON.parse(orderItem)).map(items => items.pop())|| [];
-        const parsedShopItem = shopItem && Object.entries(JSON.parse(shopItem)).map(items => items.pop())|| [];
+        const parsedSubscribeItem = subscribeItem && Object.values(JSON.parse(subscribeItem)) || [];
+        const parsedBuyItem = buyItem &&  Object.values(JSON.parse(buyItem))|| [];
+        const parsedOrderItem = orderItem && Object.values(JSON.parse(orderItem))|| [];
+        const parsedShopItem = shopItem && Object.values(JSON.parse(shopItem))|| [];
 
         setItems(prev => ({
             ...prev,
@@ -78,10 +75,6 @@ export default function CheckOutFinal(){
        getMemberCoupon()
         }, []); 
         useEffect(()=>{
-            const subscribeItem = JSON.parse(localStorage.getItem("subscribe"));
-            const buyItem = JSON.parse(localStorage.getItem("buy"));
-            const orderItem = JSON.parse(localStorage.getItem("order"));
-            const shopItem = JSON.parse(localStorage.getItem("shop"));
             const updatedShopItems = items.shop.reduce((result, item)=> {
               result[item.itemId] = item
               return result

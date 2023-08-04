@@ -3,11 +3,12 @@ import { styled } from 'styled-components'
 import Okicon from '@/public/trycheckoutimage/ok.png'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-const FontDiv = styled.div`
-    font-family: var(--ff3);
-`
+
 export default function FinishCheckout() {
-    const [time, setTime] = useState(10);
+    const FontDiv = styled.div`
+    font-family: var(--ff3);
+    `
+    const [time, setTime] = useState(7);
     const router = useRouter()
     useEffect(() => {
       localStorage.removeItem('shop')

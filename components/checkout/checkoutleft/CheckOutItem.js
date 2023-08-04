@@ -28,7 +28,7 @@ export default function CheckOutItem() {
           const buyItem = JSON.parse(localStorage.getItem("buy"));
           const orderItem = JSON.parse(localStorage.getItem("order"));
           const shopItem = JSON.parse(localStorage.getItem("shop"));
-          const updatedShopItem = Object.entries(shopItem).filter(item => item[0] !== removeItem.itemId)
+          const updatedShopItem = Object.values(shopItem).filter(item => item[0] !== removeItem.itemId)
           localStorage.setItem("shop", JSON.stringify(Object.fromEntries(updatedShopItem)));
           Swal.fire(
             '刪除成功!',
