@@ -79,7 +79,7 @@ export default function ArticleDetail() {
         <pre>
           <DetailP data={article.forum_content} key={article.forum_sid} />
         </pre>
-        <MessageInput />
+        <MessageInput messages={message} />
         <Message messages={message} />
       </div>
     </>

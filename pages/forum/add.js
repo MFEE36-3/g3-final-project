@@ -5,10 +5,41 @@ import { faImage } from '@fortawesome/free-solid-svg-icons';
 import Button from '@mui/material/Button';
 import Newnav from '@/components/common/news/new_nav';
 import { useState } from 'react';
+import { useContext } from 'react';
 
 export default function Add() {
   const [header, setHeader] = useState('');
   const [content, setContent] = useState('');
+  const [img, setImg] = useState('');
+  const [showImg, setShowImg] = useState('');
+  const imgUpload = async (e) => {
+    const file = e.target.files[0];
+    // const fileField = document.querySelector('input[type="file"]');
+    setImg(URL.createObjectURL(e.target.files[0]));
+    const formData = new FormData();
+    formData.append('preImg', file);
+    formData.append('user_id', 3); // 添加 user_id
+    formData.append('header', header); // 添加文章標題
+    formData.append('content', content); // 添加內容
+
+    try {
+      const response = await fetch(process.env.API_SERVER + '/forum/add', {
+        method: 'POST',
+        body: formData,
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          console.log(data);
+          if (data.filename) {
+            setShowImg(data.filename);
+          }
+        });
+      const result = await response.json();
+      console.log('Success', result);
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
   // 文章新增函式
   const handleheader = (e) => {
     console.log('header');
@@ -21,11 +52,15 @@ export default function Add() {
   const handleAddPost = async (e) => {
     console.log('yes');
     e.preventDefault();
+
+    // 判断用户是否上傳了圖片
+    const photo = showImg ? showImg : '';
+
     const postData = {
       header: header,
       content: content,
-      photo: '',
-      user_id: '',
+      photo: photo,
+      user_id: null,
     };
     try {
       const response = await fetch('http://localhost:3002/forum/add', {
@@ -51,6 +86,7 @@ export default function Add() {
       console.error('發生錯誤:', error);
     }
   };
+
   return (
     <>
       <div className={styles.container}>
@@ -79,19 +115,28 @@ export default function Add() {
           className={styles.input2}
           onChange={handlecontent}
         ></textarea>
-        <div className={styles.between}>
-          <FontAwesomeIcon icon={faImage} className={styles.icon} />
-          <div className={styles.end}>
-            <button className={styles.cancel}>取消</button>
-            <button
-              className={styles.addbtn}
-              onClick={handleAddPost}
-              roles="presentation"
-            >
-              新增
-            </button>
-          </div>
-        </div>
+        {/* <div className={styles.between}> */}
+
+        <div className={styles.end}></div>
+      </div>
+      {/* </div> */}
+      <button className={styles.cancel}>取消</button>
+      <button
+        className={styles.addbtn}
+        onClick={handleAddPost}
+        roles="presentation"
+      >
+        新增
+      </button>
+      <input
+        type="file"
+        name="preImg"
+        accept="image/jpeg, image/webp"
+        // value={handleAddPost}
+        onChange={imgUpload}
+      />
+      <div>
+        
       </div>
     </>
   );
