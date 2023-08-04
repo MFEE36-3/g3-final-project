@@ -77,6 +77,8 @@ object-fit: fill;
   }
   .number{
     margin-top: 20px;
+    font-size: var(--h6);
+    font-family: var(--ff1);
   }
   .arrayleft:hover {
     cursor: pointer;

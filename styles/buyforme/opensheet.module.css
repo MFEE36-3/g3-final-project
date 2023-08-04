@@ -8,11 +8,18 @@
     margin: 0 20px 0 20px;
 }
 
-.shopname{
+.shopname {
     text-align: center;
     font-weight: 900;
     margin: 10px 40px 30px 40px;
-    font-size: var(--h6);
+    font-size: var(--h3);
+}
+
+.shopname_small {
+    text-align: center;
+    font-weight: 900;
+    margin: 10px 40px 30px 40px;
+    font-size: var(--h4);
 }
 
 .labels {

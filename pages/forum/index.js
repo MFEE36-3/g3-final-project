@@ -1,57 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import Forumbtn from '@/components/common/forum/forumbtn';
 import styles from './detail.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Categorykanban from '@/components/common/forum/categorykanban';
-import Hotnew from '../../components/common/forum/hotnew';
+import Hotnew from '@/components/common/forum/hotnew';
 import Articlelist from '@/components/common/forum/articlelist';
 import Newnav from '@/components/common/news/new_nav';
+
 export default function Detail() {
   const router = useRouter();
   const [searchKeyword, setSearchKeyword] = useState('');
   const [articles, setArticles] = useState([]);
   const [sortOrder, setSortOrder] = useState('desc');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const imgPreview = `http://localhost:3002/img/forum/`;
 
-  // useEffect(() => {
-  //   const keyword = router.query.forum_keyword;
-  //   console.log('Keyword:', keyword);
-  //   setSearchKeyword(keyword || '');
-
-  //   const usp = new URLSearchParams(router.query);
-  //   console.log(usp.toString());
-
-  //   fetch(`http://localhost:3002/forum?${usp.toString()}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data)
-  //       const sortedData = sortArticles(data, sortOrder);
-  //       setArticles(sortedData);
-  //     })
-  //     .catch((error) => console.error('Error fetching data:', error));
-  //   console.log(keyword);
-  // }, [router.query]);
-
   useEffect(() => {
-    const keyword = router.query.forum_keyword;
-    console.log('Keyword:', keyword);
-    setSearchKeyword(keyword || '');
+    const keyword = router.query.forum_keyword || '';
 
+    setSearchKeyword(keyword);
     const usp = new URLSearchParams(router.query);
-    console.log(usp.toString());
 
-    fetch(`http://localhost:3002/message?${usp.toString()}`)
+    fetch(`http://localhost:3002/forum/message?${usp.toString()}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
-        const sortedData = sortArticles(data.messages, sortOrder);
+        let sortedData = data;
+
+        if (sortOrder === 'asc') {
+          sortedData.sort(
+            (a, b) => new Date(a.publishedTime) - new Date(b.publishedTime)
+          );
+        } else if (sortOrder === 'desc') {
+          sortedData.sort(
+            (a, b) => new Date(b.publishedTime) - new Date(a.publishedTime)
+          );
+        }
+
         setArticles(sortedData);
+        setTotalPages(Math.ceil(data.length / 10));
       })
       .catch((error) => console.error('Error fetching data:', error));
-    console.log(keyword);
-  }, [router.query]);
+  }, [router.query, sortOrder]);
+
   const sentKeyword = () => {
     router.push(`?forum_keyword=${searchKeyword}`);
   };
@@ -59,20 +51,24 @@ export default function Detail() {
   const handleToggleSortOrder = (selectedOrder) => {
     setSortOrder(selectedOrder);
   };
+
   const handleSortOrderChange = (selectedOrder) => {
     setSortOrder(selectedOrder);
-    // 在這裡重新排序文章列表
-    setArticles(sortArticles(articles, selectedOrder));
+    const queryParams = new URLSearchParams(router.query);
+    queryParams.set('forum_orderBy', selectedOrder);
+    router.push(`?${queryParams.toString()}`);
   };
 
-  const sortArticles = (data, order) => {
-    return data.sort((a, b) => {
-      if (order === 'asc') {
-        return new Date(a.publishedTime) - new Date(b.publishedTime);
-      } else {
-        return new Date(b.publishedTime) - new Date(a.publishedTime);
-      }
-    });
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
   };
 
   return (
@@ -91,7 +87,21 @@ export default function Detail() {
             handleSortOrderChange={handleSortOrderChange}
           />
           <Hotnew />
-          <Articlelist articles={articles} imgPreview={imgPreview} />
+          <Articlelist
+            articles={articles.slice((currentPage - 1) * 10, currentPage * 10)}
+            imgPreview={imgPreview}
+          />
+        </div>
+        <div>
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            上一頁
+          </button>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+            下一頁
+          </button>
         </div>
       </div>
     </>

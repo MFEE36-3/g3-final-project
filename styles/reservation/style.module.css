@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   /* box-sizing: border-box; */
+  position: relative;
 }
 
 .dflex {
@@ -365,14 +366,14 @@
 
 .carticon{
   position: absolute;
-  right: 0;
-  top: 300px;
+  right: 20px;
+  top: 800px;
 }
 
 .carttitle{
   font-size: var(--h4);
-  text-align: center;
 }
+
 
 .shoppingcartdiv{
   display: flex;
@@ -407,8 +408,34 @@
 }
 
 .trashicon{
-  font-size: 28px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #a8a8a8;
 }
+
+.trashicon:hover{
+  font-size: 24px;
+  color: #911010;
+}
+
+.cartemptydiv{
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cartemptyicon{
+  color: #a8a8a8;
+  font-size: 100px;
+}
+
+.cartemptytext{
+  color: #a8a8a8;
+  font-size: var(--h5);
+}
+
 
 .cartbutton{
   width: 40px;
@@ -446,16 +473,38 @@
   border-width: 2px;
 }
 
+.totalprice{
+  display: flex;
+  justify-content: flex-end;
+  font-size: var(--h5);
+  font-weight: bold;
+  margin: 10px 20px;
+}
+
+.togotime{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: var(--h5);
+  font-weight: bold;
+  color: var(--main-color);
+  margin: 10px 0px;
+}
+
 .cartsendbutton{
   width:100%;
-  font-size: 12px;
+  font-size: var(--h6);
   background-color: var(--main-color);
   border-radius: 20px;
   border: 0;
   color: 'white';
   padding: '5px';  
-    }
+ }
 
+ .cartsendbutton:hover{
+  background-color:var(--sub-color);
+ }
 
 
 /* ---------------------------------------- */
@@ -473,8 +522,8 @@
 
 .carousel {
   position: relative;
-  width: 100vw;
-  height: 40vh;
+  width: 100%;
+  height: 40vh ;
 }
 
 .carouselitem{

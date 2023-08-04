@@ -15,13 +15,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputArea from "@/components/common/input";
-import zIndex from "@mui/material/styles/zIndex";
 import { HiOutlineChat } from "react-icons/hi";
 import CustomizedSwitches from "@/components/buyforme/switch";
 import { Chat } from "@mui/icons-material";
 import OpenShopForm from "@/components/buyforme/openshopform";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import OrderSheet from "@/components/buyforme/ordersheet";
 
 
 const search_input_style = {
@@ -121,9 +121,8 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
     const [checkbuyforme, setCheckbuyforme] = useState(false);
     const [openorder, setOpenorder] = useState(open_sheet_data);
     const [openbuyforme, setOpenbuyforme] = useState(false);
-    const [targetstore, setTargetstore] = useState(0);
+    const [opendetail, setOpendetail] = useState(0);
     const [shopfoods, setShopfoods] = useState([]);
-    const [testV, setTestV] = useState(6666666);
     const [chat, setChat] = useState('說點什麼......');
     const [openchat, setOpenchat] = useState(false);
     const [mapcolor, setMapcolor] = useState(false);
@@ -131,6 +130,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
     const [opentargetstore, setOpentargetstore] = useState(0);
     const [keyword, setKeyword] = useState('');
     const [destination, setDestination] = useState({});
+    const [foodlist, setFoodlist] = useState([]);
 
     const router = useRouter();
 
@@ -160,7 +160,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
     };
 
     return (<>
-        <GoogleMapComponent data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} review_data={review_data} destination={destination}/>
+        <GoogleMapComponent data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} review_data={review_data} destination={destination} />
 
         <div className={styles.inputBox}>
             <TextField
@@ -225,11 +225,21 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
                                         <td>{v.nickname}</td>
                                         <td className={v.shop.length > 15 ? styles.overlength_td : ''}>{v.shop}</td>
                                         <td>{dayjs(v.meet_time).format('MM-DD HH:mm')}</td>
-                                        <td className={styles.meet_place_td} onClick={()=>getLatlng(v.meet_place)}>{v.meet_place}</td>
+                                        <td className={styles.meet_place_td} onClick={() => getLatlng(v.meet_place)}>{v.meet_place}</td>
                                         <td>{v.tip !== 0 ? v.tip : '免費'}</td>
-                                        <td><Btn text='跟團go!' padding='5px 10px' fs='var(--h9)' sx={{ zIndex: 0 }} onClick={() => {
-                                            setOpenbuyforme(true);
-                                            setTargetstore(v.target_store);
+                                        <td><Btn text='跟團go!' padding='5px 10px' fs='var(--h9)' sx={{ zIndex: 0 }} onClick={async () => {
+                                            setOpendetail([v.tip,v.open_sid]);
+
+                                            await fetch(process.env.API_SERVER + '/buyforme/foodlist', {
+                                                method: 'POST',
+                                                body: JSON.stringify({'targetstore':v.target_store}),
+                                                headers: { 'Content-Type': 'application/json' },
+                                            })
+                                                .then(r => r.json())
+                                                .then(obj => {
+                                                    setFoodlist(obj.rows);
+                                                    setOpenbuyforme(true);
+                                                })
                                         }} /></td>
                                     </tr>
                                 )
@@ -244,34 +254,6 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
 
         <Image src={walkbag} className={styles.walkbag} alt='buyforme' priority onClick={() => { setCheckbuyforme((prev) => !prev) }} />
 
-        <Dialog open={openbuyforme} onClose={handlebuyformeClose}>
-
-            {/* 記得要用全部的資料去map 不是篩選後的 */}
-            {originaldata.filter((v) => targetstore === v.sid).map((v) => {
-                return (<>
-                    <DialogTitle>Subscribe</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            To subscribe to this website, please enter your email address here. We
-                            will send updates occasionally.
-                        </DialogContentText>
-                        <div>
-                            {JSON.stringify(v)}
-                        </div>
-                        <div style={{ width: '100%' }}>
-                            <InputArea onChange={(e) => { console.log('123'); setTestV(e.target.value) }} value={testV} fullWidth />
-                        </div>
-                    </DialogContent>
-                </>)
-            })}
-
-
-            <DialogActions>
-                {/* <div onClick={handlebuyformeClose}>Cancel</div>
-                <div onClick={handlebuyformeClose}>Subscribe</div> */}
-            </DialogActions>
-        </Dialog>
-
         <div className={styles.chat_inputbox} style={{ display: `${openchat ? 'block' : 'none'}` }}>
             <TextField sx={chat_input_style} onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -284,7 +266,9 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
             <CustomizedSwitches mapcolor={mapcolor} setMapcolor={setMapcolor} />
         </div>
 
-        <OpenShopForm openForm={openForm} handleopenFormClose={handleopenFormClose} opentargetstore={opentargetstore} data={data} setOpenorder={setOpenorder}/>
+        <OpenShopForm openForm={openForm} handleopenFormClose={handleopenFormClose} opentargetstore={opentargetstore} data={data} setOpenorder={setOpenorder} setOpenForm={setOpenForm} />
+
+        <OrderSheet openbuyforme={openbuyforme} handlebuyformeClose={handlebuyformeClose} foodlist={foodlist} opendetail={opendetail}/>
 
 
 

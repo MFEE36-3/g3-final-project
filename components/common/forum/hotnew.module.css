@@ -7,6 +7,7 @@
 
 .container1{
     display: flex;
+    
 }
 .container2{
     display: flex;   
@@ -15,6 +16,7 @@
     font-size: var(--h4);
     padding-right: 30px;
     padding-left: 20px;
+    border-bottom: 3px solid transparent;
 }
 .ptext:hover{
     border-bottom: 3px solid var(--main-color);
@@ -24,6 +26,7 @@
         font-size: var(--h7);
         padding-right: 30px;
         padding-left: 20px;
+        border: 0;
     }
     .bigcontainer{
         display: flex;

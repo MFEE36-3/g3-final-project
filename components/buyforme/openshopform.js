@@ -15,6 +15,7 @@ import Btn from '../common/btn';
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '@/context/AuthContext';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 
 
@@ -56,6 +57,45 @@ const mui_style = {
     '& label.Mui-focused,label': {
         color: 'var(--main-color)',
     },
+    width: '100%',
+}
+
+const mui_time_style = {
+    '&:hover fieldset': {
+        backgroundColor: 'rgba(250,179,179,0.2)',
+        borderColor: '#FAB3B3'
+    },
+    '& .MuiInputLabel-root': {
+        fontSize: 'var(--h6)',
+        fontWeight: 900,
+        fontFamily: 'var(--ff1)'
+    },
+    '& .MuiSvgIcon-root': {
+        color: 'var(--sub-color)'
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'var(--sub-color)',
+        },
+        '&:hover fieldset': {
+            borderColor: 'var(--sub-color)',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'var(--sub-color)',
+        },
+        fontSize: 'var(--h6)',
+        fontWeight: 600,
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'var(--sub-color)'
+    },
+    '& label.Mui-focused,label': {
+        color: 'var(--main-color)',
+    },
+    // '& .MuiList-root':{
+    //     '& .MuiMultiSectionDigitalClockSection-root':{
+    //     width:74}
+    // },
     width: '100%',
 }
 
@@ -104,16 +144,17 @@ const marks = [
     },
 ];
 
-export default function OpenShopForm({ openForm, handleopenFormClose, opentargetstore, data, setOpenorder }) {
+export default function OpenShopForm({ openForm, handleopenFormClose, opentargetstore, data, setOpenorder, setOpenForm }) {
 
 
     const { auth } = useContext(AuthContext);
+    const router = useRouter();
 
     const [opensheet, setOpensheet] = useState({
         "open_member_id": 0,
         "meet_date": dayjs(Date.now()).format('YYYY-MM-DD'),
         "meet_hour": dayjs(Date.now()).add(30, 'minute').format('HH:mm:ss'),   //預設30分鐘後
-        "meet_place": "台大",
+        "meet_place": "",
         "target_store": opentargetstore,
         "tip": 20,
         "open_status": 0
@@ -144,16 +185,18 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                 "open_member_id": 0,
                 "meet_date": dayjs(Date.now()).format('YYYY-MM-DD'),
                 "meet_hour": dayjs(Date.now()).add(30, 'minute').format('HH:mm:ss'),
-                "meet_place": "台大",
+                "meet_place": "",
                 "target_store": opentargetstore,
                 "tip": 20,
                 "open_status": 0
             })
 
-        if (!auth.sid) return;
-        setOpensheet((prev) => { return { ...prev, open_member_id: auth.sid } })
-        console.log(auth);
-        console.log(opensheet);
+
+        // 用 AuthContext 或 localstorage 都可以
+        if (!localStorage.getItem('auth')) return;
+        const authData = JSON.parse(localStorage.getItem('auth'));
+        setOpensheet((prev) => { return { ...prev, open_member_id: authData.sid } })
+
     }, [openForm])
 
 
@@ -163,13 +206,13 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
 
             {/* 記得要用全部的資料去map 不是篩選後的 */}
             {data.filter((v) => opentargetstore === v.sid).map((v) => {
-                return (<>
+                return (<div key={v.sid}>
                     <DialogTitle className={styles.open_title}>開團單</DialogTitle>
                     <DialogContent>
-                        <DialogContentText className={styles.labels}>
+                        <div className={styles.labels}>
                             <div>開團店家：</div>
-                            <div className={styles.shopname}>{v.shop}</div>
-                        </DialogContentText>
+                            <div className={v.shop.length > 10 ? styles.shopname_small : styles.shopname}>{v.shop}</div>
+                        </div>
 
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <div className={styles.labels}>
@@ -185,7 +228,7 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                             <div className={styles.labels}>
                                 <TimePicker
                                     className='marginout'
-                                    sx={mui_style}
+                                    sx={mui_time_style}
                                     label='取餐時間'
                                     value={dayjs('2023-08-16' + opensheet.meet_hour)}  //因為單純時間不是合法的時間格式 要加前綴
                                     onChange={changeHour}
@@ -211,14 +254,34 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                         </LocalizationProvider>
 
                         <div className={styles.labels}>
-                            <TextField fullWidth sx={mui_style} label='面交地點' onChange={(e) => changePlace(e.target.value)} />
+                            <TextField fullWidth sx={mui_style} label='面交地點' placeholder='你要送到哪' onChange={(e) => changePlace(e.target.value)} />
                         </div>
                         <div style={{ textAlign: 'center' }}>
                             <Btn text='開團!' padding='5px 20px' sx={{ width: '100%' }} onClick={() => {
-                                 if (opensheet.open_member_id === 0){
-                                    Swal.fire('請先登入', '', 'success');
-                                    return ;
-                                } 
+
+                                if (opensheet.meet_place === "") {
+                                    Swal.fire({
+                                        title: '請檢查所有欄位都有填寫哦~',
+                                        icon: 'warning',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                    return;
+                                }
+                                if (opensheet.open_member_id === 0) {
+                                    Swal.fire({
+                                        title: '請先登入',
+                                        icon: 'warning',
+                                        showDenyButton: true,
+                                        showCancelButton: false,
+                                        confirmButtonText: '前往登入',
+                                        denyButtonText: '我再想想',
+                                    }).then(
+                                        function (result) {
+                                            if (result.value) router.push('/login')
+                                        });
+                                    return;
+                                }
 
                                 fetch(process.env.API_SERVER + '/buyforme/openforyou', {
                                     method: 'POST',
@@ -227,10 +290,16 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                                 })
                                     .then(r => r.json())
                                     .then(obj => {
-                                        console.log(JSON.stringify(obj, null, 4))
-                                    })
 
-                                //做一下成功的sweet alert
+                                        if (obj.result.affectedRows !== 0) {
+                                            Swal.fire({
+                                                title: '開團成功!',
+                                                icon: 'success',
+                                                showConfirmButton: false,
+                                                timer: 1500
+                                            })
+                                        }
+                                    })
 
                                 setTimeout(async () => {
                                     const response3 = await fetch(process.env.API_SERVER + '/buyforme/openforyou');
@@ -241,7 +310,7 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                         </div>
 
                     </DialogContent>
-                </>)
+                </div>)
             })}
 
 

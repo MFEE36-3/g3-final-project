@@ -12,7 +12,7 @@ import Link from 'next/link';
 import ResAuthContext from '@/context/ResAuthContext';
 import { check } from 'prettier';
 
-export default function RegisterForm() {
+export default function resSetting() {
   const router = useRouter()
   const { resAuth, setResAuth, logout } = useContext(ResAuthContext)
 
@@ -39,6 +39,7 @@ export default function RegisterForm() {
         console.log(data)
         setShop({
           ...shop,
+          shopId:resAuth.id,
           shopname: data.shop,
           phone: data.phone,
           city: data.city,
@@ -56,17 +57,17 @@ export default function RegisterForm() {
           open_time: data.open_time,
           close_time: data.close_time,
           open_days: [
-            data.Monday == 1 ? '星期一':'',
-            data.Tuesday == 1 ? '星期二':'',
-            data.Wednesday == 1 ? '星期三':'',
-            data.Thursday == 1 ? '星期四':'',
-            data.Friday == 1 ? '星期五':'',
-            data.Saturday == 1 ? '星期六':'',
-            data.Sunday == 1 ? '星期日':'',
+            data.Monday == 1 ? '星期一' : '',
+            data.Tuesday == 1 ? '星期二' : '',
+            data.Wednesday == 1 ? '星期三' : '',
+            data.Thursday == 1 ? '星期四' : '',
+            data.Friday == 1 ? '星期五' : '',
+            data.Saturday == 1 ? '星期六' : '',
+            data.Sunday == 1 ? '星期日' : '',
           ],
           table_number: data.seats,
-          latitude: '',
-          longitude: '',
+          latitude: data.latitude,
+          longitude: data.longitude,
         })
         console.log('----------')
       })
@@ -74,14 +75,14 @@ export default function RegisterForm() {
 
   const [showImg, setShowImg] = useState('')
   const oldImg = `http://localhost:3002/img/shops/`
-  const imgPreview = `http://localhost:3003/img/`
+  const imgPreview = `http://localhost:3002/img/shops/`
   const previewImg = async (e) => {
     e.preventDefault()
 
     const fd = new FormData(); // 建立一個新的 FormData 物件
     fd.append('preImg', e.target.files[0]); // 將選擇的文件加入到 FormData 物件中
 
-    fetch('http://localhost:3003/previewImg', {
+    fetch('http://localhost:3002/res/shopPreviewImg', {
       method: 'POST',
       body: fd
     })
@@ -95,6 +96,7 @@ export default function RegisterForm() {
   }
 
   const [shop, setShop] = useState({
+    shopId:'',
     shopname: '',
     phone: '',
     city: '',
@@ -117,12 +119,11 @@ export default function RegisterForm() {
     longitude: '',
   })
 
-  // const shopRef = useRef(shop);
-
   useEffect(() => {
     if (resAuth.account && !isShopDataFetched) {
       getShopData()
       console.log(shop)
+      setSendPassword({ ...sendPassword, resId: resAuth.id })
     }
   }, [resAuth]);
 
@@ -131,26 +132,6 @@ export default function RegisterForm() {
     console.log(shop)
 
   }, [shop]);
-
-  const [testShop, setTestShop] = useState({
-    name: '測試用自助餐店',
-    phone: '0913654987',
-    city: '台北市',
-    area: '大同區',
-    account: 'testtest@gmail.com',
-    password: 'abcabcabc',
-    password2: 'abcabcabc',
-    owner: '陳小華',
-    res_cate: '中式',
-    photo: 'testImg.jpg',
-    description: '這是一筆測試用資料123123123',
-    fulladdress: '',
-    fulladdress1: '大同路一段一號',
-    open_time: '1:00',
-    close_time: '18:00',
-    open_days: ['星期二', '星期三', '星期四', '星期五', '星期六',],
-    table_number: '10',
-  })
 
   const handleOpenDays = (e) => {
     const targetValue = e.target.value;
@@ -180,7 +161,6 @@ export default function RegisterForm() {
   const handleChange = (e) => {
     const newShop = { ...shop, [e.target.name]: e.target.value };
     setShop(newShop);
-    // shopRef.current = newShop; // 更新 shopRef 的值
   }
 
   const [city, setCity] = useState('')
@@ -248,27 +228,6 @@ export default function RegisterForm() {
     setShowPassword(!showPassword);
   };
 
-  // useEffect(() => {
-  // if (city === '台北市') {
-  //   setArea(areaOptions[0]);
-  // } else if (city === '新北市') {
-  //   setArea(areaOptions[1]);
-  // } else if (city === '基隆市') {
-  //   setArea(areaOptions[2]);
-  // } else if (city === '') {
-  //   setArea(areaOptions[3])
-  // }
-
-  // handleShowImg()
-
-  // }, [city, area, areaOptions, pickArea, switchTable, showImg, openDays, resCate]);
-
-  // useEffect(() => {
-  //   areas()
-  //   handleShowImg()
-
-  // }, [city, area, areaOptions]);
-
   const areas = (e) => {
     if (e.target.value == "台北市") {
       setArea(areaOptions[0])
@@ -306,18 +265,69 @@ export default function RegisterForm() {
       });
   };
 
+  // 修改密碼的區域
+  const [sendPassword, setSendPassword] = useState({
+    resId: resAuth.id,
+    oldPassword: '',
+    newPassword: '',
+    newPassword2: ''
+  })
+
+  // 密碼錯誤訊息
+  const originPasswordError = {
+    oldPassword: '',
+    newPassword: '',
+    newPassword2: '',
+  }
+  const [passwordErrors, setPasswordErrors] = useState(originPasswordError)
+  // 密碼修改成功訊息
+  const [changePwdSuccess, setChangePwdSuccess] = useState('')
+  // 傳到後端
+  const changePassword = (e) => {
+    e.preventDefault()
+
+    const newError = { ...originPasswordError }
+
+    let isPass = true
+    if (sendPassword.newPassword !== sendPassword.newPassword2) {
+      newError.newPassword = '新密碼與驗證新密碼不相同!'
+      isPass = false
+    }
+
+    if (isPass) {
+      fetch('http://localhost:3002/res/res-setting-password', {
+        method: 'POST',
+        body: JSON.stringify(sendPassword),
+        headers: { 'Content-Type': 'application/json' }
+      })
+        .then(r => r.json())
+        .then(data => {
+          console.log(data)
+          if (data.success == true) {
+            setChangePwdSuccess('修改密碼成功!')
+          }
+          if (data.success == false) {
+            newError.oldPassword = '輸入密碼與舊密碼不相符!'
+            setPasswordErrors(newError)
+          }
+        })
+    }
+    setPasswordErrors(newError)
+  }
+
+  const handleChangePassword = async (e) => {
+    setSendPassword({ ...sendPassword, [e.target.name]: e.target.value })
+  }
+
   // 驗證表單:先建立error清單
   const originErrors = { name: '', phone: '', account: '', password: '', password2: '', owner: '', description: '', avg_consumption: '', fulladdress: '', open_time: '', close_time: '', open_days: '' }
   const [errors, setErrors] = useState(originErrors)
   const handleSubmit = (e) => {
     e.preventDefault()
-
     const newError = { ...originErrors }
-
     let isPass = true
-
     // 開始檢查
-    if (!shop.name) {
+    if (!shop.shopname) {
       newError.name = '請輸入店名'
       isPass = false
     }
@@ -331,17 +341,6 @@ export default function RegisterForm() {
     const email_reg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
     if (email_reg.test(shop.account) == false) {
       newError.account = '信箱不符合格式!'
-      isPass = false
-    }
-
-    if (shop.password.length < 6 || shop.password.length > 12) {
-      newError.password = '密碼要6~12個字元'
-      isPass = false
-    }
-
-    if (shop.password2 !== shop.password) {
-      newError.password = '密碼與確認密碼不同!'
-      newError.password2 = '密碼與確認密碼不同!'
       isPass = false
     }
 
@@ -385,8 +384,8 @@ export default function RegisterForm() {
         if (result.isConfirmed) {
           Swal.fire('成功送出!', '', '確定')
           testGoogleAPI()
-          fetch('http://localhost:3003/res/res-register-form', {
-            method: 'POST',
+          fetch('http://localhost:3002/res/res-setting', {
+            method: 'PUT',
             body: JSON.stringify(shop),
             headers: {
               'Content-Type': 'application/json'
@@ -395,7 +394,7 @@ export default function RegisterForm() {
             .then(r => r.json())
             .then(data => {
               console.log(data)
-              router.push('/res/reg-success')
+              // router.push('/res/reg-success')
             })
         } else if (result.isDenied) {
           Swal.fire('已取消送出!', '', '確定')
@@ -417,7 +416,6 @@ export default function RegisterForm() {
       <div className="container container-sm-fluid mt-4">
         <div className='row'>
           <form className={`${styles.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-4`}
-          // onSubmit={handleSubmit}
           >
             <h1 className="d-flex justify-content-center fw-bold mt-3">商家設定</h1>
             <hr />
@@ -437,14 +435,16 @@ export default function RegisterForm() {
                       className="form-control  border-black"
                       id="shop_password"
                       placeholder="請輸入密碼，密碼須至少大於六個字:"
-                      name='password'
-                      value={shop.password}
-                      onChange={handleChange}
+                      name='oldPassword'
+                      value={sendPassword.oldPassword}
+                      onChange={handleChangePassword}
                     />
                     <button type='button' className='btn btn-warning btn-outline-secondary' style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
                   </div>
 
                 </div>
+
+                <div className='d-flex justify-content-center align-items-center mt-1 mb-1 fw-bold fs-5' style={{ color: 'red' }}>{passwordErrors.oldPassword}</div>
 
                 <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.password}</div>
 
@@ -455,28 +455,38 @@ export default function RegisterForm() {
                     type="password"
                     className="form-control border-black me-3"
                     id="shop_password2"
-                    placeholder="請再次輸入密碼:"
-                    name='password2'
-                    value={shop.password2}
-                    onChange={handleChange}
+                    placeholder="請輸入新密碼:"
+                    name='newPassword'
+                    value={sendPassword.newPassword}
+                    onChange={handleChangePassword}
                   />
 
                 </div>
 
                 <div className='password2 ms-3 d-flex justify-content-start align-items-center mt-3 mb-3'>
 
-                  <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold ms-2 me-3 py-1 rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>確認新密碼:</div>
+                  <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold ms-2 me-3 py-1 rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>驗證新密碼:</div>
+
                   <input
                     type="password"
                     className="form-control border-black me-3"
                     id="shop_password2"
-                    placeholder="請再次輸入密碼:"
-                    name='password2'
-                    value={shop.password2}
-                    onChange={handleChange}
+                    placeholder="請再次輸入新密碼:"
+                    name='newPassword2'
+                    value={sendPassword.newPassword2}
+                    onChange={handleChangePassword}
                   />
 
                 </div>
+                <div className='d-flex justify-content-center align-items-center mt-1 mb-1 fw-bold fs-5' style={{ color: 'red' }}>{passwordErrors.newPassword}</div>
+
+                <div className='d-flex justify-content-start align-items-center mb-3 ms-4'>
+                  <button type='button' className='btn btn-primary ms-3' onClick={changePassword}>確定修改
+                  </button>
+                  <div className='ms-4 fw-bold' style={{color:'green', paddingLeft:'10px'}}>{changePwdSuccess}</div>
+                </div>
+
+
                 <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.password2}</div>
               </div>
 
@@ -492,7 +502,7 @@ export default function RegisterForm() {
                     id="shop_phone"
                     placeholder="電話格式:0912345678"
                     name='phone'
-                    value={0 + shop.phone}
+                    value={shop.phone}
                     onChange={handleChange}
                   />
 
@@ -529,7 +539,7 @@ export default function RegisterForm() {
                     className="form-control border-black"
                     id="shop_name"
                     placeholder="請輸入店名:"
-                    name='name'
+                    name='shopname'
                     value={shop.shopname}
                     onChange={handleChange}
                   />
@@ -632,8 +642,6 @@ export default function RegisterForm() {
                       </div>
                     </div>
 
-                    {/* https://github.com/mfee-react/example-projects/tree/main/%E5%9C%96%E6%AA%94%E4%B8%8A%E5%82%B3%E8%88%87%E9%A0%90%E8%A6%BD */}
-
                   </div>
                 </div>
 
@@ -689,14 +697,13 @@ export default function RegisterForm() {
                         name='fulladdress1'
                         value={shop.fulladdress1}
                         onChange={handleChange}
-                        onKeyDown={testGoogleAPI}
+                        onBlur={testGoogleAPI}
                       />
                     </div>
 
                     <div id="shop" className="form-text">
                       請填入完整地址
                     </div>
-                    <button type='button' className='btn btn-primary' onClick={testGoogleAPI}>測試api按鈕</button>
                   </div>
                 </div>
 
@@ -781,7 +788,6 @@ export default function RegisterForm() {
                     <button
                       type='button'
                       className='form-label  btn btn-primary rounded-3 px-3 py-2 fw-bold ms-1'
-                      // style={{ backgroundColor: '#FCC8A1' }}
                       onClick={(e) => {
                         setSwitchTable('advance')
                         setShop({ ...shop, table_number: '' })
@@ -831,7 +837,6 @@ export default function RegisterForm() {
                           className='form-label border border-black rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
                           style={{ backgroundColor: '#FCC8A1' }}
                           onClick={(e) => {
-                            // addTable.createElement('<select>')
                           }}
                         >+新增桌型</button>
                       </div>
@@ -840,32 +845,19 @@ export default function RegisterForm() {
 
                 </div>
 
-                <div className="d-flex justify-content-between mt-3 mx-5">
-                  <div className="justify-content-between d-flex align-items-center">
-                    <input
-                      type="text"
-                      className="form-control border-black"
-                      id="shop_verify-num"
-                      placeholder="請填入驗證碼" />
-                    <button
-                      type='button'
-                      className='form-label btn btn-primary rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
-                    // style={{ backgroundColor: '#FCC8A1' }}
-                    >
-                      寄送驗證碼</button>
-                  </div>
-                </div>
               </div>
 
               <hr />
 
               <div className='d-flex justify-content-center'>
                 <button type="submit" className="btn btn-primary my-3 mx-3" onSubmit={handleSubmit} onClick={handleSubmit}>
-                  確認送出
+                  確認編輯
                 </button>
 
-                <button type="reset" className="btn btn-danger my-3 mx-3">
-                  取消填寫
+                <button type="reset" className="btn btn-danger my-3 mx-3" onClick={()=>{
+                  router.push('/res/res-order-management')
+                }}>
+                  取消編輯
                 </button>
               </div>
             </div>
