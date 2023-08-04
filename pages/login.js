@@ -73,7 +73,7 @@ const Login = () => {
           const obj = { ...data.data };
           localStorage.setItem('auth', JSON.stringify(obj));
           Swal.fire({ title: '登入成功', timer: 1500, icon: 'success' });
-          // setAuth(localStorage.getItem(auth));
+          // setAuth(JSON.parse(localStorage.getItem('auth')));
           setTimeout(() => {
             router.back();
           }, 1500);
