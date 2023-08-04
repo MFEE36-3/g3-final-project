@@ -16,7 +16,7 @@ export default function Articlelist({
 
   return (
     <>
-      {articles.map((c, d) => (
+      {articles.map((c) => (
         <div key={c.forum_sid} className={styles.right}>
           <div className={styles.container}>
             <div className={styles.flex}>
@@ -34,12 +34,14 @@ export default function Articlelist({
                   <div className={styles.title}>{c.header}</div>
                   <div className={styles.ptext}>{c.forum_content}</div>
                 </div>
-                <div className={styles.image}>
-                  <img
-                    src={`${imgPreview + c.forum_photo}`}
-                    className={styles.img}
-                  />
-                </div>
+                {c.forum_photo && ( // 使用條件渲染來檢查 img 是否為空值
+                  <div className={styles.image}>
+                    <img
+                      src={`${imgPreview + c.forum_photo}`}
+                      className={styles.img}
+                    />
+                  </div>
+                )}
               </div>
             </Link>
             <div className={styles.flex2}>

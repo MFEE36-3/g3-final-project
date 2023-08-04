@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './hotnew.module.css';
 import { BsPencilSquare } from 'react-icons/bs';
+import Link from 'next/link';
 export default function Hotnew() {
   return (
     <>
@@ -10,9 +11,13 @@ export default function Hotnew() {
           <div className={styles.ptext}>最新</div>
         </div>
         <div className={styles.container2}>
-          <div className={styles.ptext}>
-            <BsPencilSquare />
-          </div>
+          <Link href="/forum/add">
+            {' '}
+            {/* 使用 Link 組件包裹要連結的元素 */}
+            <div className={styles.ptext}>
+              <BsPencilSquare />
+            </div>
+          </Link>
           <div className={styles.ptext}>我的文章</div>
         </div>
       </div>

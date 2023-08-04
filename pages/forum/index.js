@@ -8,6 +8,7 @@ import Hotnew from '@/components/common/forum/hotnew';
 import Articlelist from '@/components/common/forum/articlelist';
 import Newnav from '@/components/common/news/new_nav';
 
+
 export default function Detail() {
   const router = useRouter();
   const [searchKeyword, setSearchKeyword] = useState('');
