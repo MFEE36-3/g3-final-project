@@ -6,7 +6,7 @@ import styles from '@/components/res/order-management.js/order-management.module
 import ResAuthContext, { } from '@/context/ResAuthContext';
 
 export default function OrderManagement() {
-  
+
   // SELECT `open_sid`, `target_store`, `open_time`, `order_food`, `order_quantity`, `order_price` FROM `open_for_you` JOIN `buy_for_me_detail` ON `open_for_you`.`open_sid` = `buy_for_me_detail`.`order_sid`;
 
   // 串三張:
@@ -27,7 +27,7 @@ export default function OrderManagement() {
 
   // 訂單分類
   const [orderCategory, setOrderCategory] = useState('')
-  const orderCategoryOptions = ['揪團','外帶']
+  const orderCategoryOptions = ['揪團', '外帶']
 
   // 拿到resAuth資料
   const { resAuth, setResAuth, logout } = useContext(ResAuthContext)
@@ -37,7 +37,7 @@ export default function OrderManagement() {
   const [getOrderAmount, setGetOrderAmount] = useState([])
 
   const getShopOrder = () => {
-    fetch(`http://localhost:3003/res/getShopOrder`, {
+    fetch(`http://localhost:3002/res/getShopOrder`, {
       method: 'POST',
       body: JSON.stringify(resAuth),
       headers: { "Content-Type": "application/json" }
@@ -80,14 +80,14 @@ export default function OrderManagement() {
 
   // 訂單顯示更多或隱藏
   const [showOrder, setShowOrder] = useState(false)
-  const changeShowOrder = ()=>{
+  const changeShowOrder = () => {
     setShowOrder(!showOrder)
   }
 
   return (
     <>
-      <h1 className="container">OrderManagement-Component</h1>
-      <div className={`container container-sm-fluid ${styles.tableBackGround} bg-subtle p-4 border border-black rounded-4`}>
+      {/* <h1 className="container">OrderManagement-Component</h1> */}
+      <div className={`container container-sm-fluid ${styles.tableBackGround} bg-subtle p-4 border border-black rounded-4 mt-3`}>
         <h2 className='fw-bold'>訂單管理</h2>
         <hr />
         <div className="d-flex justify-content-between">
@@ -96,30 +96,32 @@ export default function OrderManagement() {
             <button type='button' className='btn btn-primary ms-3' onClick={logout}>登出</button>
             <div className='mt-3 ms-3 fw-bold fs-4'>歡迎回來，{resAuth.shop}</div>
 
-            <select className="form-select mt-3" value={orderTime} onChange={(e) => {
-              setOrderTime(e.target.value)
-            }}>
-              <option value='/'>---請排列訂單順序---</option>
-              {orderTimeOptions.map((v, i) => {
-                return <option key={i} value={v}>{v}</option>
-              })}
-            </select>
+            <div className='d-flex justify-content-between'>
+              <select className="form-select mt-3" value={orderTime} onChange={(e) => {
+                setOrderTime(e.target.value)
+              }}>
+                <option value='/'>---訂單順序---</option>
+                {orderTimeOptions.map((v, i) => {
+                  return <option key={i} value={v}>{v}</option>
+                })}
+              </select>
 
-            <select className="form-select mt-3" value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
-              <option selected value={``}>---訂單狀態----</option>
-              {orderStateOptions.map((v, i) => {
-                return <option key={i} value={v}>{v}</option>
-              })}
-            </select>
+              <select className='form-select mt-3 ms-3' value={orderCategory} onChange={(e) => {
+                setOrderCategory(e.target.value)
+              }}>
+                <option value={``}>---訂單種類---</option>
+                {orderCategoryOptions.map((v, i) => {
+                  return <option key={i} value={v}>{v}</option>
+                })}
+              </select>
 
-            <select className='form-select mt-3' value={orderCategory} onChange={(e)=>{
-              setOrderCategory(e.target.value)
-            }}>
-              <option value={``}>---訂單種類---</option>
-              {orderCategoryOptions.map((v,i)=>{
-                return <option key={i} value={v}>{v}</option>
-              })}
-            </select>
+              <select className="form-select mt-3 ms-3" value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
+                <option selected value={``}>---訂單狀態----</option>
+                {orderStateOptions.map((v, i) => {
+                  return <option key={i} value={v}>{v}</option>
+                })}
+              </select>
+            </div>
           </div>
 
           <div>
@@ -134,7 +136,7 @@ export default function OrderManagement() {
                 <th scope="col" className='text-center'>訂單編號</th>
                 <th scope="col" className='text-center'>訂單狀態</th>
                 <th scope="col" className='text-center'>訂單內容
-                <button type='button' className='btn btn-warning ms-auto mt-auto' style={{visibility:'visibile'}} onClick={changeShowOrder}>{showOrder == false ? '顯示更多':'隱藏內容'}</button>
+                  <button type='button' className='btn btn-warning ms-auto mt-auto' style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
                 </th>
                 <th scope="col" className='text-center'>總金額</th>
                 <th scope="col" className='text-center'>訂單成立時間</th>
@@ -146,8 +148,8 @@ export default function OrderManagement() {
                 return <tr key={i}>
                   <td className='text-center'>{i}</td>
                   <td className='text-center'>已結單</td>
-                  <td className={`d-flex flex-column mb-3" ${ showOrder == false ? styles.orderShow_hidden: styles.orderShow_show} `}>
-                  {/* <td className={`d-flex flex-column mb-3"`}> */}
+                  <td className={`d-flex flex-column mb-3" ${showOrder == false ? styles.orderShow_hidden : styles.orderShow_show} `}>
+                    {/* <td className={`d-flex flex-column mb-3"`}> */}
 
                     <div key={i} className='d-flex justify-content-between'>
                       <span className='me-auto fw-bold'>商品</span>
@@ -164,15 +166,15 @@ export default function OrderManagement() {
                       </div>
                     ))}
 
-                    <button type='button' className='btn btn-warning ms-auto mt-auto' style={{visibility:'visibile'}} onClick={changeShowOrder}>{showOrder == false ? '顯示更多':'隱藏內容'}</button>
+                    <button type='button' className='btn btn-warning ms-auto mt-auto' style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
 
                   </td>
                   <td className='text-center'>{v.amounts.reduce((total, amount, index) => {
                     return total + amount * v.prices[index];
                   }, 0)}</td>
                   <td className='text-center'>
-                    {orderTimeState.map((v2,i2)=>{
-                      if(i2 == i){
+                    {orderTimeState.map((v2, i2) => {
+                      if (i2 == i) {
                         return v2.meet_time
                       }
                     })}
