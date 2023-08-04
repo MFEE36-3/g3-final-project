@@ -14,11 +14,10 @@ export default function MemLoginBtn({ change, setChange }) {
   };
 
   return (
-    <div className={styles.mainbody}>
-      <button
-        onClick={handleClick} // 點擊時呼叫 handleClick 函式
+    <button className={styles.mainbody} onClick={handleClick}>
+      <div
         className={`${styles.ball} ${moveRight ? styles.ball2 : ''}`} // 判斷 moveRight 狀態，套用不同的 CSS 類
-      ></button>
-    </div>
+      ></div>
+    </button>
   );
 }
