@@ -126,11 +126,11 @@ export default function ShopMallFinal() {
       };
       const queryUrl = new URLSearchParams(query).toString();
       const url = `${state.host}/ecshop/item?${state.isReset ? '' : queryUrl}`;
-      console.log(`start fetching ${url}`);
+      // console.log(`start fetching ${url}`);
       const response = await fetch(url);
       const { data, pagination } = await response.json();
       if(successSubscribe){
-        console.log(`start dispatch ${url}`);
+        // console.log(`start dispatch ${url}`);
         dispatch({
           type: 'SET_ITEMS',
           payload: data
@@ -145,14 +145,14 @@ export default function ShopMallFinal() {
         })
       }
       return () =>{
-        console.log(`revoke fetching ${url}`);
+        // console.log(`revoke fetching ${url}`);
         successSubscribe = false
       }
     };
     fetchData();
   }, [router.query]);
   useEffect(()=>{
-    console.log('hi Goreset')
+    // console.log('hi Goreset')
     const query = { };
     router.push({
       pathname: router.pathname,

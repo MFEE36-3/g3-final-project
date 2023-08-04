@@ -39,7 +39,7 @@ const filterButton = () => {
     )
 }
 export default function ShopSearchTitle() {
-    const {sortby, order, keyword, dispatch, items, isReset} = useContext(Host)
+    const {sortby, order, keyword, dispatch, items, isReset, totalpages} = useContext(Host)
     const [orders, setOrders] = useState('')
     const router = useRouter();
     const handleChange = (event) => {
@@ -77,10 +77,10 @@ export default function ShopSearchTitle() {
     setOrders('')
   },[isReset])
   return (
-    <div className='ms-4'>
+    <div className=''>
         <H2div className='text-danger'>{keyword}</H2div>
         <div className='mt-3 mb-4 d-flex justify-content-between align-items-center'>
-        {keyword && <H4div >找到了{items.length}項商品</H4div>}
+        {keyword && <div></div>}
         {!keyword && <>
         <div></div>
         </>}

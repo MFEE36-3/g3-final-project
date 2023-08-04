@@ -19,7 +19,7 @@ export default function Category() {
   const [showAll, setShowAll] = useState(false);
   const [initCate, setInitCate] = useState([])
   const handleChange = (event) => {
-    console.log('check change')
+    // console.log('check change')
     const { value, checked } = event.target;
     dispatch({
       type: 'SET_CATEGORIES',
@@ -45,7 +45,7 @@ export default function Category() {
         };
         return acc;
       }, {});
-      console.log('set cate init')
+      // console.log('set cate init')
       setInitCate(initialCategories)
       dispatch({
         type: 'SET_CATEGORIES',
@@ -61,7 +61,7 @@ export default function Category() {
       payload: initCate
     });
     setSelectedCategory([]);
-    console.log(`reset all ${selectedCategory}`)
+    // console.log(`reset all ${selectedCategory}`)
   },[isReset])
 
   useEffect(() => {
@@ -71,6 +71,7 @@ export default function Category() {
     const query = { ...router.query };
     if (selectedCategoryIds.length > 0) {
       query.cate_ids = selectedCategoryIds.join('%');
+      query.page = 1
     }else{
       delete query.cate_ids;
     }
@@ -78,7 +79,7 @@ export default function Category() {
       pathname: router.pathname,
       search: new URLSearchParams(query).toString(),
     }, undefined, { scroll: false });
-    console.log('set query')
+    // console.log('set query')
   }, [categories]);
 
   const displayedCategories = showAll ? Object.entries(categories) : Object.entries(categories).slice(0, 5);

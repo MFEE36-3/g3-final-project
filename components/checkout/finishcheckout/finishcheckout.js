@@ -3,16 +3,18 @@ import { styled } from 'styled-components'
 import Okicon from '@/public/trycheckoutimage/ok.png'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-const FontDiv = styled.div`
-    font-family: var(--ff3);
-`
+
 export default function FinishCheckout() {
-    const [time, setTime] = useState(10);
+    const FontDiv = styled.div`
+    font-family: var(--ff3);
+    `
+    const [time, setTime] = useState(7);
     const router = useRouter()
     useEffect(() => {
+      localStorage.removeItem('shop')
         setTimeout(()=>{
             router.push({pathname:"http://localhost:3000/member"})
-        },10000)
+        },7000)
         const interval = setInterval(() => {
           setTime(prevTime => {
             if(prevTime === 1) {
@@ -33,7 +35,7 @@ export default function FinishCheckout() {
                 <div className='d-flex h-75 flex-column justify-content-center align-items-center mt-1'>
                     <img src={Okicon.src} className="w-25"></img>
                     <FontDiv className='fs-1 mt-1'>付款完成</FontDiv>
-                    <div className='fs-5 mt-2'>訂單編號：</div>
+                    <div className='fs-5 mt-2'>商品詳細內容請到 會員中心 - 我的活動 查詢</div>
                 </div>
                 <div className='d-flex justify-content-center mt-2'>
                     <button className='w-50 fs-5 p-2 border-0 rounded-4 d-flex justify-content-center bg-success-subtle'>{time} 秒後回到會員頁面</button>
