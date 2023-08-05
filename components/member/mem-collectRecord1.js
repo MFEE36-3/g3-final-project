@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { v4 } from 'uuid';
 
-export default function MemCollectReocrd1({ ListForum }) {
+export default function MemCollectReocrd1({ forum }) {
   const rowStyle = {
     height: '90px',
   };
@@ -33,12 +33,8 @@ export default function MemCollectReocrd1({ ListForum }) {
         <TableHead>
           <TableRow sx={rowStyle}>
             <TableCell align="center" sx={ceilStyle}>
-              分類
-            </TableCell>
-            <TableCell align="center" sx={ceilStyle}>
               標題
             </TableCell>
-
             <TableCell align="center" sx={ceilStyle}>
               作者
             </TableCell>
@@ -48,25 +44,26 @@ export default function MemCollectReocrd1({ ListForum }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {ListForum.map((row) => (
-            <TableRow
-              key={v4()}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell align="center" sx={tdStyle}>
-                {row.type}
-              </TableCell>
-              <TableCell align="center" component="th" scope="row" sx={tdStyle}>
-                {row.title}
-              </TableCell>
-              <TableCell align="center" sx={tdStyle}>
-                {row.author}
-              </TableCell>
-              <TableCell align="center" sx={tdStyle}>
-                {row.time}
-              </TableCell>
-            </TableRow>
-          ))}
+          {forum?.map((row) => {
+            return (
+              <TableRow
+                key={v4()}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell align="center" sx={tdStyle}>
+                  【{row.header}】
+                </TableCell>
+
+                <TableCell align="center" sx={tdStyle}>
+                  {row.nickname}
+                </TableCell>
+
+                <TableCell align="center" sx={tdStyle}>
+                  {row.publishedTime.substring(0, 10)}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

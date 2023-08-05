@@ -18,6 +18,8 @@ export default function Index() {
   const { auth } = useContext(AuthContext);
   const [list, setList] = useState([]);
   const [store, setStore] = useState([]);
+  const [forum, setForum] = useState([]);
+  const [open, setOpen] = useState(false);
 
   // 抓會員自己的發文
   useEffect(() => {
@@ -64,40 +66,27 @@ export default function Index() {
     }
   }, [auth]);
 
-  const ListForum = [
-    {
-      title: '有人喝過上宇林的鼎極鮮奶茶嗎?',
-      type: '閒聊',
-      author: 'a45678',
-      time: '2023/07/08',
-    },
-    {
-      title: '有人喝過上宇林的鼎極鮮奶茶嗎?',
-      type: '閒聊',
-      author: 'a45678',
-      time: '2023/07/08',
-    },
-    {
-      title: '有人喝過上宇林的鼎極鮮奶茶嗎?',
-      type: '閒聊',
-      author: 'a45678',
-      time: '2023/07/08',
-    },
-  ];
-
-  const [collect, setCollect] = useState(
-    <MemCollectReocrd1 ListForum={ListForum} />
-  );
-  const changeList = (e) => {
-    switch (e.currentTarget.value) {
-      case '貼文':
-        setCollect(<MemCollectReocrd1 ListForum={ListForum} />);
-        break;
-
-      case '店家':
-        setCollect(<MemCollectReocrd2 store={store} />);
-        break;
+  // 抓會員收藏的貼文
+  useEffect(() => {
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/member/favoritePost', {
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setForum(data);
+        });
     }
+  }, [auth]);
+
+  const changeList = () => {
+    setOpen(!open);
   };
 
   const router = useRouter();
@@ -135,7 +124,15 @@ export default function Index() {
 
               <MemBtn text={'店家'} onClick={changeList} />
             </div>
-            <div className={styles2.scroll2}>{collect}</div>
+            {open ? (
+              <div className={styles2.scroll2}>
+                <MemCollectReocrd2 store={store} />
+              </div>
+            ) : (
+              <div className={styles2.scroll2}>
+                <MemCollectReocrd1 forum={forum} />
+              </div>
+            )}
           </div>
         </div>
       </div>

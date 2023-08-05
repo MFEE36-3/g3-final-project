@@ -10,7 +10,7 @@ export default function MemCollectBlog({ title, time }) {
   return (
     <>
       <div className={styles.card}>
-        <div className={styles.box2}>{cutTitle}</div>
+        <div className={styles.box2}>【{cutTitle}】</div>
         <div className={styles.box3}>{time}</div>
       </div>
     </>
