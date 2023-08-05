@@ -57,7 +57,9 @@ export default function Hotnew() {
               <BsPencilSquare onClick={checkLogin}/>
             </div>
           {/* </Link> */}
-          <div className={styles.ptext}>我的文章</div>
+          <Link href="/member/collect">
+          <div className={styles.ptext}>我的貼文</div>
+          </Link>
         </div>
       </div>
     </>
