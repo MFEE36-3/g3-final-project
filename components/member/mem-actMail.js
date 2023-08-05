@@ -79,54 +79,60 @@ export default function MemActMail() {
         <div>訂單金額</div>
       </div>
 
-      <div className={styles.area1}>
-        <div className={styles.scrollArea}>
-          {mail
-            .filter((q) => q.status !== 0)
-            .map((v) => {
-              return v.isClosed ? (
-                <button
-                  key={v.order_id}
-                  className={styles.row2}
-                  onClick={() => openMail(v.order_id)}
-                >
-                  {showDetail?.map((s) => {
-                    return (
-                      <div key={v4()} className={styles.hideArea}>
-                        <div className={styles.td3}>品項 : {s.item_name}</div>
-                        <div className={styles.td2}>數量 : {s.amount}</div>
-                        <div className={styles.td2}>{s.price}元</div>
-                      </div>
-                    );
-                  })}
-                </button>
-              ) : (
-                <button
-                  key={v.order_id}
-                  className={styles.row}
-                  onClick={() => {
-                    openMail(v.order_id);
-                  }}
-                >
-                  <div className={styles.td0}>
-                    <Image
-                      src={'http://localhost:3002/img/member/truck.svg'}
-                      width={35}
-                      height={35}
-                      alt=""
-                    />
-                  </div>
-                  <div className={styles.td}>{v.order_id.substring(0, 7)}</div>
-                  <div className={styles.td}>{v.status && '運送中'}</div>
-                  <div className={styles.td}>
-                    {v.created_at.substring(0, 10)}
-                  </div>
-                  <div className={styles.td}>{v.total_price}元</div>
-                </button>
-              );
-            })}
+      {mail[0] ? (
+        <div className={styles.area1}>
+          <div className={styles.scrollArea}>
+            {mail
+              .filter((q) => q.status !== 0)
+              .map((v) => {
+                return v.isClosed ? (
+                  <button
+                    key={v.order_id}
+                    className={styles.row2}
+                    onClick={() => openMail(v.order_id)}
+                  >
+                    {showDetail?.map((s) => {
+                      return (
+                        <div key={v4()} className={styles.hideArea}>
+                          <div className={styles.td3}>品項 : {s.item_name}</div>
+                          <div className={styles.td2}>數量 : {s.amount}</div>
+                          <div className={styles.td2}>{s.price}元</div>
+                        </div>
+                      );
+                    })}
+                  </button>
+                ) : (
+                  <button
+                    key={v.order_id}
+                    className={styles.row}
+                    onClick={() => {
+                      openMail(v.order_id);
+                    }}
+                  >
+                    <div className={styles.td0}>
+                      <Image
+                        src={'http://localhost:3002/img/member/truck.svg'}
+                        width={35}
+                        height={35}
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.td}>
+                      {v.order_id.substring(0, 7)}
+                    </div>
+                    <div className={styles.td}>{v.status && '運送中'}</div>
+                    <div className={styles.td}>
+                      {v.created_at.substring(0, 10)}
+                    </div>
+                    <div className={styles.td}>{v.total_price}元</div>
+                  </button>
+                );
+              })}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className={styles.default}>您目前沒有任何訂單</div>
+      )}
     </div>
   );
 }

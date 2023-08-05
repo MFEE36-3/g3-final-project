@@ -13,6 +13,7 @@ import MemCollectReocrd2 from '@/components/member/mem-collectRecord2';
 import MemBtn from '@/components/member/mem-Btn';
 import MemNologin from '@/components/member/mem-nologin';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Index() {
   const { auth } = useContext(AuthContext);
@@ -110,18 +111,27 @@ export default function Index() {
         <div className={styles.rightArea}>
           <MemAllTitle title={'我的貼文'} />
           <div className={styles2.area1}>
-            <div className={styles2.scroll}>
-              {MyList.map((v) => {
-                return (
-                  <MemCollectBlog
-                    sid={v.sid}
-                    title={v.title}
-                    time={v.time}
-                    key={v4()}
-                  />
-                );
-              })}
-            </div>
+            {MyList[0] ? (
+              <div className={styles2.scroll}>
+                {MyList.map((v) => {
+                  return (
+                    <MemCollectBlog
+                      sid={v.sid}
+                      title={v.title}
+                      time={v.time}
+                      key={v4()}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <Link
+                href={'http://localhost:3000/forum'}
+                className={styles2.default}
+              >
+                尚未撰寫任何貼文，前往論壇
+              </Link>
+            )}
           </div>
           <MemAllTitle title={'我的收藏'} />
           <div className={styles2.area2}>

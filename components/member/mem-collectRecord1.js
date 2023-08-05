@@ -43,7 +43,7 @@ export default function MemCollectReocrd1({ forum }) {
     left: '-20px',
   };
 
-  return forum ? (
+  return forum.sid ? (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -94,6 +94,8 @@ export default function MemCollectReocrd1({ forum }) {
       </Table>
     </TableContainer>
   ) : (
-    <Link href={'http://localhost:3000/forum'}>尚未收藏貼文，前往論壇</Link>
+    <Link href={'http://localhost:3000/reservation'} className={styles.default}>
+      尚未收藏貼文，立即前往論壇
+    </Link>
   );
 }

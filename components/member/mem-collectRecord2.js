@@ -30,7 +30,7 @@ export default function MemCollectReocrd2({ store }) {
     fontFamily: 'var(--ff1)',
   };
 
-  return store ? (
+  return store.sid ? (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -96,8 +96,8 @@ export default function MemCollectReocrd2({ store }) {
       </Table>
     </TableContainer>
   ) : (
-    <Link href={'http://localhost:3000/reservation'}>
-      尚未收藏店家，前往挑選
+    <Link href={'http://localhost:3000/reservation'} className={styles.default}>
+      尚未收藏店家，立即前往挑選
     </Link>
   );
 }
