@@ -34,13 +34,13 @@ export default function MemMoneyReocrdTable({ rows }) {
         <TableHead>
           <TableRow sx={rowStyle}>
             <TableCell align="center" sx={ceilStyle}>
-              儲值內容
+              內容
             </TableCell>
             <TableCell align="center" sx={ceilStyle}>
-              儲值金額
+              金額
             </TableCell>
             <TableCell align="center" sx={ceilStyle}>
-              儲值時間
+              時間
             </TableCell>
           </TableRow>
         </TableHead>

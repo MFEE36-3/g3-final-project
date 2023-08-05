@@ -77,24 +77,32 @@ export default function Index() {
           <div className={styles2.flexArea}>
             <MemAllTitle title={'我的優惠券'} />
             <div className={styles2.area1}>
-              <div className={styles2.scroll}>
-                {mycoupon.map((v) => {
-                  return (
-                    <MemCouponCard
-                      name={v.name}
-                      money={v.money}
-                      time={v.time}
-                      key={v4()}
-                    />
-                  );
-                })}
-              </div>
+              {mycoupon ? (
+                <div className={styles2.scroll}>
+                  {mycoupon.map((v) => {
+                    return (
+                      <MemCouponCard
+                        name={v.name}
+                        money={v.money}
+                        time={v.time}
+                        key={v4()}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className={styles2.default}>優惠券都用完囉</div>
+              )}
             </div>
             <MemAllTitle title={'已使用 /已過期'} />
             <div className={styles2.area2}>
-              <div className={styles2.recordBox}>
-                <MemCouponRecord record={record} />
-              </div>
+              {mycoupon ? (
+                <div className={styles2.recordBox}>
+                  <MemCouponRecord record={record} />
+                </div>
+              ) : (
+                <div className={styles2.default}>目前沒有使用紀錄</div>
+              )}
             </div>
           </div>
         </div>

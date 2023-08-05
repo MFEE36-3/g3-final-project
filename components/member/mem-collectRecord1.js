@@ -43,7 +43,7 @@ export default function MemCollectReocrd1({ forum }) {
     left: '-20px',
   };
 
-  return forum.sid ? (
+  return forum ? (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

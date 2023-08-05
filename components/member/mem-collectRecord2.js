@@ -30,7 +30,7 @@ export default function MemCollectReocrd2({ store }) {
     fontFamily: 'var(--ff1)',
   };
 
-  return store.sid ? (
+  return store ? (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

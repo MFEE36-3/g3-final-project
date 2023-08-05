@@ -93,17 +93,23 @@
   flex-direction: column;
   border-radius: 15px;
   border: 2px solid #921010;
-  overflow-y: scroll;
-  overflow-x: hidden;
   height: 380px;
   background-color: #fff;
+  padding-right: 7px;
+  padding-top: 7px;
 }
 
-.area3::-webkit-scrollbar {
+.recordBox {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 15px;
+}
+
+.recordBox::-webkit-scrollbar {
   width: 3px; /* 設置滾輪寬度 */
 }
 
-.area3::-webkit-scrollbar-thumb {
+.recordBox::-webkit-scrollbar-thumb {
   background-color: #aeaeae; /* 設置滾輪顏色 */
 }
 

@@ -81,7 +81,6 @@ export default function Index() {
               </div>
 
               <div className={styles.packDown}>
-                <input className={styles.inputArea}></input>
                 <Link href={''}>
                   <button className={styles.packageBtn}>儲值+</button>
                 </Link>
@@ -107,7 +106,7 @@ export default function Index() {
             </div>
           </div>
           <div className={styles2.recordArea}>
-            <MemAllTitle title={'儲值紀錄'} />
+            <MemAllTitle title={'錢包紀錄'} />
             <div className={styles2.area3}>
               <div className={styles2.recordBox}>
                 <MemMoneyReocrdTable rows={rows} />
