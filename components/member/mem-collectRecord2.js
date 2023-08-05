@@ -8,6 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Image from 'next/image';
 import { v4 } from 'uuid';
+import styles from './mem-collectRecord.module.css';
+import Link from 'next/link';
 
 export default function MemCollectReocrd2({ store }) {
   const rowStyle = {
@@ -28,7 +30,7 @@ export default function MemCollectReocrd2({ store }) {
     fontFamily: 'var(--ff1)',
   };
 
-  return (
+  return store ? (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -47,6 +49,10 @@ export default function MemCollectReocrd2({ store }) {
 
             <TableCell align="center" sx={ceilStyle}>
               評分
+            </TableCell>
+
+            <TableCell align="center" sx={ceilStyle}>
+              連結
             </TableCell>
           </TableRow>
         </TableHead>
@@ -75,10 +81,23 @@ export default function MemCollectReocrd2({ store }) {
               <TableCell align="center" sx={tdStyle}>
                 {row.restaurant_rating}
               </TableCell>
+
+              <div style={{ color: 'white' }}>
+                <Link
+                  href={'http://localhost:3000/reservation/' + row.sid}
+                  className={styles.link2}
+                >
+                  GO
+                </Link>
+              </div>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+  ) : (
+    <Link href={'http://localhost:3000/reservation'}>
+      尚未收藏店家，前往挑選
+    </Link>
   );
 }

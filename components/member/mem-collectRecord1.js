@@ -7,10 +7,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { v4 } from 'uuid';
+import styles from './mem-collectRecord.module.css';
+import Link from 'next/link';
 
 export default function MemCollectReocrd1({ forum }) {
   const rowStyle = {
     height: '90px',
+    width: '100%',
   };
 
   const ceilStyle = {
@@ -18,6 +21,17 @@ export default function MemCollectReocrd1({ forum }) {
     color: '#921010',
     fontFamily: 'var(--ff1)',
     fontSize: '20px',
+    position: 'relative',
+    left: '-20px',
+  };
+
+  const ceilStyle2 = {
+    minWidth: 80,
+    color: '#921010',
+    fontFamily: 'var(--ff1)',
+    fontSize: '20px',
+    position: 'relative',
+    left: '50px',
   };
 
   const tdStyle = {
@@ -25,14 +39,16 @@ export default function MemCollectReocrd1({ forum }) {
     fontWeight: '600',
     height: '70px',
     fontFamily: 'var(--ff1)',
+    position: 'relative',
+    left: '-20px',
   };
 
-  return (
+  return forum ? (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow sx={rowStyle}>
-            <TableCell align="center" sx={ceilStyle}>
+            <TableCell align="left" sx={ceilStyle2}>
               標題
             </TableCell>
             <TableCell align="center" sx={ceilStyle}>
@@ -41,17 +57,21 @@ export default function MemCollectReocrd1({ forum }) {
             <TableCell align="center" sx={ceilStyle}>
               發表時間
             </TableCell>
+            <TableCell align="center" sx={ceilStyle}>
+              連結
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {forum?.map((row) => {
             return (
-              <TableRow
-                key={v4()}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell align="center" sx={tdStyle}>
-                  【{row.header}】
+              <TableRow sx={rowStyle} key={v4()}>
+                <TableCell
+                  align="left"
+                  sx={tdStyle}
+                  style={{ position: 'relative', left: '20px' }}
+                >
+                  【 {row.header} 】
                 </TableCell>
 
                 <TableCell align="center" sx={tdStyle}>
@@ -61,11 +81,19 @@ export default function MemCollectReocrd1({ forum }) {
                 <TableCell align="center" sx={tdStyle}>
                   {row.publishedTime.substring(0, 10)}
                 </TableCell>
+
+                <div className={styles.link}>
+                  <Link href={'http://localhost:3000/forum/' + row.forum_sid}>
+                    GO
+                  </Link>
+                </div>
               </TableRow>
             );
           })}
         </TableBody>
       </Table>
     </TableContainer>
+  ) : (
+    <Link href={'http://localhost:3000/forum'}>尚未收藏貼文，前往論壇</Link>
   );
 }

@@ -40,10 +40,11 @@ export default function Index() {
     }
   }, [auth]);
 
-  const MyList = list.map((v) => {
+  const MyList = list?.map((v) => {
     return {
       title: v.header,
       time: v.publishedTime?.substring(0, 10),
+      sid: v.forum_sid,
     };
   });
 
@@ -112,7 +113,12 @@ export default function Index() {
             <div className={styles2.scroll}>
               {MyList.map((v) => {
                 return (
-                  <MemCollectBlog title={v.title} time={v.time} key={v4()} />
+                  <MemCollectBlog
+                    sid={v.sid}
+                    title={v.title}
+                    time={v.time}
+                    key={v4()}
+                  />
                 );
               })}
             </div>
@@ -120,9 +126,9 @@ export default function Index() {
           <MemAllTitle title={'我的收藏'} />
           <div className={styles2.area2}>
             <div className={styles2.scrollArea}>
-              <MemBtn text={'貼文'} onClick={changeList} />
+              <MemBtn text={'收藏貼文'} onClick={changeList} />
 
-              <MemBtn text={'店家'} onClick={changeList} />
+              <MemBtn text={'收藏店家'} onClick={changeList} />
             </div>
             {open ? (
               <div className={styles2.scroll2}>
