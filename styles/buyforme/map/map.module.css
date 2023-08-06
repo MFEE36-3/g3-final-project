@@ -324,7 +324,7 @@
     border-radius: 5px;
 }
 
-.shop_infowindow_btn_box{
+.shop_infowindow_btn_box {
     width: 530px;
 }
 
@@ -397,6 +397,89 @@
     margin-right: 5px;
 }
 
+.check_open_follow_group {
+    position: absolute;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    top: 60px;
+    right: 10px;
+    font-family: var(--ff1);
+    border-radius: 30px;
+}
+
+.check_open_btn {
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 30px 0 0 30px;
+    padding: 8px 5px 8px 20px;
+    cursor: pointer;
+    order: 1;
+}
+
+.check_follow_btn {
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 0 30px 30px 0;
+    padding: 8px 20px 8px 5px;
+    cursor: pointer;
+    order: 3;
+}
+
+.check_open_btn:hover,
+.check_follow_btn:hover {
+    background-color: rgba(183, 183, 183, 0.75);
+    color: var(--main-color);
+}
+
+.check_open_btn_active {
+    background-color: rgba(183, 183, 183, 0.75);
+    color: var(--main-color);
+    border-radius: 30px 0 0 30px;
+    padding: 8px 5px 8px 20px;
+    order: 1;
+}
+
+.check_follow_btn_active {
+    background-color: rgba(183, 183, 183, 0.75);
+    color: var(--main-color);
+    border-radius: 0 30px 30px 0;
+    padding: 8px 20px 8px 5px;
+    cursor: pointer;
+    order: 3;
+}
+
+.check_middle_btn {
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    order: 2;
+}
+
+.arrow {
+    font-size: var(--h4);
+}
+
+.arrow_active_open {
+    font-size: var(--h4);
+    transform: rotate(-90deg);
+    color: var(--main-color);
+}
+
+.arrow_active_follow {
+    font-size: var(--h4);
+    transform: rotate(90deg);
+    color: var(--main-color);
+}
+
+.check_open_btn:hover~.check_middle_btn .arrow {
+    transform: rotate(-90deg);
+    color: var(--main-color);
+}
+
+.check_follow_btn:hover~.check_middle_btn .arrow {
+    transform: rotate(90deg);
+    color: var(--main-color);
+}
 
 
 /* -----------------------------RWD----------------------------- */
@@ -503,7 +586,7 @@
         transform: scale(0.78);
     }
 
-    
+
     .buyforme_infobox {
         right: 0px;
         bottom: 90px;

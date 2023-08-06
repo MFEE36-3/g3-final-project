@@ -5,23 +5,20 @@ import styles from '@/styles/buyforme/map/map.module.css'
 import sausageLeft from '@/public/main_page/half-sausage-left.svg';
 import sausageRight from '@/public/main_page/half-sausage-right.svg';
 import TextField from '@mui/material/TextField';
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
+import AuthContext from '@/context/AuthContext';
 import OpenIconSpeedDial from '@/components/buyforme/speed-dial'
 import walkbag from '@/public/buyforme/map/walkbag.svg'
 import Btn from "@/components/common/btn";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import InputArea from "@/components/common/input";
 import { HiOutlineChat } from "react-icons/hi";
 import CustomizedSwitches from "@/components/buyforme/switch";
-import { Chat } from "@mui/icons-material";
 import OpenShopForm from "@/components/buyforme/openshopform";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import OrderSheet from "@/components/buyforme/ordersheet";
+import My_Open_Follow from "@/components/buyforme/check_open_follow";
+import { FaArrowAltCircleUp } from "react-icons/fa";
+import Swal from 'sweetalert2';
 
 
 const search_input_style = {
@@ -131,6 +128,10 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
     const [keyword, setKeyword] = useState('');
     const [destination, setDestination] = useState({});
     const [foodlist, setFoodlist] = useState([]);
+    const [open_checklist, setOpen_checklist] = useState(false);
+    const [open_or_follow, setOpen_or_follow] = useState('');
+    const { auth } = useContext(AuthContext);
+
 
     const router = useRouter();
 
@@ -151,6 +152,49 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
 
     const handleopenFormClose = () => {
         setOpenForm(false);
+    };
+
+    const handleChecklistClose = () => {
+        setOpen_checklist(false);
+        setOpen_or_follow('');
+    };
+
+    const handleOpenBtn =()=>{
+        if (!auth.sid) {
+            Swal.fire({
+                title: '請先登入',
+                icon: 'warning',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: '前往登入',
+                denyButtonText: '我再想想',
+            }).then(
+                function (result) {
+                    if (result.value) router.push('/login')
+                });
+            return;
+        }
+        setOpen_checklist(true);
+        setOpen_or_follow('open');
+    };
+
+    const handleFollowBtn =()=>{
+        if (!auth.sid) {
+            Swal.fire({
+                title: '請先登入',
+                icon: 'warning',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: '前往登入',
+                denyButtonText: '我再想想',
+            }).then(
+                function (result) {
+                    if (result.value) router.push('/login')
+                });
+            return;
+        }
+        setOpen_checklist(true);
+        setOpen_or_follow('follow');
     };
 
     function getLatlng(site) {
@@ -228,11 +272,11 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
                                         <td className={styles.meet_place_td} onClick={() => getLatlng(v.meet_place)}>{v.meet_place}</td>
                                         <td>{v.tip !== 0 ? v.tip : '免費'}</td>
                                         <td><Btn text='跟團go!' padding='5px 10px' fs='var(--h9)' sx={{ zIndex: 0 }} onClick={async () => {
-                                            setOpendetail([v.tip,v.open_sid]);
+                                            setOpendetail([v.tip, v.open_sid]);
 
                                             await fetch(process.env.API_SERVER + '/buyforme/foodlist', {
                                                 method: 'POST',
-                                                body: JSON.stringify({'targetstore':v.target_store}),
+                                                body: JSON.stringify({ 'targetstore': v.target_store }),
                                                 headers: { 'Content-Type': 'application/json' },
                                             })
                                                 .then(r => r.json())
@@ -268,7 +312,19 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
 
         <OpenShopForm openForm={openForm} handleopenFormClose={handleopenFormClose} opentargetstore={opentargetstore} data={data} setOpenorder={setOpenorder} setOpenForm={setOpenForm} />
 
-        <OrderSheet openbuyforme={openbuyforme} handlebuyformeClose={handlebuyformeClose} foodlist={foodlist} opendetail={opendetail}/>
+        <OrderSheet openbuyforme={openbuyforme} handlebuyformeClose={handlebuyformeClose} foodlist={foodlist} opendetail={opendetail} />
+
+        <div className={styles.check_open_follow_group}>
+            <div className={open_or_follow === 'open' ? styles.check_open_btn_active : styles.check_open_btn} onClick={handleOpenBtn}>我的揪團
+            </div>
+            <div className={open_or_follow === 'follow' ? styles.check_follow_btn_active : styles.check_follow_btn} onClick={handleFollowBtn}>我的跟團
+            </div>
+            <div className={styles.check_middle_btn}>
+                <FaArrowAltCircleUp className={open_or_follow === 'open' ? styles.arrow_active_open : open_or_follow === 'follow' ? styles.arrow_active_follow : styles.arrow} />
+            </div>
+        </div>
+
+        <My_Open_Follow open_checklist={open_checklist} handleChecklistClose={handleChecklistClose} open_or_follow={open_or_follow} />
 
 
 
