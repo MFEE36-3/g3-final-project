@@ -71,8 +71,9 @@ export default function Star({ keyword, setKeyword }) {
     const active = 'bg-secondary-subtle'
 
     return (
-        <div className='w-100 mt-4 border-bottom border-2 pb-4'>
+        <div className='w-100 mt-4 pb-4'>
             <p>評分</p>
+            <hr />
             <div className='px-1'>
                 <Nobgbutton className={`d-flex text-warning border-0 fs-4 rounded-4  px-1 mt-4 ${rating === 5 && active}`}>
                     <span data-value="5" onClick={handleRatingChange}>
@@ -81,7 +82,6 @@ export default function Star({ keyword, setKeyword }) {
                         <AiFillStar></AiFillStar>
                         <AiFillStar></AiFillStar>
                         <AiFillStar></AiFillStar>
-                        <FaArrowUp className='ms-1'></FaArrowUp>
                     </span>
                 </Nobgbutton>
                 <Nobgbutton className={`d-flex mt-3 align-items-center text-warning border-0 fs-4 px-1 rounded-4 ${rating === 4 && active}`}>

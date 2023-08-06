@@ -307,7 +307,7 @@
   color: #d9d9d9;
   font-size: var(--h4);
   border: 1px solid #d9d9d9;
-  border-radius: 15px;
+  border-radius: 30px;
   padding: 8px 16px;
   transition: opacity 0.3s ease-in;
 }
@@ -825,7 +825,6 @@
   border: none !important;
 }
 
-
 .mb10 {
   margin-bottom: 10px;
 }
@@ -833,9 +832,11 @@
 .me5{
   margin-right: 5px;
 }
-
 .mb20 {
   margin-bottom: 20px;
+}
+.mt30{
+  margin-top: 30px;
 }
 
 

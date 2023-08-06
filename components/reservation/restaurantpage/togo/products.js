@@ -61,14 +61,6 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
     }
     );
 
-    //商品加減
-    const plus = () => {
-        setNum(prev => prev + 1)
-    }
-    const minus = () => {
-        num > 1 && setNum(prev => prev - 1)
-    }
-
     //塞進LocalStorage
     // const handleCart = (item) => {
     //     setOpen(false);
@@ -104,10 +96,6 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
         if (Object.values(nowcart)[0]?.shop_id !== shopId) {
             localStorage.removeItem('order')
         }
-        // console.log(nowcart.filter(item => item.shop_id === shopId))
-        // if (pastcart !== {}) {
-        //     if (nowcart.filter(item => item.shop_id !== shopId)) localStorage.removeItem('order')
-        // }
 
 
 
@@ -254,24 +242,12 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                             <Typography id="modal-modal-title" variant="h4" component="h2" className='h-25 d-flex justify-content-center pt-3'>
                                 {itemdeatil.food_title}
                             </Typography>
-                            {/* <Typography id="modal-modal-title" variant="h4" component="h2" className='h-25 d-flex justify-content-center pt-3'>
+                            <Typography id="modal-modal-title" variant="h4" component="h2" className='h-25 d-flex justify-content-center pt-3'>
                                 {itemdeatil.food_des}
-                            </Typography> */}
-                            <Typography id="modal-modal-description" variant="h5" className='d-flex flex-column justify-content-between h-75'>
+                            </Typography>
+                            <Typography id="modal-modal-description" variant="h5" className='d-flex flex-column justify-content-between h-50'>
                                 <div className='d-flex justify-content-between mt-5'>
                                     <div className='fs-1 text-danger'>售價: {itemdeatil.food_price}</div>
-                                </div>
-                                <div className='position-relative'>
-                                    <div className='w-75 d-flex align-items-center mx-auto border border-secondary border-2 justify-content-center rounded-5 mb-4 position-relative'>
-                                        <Button variant="text" className='p-0 h-100 rounded-start-5 text-danger' onClick={minus}>
-                                            <AiOutlineMinus className='fs-1 p-1' />
-                                        </Button>
-                                        <Inputborder className='w-50 fs-3 border-0 text-center mx-5' value={num} readOnly></Inputborder>
-                                        <Button variant="text" className='p-0 rounded-end-5 text-danger' onClick={plus}>
-                                            <AiOutlinePlus className='fs-1 p-1' />
-                                        </Button>
-                                    </div>
-                                    <Button variant="text" className='border-0 rounded-3 w-100 text-light fs-3' style={{ background: "#911010" }} onClick={() => handleCart(itemdeatil)}>加入購物車</Button>
                                 </div>
                             </Typography>
                         </div>

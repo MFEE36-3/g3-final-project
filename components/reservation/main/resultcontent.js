@@ -145,11 +145,11 @@ export default function ResultContent(favorite, setFavorite) {
                       src={`${process.env.API_SERVER}/img/shops/${photo}`}
                       className={`${style.cardimg}`}
                     />
-                    <div className={style.cardtext}>進入餐廳</div>
+                    <div className={style.cardtext}>查看餐廳</div>
                   </Link>
                 </div>
                 <Card.Body>
-                  <Card.Title>{shop}</Card.Title>
+                  <Card.Title style={{ fontWeight: "bold" }}>{shop}</Card.Title>
                   <Card.Text>{location}</Card.Text>
 
 
@@ -163,7 +163,7 @@ export default function ResultContent(favorite, setFavorite) {
                           borderRadius: 20,
                           border: 0,
                           color: 'white',
-                          padding: '5px',
+                          padding: '5px 10px',
                         }}
                       >
                         <FaUtensils className={style.buttonicon} />
@@ -172,7 +172,6 @@ export default function ResultContent(favorite, setFavorite) {
                       <div className="d-flex align-item-center ms-1">
                         <AiFillStar
                           className="fs-4 h-100 text-warning"
-                        // style={{ color: '#ecbd18' }}
                         />
                         <div className="d-flex align-item-center fs-5">
                           {rating}
