@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import styles from './articlelist.module.css';
-import { BsSuitHeartFill } from 'react-icons/bs';
-import { BiSolidMessageAltDetail } from 'react-icons/bi';
-import { FaRegBookmark } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi'; // 空心愛心
 import { BiSolidHeart } from 'react-icons/bi'; // 實心愛心
+import { BiSolidMessageAltDetail } from 'react-icons/bi';
+import { FaRegBookmark } from 'react-icons/fa';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import AuthContext from '@/context/AuthContext';
@@ -19,8 +18,7 @@ export default function Articlelist({
 }) {
   console.log(articles);
   const router = useRouter();
-  const [messageCounts, setMessageCounts] = useState({});
-  const { auth, setAuth, logout } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
   const [clickHeart, setClickHeart] = useState(false);
   const [sendLike, setSendLike] = useState({
     member_id: auth.sid,
@@ -40,7 +38,6 @@ export default function Articlelist({
   useEffect(() => {
     if (auth.account) {
       getMemberId();
-
       fetch(process.env.API_SERVER + '/forum/get-member-like', {
         method: 'POST',
         body: JSON.stringify(auth),
@@ -90,12 +87,13 @@ export default function Articlelist({
       console.log('沒有帳號');
       Swal.fire({
         title: '您尚未登入',
-        text: '要登入以編輯網站嗎?',
+        text: '需要登入即可按喜歡！',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: '帶我去登入',
+        confirmButtonText: '登入',
+        cancelButtonText: '取消登入',
       }).then((result) => {
         if (result.isConfirmed) {
           router.push('/login');
@@ -125,65 +123,42 @@ export default function Articlelist({
                   {dayjs(c.publishedTime).format('YYYY年MM月DD日')}
                 </div>
               </div>
-              <Link href={`/forum/${c.forum_sid}`}>
-                <div className={styles.articlecontainer}>
-                  <div className={styles.left}>
-                    <div className={styles.title}>{c.header}</div>
-                    <div className={styles.ptext}>{c.forum_content}</div>
-                    <div className={styles.flex2}>
-                {/* {hasLiked ? (
-                  <BiSolidHeart
-                    className={styles.icon}
-                    onClick={(e) => {
-                      clickHeartEvent(e, c.forum_sid);
-                    }}
-                  />
-                ) : (
-                  <FiHeart
-                    className={styles.icon}
-                    onClick={(e) => {
-                      clickHeartEvent(e, c.forum_sid);
-                    }}
-                  />
-                )} */}
-
-                {/* {i + 1 == memberLike[i].forum_sid ? <FiHeart className={styles.icon} onClick={(e) => { clickHeartEvent(e, c.forum_sid) }} />
-                :
-                <BiSolidHeart className={styles.icon} onClick={(e) => { clickHeartEvent(e, c.forum_sid) }} />} */}
-                {sendLike.clickHeart == false ? (
-                  <FiHeart
-                    className={styles.icon}
-                    onClick={(e) => {
-                      clickHeartEvent(e, c.forum_sid);
-                    }}
-                  />
-                ) : (
-                  <BiSolidHeart
-                    className={styles.icon}
-                    onClick={(e) => {
-                      clickHeartEvent(e, c.forum_sid);
-                    }}
-                  />
-                )}
-
-                <div className={styles.like}>{c.like_count}</div>
-                <BiSolidMessageAltDetail className={styles.message} />
-                <div className={styles.like}>{c.comment_count}</div>
-                <FaRegBookmark className={styles.bookmark} />
-                <div className={styles.like}>收藏</div>
-              </div>
-                  </div>
-                  {c.forum_photo && ( // 使用條件渲染來檢查 img 是否為空值
-                    <div className={styles.image}>
-                      <img
-                        src={`${imgPreview + c.forum_photo}`}
-                        className={styles.img}
+              <div className={styles.articlecontainer}>
+                <div className={styles.left}>
+                  <div className={styles.title}>{c.header}</div>
+                  <div className={styles.ptext}>{c.forum_content}</div>
+                  <div className={styles.flex2}>
+                    {sendLike.clickHeart === false ? (
+                      <FiHeart
+                        className={styles.icon}
+                        onClick={(e) => {
+                          clickHeartEvent(e, c.forum_sid);
+                        }}
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <BiSolidHeart
+                        className={styles.icon}
+                        onClick={(e) => {
+                          clickHeartEvent(e, c.forum_sid);
+                        }}
+                      />
+                    )}
+                    <div className={styles.like}>{c.like_count}</div>
+                    <BiSolidMessageAltDetail className={styles.message} />
+                    <div className={styles.like}>{c.comment_count}</div>
+                    <FaRegBookmark className={styles.bookmark} />
+                    <div className={styles.like}>收藏</div>
+                  </div>
                 </div>
-              </Link>
-      
+                {c.forum_photo && ( // 使用條件渲染來檢查 img 是否為空值
+                  <div className={styles.image}>
+                    <img
+                      src={`${imgPreview + c.forum_photo}`}
+                      className={styles.img}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         );

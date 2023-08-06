@@ -3,19 +3,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import axios from 'axios';
-import styles from '@/components/res/item/item-management.module.css'
+import styles from '@/components/res/item/item-management.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Swal from 'sweetalert2'
-import { AiTwotoneEdit, AiTwotoneDelete } from 'react-icons/ai'
-import { ImBoxRemove } from 'react-icons/im'
+import Swal from 'sweetalert2';
+import { AiTwotoneEdit, AiTwotoneDelete } from 'react-icons/ai';
+import { ImBoxRemove } from 'react-icons/im';
 import { TableContainer } from '@mui/material';
 import ResAuthContext from '@/context/ResAuthContext';
 import { headers } from 'next/dist/client/components/headers';
+import { AiOutlineArrowRight } from 'react-icons/ai';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 export default function Management() {
-  const router = useRouter()
-  const { resAuth, setResAuth, logout } = useContext(ResAuthContext)
+  const router = useRouter();
+  const { resAuth, setResAuth, logout } = useContext(ResAuthContext);
 
   // 拿到物件資料
   const [foodItem, setFoodItem] = useState([]);
@@ -26,68 +28,67 @@ export default function Management() {
     fetch(`http://localhost:3002/res/item-management`, {
       method: 'POST',
       body: JSON.stringify(resAuth),
-      headers: { "Content-Type": "application/json" }
+      headers: { 'Content-Type': 'application/json' },
     })
-      .then(r => r.json())
-      .then(data => {
-        console.log(data)
-        setFoodItem(data.rows)
-        setOriginalFoodItem(data.rows)
-      })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+        setFoodItem(data.rows);
+        setOriginalFoodItem(data.rows);
+      });
   };
 
   // imgLink
-  const imgLink = "http://localhost:3002/img/res-img/"
+  const imgLink = 'http://localhost:3002/img/res-img/';
 
   // 拿context裡面的資料
   // console.log(resAuth.account)
   // console.log(resAuth)
-  const [takeContextInfo, setTakeContextInfo] = useState({})
+  const [takeContextInfo, setTakeContextInfo] = useState({});
   const takeInfo = () => {
-    setTakeContextInfo(resAuth)
-  }
+    setTakeContextInfo(resAuth);
+  };
 
   useEffect(() => {
     if (resAuth.account) {
-      takeInfo()
+      takeInfo();
       getFoodItems();
       // changeNumToString()
       console.log(takeContextInfo);
       console.log(resAuth);
     }
-
   }, [resAuth]);
 
   // 現在才開始做selectBox
-  const [foodCate, setFoodCate] = useState(6)
-  const [foodCateString, setFoodCateString] = useState('')
-  const foodCateOptions = ['全部商品', '前菜', '主菜', '甜點', '飲料', '湯品']
+  const [foodCate, setFoodCate] = useState(6);
+  const [foodCateString, setFoodCateString] = useState('');
+  const foodCateOptions = ['全部商品', '前菜', '主菜', '甜點', '飲料', '湯品'];
 
   const matchList = (e) => {
     if (e.target.value == '前菜') {
-      setFoodCate('前菜')
+      setFoodCate('前菜');
     }
     if (e.target.value == '主菜') {
-      setFoodCate('主菜')
+      setFoodCate('主菜');
     }
     if (e.target.value == '甜點') {
-      setFoodCate('甜點')
+      setFoodCate('甜點');
     }
     if (e.target.value == '飲料') {
-      setFoodCate('飲料')
+      setFoodCate('飲料');
     }
     if (e.target.value == '湯品') {
-      setFoodCate('湯品')
+      setFoodCate('湯品');
     }
     if (e.target.value == '全部商品') {
-      setFoodCate(6)
+      setFoodCate(6);
     }
-    setFoodCateString(e.target.value)
-  }
+    setFoodCateString(e.target.value);
+  };
 
   const foodCateFilter = () => {
     if (foodCate == 6) {
-      router.push('/res/item-management')
+      router.push('/res/item-management');
       setFoodItem(originalFoodItem);
     } else {
       const newArray = originalFoodItem.filter((v) => v.food_cate == foodCate);
@@ -96,8 +97,8 @@ export default function Management() {
   };
 
   // 商品排序
-  const [itemOrder, setItemOrder] = useState('')
-  const orderOption = ['由新到舊', '由舊到新']
+  const [itemOrder, setItemOrder] = useState('');
+  const orderOption = ['由新到舊', '由舊到新'];
 
   // 由新到舊
   const newToOld = async (e) => {
@@ -106,74 +107,70 @@ export default function Management() {
     fetch(`http://localhost:3002/res/item-management/DESC`, {
       method: 'POST',
       body: JSON.stringify(resAuth),
-      headers: { "Content-Type": "application/json" }
+      headers: { 'Content-Type': 'application/json' },
     })
-      .then(r => r.json())
-      .then(data => {
+      .then((r) => r.json())
+      .then((data) => {
         setFoodItem(data.rows);
-        setOriginalFoodItem(data.rows)
-      })
-
-  }
+        setOriginalFoodItem(data.rows);
+      });
+  };
   // 由舊到新
   const OldToNew = async (e) => {
     fetch(`http://localhost:3002/res/item-management/ASC`, {
       method: 'POST',
       body: JSON.stringify(resAuth),
-      headers: { "Content-Type": "application/json" }
+      headers: { 'Content-Type': 'application/json' },
     })
-      .then(r => r.json())
-      .then(data => {
+      .then((r) => r.json())
+      .then((data) => {
         setFoodItem(data.rows);
-        setOriginalFoodItem(data.rows)
-      })
-  }
+        setOriginalFoodItem(data.rows);
+      });
+  };
 
   // 關鍵字搜尋
-  const [searchKeyword, setSearchKeyword] = useState('')
+  const [searchKeyword, setSearchKeyword] = useState('');
   const search = (e) => {
-    setSearchKeyword(e.target.value)
-    console.log(searchKeyword)
-  }
-
+    setSearchKeyword(e.target.value);
+    console.log(searchKeyword);
+  };
 
   const getSearchQuery = async (e) => {
-
     if (searchKeyword && resAuth.id) {
       router.push(`?keyword=${searchKeyword}&shop_id=${resAuth.id}`);
-    }else{
-      setFoodItem(originalFoodItem)
-      router.push('/res/item-management')
+    } else {
+      setFoodItem(originalFoodItem);
+      router.push('/res/item-management');
     }
     // router.push(`?keyword=${searchKeyword}&shop_id=${resAuth.id}`) // 連到query
-    console.log(router)
-
-  }
+    console.log(router);
+  };
   // console.log(router)
   // 拿到router.query後fetch到後端去
   useEffect(() => {
     if (Object.keys(router.query).length > 0) {
-      const usp = new URLSearchParams(router.query) // {keyword:abc}
+      const usp = new URLSearchParams(router.query); // {keyword:abc}
       fetch(`http://localhost:3002/res/item-management?${usp.toString()}`, {
-        method: 'GET'
+        method: 'GET',
       })
-        .then(r => r.json())
-        .then(data => {
-          console.log(data)
-          setFoodItem(data.rows)
-        })
+        .then((r) => r.json())
+        .then((data) => {
+          console.log(data);
+          setFoodItem(data.rows);
+        });
     }
-  }, [router.query])
+  }, [router.query]);
 
   useEffect(() => {
     if (itemOrder) {
       if (itemOrder == '由新到舊') {
-        newToOld()
+        newToOld();
       } else if (itemOrder == '由舊到新') {
-        OldToNew()
+        OldToNew();
       }
     }
-  }, [itemOrder])
+  }, [itemOrder]);
 
   // useEffect(() => {
   //   foodCateFilter()
@@ -181,9 +178,8 @@ export default function Management() {
   // }, [foodItem, foodCate])
 
   useEffect(() => {
-    foodCateFilter()
-
-  }, [foodCate])
+    foodCateFilter();
+  }, [foodCate]);
 
   // 刪除商品
   const confirmDeleteItem = () => {
@@ -195,31 +191,35 @@ export default function Management() {
       denyButtonText: `取消刪除`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('刪除成功!', '', 'success')
-        router.push(`/res/item-management/delete-item/${v.food_id}`)
+        Swal.fire('刪除成功!', '', 'success');
+        router.push(`/res/item-management/delete-item/${v.food_id}`);
       } else if (result.isDenied) {
-        Swal.fire('取消刪除', '', 'info')
+        Swal.fire('取消刪除', '', 'info');
       }
-    })
-  }
-
+    });
+  };
 
   return (
     <>
       <h3 className="container">商品管理</h3>
-      <div className={`container-xxl-fluid container container-sm-fluid d-flex flex-column ${styles.formbgc} p-3 col-10 border border-2 rounded-4 border-black`}>
-        <div className='row'>
-          <div className='col-xxl-12 col-sm-12'>
-
+      <div
+        className={`container-xxl-fluid container container-sm-fluid d-flex flex-column ${styles.formbgc} p-3 col-10 border border-2 rounded-4 border-black`}
+      >
+        <div className="row">
+          <div className="col-xxl-12 col-sm-12">
             <div className="d-flex justify-content-between mt-3">
               <div className="">
-                <div className='d-flex justify-content-between align-items-center'>
-                  <Link href={`/res/add-item`} className='me-3'><Btn text="新增商品" /></Link>
+                <div className="d-flex justify-content-between align-items-center">
+                  <Link href={`/res/add-item`}>
+                    <button className={`${styles.addbtn} `}>新增商品</button>
+                  </Link>
 
                   <div className="mt-3">
                     <ul className="pagination">
                       <li className="page-item disabled">
-                        <a className="page-link">Previous</a>
+                        <a className="page-link">
+                          <AiOutlineArrowLeft className={styles.arrow}/>
+                        </a>
                       </li>
                       <li className="page-item">
                         <a className="page-link" href="#">
@@ -238,45 +238,87 @@ export default function Management() {
                       </li>
                       <li className="page-item">
                         <a className="page-link" href="#">
-                          Next
+                          <AiOutlineArrowRight className={styles.arrow}/>
                         </a>
                       </li>
                     </ul>
                   </div>
 
-                  {resAuth.account ? <><label className='ms-3 fw-bold'>歡迎回來，{resAuth.shop}</label> <button type='button' className='ms-3 btn btn-primary' onClick={logout}>登出</button></> : ''}
+                  {resAuth.account ? (
+                    <>
+                      <label className="ms-3 fw-bold">
+                        歡迎回來，{resAuth.shop}
+                      </label>{' '}
+                      <button
+                        type="button"
+                        className="ms-3 btn btn-primary"
+                        onClick={logout}
+                      >
+                        登出
+                      </button>
+                    </>
+                  ) : (
+                    ''
+                  )}
                 </div>
-                <div className='d-flex justify-content-between'>
-
-                  <select className='form-select mt-3 ms-3' value={itemOrder} onChange={(e) => {
-                    setItemOrder(e.target.value)
-                  }}>
-                    <option value=''>請選擇商品排序:</option>
+                <div className="d-flex justify-content-between">
+                  <select
+                    className="form-select mt-3 ms-3"
+                    value={itemOrder}
+                    onChange={(e) => {
+                      setItemOrder(e.target.value);
+                    }}
+                  >
+                    <option value="">請選擇商品排序:</option>
                     {orderOption.map((v, i) => {
-                      return <option key={i} value={v}>{v}</option>
+                      return (
+                        <option key={i} value={v}>
+                          {v}
+                        </option>
+                      );
                     })}
                   </select>
 
-                  <select value={foodCateString} onChange={matchList} className='form-select mt-3 ms-3'>
+                  <select
+                    value={foodCateString}
+                    onChange={matchList}
+                    className="form-select mt-3 ms-3"
+                  >
                     <option value="">---請選擇分類---</option>
                     {foodCateOptions.map((v, i) => {
-                      return <option key={i} value={v}>{v}</option>
+                      return (
+                        <option key={i} value={v}>
+                          {v}
+                        </option>
+                      );
                     })}
                   </select>
                 </div>
               </div>
-              <div>
-                <Input label="搜尋商品"
+              <div  className={styles.input}>
+                <Input
+               
+                  label="搜尋商品"
                   placeholder="請輸入搜尋文字"
-                  name='keyword'
+                  name="keyword"
                   value={searchKeyword}
-                  onChange={search} />
+                  onChange={search}
+                />
+              
+              <button
+                type="button"
+                className={styles.search}
+                onClick={getSearchQuery}
+              >
+                搜尋
+              </button>
               </div>
-              <button type='button' className='btn btn-primary' onClick={getSearchQuery}>搜尋</button>
             </div>
 
             <div className="">
-              <table className={`table mt-3 table-borderless rounded-5 border-black table-warning table-striped ${styles.itemTable}`}>
+              <table
+                className={`table mt-3 table-borderless rounded-5 border-black table-warning table-striped ${styles.itemTable}`}
+              >
                 <thead>
                   <tr>
                     <th scope="col" className="text-center">
@@ -312,62 +354,97 @@ export default function Management() {
                   </tr>
                 </thead>
                 <tbody>
-
                   {foodItem.map((v, i) => {
-
                     return (
                       <tr className={``} style={{ background: 'gray' }} key={i}>
                         <td className={`text-center ${styles.imgSize}`}>
-                          <img src={`${imgLink}${v.food_img}`} className={`${styles.imgSize}`}></img>
+                          <img
+                            src={`${imgLink}${v.food_img}`}
+                            className={`${styles.imgSize}`}
+                          ></img>
                         </td>
                         <td className={`text-center`}>{v.food_title}</td>
-                        <td className={`text-center`} style={{ width: '100px', overflow: 'hidden', textOverflow: 'ellipsis', 'whiteSpace': 'nowrap' }}>{v.food_des}</td>
+                        <td
+                          className={`text-center`}
+                          style={{
+                            width: '100px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {v.food_des}
+                        </td>
                         <td className="text-center">{v.food_price}</td>
                         {/* <td className="text-center">{v.foodCateToString}</td> */}
                         {/* <td className="text-center">{v.food_note}</td> */}
                         <td className={`text-center`}>{v.create_time}</td>
 
                         <td className={`text-center`}>
-                          <Link href={`/res/item-management/edit-item/${v.food_id}`}>
-                            <button type="button" className='me-3 btn btn-primary' onClick={(e) => {
-                              router.push(`/res/item-management/edit-item/${v.food_id}`)
-                            }}><AiTwotoneEdit /></button>
+                          <Link
+                            href={`/res/item-management/edit-item/${v.food_id}`}
+                          >
+                            <button
+                              type="button"
+                              className="me-3 btn btn-primary"
+                              onClick={(e) => {
+                                router.push(
+                                  `/res/item-management/edit-item/${v.food_id}`
+                                );
+                              }}
+                            >
+                              <AiTwotoneEdit />
+                            </button>
                           </Link>
                         </td>
 
-                        <td className={`text-center`}> <button type="button" className='me-3 btn btn-primary' onClick={(e) => { }}><ImBoxRemove /></button></td>
+                        <td className={`text-center`}>
+                          {' '}
+                          <button
+                            type="button"
+                            className="me-3 btn btn-primary"
+                            onClick={(e) => {}}
+                          >
+                            <ImBoxRemove />
+                          </button>
+                        </td>
                         <td className="text-center">
-                          <button type="button" className='me-3 btn btn-primary' onClick={() => {
-                            Swal.fire({
-                              title: '您確定要刪除此項商品嗎?',
-                              showDenyButton: true,
-                              showCancelButton: false,
-                              confirmButtonText: '確定刪除',
-                              denyButtonText: `取消刪除`,
-                            }).then((result) => {
-                              if (result.isConfirmed) {
-                                Swal.fire('刪除成功!', '', 'success')
-                                fetch(`http://localhost:3002/res/item-management/deleteItem/${v.food_id}`,
-                                  { method: 'DELETE', })
-                                  .then(r => r.json())
-                                  .then(data => {
-                                    console.log(data)
-                                    location.reload()
-                                  })
+                          <button
+                            type="button"
+                            className="me-3 btn btn-primary"
+                            onClick={() => {
+                              Swal.fire({
+                                title: '您確定要刪除此項商品嗎?',
+                                showDenyButton: true,
+                                showCancelButton: false,
+                                confirmButtonText: '確定刪除',
+                                denyButtonText: `取消刪除`,
+                              }).then((result) => {
+                                if (result.isConfirmed) {
+                                  Swal.fire('刪除成功!', '', 'success');
+                                  fetch(
+                                    `http://localhost:3002/res/item-management/deleteItem/${v.food_id}`,
+                                    { method: 'DELETE' }
+                                  )
+                                    .then((r) => r.json())
+                                    .then((data) => {
+                                      console.log(data);
+                                      location.reload();
+                                    });
 
-
-                                // router.push(`/res/item-management/delete-item/${v.food_id}`)
-
-                              } else if (result.isDenied) {
-                                Swal.fire('取消刪除', '', 'info')
-                              }
-                            })
-                          }}><AiTwotoneDelete /></button>
+                                  // router.push(`/res/item-management/delete-item/${v.food_id}`)
+                                } else if (result.isDenied) {
+                                  Swal.fire('取消刪除', '', 'info');
+                                }
+                              });
+                            }}
+                          >
+                            <AiTwotoneDelete />
+                          </button>
                         </td>
                       </tr>
                     );
                   })}
-
                 </tbody>
               </table>
             </div>

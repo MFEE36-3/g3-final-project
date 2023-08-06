@@ -5,18 +5,17 @@ import Input from '@/components/common/input';
 import styles from '@/components/res/item/add-item.module.css';
 import { add } from 'lodash';
 import Link from 'next/link';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
-import ResAuthContext, { } from '@/context/ResAuthContext';
+import ResAuthContext from '@/context/ResAuthContext';
 import { useContext } from 'react';
 
 export default function AddNewItem() {
+  const router = useRouter();
+  const { resAuth, setResAuth, logout } = useContext(ResAuthContext);
 
-  const router = useRouter()
-  const { resAuth, setResAuth, logout } = useContext(ResAuthContext)
-
-  const [foodCate, setFoodCate] = useState('')
-  const foodCateOptions = ['前菜', '主菜', '甜點', '飲料','湯品']
+  const [foodCate, setFoodCate] = useState('');
+  const foodCateOptions = ['前菜', '主菜', '甜點', '飲料', '湯品'];
 
   const [addItem, setAddItem] = useState({
     shop_id: null,
@@ -26,23 +25,22 @@ export default function AddNewItem() {
     foodCate: '',
     price: '',
     note: '',
-  })
+  });
 
   const handleAddItem = (e) => {
-    const newAddItem = { ...addItem, [e.target.name]: e.target.value }
-    setAddItem(newAddItem)
-  }
+    const newAddItem = { ...addItem, [e.target.name]: e.target.value };
+    setAddItem(newAddItem);
+  };
 
   // 在登入成功後設置 resAuth.id
-useEffect(() => {
-  // 假設 resAuth.id 在登入成功後會設置
-  setAddItem({ ...addItem, shop_id: resAuth.id })
-}, [resAuth.id])
+  useEffect(() => {
+    // 假設 resAuth.id 在登入成功後會設置
+    setAddItem({ ...addItem, shop_id: resAuth.id });
+  }, [resAuth.id]);
 
-
-  const [getImg, setGetImg] = useState(null)
-  const fileUrl = 'http://localhost:3002/res/foodItemPreviewImg'
-  const imgLink = 'http://localhost:3002/img/res-img/'
+  const [getImg, setGetImg] = useState(null);
+  const fileUrl = 'http://localhost:3002/res/foodItemPreviewImg';
+  const imgLink = 'http://localhost:3002/img/res-img/';
 
   // http://localhost:3002/img/img1.jpg
 
@@ -54,23 +52,24 @@ useEffect(() => {
     fetch(fileUrl, {
       method: 'POST',
       body: fd,
-    }).then((r) => r.json())
+    })
+      .then((r) => r.json())
       .then((data) => {
         console.log(data);
         setGetImg(data.filename);
       });
   };
-  console.log(getImg)
+  console.log(getImg);
 
   const handlePhoto = () => {
-    setAddItem({ ...addItem, photo: getImg })
-  }
+    setAddItem({ ...addItem, photo: getImg });
+  };
 
   // 新增商品的驗證
 
   useEffect(() => {
-    handlePhoto()
-  }, [getImg])
+    handlePhoto();
+  }, [getImg]);
 
   const originErrors = {
     shop_id: 1,
@@ -80,39 +79,38 @@ useEffect(() => {
     foodCate: '',
     price: '',
     note: '',
-  }
-  const [errors, setErrors] = useState(originErrors)
+  };
+  const [errors, setErrors] = useState(originErrors);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const newErrors = { ...originErrors }
+    const newErrors = { ...originErrors };
 
-    let isPass = true
+    let isPass = true;
 
     if (!addItem.name) {
-      newErrors.name = '請填入商品名稱'
-      isPass = false
+      newErrors.name = '請填入商品名稱';
+      isPass = false;
     }
 
     if (!addItem.description) {
-      newErrors.description = '請填入商品敘述'
-      isPass = false
+      newErrors.description = '請填入商品敘述';
+      isPass = false;
     }
 
     if (!addItem.foodCate) {
-      newErrors.foodCate = '請選擇商品分類'
-      isPass = false
+      newErrors.foodCate = '請選擇商品分類';
+      isPass = false;
     }
 
     if (!addItem.price) {
-      newErrors.price = '請填入商品價格'
-      isPass = false
+      newErrors.price = '請填入商品價格';
+      isPass = false;
     }
-    setErrors(newErrors)
+    setErrors(newErrors);
 
     if (isPass) {
-
       Swal.fire({
         title: '你確定要新增此項商品嗎?',
         showDenyButton: true,
@@ -121,28 +119,26 @@ useEffect(() => {
         denyButtonText: `取消新增`,
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire('新增成功!', '', 'success')
+          Swal.fire('新增成功!', '', 'success');
           fetch('http://localhost:3002/res/add-item', {
             method: 'POST',
             body: JSON.stringify(addItem),
             headers: {
-              'Content-Type': 'application/json'
-            }
+              'Content-Type': 'application/json',
+            },
           })
-            .then(r => r.json())
-            .then(data => {
+            .then((r) => r.json())
+            .then((data) => {
               console.log(data);
-            })
-            // location.reload()
-          router.push('/res/add-item-over')
+            });
+          // location.reload()
+          router.push('/res/add-item-over');
         } else if (result.isDenied) {
-          Swal.fire('取消新增', '', 'info')
+          Swal.fire('取消新增', '', 'info');
         }
-      })
-
-
+      });
     }
-  }
+  };
 
   return (
     <>
@@ -156,7 +152,10 @@ useEffect(() => {
       </style>
       <div className="container d-flex justify-content-center">
         <div>
-          <div className="card p-5 rounded-3 border-black border-3" style={{ backgroundColor: '#FFE2E2' }}>
+          <div
+            className="card p-5 rounded-3 border-black border-3"
+            style={{ backgroundColor: '#FFE2E2' }}
+          >
             <div className="card-title d-flex justify-content-center fw-bold fs-5">
               <Btn text="新增商品" />
               <Link href={`/res/item-management`}>
@@ -168,98 +167,153 @@ useEffect(() => {
               <div className="card-body d-flex flex-column justify-content-center align-items-center">
                 <div className={`${styles.uploadImg}`}>
                   <div className="d-flex align-items-center fw-bold fs-5">
-
                     <div>
-                      <img src={`${imgLink}${getImg}`} style={{ height: '400px', width: '400px', overflow: 'static', border: '10px' }} />
+                      <img
+                        src={`${imgLink}${getImg}`}
+                        style={{
+                          height: '400px',
+                          width: '400px',
+                          overflow: 'static',
+                          border: '10px',
+                        }}
+                      />
                     </div>
-
                   </div>
                 </div>
 
+                <input
+                  type="file"
+                  name="preImg"
+                  id="preImg"
+                  className="mt-3"
+                  accept="image/jpeg, image/png"
+                  onChange={previewImg}
+                ></input>
 
-                <input type="file" name='preImg' id='preImg' className='mt-3' accept="image/jpeg, image/png" onChange={previewImg}></input>
-
-
-                <div className='name mx-5 mt-3 d-flex justify-content-start align-items-center'>
-                  <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>商品名稱</div>
+                <div className="name mx-5 mt-3 d-flex justify-content-start align-items-center">
+                  <div
+                    htmlFor="shop_name"
+                    className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3"
+                    style={{ width: '150px', backgroundColor: '#FCC8A1' }}
+                  >
+                    商品名稱
+                  </div>
                   <input
                     type="text"
                     className="form-control border-black"
                     id="name"
                     placeholder="請輸入商品名稱:"
-                    name='name'
+                    name="name"
                     value={addItem.name}
                     onChange={handleAddItem}
                   />
                 </div>
 
-                <div className='error fs-5 fw-bold'>{errors.name}</div>
+                <div className="error fs-5 fw-bold">{errors.name}</div>
 
-                <div className='name mx-5 mt-3 d-flex justify-content-start align-items-center'>
-                  <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>商品敘述</div>
+                <div className="name mx-5 mt-3 d-flex justify-content-start align-items-center">
+                  <div
+                    htmlFor="shop_name"
+                    className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3"
+                    style={{ width: '150px', backgroundColor: '#FCC8A1' }}
+                  >
+                    商品敘述
+                  </div>
                   <textarea
                     type="text"
                     className="form-control border-black"
                     id="name"
                     placeholder="請輸入商品敘述:"
-                    name='description'
+                    name="description"
                     value={addItem.description}
                     onChange={handleAddItem}
                   />
                 </div>
-                <div className='error fs-5 fw-bold'>{errors.description}</div>
+                <div className="error fs-5 fw-bold">{errors.description}</div>
 
-                <div className='mt-3 mx-5 mt-3 d-flex justify-content-start align-items-center'>
-                  <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>商品分類</div>
-                  <select name='foodCate' value={addItem.foodCate} onChange={(e) => {
-                    setAddItem({ ...addItem, foodCate: e.target.value })
-                  }} >
+                <div className="mt-3 mx-5 mt-3 d-flex justify-content-start align-items-center">
+                  <div
+                    htmlFor="shop_name"
+                    className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3"
+                    style={{ width: '150px', backgroundColor: '#FCC8A1' }}
+                  >
+                    商品分類
+                  </div>
+                  <select
+                    name="foodCate"
+                    value={addItem.foodCate}
+                    onChange={(e) => {
+                      setAddItem({ ...addItem, foodCate: e.target.value });
+                    }}
+                  >
                     <option value={''}>---請選擇商品分類---</option>
                     {foodCateOptions.map((v, i) => {
-                      return <option key={i} value={v}>{v}</option>
+                      return (
+                        <option key={i} value={v}>
+                          {v}
+                        </option>
+                      );
                     })}
                   </select>
                 </div>
 
-                <div className='error fs-5 fw-bold'>{errors.foodCate}</div>
+                <div className="error fs-5 fw-bold">{errors.foodCate}</div>
 
-                <div className='price mx-5 mt-3 d-flex justify-content-start align-items-center'>
-                  <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>商品價格</div>
+                <div className="price mx-5 mt-3 d-flex justify-content-start align-items-center">
+                  <div
+                    htmlFor="shop_name"
+                    className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3"
+                    style={{ width: '150px', backgroundColor: '#FCC8A1' }}
+                  >
+                    商品價格
+                  </div>
                   <input
                     type="text"
                     className="form-control border-black"
                     id="name"
                     placeholder="請輸入商品價格:"
-                    name='price'
+                    name="price"
                     value={addItem.price}
                     onChange={handleAddItem}
                   />
                 </div>
-                <div className='error fs-5 fw-bold'>{errors.price}</div>
+                <div className="error fs-5 fw-bold">{errors.price}</div>
 
-                <div className='note mx-5 mt-3 d-flex justify-content-start align-items-center'>
-                  <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>商品備註</div>
+                <div className="note mx-5 mt-3 d-flex justify-content-start align-items-center">
+                  <div
+                    htmlFor="shop_name"
+                    className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3"
+                    style={{ width: '150px', backgroundColor: '#FCC8A1' }}
+                  >
+                    商品備註
+                  </div>
                   <textarea
                     type="text"
                     className="form-control border-black"
                     id="name"
                     placeholder="請輸入商品備註:"
-                    name='note'
+                    name="note"
                     value={addItem.note}
                     onChange={handleAddItem}
                   />
                 </div>
 
-
-
                 <div className="d-flex justify-content-between mt-3">
                   <div>
                     {/* <Btn text="確認送出" /> */}
-                    <input className="btn btn-warning me-3 border border-black" type="submit" value="確認新增" />
+                    <input
+                      className="btn btn-warning me-3 border border-black"
+                      type="submit"
+                      value="確認新增"
+                    />
                   </div>
                   <div>
                     {/* <Btn text="取消填寫" /> */}
-                    <input className="btn btn-warning mx-3 border border-black" type="reset" value="取消新增" />
+                    <input
+                      className="btn btn-warning mx-3 border border-black"
+                      type="reset"
+                      value="取消新增"
+                    />
                   </div>
                 </div>
               </div>

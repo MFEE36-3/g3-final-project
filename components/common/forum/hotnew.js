@@ -26,12 +26,13 @@ export default function Hotnew() {
       console.log('沒有帳號')
       Swal.fire({
         title: '您尚未登入',
-        text: "要登入以編輯網站嗎?",
+        text: "登入即可新增文章",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: '帶我去登入'
+        confirmButtonText: '登入',
+        cancelButtonText:'取消登入'
       }).then((result) => {
         if (result.isConfirmed) {
           router.push('/login')
