@@ -532,8 +532,8 @@ export default function RegisterForm() {
                   />
                   <button
                     type="button"
-                    className={styles.btn}
-                    style={{ fontSize: '12px' }}
+                    className={styles.passwordbtn}
+                    // style={{ fontSize: '12px' }}
                     onClick={toggleShowPassword}
                   >
                     {showPassword ? '隱藏密碼' : '顯示密碼'}
@@ -767,7 +767,7 @@ export default function RegisterForm() {
                   >
                     <input
                       type="text"
-                      className="form-control border-black"
+                      className={`${styles.input} form-control`}
                       id="fulladdress"
                       placeholder="請填入完整地址"
                       name="fulladdress"
@@ -777,7 +777,7 @@ export default function RegisterForm() {
                     <div className="mx-2">-</div>
                     <input
                       type="text"
-                      className="form-control border-black"
+                      className={`${styles.input} form-control`}
                       placeholder="請填入完整地址123"
                       name="fulladdress1"
                       value={shop.fulladdress1}
@@ -892,7 +892,7 @@ export default function RegisterForm() {
                 <div className={`d-flex flex-row my-3 ${styles.openDays}`}>
                   <button
                     type="button"
-                    className="form-label  btn btn-primary rounded-3 px-3 py-2 fw-bold me-5"
+                    className={`${styles.btn} form-label  px-4 py-3  me-5`}
                     // style={{ backgroundColor: '#FCC8A1' }}
                     onClick={(e) => {
                       setSwitchTable('normal');
@@ -904,7 +904,7 @@ export default function RegisterForm() {
 
                   <button
                     type="button"
-                    className="form-label  btn btn-primary rounded-3 px-3 py-2 fw-bold ms-1"
+                    className={`${styles.btn} form-label  px-4 py-3  me-5`}
                     // style={{ backgroundColor: '#FCC8A1' }}
                     onClick={(e) => {
                       setSwitchTable('advance');
@@ -942,7 +942,7 @@ export default function RegisterForm() {
                       </select>
                       <input
                         type="text"
-                        className="form-control border-black"
+                        className={`${styles.tableinput} form-control`}
                         id="shop_tables"
                         placeholder="請填入桌數"
                         name="table_number"
@@ -953,8 +953,7 @@ export default function RegisterForm() {
 
                     <div>
                       <button
-                        className="form-label border border-black rounded-3 px-3 py-1 fw-bold ms-1 mt-3"
-                        style={{ backgroundColor: '#FCC8A1' }}
+                        className={`${styles.btn} form-label rounded-3 px-3 py-2 fw-bold ms-1 mt-3`}
                         onClick={(e) => {
                           // addTable.createElement('<select>')
                         }}
@@ -966,11 +965,11 @@ export default function RegisterForm() {
                 )}
               </div>
 
-              <div className="d-flex justify-content-between mt-3 mx-5">
-                <div className="justify-content-between d-flex align-items-center">
+              <div className={`${styles.verifyinput} mx-5`}>
+                <div className="d-flex align-items-center">
                   <input
                     type="text"
-                    className="form-control border-black"
+                    className={`${styles.input} form-control`}
                     id="shop_verify-num"
                     name="sixDigitCode"
                     value={code.sixDigitCode}
@@ -985,7 +984,7 @@ export default function RegisterForm() {
                   />
                   <button
                     type="button"
-                    className="form-label btn btn-primary rounded-3 px-3 py-1 fw-bold ms-1 mt-3"
+                    className={`${styles.verifybtn} form-label  py-2 ms-3`}
                     // style={{ backgroundColor: '#FCC8A1' }}
                     onClick={sendVerifyCodeEmail}
                   >
@@ -1012,14 +1011,14 @@ export default function RegisterForm() {
               <div className="d-flex justify-content-center">
                 <button
                   type="submit"
-                  className="btn btn-primary my-3 mx-3"
+                  className={`${styles.add}`} 
                   onSubmit={handleSubmit}
                   onClick={handleSubmit}
                 >
                   確認送出
                 </button>
 
-                <button type="reset" className="btn btn-danger my-3 mx-3">
+                <button type="reset" className={`${styles.cancel}`}>
                   取消填寫
                 </button>
               </div>
