@@ -7,8 +7,10 @@ import Newnav from '@/components/common/news/new_nav';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
+import AuthContext from '@/context/AuthContext';
 
 export default function Add() {
+  const { auth } = useContext(AuthContext);
   const router = useRouter();
   const [header, setHeader] = useState('');
   const [content, setContent] = useState('');
@@ -20,7 +22,7 @@ export default function Add() {
     setImg(URL.createObjectURL(e.target.files[0]));
     const formData = new FormData();
     formData.append('preImg', file);
-    formData.append('user_id', 3); // 添加 user_id
+    formData.append('user_id', auth.sid); // 添加 user_id
     formData.append('header', header); // 添加文章標題
     formData.append('content', content); // 添加內容
 
