@@ -86,7 +86,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 300px;
+  width: 450px;
 }
 
 .area1 {
@@ -152,7 +152,6 @@
   display: flex;
   justify-content: space-between;
   margin: 50px;
-  border-bottom: #911010 2px solid;
   padding: 10px;
 }
 

@@ -3,14 +3,11 @@ import AuthContext from '@/context/AuthContext';
 import Image from 'next/image';
 import { v4 } from 'uuid';
 import styles from './mem-actMail.module.css';
-import MemMailDetail from './mem-mailDetail';
 
 export default function MemActMail() {
   const { auth } = useContext(AuthContext);
   const [mail, setMail] = useState([]);
   const [showDetail, setShowDetail] = useState([]);
-  const [data, setData] = useState({});
-  const [doRerender, setDoRerender] = useState(false);
 
   useEffect(() => {
     const str = localStorage.getItem('auth');
@@ -94,8 +91,14 @@ export default function MemActMail() {
                     {showDetail?.map((s) => {
                       return (
                         <div key={v4()} className={styles.hideArea}>
-                          <div className={styles.td3}>品項 : {s.item_name}</div>
-                          <div className={styles.td2}>數量 : {s.amount}</div>
+                          <img
+                            src={s.img_url}
+                            alt=""
+                            width={60}
+                            height={60}
+                          ></img>
+                          <div className={styles.td3}>{s.item_name}</div>
+                          <div className={styles.td2}>x{s.amount}</div>
                           <div className={styles.td2}>{s.price}元</div>
                         </div>
                       );

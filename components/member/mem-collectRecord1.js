@@ -82,11 +82,13 @@ export default function MemCollectReocrd1({ forum }) {
                   {row.publishedTime.substring(0, 10)}
                 </TableCell>
 
-                <div className={styles.link}>
-                  <Link href={'http://localhost:3000/forum/' + row.forum_sid}>
-                    GO
-                  </Link>
-                </div>
+                <Link
+                  className={styles.link}
+                  style={{ color: 'white' }}
+                  href={'http://localhost:3000/forum/' + row.forum_sid}
+                >
+                  GO
+                </Link>
               </TableRow>
             );
           })}

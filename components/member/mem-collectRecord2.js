@@ -82,14 +82,13 @@ export default function MemCollectReocrd2({ store }) {
                 {row.restaurant_rating}
               </TableCell>
 
-              <div style={{ color: 'white' }}>
-                <Link
-                  href={'http://localhost:3000/reservation/' + row.sid}
-                  className={styles.link2}
-                >
-                  GO
-                </Link>
-              </div>
+              <Link
+                href={'http://localhost:3000/reservation/' + row.sid}
+                className={styles.link2}
+                style={{ color: 'white' }}
+              >
+                GO
+              </Link>
             </TableRow>
           ))}
         </TableBody>
