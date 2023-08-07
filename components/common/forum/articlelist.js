@@ -66,7 +66,7 @@ export default function Articlelist({
           setMemberLike(data);
         });
     }
-  }, [auth]);
+  }, [auth.account]);
 
   console.log(memberLike);
 
@@ -107,8 +107,6 @@ export default function Articlelist({
         text: '需要登入即可按喜歡！',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
         confirmButtonText: '登入',
         cancelButtonText: '取消登入',
       }).then((result) => {
@@ -138,8 +136,6 @@ export default function Articlelist({
         text: '需要登入即可按喜歡！',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
         confirmButtonText: '登入',
         cancelButtonText: '取消登入',
       }).then((result) => {
