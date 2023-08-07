@@ -44,9 +44,45 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
     };
 
     return (
-        <div style={{ width: "600px", display: "flex", justifyContent: "center" }}>
+        <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateCalendar
+                    sx={{
+                        '&.MuiDateCalendar-root': {
+                            width: '600px',
+                        },
+                        '& .MuiPickersCalendarHeader-root': {
+                            padding: '0px 2px 0px 10px',
+                        },
+                        '& .MuiDayCalendar-header': {
+                            width: '600px',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                        },
+                        '& .MuiDayCalendar-weekContainer': {
+                            width: '600px',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                        },
+                        '& .MuiPickersDay-root': {
+                            color: '#911010',
+                            fontSize: '20px',
+                            borderRadius: '20px',
+                        },
+                        '& .Mui-selected': {
+                            color: 'white',
+                            background: '#911010',
+                            '&:focus': {
+                                background: '#911010',
+                            },
+                            '&:active': {
+                                background: '#911010',
+                            },
+                        },
+
+                    }}
+
+
                     shouldDisableDate={shouldDisableDate} // 禁用日期
                     // value={date}
                     onChange={handleDateChange}

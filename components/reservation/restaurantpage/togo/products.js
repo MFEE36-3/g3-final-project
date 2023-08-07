@@ -80,6 +80,23 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
     // 將選中的商品資訊存儲在狀態中
 
     const handleAddToCart = (item) => {
+        const member = JSON.parse(localStorage.getItem('auth'));
+        console.log(member)
+        //檢查是否登入
+        // if (member.sid === 0) {
+        //     Swal.fire({
+        //         title: '請先登入',
+        //         icon: 'warning',
+        //         showDenyButton: true,
+        //         showCancelButton: false,
+        //         confirmButtonText: '前往登入',
+        //         denyButtonText: '我再想想',
+        //     }).then(
+        //         function (result) {
+        //             if (result.value) router.push('/login')
+        //         });
+        //     return;
+        // }
 
         if (!togodate || !togotime) {
             Swal.fire({

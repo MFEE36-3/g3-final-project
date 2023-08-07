@@ -28,7 +28,7 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
     const member = JSON.parse(localStorage.getItem('auth'));
     setReservationData(prev => {
       return {
-        id: member.sid || 0,
+        id: member?.sid || 0,
         shop_id: row.detail.sid,
         date: date,
         time: time,
