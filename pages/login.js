@@ -21,6 +21,7 @@ import BlankLayout from '@/components/layout/blank-layout';
 import MemLoginBtn from '@/components/member/mem-loginBtn';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
+import AuthContext from '@/context/AuthContext';
 
 function Copyright(props) {
   return (
@@ -43,6 +44,8 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 const Login = () => {
+  const { auth, setAuth } = useContext(AuthContext);
+
   //引入useRouter，之後切換頁面時使用
   const router = useRouter();
 
@@ -69,12 +72,13 @@ const Login = () => {
         if (data.success) {
           const obj = { ...data.data };
           localStorage.setItem('auth', JSON.stringify(obj));
-          Swal.fire('登入成功!', '', 'success');
+          Swal.fire({ title: '登入成功', timer: 1500, icon: 'success' });
+          // setAuth(localStorage.getItem(auth));
           setTimeout(() => {
             router.back();
-          }, 2000);
+          }, 1500);
         } else {
-          alert('帳號或密碼錯誤');
+          Swal.fire({ title: '帳號或密碼錯誤', timer: 1500 });
         }
       });
   };
@@ -98,12 +102,7 @@ const Login = () => {
 
   const resHandleSubmit = async (event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-    fetch('http://localhost:3003/res-login', {
+    fetch('http://localhost:3002/res-login', {
       method: 'POST',
       body: JSON.stringify(loginInfo),
       headers: {
@@ -148,7 +147,9 @@ const Login = () => {
     <div className={styles.container}>
       <div>
         <div className={styles.logintext}>選擇登入身分</div>
-        <MemLoginBtn change={change} setChange={setChange} />
+        <div className={styles.littleBox}>
+          <MemLoginBtn change={change} setChange={setChange} />
+        </div>
       </div>
 
       <div className={styles.area2}>
@@ -174,7 +175,7 @@ const Login = () => {
                   <Typography
                     component="h1"
                     variant="h5"
-                    className={styles.text}
+                    sx={{ fontFamily: 'var(--ff1)', color: '#921010' }}
                   >
                     廠商登入
                   </Typography>
@@ -253,7 +254,11 @@ const Login = () => {
                         </Link>
                       </Grid>
                       <Grid item>
-                        <Link href="#" variant="body2" className={styles.text}>
+                        <Link
+                          href="/res/res-register-form"
+                          variant="body2"
+                          className={styles.text}
+                        >
                           {'尚未註冊?'}
                         </Link>
                       </Grid>
@@ -286,7 +291,7 @@ const Login = () => {
                   <Typography
                     component="h1"
                     variant="h5"
-                    className={styles.text}
+                    sx={{ fontFamily: 'var(--ff1)', color: '#921010' }}
                   >
                     會員登入
                   </Typography>

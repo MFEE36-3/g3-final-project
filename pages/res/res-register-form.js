@@ -14,6 +14,6 @@ export default function RegisterForm() {
   );
 }
 
-RegisterForm.getLayout = BlankLayout
+// RegisterForm.getLayout = BlankLayout
 
 

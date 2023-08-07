@@ -1,0 +1,67 @@
+.open_title {
+    text-align: center;
+    color: var(--main-color);
+    font-family: var(--ff1);
+    font-size: var(--h4);
+    border-bottom: 2px solid var(--main-color);
+    padding: 10px 0 0 0;
+    margin: 0 20px 0 20px;
+}
+
+.buyforme_tabletitle {
+    font-size: var(--h4);
+    color: var(--main-color);
+    font-family: var(--ff1);
+    border-bottom: 2px solid var(--main-color);
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    /* letter-spacing: 30px; */
+}
+
+.buyforme_table th {
+    position: sticky;
+    top: 0;
+    vertical-align: middle;
+    color: var(--main-color);
+    font-family: var(--ff1);
+}
+
+
+.buyforme_table>thead>tr {
+    height: 45px;
+    position: relative;
+}
+
+
+.buyforme_table {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.buyforme_table th,
+.buyforme_table td {
+    font-size: var(--h8);
+    font-weight: 600;
+}
+
+.buyforme_table .overlength_td {
+    font-size: var(--h9);
+}
+
+.open_tr>td {
+    background-color: var(--sub-color);
+}
+
+.detail_tr>td {
+    font-size: var(--h10);
+    background-color: #efefef;
+    padding: 5px
+}
+
+.amount {
+    color: var(--main-color);
+    font-size: var(--h8);
+    font-family: var(--ff1);
+}

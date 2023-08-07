@@ -7,16 +7,19 @@ import { add } from 'lodash';
 import Link from 'next/link';
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router';
+import ResAuthContext, { } from '@/context/ResAuthContext';
+import { useContext } from 'react';
 
 export default function AddNewItem() {
 
   const router = useRouter()
+  const { resAuth, setResAuth, logout } = useContext(ResAuthContext)
 
   const [foodCate, setFoodCate] = useState('')
   const foodCateOptions = ['前菜', '主菜', '甜點', '飲料','湯品']
 
   const [addItem, setAddItem] = useState({
-    shop_id: 151,
+    shop_id: null,
     photo: '',
     name: '',
     description: '',
@@ -30,12 +33,18 @@ export default function AddNewItem() {
     setAddItem(newAddItem)
   }
 
+  // 在登入成功後設置 resAuth.id
+useEffect(() => {
+  // 假設 resAuth.id 在登入成功後會設置
+  setAddItem({ ...addItem, shop_id: resAuth.id })
+}, [resAuth.id])
+
 
   const [getImg, setGetImg] = useState(null)
-  const fileUrl = 'http://localhost:3003/previewImg'
-  const imgLink = 'http://localhost:3003/img/'
+  const fileUrl = 'http://localhost:3002/res/foodItemPreviewImg'
+  const imgLink = 'http://localhost:3002/img/res-img/'
 
-  // http://localhost:3003/img/img1.jpg
+  // http://localhost:3002/img/img1.jpg
 
   const previewImg = async (e) => {
     e.preventDefault();
@@ -113,7 +122,7 @@ export default function AddNewItem() {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire('新增成功!', '', 'success')
-          fetch('http://localhost:3003/res/add-item', {
+          fetch('http://localhost:3002/res/add-item', {
             method: 'POST',
             body: JSON.stringify(addItem),
             headers: {

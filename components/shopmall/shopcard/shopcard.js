@@ -28,6 +28,7 @@ const Inputborder = styled.input`
     outline:none
   }
 `
+
 const ShopCardContainer = styled.div`
   display: grid;
   grid-template-columns: 22% 22% 22% 22%;
@@ -71,8 +72,6 @@ export default function ShopCard() {
   const [num, setNum] = useState(1)
   const [verify, setVerify] = useState(false)
   const [userCart, setUserCart] = useLocalStorage("shop",  {})
-  // const [user, setUser] = useLocalStorage('auth', {})
-  // {subscribe:[], buy:[], order:[], shop:[]}
   useEffect(()=>{
     if(token === null) return
     if(token.token) setVerify(true)
@@ -81,12 +80,6 @@ export default function ShopCard() {
     setSelectedItem(item)
     setOpen(true)
     setNum(1)
-    // setUser({
-    //   sid: 1,
-    //   account: "123456",
-    //   nickname: "皮卡丘的朋友",
-    //   token: true,
-    // })
   };
   const handleClose = () => setOpen(false);
   const plus = () => {
@@ -111,7 +104,7 @@ export default function ShopCard() {
       }
     }).then(result => {
       if(result.isConfirmed){
-        window.location.href = 'http://localhost:3001/login'
+        window.location.href = 'http://localhost:3000/login'
       }
     })
   }
@@ -119,7 +112,8 @@ export default function ShopCard() {
     {verify === false && 
     <div style={{ zIndex: 9999 }}>
     {loginAlert()}
-    </div>}
+    </div>
+    }
     setOpen(false)
     if(verify === false) return
     const itemInfo = {
@@ -129,20 +123,30 @@ export default function ShopCard() {
       price: item.price,
       amount: num,
     };
-    // setUserCart((prevUserCart) => {
-    //     console.log(prevUserCart)
-    //     let cart = {
-    //       ...prevUserCart,
-    //       shopCart: [...prevUserCart.shopCart,itemInfo],
-    //     }
-    //     return cart;
-    // })
+    const newItemAmount = (userCart[item.item_id]?.amount || 0) + num;
     setUserCart({
       ...userCart,
-      [item.item_id]: itemInfo  
+      [item.item_id]: {
+        ...itemInfo,
+        amount: newItemAmount,
       }
-    )
-     
+    })
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title: '商品已成功加入購物車囉'
+    })
   }
   
   const remain = 10
@@ -187,28 +191,30 @@ export default function ShopCard() {
                 <img src={selectedItem.img_url} className='w-100 h-100' ></img>
               </div>
               <div className='col-5 h-100'>
-              <Typography id="modal-modal-title" variant="h4" component="h2" className='h-25 d-flex justify-content-center pt-3'>
-                {selectedItem.item_name}
-                </Typography>
-                <Typography id="modal-modal-description" variant="h5" className='d-flex flex-column justify-content-between h-75'>
-                  <div className='d-flex justify-content-between mt-5'>
-                    <div className='fs-1 text-danger'>售價: {selectedItem.price}</div>
+                <Typography id="modal-modal-title" variant="h4" component="h2" className='h-100 d-flex flex-column justify-content-between pt-3 ' style={{fontSize:"32px"}}>
+                  <div>
+                    {selectedItem.item_name}
                   </div>
-                  <div className='d-flex w-100 flex-column align-items-end'>
+                  <div className='d-flex justify-content-between '>
+                    <div className='fs-3 text-danger'>售價: {selectedItem.price}</div>
+                  </div>
+                  <div className='d-flex flex-column justify-content-between'>
+                    <div className='d-flex w-100 flex-column align-items-end fs-5 h-100'>
                       <div>廠商: {selectedItem.factory_name}</div>
                       <div>庫存: {remain} 件</div>
                     </div>
-                  <div className='position-relative'>
-                    <div className='w-75 d-flex align-items-center mx-auto border border-secondary border-2 justify-content-center rounded-5 mb-4 position-relative'>
-                    <Button variant="text" className='p-0 h-100 rounded-start-5 text-danger' onClick={minus}>
-                      <AiOutlineMinus className='fs-1 p-1'/>
-                    </Button>
-                    <Inputborder className='w-50 fs-3 border-0 text-center mx-5' value={num} readOnly></Inputborder>
-                    <Button variant="text" className='p-0 rounded-end-5 text-danger' onClick={plus}>
-                      <AiOutlinePlus className='fs-1 p-1'/>
-                    </Button>
+                    <div>
+                      <div className='w-75 d-flex align-items-center mx-auto border border-secondary border-2 justify-content-center mt-1 rounded-5 mb-4 position-relative'>
+                        <Button variant="text" className='p-0 h-100 rounded-start-5 text-danger' onClick={minus}>
+                          <AiOutlineMinus className='fs-1 p-1'/>
+                        </Button>
+                        <Inputborder className='w-50 fs-3 border-0 text-center mx-5' value={num} readOnly></Inputborder>
+                        <Button variant="text" className='p-0 rounded-end-5 text-danger' onClick={plus}>
+                          <AiOutlinePlus className='fs-1 p-1'/>
+                        </Button>
+                      </div>
+                      <Button variant="text" className='border-0 rounded-3 w-100 text-light fs-3' style={{background:"#911010"}} onClick={()=>handleCart(selectedItem)}>加入購物車</Button>
                     </div>
-                    <Button variant="text" className='border-0 rounded-3 w-100 text-light fs-3' style={{background:"#911010"}} onClick={()=>handleCart(selectedItem)}>加入購物車</Button>
                   </div>
                 </Typography>
               </div>

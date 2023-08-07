@@ -1,14 +1,24 @@
+.body {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  font-family: var(--ff1);
+}
+
 .area1 {
   font-size: 18px;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   border-radius: 15px;
-  background-color: #ffffff;
-  border: 2px solid #921010;
-  margin-bottom: 60px;
+  margin-bottom: 200px;
   font-weight: 800;
   margin-top: 40px;
   height: 600px;
@@ -30,6 +40,16 @@
 }
 
 .scrollArea {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: -30px;
+  margin-bottom: 30px;
+}
+
+.scrollArea2 {
   width: 100%;
   display: flex;
   justify-content: space-around;

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import CardContainer from './CardContainer'
 import Payment from './Payment'
 import CheckOutMember from './CheckOutMember'
-import PaymentBody from './PaymentBody'
 import CheckOutTotalPrice from './CheckOutTotalPrice'
 import SendAddress from './SendAddress'
 export default function CheckoutRight() {

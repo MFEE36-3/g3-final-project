@@ -1,22 +1,11 @@
 import React from 'react';
-import Image from 'next/image';
 import styles from './mem-couponCard.module.css';
 
-export default function MemCouponCard({ src, name, content, money, time }) {
+export default function MemCouponCard({ name, money, time }) {
   return (
     <div className={styles.card}>
-      {/* <div className={styles.boxImg}>
-        <Image
-          src={src}
-          width={60}
-          height={100}
-          style={{ objectFit: 'cover' }}
-          className={styles.boxImg2}
-          alt=""
-        />
-      </div> */}
       <div className={styles.money}>
-        <div> </div> <div className={styles.detail}>{money}</div>
+        <div className={styles.detail}>{money}</div>
       </div>
       <div>
         <div className={styles.box}>

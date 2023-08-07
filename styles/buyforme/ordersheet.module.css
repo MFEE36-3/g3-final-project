@@ -127,3 +127,24 @@
 .buy_footer td:nth-child(1) {
     font-family: var(--ff1);
 }
+
+/* --------------RWD---------------- */
+
+@media screen and (max-width: 576px) {
+    .food_right_box {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        margin-left: 10px;
+        justify-content: space-between;
+    }
+
+    .food_img {
+        width: 40%;
+        height: 120px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 5px;
+    }
+}

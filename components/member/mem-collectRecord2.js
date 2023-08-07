@@ -6,11 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import styles from './mem-moneyReocrdTable.module.css';
 import Image from 'next/image';
 import { v4 } from 'uuid';
 
 export default function MemCollectReocrd2({ store }) {
+  const rowStyle = {
+    height: '90px',
+  };
+
   const ceilStyle = {
     minWidth: 80,
     color: '#921010',
@@ -26,14 +29,23 @@ export default function MemCollectReocrd2({ store }) {
   };
 
   return (
-    <TableContainer component={Paper} className={styles.body}>
+    <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow className={styles.row}>
-            <TableCell sx={ceilStyle}>店家</TableCell>
-            <TableCell sx={ceilStyle}>地址</TableCell>
-            <TableCell sx={ceilStyle}>照片</TableCell>
-            <TableCell align="right" sx={ceilStyle}>
+          <TableRow sx={rowStyle}>
+            <TableCell align="center" sx={ceilStyle}>
+              店家
+            </TableCell>
+
+            <TableCell align="center" sx={ceilStyle}>
+              照片
+            </TableCell>
+
+            <TableCell align="center" sx={ceilStyle}>
+              地址
+            </TableCell>
+
+            <TableCell align="center" sx={ceilStyle}>
               評分
             </TableCell>
           </TableRow>
@@ -44,12 +56,10 @@ export default function MemCollectReocrd2({ store }) {
               key={v4()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" sx={tdStyle}>
+              <TableCell align="center" component="th" scope="row" sx={tdStyle}>
                 {row.restaurant_name}
               </TableCell>
-
-              <TableCell sx={tdStyle}>{row.restaurant_location}</TableCell>
-              <TableCell sx={tdStyle}>
+              <TableCell align="center" sx={tdStyle}>
                 <Image
                   src={
                     'http://localhost:3002/img/shops/' + row.restaurant_photo
@@ -59,7 +69,10 @@ export default function MemCollectReocrd2({ store }) {
                   alt=""
                 />
               </TableCell>
-              <TableCell align="right" sx={tdStyle}>
+              <TableCell align="center" sx={tdStyle}>
+                {row.restaurant_location}
+              </TableCell>
+              <TableCell align="center" sx={tdStyle}>
                 {row.restaurant_rating}
               </TableCell>
             </TableRow>

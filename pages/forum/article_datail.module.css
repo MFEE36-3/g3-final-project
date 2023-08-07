@@ -1,12 +1,28 @@
 .top{
     margin-top: 40px;
 }
-.vatar{
+.flex{
+    display: flex;
+}
+.nickname{
+    margin-top: 20px;
+    font-family: var(--ff2);
+    font-size: var(--h5);
+}
+.avatar{
+    background-color: red;
     width: 32px;
     height: 32px;
-    background-color: red;
     border-radius: 50%;
-    margin-top: 40px;
+    margin-right: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.avatar img{
+    width: 100%;
+    height: 100%;
 }
 .ptext{
     font-size: var(--h4);

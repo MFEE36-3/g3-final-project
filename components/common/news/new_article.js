@@ -11,7 +11,7 @@ export default function Article() {
   const imgPreview = `http://localhost:3002/img/news_photo/`;
 
   const connect = async (e) => {
-    fetch('http://localhost:3002/news2/rand')
+    fetch('http://localhost:3002/news/rand')
       .then((r) => r.json())
       .then((data) => {
         // data.rows; // array

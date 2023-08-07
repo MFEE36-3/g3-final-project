@@ -19,7 +19,7 @@ export default function AddNewItem() {
   console.log('itemId:'+itemId)  
 
   const getSingleItem = async () => {
-    fetch(`http://localhost:3003/res/item-management/editItem/${itemId}`,{
+    fetch(`http://localhost:3002/res/item-management/editItem/${itemId}`,{
       method:'GET'
     })
       .then(r => r.json())
@@ -50,8 +50,8 @@ export default function AddNewItem() {
 
 
   const [getImg, setGetImg] = useState(null)
-  const fileUrl = 'http://localhost:3003/previewImg'
-  const imgLink = 'http://localhost:3003/img/'
+  const fileUrl = 'http://localhost:3002/previewImg'
+  const imgLink = 'http://localhost:3002/img/'
   const previewImg = async (e) => {
     e.preventDefault();
     // const fd = new FormData(e.target); // 直接使用 event.target 作為參數
@@ -128,8 +128,8 @@ export default function AddNewItem() {
         denyButtonText: `取消新增`,
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire('新增成功!', '', 'success')
-          fetch('http://localhost:3003/res/add-item', {
+          Swal.fire('編輯成功!', '', 'success')
+          fetch('http://localhost:3002/res/add-item', {
             method: 'POST',
             body: JSON.stringify(addItem),
             headers: {
