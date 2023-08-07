@@ -20,6 +20,7 @@ Fs23pxSpan.defaultProps = {
 export default function CheckOutTotalPrice({payment, orderInfo}) {
 
     const {items, showPages, host, memberCoupon, memberInfo, page} = useContext(Cart)
+    const [date, setDate] = useState('')
     const router = useRouter()
     const pagePrice = () => {
     return showPages(items).length > 0 ? showPages(items).map(item => item.price * item.amount).reduce((p ,c) => p + c) : 0
@@ -71,6 +72,12 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
           setDiscount(selectedCoupon.coupon_discount);
         }else setDiscount(0)
       }, [couponId, memberCoupon]);
+    useEffect(()=>{
+    const orderItem = JSON.parse(localStorage.getItem('order'))
+    const day =  Object.values(orderItem).map(i=>i.togodate)
+    const time = Object.values(orderItem).map(i=>i.togotime)
+    setDate(`${day} ${time}`)
+    },[])
     const createOrderLoading = (href) => {
         let timerInterval
         return (
@@ -154,10 +161,10 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                 <Fs23pxSpan>$ {pagePrice()}</Fs23pxSpan>
             </div>
             <div className='d-flex justify-content-between mt-4'>
-                {page === 'order' ? 
+                {page === 'subscribe' ? <></> : page === 'order' ? 
                 <>
                     <Fs23pxSpan>取餐時間</Fs23pxSpan>
-                    <Fs23pxSpan>{showPages(items).length > 0 ? `這邊放時間` : '-'}</Fs23pxSpan>
+                    <Fs23pxSpan>{showPages(items).length > 0 ? `${date}` : '-'}</Fs23pxSpan>
                 </> :
                 <>
                     <Fs23pxSpan>運費/外送費(會員免運)</Fs23pxSpan>

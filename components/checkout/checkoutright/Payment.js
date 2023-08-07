@@ -4,6 +4,7 @@ import visa from '@/public/trycheckoutimage/visa.svg'
 import wallet from '@/public/trycheckoutimage/wallet.svg'
 import Alert from '@/public/trycheckoutimage/alert.svg'
 import {HiCheckCircle} from 'react-icons/hi'
+import check from '@/public/trycheckoutimage/check.svg'
 import styled from '@emotion/styled';
 
 const Cusimg = styled.img`
@@ -30,11 +31,10 @@ export default function Payment({payment, setPayment}) {
     const selectWalletClass = `border border-3 rounded-3 col-3 position-relative ${payment === 'wallet' ? 'border-danger-subtle bg-warning-subtle ' : 'border-dark-subtle'}`
   return (
     <>
-        {!payment && 
         <div className='d-flex align-items-center'>
-            <Cusimg src={Alert.src} style={{width:"10%"}}></Cusimg>
-            <div className='text-danger fs-5 ms-2'>請選擇支付方式</div>
-        </div>}
+        {!payment ? <Cusimg src={Alert.src} style={{width:"8%"}}></Cusimg> : <img src={check.src} style={{width:"8%"}}></img>}
+            <div className={`fs-4 ms-2 ${!payment ? 'text-danger' : 'text-success'}`}>請選擇支付方式</div>
+        </div>
         <div className='d-flex justify-content-between mt-3 mb-3'>
             <div className={selectWalletClass} style={{cursor:'pointer'}} onClick={()=>{handlePayment('wallet')}}>
                 {payment === 'wallet' &&<HiCheckCircle className='position-absolute top-0 fs-4 text-danger' style={{right:"0"}}/>}

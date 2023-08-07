@@ -4,7 +4,6 @@ import Checkbox from '@mui/material/Checkbox';
 import { Cart } from '@/components/checkout/CheckOutFinal'
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 export default function SendAddress({setOrderInfo}) {
-  const [formVerify, setFormVerify] = useState('');
   const { memberInfo } = useContext(Cart);
   const [defaultInfo, setDefaultInfo] = useState(true)
   const [name, setName] = useState(memberInfo.name);
@@ -31,11 +30,12 @@ export default function SendAddress({setOrderInfo}) {
                 marginTop: '8px' ,
                 marginBottom: '5px'
               },
+              readOnly:defaultInfo
             }} 
             defaultValue={memberInfo.name}
             onChange={(e)=>setName(e.target.value)}
             onBlur={()=>handleInfo()}
-            value={defaultInfo ? memberInfo.name : ''}
+            value={defaultInfo ? memberInfo.name : name}
             className='w-100 rounded-1'/>
             <TextField id="filled-basic" label="收件人地址" variant="filled" required 
             InputProps={{
@@ -43,9 +43,10 @@ export default function SendAddress({setOrderInfo}) {
                 fontSize: '20px',
                 marginTop: '8px' 
               },
+              readOnly:defaultInfo
             }} 
             defaultValue={memberInfo.address}
-            value={defaultInfo ? memberInfo.address : ''}
+            value={defaultInfo ? memberInfo.address : address}
             onChange={(e)=>setAddress(e.target.value)}
             onBlur={()=>handleInfo()}
             className='w-100 rounded-1 mt-4'/>
@@ -55,12 +56,14 @@ export default function SendAddress({setOrderInfo}) {
                 fontSize: '20px',
                 marginTop: '8px' 
               },
+              readOnly:defaultInfo
+              
             }}
             defaultValue={ memberInfo.mobile }
             onChange={(e)=>setPhone(e.target.value)}
             onBlur={()=>handleInfo()}
-            value={defaultInfo ? memberInfo.mobile : ''}
-             className='w-100 rounded-1 mt-4'/>
+            value={defaultInfo ? memberInfo.mobile : phone}
+            className='w-100 rounded-1 mt-4'/>
         </div>
         <div className='d-flex align-items-center  border-bottom  border-3 border-dark-subtle'>
               <Checkbox {...label} 
