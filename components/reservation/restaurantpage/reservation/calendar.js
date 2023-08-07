@@ -67,7 +67,9 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
                         '& .MuiPickersDay-root': {
                             color: '#911010',
                             fontSize: '20px',
-                            borderRadius: '20px',
+                            borderRadius: '15px',
+                            border: '1px solid #a8a8a8',
+                            padding: '22px',
                         },
                         '& .Mui-selected': {
                             color: 'white',
@@ -81,7 +83,6 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
                         },
 
                     }}
-
 
                     shouldDisableDate={shouldDisableDate} // 禁用日期
                     // value={date}

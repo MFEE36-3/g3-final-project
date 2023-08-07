@@ -5,6 +5,7 @@ import SelectPerson from './person'
 import Memo from './memo';
 import Swal from 'sweetalert2';
 import style from '@/styles/reservation/style.module.css'
+import { GoDotFill } from 'react-icons/go'
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import AuthContext from '@/context/AuthContext';
@@ -149,7 +150,9 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
   return (
     <>
       <div className={style.divmb}>
-        <p className={style.subtitle}>用餐日期</p>
+        <div className='d-flex justify-content-center'>
+          <p className={style.subtitle}>請選擇<span style={{ color: '#911010' }}>用餐日期</span></p>
+        </div>
         <Calendar row={row} date={date} setDate={setDate} setTime={setTime} setPerson={setPerson} setSeat={setSeat} setMemo={setMemo} />
       </div>
 
@@ -159,20 +162,35 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
 
       {time ?
         <div className={style.divmb}>
-          <p className={style.subtitle}>用餐人數</p>
-          <SelectPerson row={row} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} setMemo={setMemo} />
+          <div className='d-flex justify-content-center'>
+            <p className={style.subtitle}>請選擇<span style={{ color: '#911010' }}>用餐人數</span></p>
+          </div>
+          <div className='d-flex justify-content-center'>
+            <SelectPerson row={row} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} setMemo={setMemo} />
+          </div>
         </div> : ''}
 
       {person ?
         <div className={style.divmb}>
-          <p className={style.subtitle}>用餐座位</p>
-          <InteriorPic row={row} seat={seat} setSeat={setSeat} person={person} date={date} time={time} setMemo={setMemo} />
+          <div className='d-flex justify-content-center'>
+            <p className={style.subtitle}>請選擇<span style={{ color: '#911010' }}>座位</span></p>
+          </div>
+          <div className='d-flex'>
+            <GoDotFill className={style.disabledicon} />已訂位或用餐人數不符
+          </div>
+          <div className='d-flex justify-content-center'>
+            <InteriorPic row={row} seat={seat} setSeat={setSeat} person={person} date={date} time={time} setMemo={setMemo} />
+          </div>
         </div> : ''}
 
       {seat ?
         <div className={style.divmb}>
-          <p className={style.subtitle}>備註</p>
-          <Memo memo={memo} setMemo={setMemo} />
+          <div className='d-flex justify-content-center'>
+            <p className={style.subtitle}>備註</p>
+          </div>
+          <div className='d-flex justify-content-center'>
+            <Memo memo={memo} setMemo={setMemo} />
+          </div>
         </div> : ''}
 
       {seat ?

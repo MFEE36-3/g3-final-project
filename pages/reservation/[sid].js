@@ -80,7 +80,7 @@ export default function RestaurantPage() {
                         <Offcanvas.Title><div className={style.carttitle}>--您的購物車--</div></Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
-                        <ShoppingCart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
+                        <ShoppingCart row={row} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
                             togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} />
                     </Offcanvas.Body>
                 </Offcanvas>

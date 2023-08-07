@@ -61,24 +61,6 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
     }
     );
 
-    //塞進LocalStorage
-    // const handleCart = (item) => {
-    //     setOpen(false);
-    //     const itemInfo = {
-    //         itemId: item.food_id,
-    //         itemName: item.food_title,
-    //         src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
-    //         price: item.food_price,
-    //         amount: num
-    //     }
-    //     setCart({
-    //         ...cart,
-    //         [item.food_id]: itemInfo
-    //     });
-    // }
-
-    // 將選中的商品資訊存儲在狀態中
-
     const handleAddToCart = (item) => {
         const member = JSON.parse(localStorage.getItem('auth'));
         console.log(member)
@@ -110,6 +92,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
 
         const nowcart = Object.entries(pastcart).map(item => item.pop());
         // console.log(Object.values(nowcart))
+        // console.log(shopId)
         if (Object.values(nowcart)[0]?.shop_id !== shopId) {
             localStorage.removeItem('order')
         }

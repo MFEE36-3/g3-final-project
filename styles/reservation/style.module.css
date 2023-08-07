@@ -211,7 +211,7 @@
 
 /* 餐廳頁-div間隔 */
 .divmb{
-  margin-bottom: 20px;
+  margin: 30px 0px;
 }
 
 /* 餐廳頁-人數欄寬＋間隔 */
@@ -647,6 +647,12 @@
 }
 
 /* 餐廳座位圖 */
+
+.disabledicon{
+  font-size: var(--h3);
+  color: #a8a8a8;
+  margin-left: 20px;
+}
 
 .svgicon:hover *{
   cursor: pointer;
