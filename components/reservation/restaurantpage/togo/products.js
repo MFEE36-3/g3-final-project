@@ -54,9 +54,9 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
     //判斷商品category
     const filterData = row.fooditems.filter((v) => {
         if (category < 99) {
-            return v.food_sid === category
+            return v.food_cate === category
         } else {
-            return v.food_sid < category
+            return v.food_cate < category
         }
     }
     );
@@ -92,7 +92,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
         }
 
         const nowcart = Object.entries(pastcart).map(item => item.pop());
-        console.log(Object.values(nowcart))
+        // console.log(Object.values(nowcart))
         if (Object.values(nowcart)[0]?.shop_id !== shopId) {
             localStorage.removeItem('order')
         }
@@ -239,16 +239,14 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                             <img src={`${process.env.API_SERVER}/img/res-img/${itemdeatil.food_img}`} className='w-100 h-100' ></img>
                         </div>
                         <div className='col-5 h-100'>
-                            <Typography id="modal-modal-title" variant="h4" component="h2" className='h-25 d-flex justify-content-center pt-3'>
+                            <Typography id="modal-modal-title" component="h2" className={style.modaltitle}>
                                 {itemdeatil.food_title}
                             </Typography>
-                            <Typography id="modal-modal-title" variant="h4" component="h2" className='h-25 d-flex justify-content-center pt-3'>
+                            <Typography id="modal-modal-title" component="h2" className={style.modaltext}>
                                 {itemdeatil.food_des}
                             </Typography>
-                            <Typography id="modal-modal-description" variant="h5" className='d-flex flex-column justify-content-between h-50'>
-                                <div className='d-flex justify-content-between mt-5'>
-                                    <div className='fs-1 text-danger'>售價: {itemdeatil.food_price}</div>
-                                </div>
+                            <Typography id="modal-modal-description" className={style.modalprice}>
+                                售價: {itemdeatil.food_price}
                             </Typography>
                         </div>
                     </Box>

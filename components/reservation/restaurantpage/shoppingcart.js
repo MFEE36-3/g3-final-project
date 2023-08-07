@@ -22,10 +22,18 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
     const menuItemsArray = Object.values(menuItems);
     // console.log(menuItemsArray);
     const [products, setProducts] = useState(menuItemsArray)
+
+    const localdatetime = JSON.parse(localStorage.getItem('order')) || {};
+    const nowdatetime = Object.entries(localdatetime).map(item => item.pop());
+    console.log(nowdatetime);
+    console.log(Object.values(nowdatetime)[0]?.togodate);
+    if (Object.values(nowdatetime).length > 0) {
+        setTogodate(Object.values(nowdatetime)[0]?.togodate);
+        setTogotime(Object.values(nowdatetime)[0]?.togotime);
+    }
+
     //商品數量-增加
     const handleAdd = (item) => {
-
-        // if (products.filter(item => item.shop_id === shopId) === []) localStorage.removeItem('order')
 
         //更新LocalStorage
         const oldCart = JSON.parse(localStorage.getItem('order'))
@@ -171,7 +179,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
                 </div>
             }
 
-            {products.length > 0 && togodate && togotime ?
+            {products.length > 0 ?
                 <div className={style.togotime}>
                     <BsFillCalendar3WeekFill className='me-1' /> 取餐時間 {togodate} {togotime}</div>
                 : ''

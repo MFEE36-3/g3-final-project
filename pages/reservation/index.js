@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import TopDiv from '@/components/reservation/topdiv';
 import style from '@/styles/reservation/style.module.css';
 import SelectArea from '@/components/reservation/select';
 import Main from '@/components/reservation/main';
 import { useRouter } from 'next/router';
 
+export const auth = createContext()
 export default function Reservation() {
 
   const router = useRouter();
-
+  const [token, setToken] = useState({})
   //加入收藏
   const [favorite, setFavorite] = useState(0);
 
@@ -79,11 +80,14 @@ export default function Reservation() {
 
     }
   }, [router.query])
-
+  useEffect(() => {
+    const memberToken = JSON.parse(localStorage.getItem('auth'));
+    setToken(memberToken)
+  }, [])
   // console.log(router)
 
   return (
-    <>
+    <auth.Provider value={{ token }}>
       <div className={style.body}>
         <TopDiv keyword={keyword} setKeyword={setKeyword} />
         {/* <div className="container-fluid">
@@ -107,6 +111,6 @@ export default function Reservation() {
           </div>
         </div>
       </div>
-    </>
+    </auth.Provider>
   );
 }

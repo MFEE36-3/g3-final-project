@@ -10,7 +10,6 @@ export default function InteriorPic({ row, date, time, person, seat, setSeat }) 
     const [disableSeats, setDisableSeats] = useState([]);
 
 
-
     const handleSeat = (e) => {
         const selectedSeat = e.currentTarget.getAttribute('data-value');
         setSeat(selectedSeat);

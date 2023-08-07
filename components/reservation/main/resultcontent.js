@@ -156,16 +156,7 @@ export default function ResultContent(favorite, setFavorite) {
                   <div className="d-flex align-item-center justify-content-between">
 
                     <div className='d-flex'>
-                      <div
-                        style={{
-                          fontSize: '14px',
-                          background: '#911010',
-                          borderRadius: 20,
-                          border: 0,
-                          color: 'white',
-                          padding: '5px 10px',
-                        }}
-                      >
+                      <div className={style.cardbottomicon}>
                         <FaUtensils className={style.buttonicon} />
                         {res_cate}
                       </div>

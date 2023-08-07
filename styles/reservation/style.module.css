@@ -25,9 +25,9 @@
 
 /* 副標題 */
 .subtitle{ 
-  font-family: var(--ff1);
+  font-family: var(--ff3);
   color: black;
-  font-size: var(--h5);
+  font-size: var(--h4);
 }
 
 .info{
@@ -59,6 +59,12 @@
   border: none;
   background:none;
   transition: transform 0.3s ease;
+}
+
+.top5crown{
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .top5cardbody{
@@ -271,14 +277,12 @@
 
 /* card樣式 */
 .card{
-  /* width:21%; */
   height:350px;
   margin-bottom: 5px;
   border: none;
 }
 
 .card2{
-  /* width:21%; */
   height:250px;
   margin-bottom: 5px;
   border: none;
@@ -296,6 +300,19 @@
   position: relative;
   height: 100%;
   object-fit: cover;
+}
+
+.cardtitle{
+  font-weight: bold;
+}
+
+.cardbottomicon{
+  font-size: var(--h8);
+  background: var(--main-color);
+  border-radius: 20px;
+  border: 0px;
+  color: white;
+  padding: 5px 10px;
 }
 
 .cardtext{
@@ -355,6 +372,30 @@
 .sortdiv{
   width: 10%;
 }
+
+.modaltitle{
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  font-size: var(--h3);
+  padding-top: 20px;
+}
+
+.modaltext{
+  height: 25%;
+  display: flex;
+  font-size: var(--h5);
+  padding-top: 20px;
+}
+
+.modalprice{
+  height: 25%;
+  display: flex;
+  font-size: var(--h5);
+  padding-top: 20px;
+  color: var(--main-color);
+}
+
 
 /* ---------------------------------------- */
 
@@ -739,6 +780,8 @@
   color: white;
 }
 
+
+
 /* sweetalert */
 .my-sweetalert-container {
   font-family: 'Arial', sans-serif;
@@ -847,10 +890,11 @@
     position: relative;
   } */
   .carousel{
-    /* position: relative; */
+    /* position: relative;
     width: 100%;
     margin-top: 30px;
-    height: 20vh;
+    height: 20vh; */
+    display: none;
   }
 
   .carouselitem{
@@ -858,12 +902,12 @@
     overflow: hidden;
   }
   .searchbar {
-    position: none;
+    position: relative;
     display: flex;
     align-items: center;
     width: 70%;
     height: 50px;
-    margin-top: 80px;
+    margin-top: 100px;
     background-color: white;
     border-radius: 40px;
     border:3px solid var(--main-color);
@@ -911,15 +955,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5px;
+  margin: 0px;
   overflow: hidden;
 }
 
 .top5row{
-  width: 1350px;
+  width: 270px;
   position: relative;
   display:  flex;
   overflow:hidden;
+}
+
+.top5crown{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:30px;
+  height: 30px;
 }
 
 .top5card{
@@ -942,9 +994,9 @@
 }
 
 .top5button{
-  width: 40px;
-  height: 40px;
-  margin: 0px 5px;
+  width: 20px;
+  height: 20px;
+  margin: 0px 2px;
   color: var(--main-color);
 }
 
@@ -983,12 +1035,12 @@
 }
 
 .main{
-  width: 97%;
+  width: 100%;
   display: flex;
   /* flex-direction: column; */
   justify-content: space-evenly;
   align-items: center;
-  /* margin: 20px; */
+  margin: 0px;
 }
 
 .maincontent{
@@ -1000,7 +1052,7 @@
 
 /* card樣式 -----------*/
 .card{
-  width: 50%;
+  width: 45%;
   height:300px;
   border: none;
 }
@@ -1017,6 +1069,23 @@
   position: relative;
 }
 
+.cardtitle{
+  font-size: var(--h6);
+  font-weight: bold;
+}
+
+
+.cardbottomicon{
+  display: flex;
+  align-items: center;
+  font-size: var(--h10);
+  background: var(--main-color);
+  border-radius: 20px;
+  border: 0px;
+  color: white;
+  padding: 1px 5px;
+}
+
 .cardtext{
   position: absolute;
   top: 50%;
@@ -1024,7 +1093,7 @@
   transform: translate(-50%, -50%);
   opacity: 0;
   color: #d9d9d9;
-  font-size: var(--h6);
+  font-size: var(--h8);
   border: 1px solid #d9d9d9;
   border-radius: 15px;
   padding: 4px 8px;
@@ -1046,6 +1115,19 @@
 .cardheart:hover{
   color: #911010;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

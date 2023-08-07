@@ -10,10 +10,36 @@ import { useRouter } from 'next/router';
 import AuthContext from '@/context/AuthContext';
 
 export default function Reservation({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo }) {
+  const [memberInfo, setMemberInfo] = useState({})
+  const [reservationData, setReservationData] = useState({
+    id: 0,
+    shop_id: 0,
+    date: '',
+    time: '',
+    person: 0,
+    seat: '',
+    rating: '',
+    memo: '',
+    status: '未完成',
+  })
 
-  const { auth, setAuth, logout } = useContext(AuthContext);
   const router = useRouter();
-  // console.log(auth)
+  useEffect(() => {
+    const member = JSON.parse(localStorage.getItem('auth'));
+    setReservationData(prev => {
+      return {
+        id: member.sid || 0,
+        shop_id: row.detail.sid,
+        date: date,
+        time: time,
+        person: person,
+        seat: seat,
+        rating: null,
+        memo: memo,
+        status: '未完成',
+      }
+    })
+  }, [row.detail.sid, date, time, person, seat, memo])
   // 當點擊「送出訂位」按鈕時，處理資料提交
   const handleSubmit = () => {
     if (seat) {
@@ -61,17 +87,17 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
           // ...
 
           // 整理要送出的資訊為一個物件
-          const reservationData = {
-            id: auth.sid, // ?
-            shop_id: row.detail.sid,
-            date: date,
-            time: time,
-            person: person,
-            seat: seat,
-            rating: null,
-            memo: memo,
-            status: '未完成',
-          };
+          // const reservationData = {
+          //   id: memberInfo.sid,
+          //   shop_id: row.detail.sid,
+          //   date: date,
+          //   time: time,
+          //   person: person,
+          //   seat: seat,
+          //   rating: null,
+          //   memo: memo,
+          //   status: '未完成',
+          // };
 
           // 將資料轉換為JSON格式
           const jsonData = JSON.stringify(reservationData);
@@ -94,7 +120,12 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
                 confirmButtonText: '確定',
               }).then(() => {
                 // 返回原餐廳畫面
-                window.location.reload();
+                setDate();
+                setTime();
+                setPerson();
+                setSeat();
+                setMemo();
+                router.push(`http://localhost:3000/reservation/${row.detail.sid}`)
               });
 
               // 提交成功後，設置訂位成功狀態為 true
