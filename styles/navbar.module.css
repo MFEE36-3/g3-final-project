@@ -78,7 +78,7 @@
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  border: 4.32px solid black;
+  border: 3px solid var(--sub-color);
   position: fixed;
   top: 16px;
   left: 94.5%;

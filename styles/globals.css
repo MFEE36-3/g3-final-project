@@ -142,3 +142,7 @@ a:active {
 .swal2-deny {
   background-color: var(--sub-color) !important;
 }
+
+.swal2-cancel {
+  background-color: var(--sub-color) !important;
+}
