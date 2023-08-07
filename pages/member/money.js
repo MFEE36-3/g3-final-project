@@ -45,7 +45,7 @@ export default function Index() {
     };
   });
 
-  const totalMoney = rows.reduce((total, item) => total + item.money, 0);
+  // const totalMoney = rows.reduce((total, item) => total + item.money, 0);
 
   // 判斷式否登入，未登入跳轉回首頁
   useEffect(() => {
@@ -77,11 +77,11 @@ export default function Index() {
                   alt=""
                   className={styles.packageImg}
                 />
-                NT$ {totalMoney}
+                NT$ {auth.wallet}
               </div>
 
               <div className={styles.packDown}>
-                <Link href={''}>
+                <Link href={'http://localhost:3000/topup'}>
                   <button className={styles.packageBtn}>儲值+</button>
                 </Link>
               </div>

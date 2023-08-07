@@ -115,7 +115,8 @@
 }
 
 .packageMoney {
-  font-size: 36px;
+  margin-top: 50px;
+  font-size: 40px;
   font-weight: 900;
   display: flex;
   align-items: center;
@@ -127,22 +128,24 @@
 }
 
 .packageBtn {
-  width: 85px;
-  height: 55px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  width: 80px;
+  height: 80px;
   text-align: center;
-  border-radius: 15px;
-  font-size: 16px;
+  border-radius: 50%;
+  font-size: 18px;
   padding: 2px;
-  color: white;
-  background-color: rgba(120, 120, 120, 1);
+  background-color: #ffffff;
   border: none;
-  box-shadow: inset -3px -3px 5px rgb(70, 70, 70);
+  box-shadow: inset -3px -3px 5px rgb(67, 67, 67);
 }
 
 .packageBtn:hover {
-  background-color: rgb(135, 135, 135);
-  transform: scale(1.05);
+  /* background-color: rgb(255, 178, 178); */
+  transform: scale(1.1);
   transition: all 0.1s ease-in;
+  color: #921010;
 }
 
 /*輪播牆會用到的*/

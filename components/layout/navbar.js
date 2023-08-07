@@ -42,7 +42,12 @@ export default function Navbar() {
   const islogout = () => {
     logout();
     setIsLogin(false);
-    Swal.fire({ title: '已登出', timer: 1500, icon: 'success' });
+    Swal.fire({
+      title: '已登出',
+      timer: 1500,
+      icon: 'success',
+      showConfirmButton: false,
+    });
     if (router_title.includes('/member')) {
       setTimeout(() => {
         router.push('/');

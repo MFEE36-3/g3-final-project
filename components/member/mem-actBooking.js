@@ -53,39 +53,45 @@ export default function MemActBooking() {
 
       {showDetail && (
         <div className={styles.detailArea}>
-          <MemBookingDetail openDetail={openDetail} data={data} />
+          <MemBookingDetail
+            openDetail={openDetail}
+            data={data}
+            setShowDetail={setShowDetail}
+          />
         </div>
       )}
 
       {mail[0] ? (
         <div className={styles.area1}>
           <div className={styles.scrollArea}>
-            {mail?.map((v) => {
-              return (
-                <button
-                  key={v4()}
-                  className={styles.row}
-                  onClick={() => openDetail(v)}
-                >
-                  <div className={styles.td0}>
-                    <Image
-                      src={'http://localhost:3002/img/member/restaurant.svg'}
-                      width={35}
-                      height={35}
-                      alt=""
-                    />
-                  </div>
-                  <div className={styles.td}>{v.shop}</div>
-                  <div className={styles.td}>{v.location}</div>
-                  <div className={styles.td}>
-                    {v.booking_date.substring(0, 10) +
-                      '\u00A0\u00A0\u00A0' +
-                      v.booking_time.substring(0, 10)}
-                  </div>
-                  <div className={styles.td2}>{v.booking_number}人</div>
-                </button>
-              );
-            })}
+            {mail
+              ?.filter((a) => a.status === '未完成')
+              .map((v) => {
+                return (
+                  <button
+                    key={v4()}
+                    className={styles.row}
+                    onClick={() => openDetail(v)}
+                  >
+                    <div className={styles.td0}>
+                      <Image
+                        src={'http://localhost:3002/img/member/restaurant.svg'}
+                        width={35}
+                        height={35}
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.td}>{v.shop}</div>
+                    <div className={styles.td}>{v.location}</div>
+                    <div className={styles.td}>
+                      {v.booking_date.substring(0, 10) +
+                        '\u00A0\u00A0\u00A0' +
+                        v.booking_time.substring(0, 10)}
+                    </div>
+                    <div className={styles.td2}>{v.booking_number}人</div>
+                  </button>
+                );
+              })}
           </div>
         </div>
       ) : (

@@ -24,7 +24,7 @@
 .card2 {
   width: 200px;
   height: 280px;
-  background-image: url('/member/card3.png');
+  background-image: url('/member/card4.png');
   background-size: cover;
   border-radius: 20px;
   display: flex;
@@ -54,7 +54,7 @@
 .card4 {
   width: 200px;
   height: 280px;
-  background-image: url('/member/card3.png');
+  background-image: url('/member/card4.png');
   background-size: cover;
   border-radius: 20px;
   display: flex;

@@ -14,8 +14,8 @@ export default function MemBar() {
     { name: '我的錢包', url: '/member/money' },
     { name: '個人資料', url: '/member/info' },
     { name: '貼文與收藏', url: '/member/collect' },
-    { name: '活動紀錄', url: '/member/record' },
-    { name: '優惠券', url: '/member/coupon' },
+    { name: '我的優惠券', url: '/member/coupon' },
+    { name: '各項紀錄', url: '/member/record' },
   ];
 
   // 從useContext裡解構出auth驗證token跟基本會員資料memberData

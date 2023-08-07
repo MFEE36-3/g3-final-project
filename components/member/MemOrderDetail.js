@@ -3,13 +3,22 @@ import MemBtn from './mem-Btn';
 import Image from 'next/image';
 import styles from './MemOrderDetail.module.css';
 import { v4 } from 'uuid';
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
-export default function MemOrderDetail({ openDetail, data }) {
+export default function MemOrderDetail({
+  openDetail,
+  data,
+  setShowDetail,
+  detailSid,
+}) {
   const [star1, setStar1] = useState(false);
   const [star2, setStar2] = useState(false);
   const [star3, setStar3] = useState(false);
   const [star4, setStar4] = useState(false);
   const [star5, setStar5] = useState(false);
+
+  const router = useRouter();
 
   const changeStar1 = () => {
     setStar1(true);
@@ -49,6 +58,36 @@ export default function MemOrderDetail({ openDetail, data }) {
     if (star2 === false) setStar2(!star2);
     if (star3 === false) setStar3(!star3);
     if (star4 === false) setStar4(!star4);
+  };
+
+  const finishFood = () => {
+    if (detailSid) {
+      const sid = detailSid;
+      const str = localStorage.getItem('auth');
+      if (str) {
+        const obj = JSON.parse(str);
+        const Authorization = 'Bearer ' + obj.token;
+        fetch(process.env.API_SERVER + '/member/finishFood', {
+          method: 'POST',
+          body: JSON.stringify({ sid: sid }),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization,
+          },
+        })
+          .then((res) => res.json())
+          .then(
+            Swal.fire({
+              title: '完成評價',
+              timer: 1500,
+              icon: 'success',
+              showConfirmButton: false,
+            })
+          )
+          .then(setShowDetail(false))
+          .then(router.push('/member'));
+      }
+    }
   };
 
   return (
@@ -190,7 +229,11 @@ export default function MemOrderDetail({ openDetail, data }) {
             text={'取消'}
             padding={'3px 5px'}
           ></MemBtn>
-          <MemBtn text={'完成訂單'} padding={'3px 15px'}></MemBtn>
+          <MemBtn
+            text={'完成訂單'}
+            padding={'3px 15px'}
+            onClick={finishFood}
+          ></MemBtn>
         </div>
       </div>
     </div>

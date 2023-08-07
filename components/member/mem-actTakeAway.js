@@ -10,6 +10,7 @@ export default function MemActTakeAway() {
   const [order, setOrder] = useState([]);
   const [showDetail, setShowDetail] = useState(false);
   const [data, setData] = useState([]);
+  const [detailSid, setDetailSid] = useState('');
 
   useEffect(() => {
     const str = localStorage.getItem('auth');
@@ -30,6 +31,7 @@ export default function MemActTakeAway() {
   }, [auth]);
 
   const openDetail = (id) => {
+    setDetailSid(id);
     const str = localStorage.getItem('auth');
     if (str) {
       const obj = JSON.parse(str);
@@ -69,38 +71,45 @@ export default function MemActTakeAway() {
 
       {showDetail && (
         <div className={styles.detailArea}>
-          <MemOrderDetail openDetail={openDetail} data={data} />
+          <MemOrderDetail
+            openDetail={openDetail}
+            data={data}
+            setShowDetail={setShowDetail}
+            detailSid={detailSid}
+          />
         </div>
       )}
 
       {order[0] ? (
         <div className={styles.area1}>
           <div className={styles.scrollArea}>
-            {order.map((v) => {
-              return (
-                <button
-                  key={v4()}
-                  className={styles.row}
-                  onClick={() => openDetail(v.sid)}
-                >
-                  <div className={styles.td0}>
-                    <Image
-                      src={'http://localhost:3002/img/member/bag.svg'}
-                      width={35}
-                      height={35}
-                      alt=""
-                    />
-                  </div>
-                  <div className={styles.td}>{v.shop}</div>
-                  <div className={styles.td}>{v.amount}元</div>
-                  <div className={styles.td2}>
-                    {v.order_date.substring(0, 10)}{' '}
-                    {v.order_time.substring(0, 5)}
-                  </div>
-                  <div className={styles.td}>{v.status}</div>
-                </button>
-              );
-            })}
+            {order
+              .filter((z) => z.status === '未完成')
+              .map((v) => {
+                return (
+                  <button
+                    key={v4()}
+                    className={styles.row}
+                    onClick={() => openDetail(v.sid)}
+                  >
+                    <div className={styles.td0}>
+                      <Image
+                        src={'http://localhost:3002/img/member/bag.svg'}
+                        width={35}
+                        height={35}
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.td}>{v.shop}</div>
+                    <div className={styles.td}>{v.amount}元</div>
+                    <div className={styles.td2}>
+                      {v.order_date.substring(0, 10)}{' '}
+                      {v.order_time.substring(0, 5)}
+                    </div>
+                    <div className={styles.td}>{v.status}</div>
+                  </button>
+                );
+              })}
           </div>
         </div>
       ) : (

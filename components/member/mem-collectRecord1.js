@@ -71,7 +71,7 @@ export default function MemCollectReocrd1({ forum }) {
                   sx={tdStyle}
                   style={{ position: 'relative', left: '20px' }}
                 >
-                  【 {row.header} 】
+                  【 {row.forum_header} 】
                 </TableCell>
 
                 <TableCell align="center" sx={tdStyle}>
@@ -79,7 +79,7 @@ export default function MemCollectReocrd1({ forum }) {
                 </TableCell>
 
                 <TableCell align="center" sx={tdStyle}>
-                  {row.publishedTime.substring(0, 10)}
+                  {row.date.substring(0, 10)}
                 </TableCell>
 
                 <Link
