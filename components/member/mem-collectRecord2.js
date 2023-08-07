@@ -11,7 +11,7 @@ import { v4 } from 'uuid';
 import styles from './mem-collectRecord.module.css';
 import Link from 'next/link';
 
-export default function MemCollectReocrd2({ store }) {
+export default function MemCollectReocrd2({ store, page }) {
   const rowStyle = {
     height: '90px',
   };
@@ -57,40 +57,47 @@ export default function MemCollectReocrd2({ store }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {store?.map((row) => (
-            <TableRow
-              key={v4()}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell align="center" component="th" scope="row" sx={tdStyle}>
-                {row.restaurant_name}
-              </TableCell>
-              <TableCell align="center" sx={tdStyle}>
-                <Image
-                  src={
-                    'http://localhost:3002/img/shops/' + row.restaurant_photo
-                  }
-                  width={100}
-                  height={100}
-                  alt=""
-                />
-              </TableCell>
-              <TableCell align="center" sx={tdStyle}>
-                {row.restaurant_location}
-              </TableCell>
-              <TableCell align="center" sx={tdStyle}>
-                {row.restaurant_rating}
-              </TableCell>
-
-              <Link
-                href={'http://localhost:3000/reservation/' + row.sid}
-                className={styles.link2}
-                style={{ color: 'white' }}
+          {store
+            ?.filter((value, index) => page <= index && index < page + 3)
+            .map((row) => (
+              <TableRow
+                key={v4()}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                GO
-              </Link>
-            </TableRow>
-          ))}
+                <TableCell
+                  align="center"
+                  component="th"
+                  scope="row"
+                  sx={tdStyle}
+                >
+                  {row.restaurant_name}
+                </TableCell>
+                <TableCell align="center" sx={tdStyle}>
+                  <Image
+                    src={
+                      'http://localhost:3002/img/shops/' + row.restaurant_photo
+                    }
+                    width={100}
+                    height={100}
+                    alt=""
+                  />
+                </TableCell>
+                <TableCell align="center" sx={tdStyle}>
+                  {row.restaurant_location}
+                </TableCell>
+                <TableCell align="center" sx={tdStyle}>
+                  {row.restaurant_rating}
+                </TableCell>
+
+                <Link
+                  href={'http://localhost:3000/reservation/' + row.sid}
+                  className={styles.link2}
+                  style={{ color: 'white' }}
+                >
+                  GO
+                </Link>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

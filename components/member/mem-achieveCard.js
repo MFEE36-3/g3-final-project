@@ -28,9 +28,14 @@ export default function MemAchieveCard({ image, name }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-          Swal.fire('成就已更換', '', 'success');
+          Swal.fire({
+            title: '成就已更換',
+            timer: 1000,
+            icon: 'success',
+            showConfirmButton: false,
+          });
           setAuth({ ...auth, achieve_image: image });
+          router.push('./info');
         });
     }
   };

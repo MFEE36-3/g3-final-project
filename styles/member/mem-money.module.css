@@ -93,24 +93,14 @@
   flex-direction: column;
   border-radius: 15px;
   border: 2px solid #921010;
-  height: 380px;
+  height: 455px;
   background-color: #fff;
-  padding-right: 7px;
-  padding-top: 7px;
+  margin-top: 15px;
 }
 
 .recordBox {
-  overflow-y: scroll;
-  overflow-x: hidden;
   border-radius: 15px;
-}
-
-.recordBox::-webkit-scrollbar {
-  width: 3px; /* 設置滾輪寬度 */
-}
-
-.recordBox::-webkit-scrollbar-thumb {
-  background-color: #aeaeae; /* 設置滾輪顏色 */
+  overflow: hidden;
 }
 
 .text {
@@ -188,6 +178,30 @@
 
 .btn:hover {
   background-color: #ffe291;
+}
+
+.recordBtn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #aa9696;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: white;
+}
+
+.recordBtn:hover {
+  background-color: #d6bebe;
+  transition: all 0.1s ease-in;
+  transform: scale(1.1);
+}
+
+.btnArea {
+  display: flex;
+  margin-left: 10px;
+  gap: 10px;
 }
 
 @media screen and (max-width: 391px) {

@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 export default function Index() {
   const { auth } = useContext(AuthContext);
   const [coupon, setCoupon] = useState([]);
+  const [page, setPage] = useState(0);
 
   const router = useRouter();
 
@@ -53,7 +54,7 @@ export default function Index() {
       return {
         name: v.coupon_title,
         money: v.coupon_discount + '元',
-        time: v.coupon_dead_time?.substring(0, 10),
+        time: v.coupon_get_time?.substring(0, 10),
         status: v.coupon_status_sid,
       };
     });
@@ -95,10 +96,23 @@ export default function Index() {
               )}
             </div>
             <MemAllTitle title={'已使用 /已過期'} />
+            <div className={styles2.btnArea}>
+              {Array.from({ length: Math.ceil(record.length / 5) }).map(
+                (_, i) => (
+                  <button
+                    key={v4()}
+                    className={styles2.recordBtn}
+                    onClick={() => setPage(i * 5)}
+                  >
+                    {i + 1}
+                  </button>
+                )
+              )}
+            </div>
             <div className={styles2.area2}>
               {mycoupon ? (
                 <div className={styles2.recordBox}>
-                  <MemCouponRecord record={record} />
+                  <MemCouponRecord record={record} page={page} />
                 </div>
               ) : (
                 <div className={styles2.default}>目前沒有使用紀錄</div>

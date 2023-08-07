@@ -20,7 +20,8 @@ export default function Index() {
   const [list, setList] = useState([]);
   const [store, setStore] = useState([]);
   const [forum, setForum] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState('收藏貼文');
+  const [page, setPage] = useState(0);
 
   // 抓會員自己的發文
   useEffect(() => {
@@ -87,10 +88,6 @@ export default function Index() {
     }
   }, [auth]);
 
-  const changeList = () => {
-    setOpen(!open);
-  };
-
   const router = useRouter();
 
   // 判斷式否登入，未登入跳轉回首頁
@@ -134,19 +131,44 @@ export default function Index() {
             )}
           </div>
           <MemAllTitle title={'我的收藏'} />
+          <div className={styles2.btnArea}>
+            {open === '收藏店家'
+              ? Array.from({ length: Math.ceil(store.length / 3) }).map(
+                  (_, i) => (
+                    <button
+                      key={v4()}
+                      className={styles2.recordBtn}
+                      onClick={() => setPage(i * 3)}
+                    >
+                      {i + 1}
+                    </button>
+                  )
+                )
+              : Array.from({ length: Math.ceil(forum.length / 3) }).map(
+                  (_, i) => (
+                    <button
+                      key={v4()}
+                      className={styles2.recordBtn}
+                      onClick={() => setPage(i * 3)}
+                    >
+                      {i + 1}
+                    </button>
+                  )
+                )}
+          </div>
           <div className={styles2.area2}>
             <div className={styles2.scrollArea}>
-              <MemBtn text={'收藏貼文'} onClick={changeList} />
+              <MemBtn text={'收藏貼文'} onClick={() => setOpen('收藏貼文')} />
 
-              <MemBtn text={'收藏店家'} onClick={changeList} />
+              <MemBtn text={'收藏店家'} onClick={() => setOpen('收藏店家')} />
             </div>
-            {open ? (
+            {open === '收藏店家' ? (
               <div className={styles2.scroll2}>
-                <MemCollectReocrd2 store={store} />
+                <MemCollectReocrd2 store={store} page={page} />
               </div>
             ) : (
               <div className={styles2.scroll2}>
-                <MemCollectReocrd1 forum={forum} />
+                <MemCollectReocrd1 forum={forum} page={page} />
               </div>
             )}
           </div>

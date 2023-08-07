@@ -13,11 +13,13 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import IconImg from '@/public/member/icon.png';
+import { v4 } from 'uuid';
 
 export default function Index() {
   const { auth } = useContext(AuthContext);
   const router = useRouter();
   const [record, setRecord] = useState([]);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     const str = localStorage.getItem('auth');
@@ -107,9 +109,22 @@ export default function Index() {
           </div>
           <div className={styles2.recordArea}>
             <MemAllTitle title={'錢包紀錄'} />
+            <div className={styles2.btnArea}>
+              {Array.from({ length: Math.ceil(rows.length / 5) }).map(
+                (_, i) => (
+                  <button
+                    key={v4()}
+                    className={styles2.recordBtn}
+                    onClick={() => setPage(i * 5)}
+                  >
+                    {i + 1}
+                  </button>
+                )
+              )}
+            </div>
             <div className={styles2.area3}>
               <div className={styles2.recordBox}>
-                <MemMoneyReocrdTable rows={rows} />
+                <MemMoneyReocrdTable rows={rows} page={page} />
               </div>
             </div>
           </div>

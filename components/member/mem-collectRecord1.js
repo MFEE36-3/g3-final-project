@@ -10,7 +10,7 @@ import { v4 } from 'uuid';
 import styles from './mem-collectRecord.module.css';
 import Link from 'next/link';
 
-export default function MemCollectReocrd1({ forum }) {
+export default function MemCollectReocrd1({ forum, page }) {
   const rowStyle = {
     height: '90px',
     width: '100%',
@@ -63,35 +63,37 @@ export default function MemCollectReocrd1({ forum }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {forum?.map((row) => {
-            return (
-              <TableRow sx={rowStyle} key={v4()}>
-                <TableCell
-                  align="left"
-                  sx={tdStyle}
-                  style={{ position: 'relative', left: '20px' }}
-                >
-                  【 {row.forum_header} 】
-                </TableCell>
+          {forum
+            ?.filter((value, index) => page <= index && index < page + 3)
+            .map((row) => {
+              return (
+                <TableRow sx={rowStyle} key={v4()}>
+                  <TableCell
+                    align="left"
+                    sx={tdStyle}
+                    style={{ position: 'relative', left: '20px' }}
+                  >
+                    【 {row.forum_header} 】
+                  </TableCell>
 
-                <TableCell align="center" sx={tdStyle}>
-                  {row.nickname}
-                </TableCell>
+                  <TableCell align="center" sx={tdStyle}>
+                    {row.nickname}
+                  </TableCell>
 
-                <TableCell align="center" sx={tdStyle}>
-                  {row.date.substring(0, 10)}
-                </TableCell>
+                  <TableCell align="center" sx={tdStyle}>
+                    {row.date.substring(0, 10)}
+                  </TableCell>
 
-                <Link
-                  className={styles.link}
-                  style={{ color: 'white' }}
-                  href={'http://localhost:3000/forum/' + row.forum_sid}
-                >
-                  GO
-                </Link>
-              </TableRow>
-            );
-          })}
+                  <Link
+                    className={styles.link}
+                    style={{ color: 'white' }}
+                    href={'http://localhost:3000/forum/' + row.forum_sid}
+                  >
+                    GO
+                  </Link>
+                </TableRow>
+              );
+            })}
         </TableBody>
       </Table>
     </TableContainer>
