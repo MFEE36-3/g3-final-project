@@ -152,14 +152,13 @@ export default function AddNewItem() {
       </style>
       <div className="container d-flex justify-content-center">
         <div>
-          <div
-            className="card p-5 rounded-3 border-black border-3"
-            style={{ backgroundColor: '#FFE2E2' }}
-          >
+          <div className={`${styles.border} card p-5 rounded-3 border-3`}>
             <div className="card-title d-flex justify-content-center fw-bold fs-5">
-              <Btn text="新增商品" />
+              {/* <Btn text="新增商品" /> */}
+              <button className={styles.btnleft}>新增商品</button>
               <Link href={`/res/item-management`}>
-                <Btn text="商品清單" />
+                {/* <Btn text="商品清單" /> */}
+                <button className={styles.btnright}>商品清單</button>
               </Link>
             </div>
 
@@ -168,15 +167,7 @@ export default function AddNewItem() {
                 <div className={`${styles.uploadImg}`}>
                   <div className="d-flex align-items-center fw-bold fs-5">
                     <div>
-                      <img
-                        src={`${imgLink}${getImg}`}
-                        style={{
-                          height: '400px',
-                          width: '400px',
-                          overflow: 'static',
-                          border: '10px',
-                        }}
-                      />
+                      <img src={`${imgLink}${getImg}`} style={{}} />
                     </div>
                   </div>
                 </div>
@@ -193,20 +184,21 @@ export default function AddNewItem() {
                 <div className="name mx-5 mt-3 d-flex justify-content-start align-items-center">
                   <div
                     htmlFor="shop_name"
-                    className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3"
-                    style={{ width: '150px', backgroundColor: '#FCC8A1' }}
+                    className={`${styles.box} form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3`}
                   >
                     商品名稱
                   </div>
-                  <input
-                    type="text"
-                    className="form-control border-black"
-                    id="name"
-                    placeholder="請輸入商品名稱:"
-                    name="name"
-                    value={addItem.name}
-                    onChange={handleAddItem}
-                  />
+                  <div>
+                    <input
+                      type="text"
+                      className={`${styles.input} form-control`}
+                      id="name"
+                      placeholder="請輸入商品名稱:"
+                      name="name"
+                      value={addItem.name}
+                      onChange={handleAddItem}
+                    />
+                  </div>
                 </div>
 
                 <div className="error fs-5 fw-bold">{errors.name}</div>
@@ -214,47 +206,50 @@ export default function AddNewItem() {
                 <div className="name mx-5 mt-3 d-flex justify-content-start align-items-center">
                   <div
                     htmlFor="shop_name"
-                    className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3"
-                    style={{ width: '150px', backgroundColor: '#FCC8A1' }}
+                    className={`${styles.box} form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3`}
                   >
                     商品敘述
                   </div>
-                  <textarea
-                    type="text"
-                    className="form-control border-black"
-                    id="name"
-                    placeholder="請輸入商品敘述:"
-                    name="description"
-                    value={addItem.description}
-                    onChange={handleAddItem}
-                  />
+                  <div>
+                    <textarea
+                      type="text"
+                      className={`${styles.textareainput} form-control`}
+                      id="name"
+                      placeholder="請輸入商品敘述:"
+                      name="description"
+                      value={addItem.description}
+                      onChange={handleAddItem}
+                    />
+                  </div>
                 </div>
                 <div className="error fs-5 fw-bold">{errors.description}</div>
 
                 <div className="mt-3 mx-5 mt-3 d-flex justify-content-start align-items-center">
                   <div
                     htmlFor="shop_name"
-                    className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3"
-                    style={{ width: '150px', backgroundColor: '#FCC8A1' }}
+                    className={`${styles.box} form-label d-flex justify-content-center fw-bold me-3 py-1  rounded-3`}
                   >
                     商品分類
                   </div>
-                  <select
-                    name="foodCate"
-                    value={addItem.foodCate}
-                    onChange={(e) => {
-                      setAddItem({ ...addItem, foodCate: e.target.value });
-                    }}
-                  >
-                    <option value={''}>---請選擇商品分類---</option>
-                    {foodCateOptions.map((v, i) => {
-                      return (
-                        <option key={i} value={v}>
-                          {v}
-                        </option>
-                      );
-                    })}
-                  </select>
+                  <div>
+                    <select
+                      className={styles.textareainput}
+                      name="foodCate"
+                      value={addItem.foodCate}
+                      onChange={(e) => {
+                        setAddItem({ ...addItem, foodCate: e.target.value });
+                      }}
+                    >
+                      <option value={''}>---請選擇商品分類---</option>
+                      {foodCateOptions.map((v, i) => {
+                        return (
+                          <option key={i} value={v}>
+                            {v}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
                 </div>
 
                 <div className="error fs-5 fw-bold">{errors.foodCate}</div>
@@ -262,47 +257,49 @@ export default function AddNewItem() {
                 <div className="price mx-5 mt-3 d-flex justify-content-start align-items-center">
                   <div
                     htmlFor="shop_name"
-                    className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3"
-                    style={{ width: '150px', backgroundColor: '#FCC8A1' }}
+                    className={`${styles.box} form-label d-flex justify-content-center fw-bold me-3 py-1  rounded-3`}
                   >
                     商品價格
                   </div>
-                  <input
-                    type="text"
-                    className="form-control border-black"
-                    id="name"
-                    placeholder="請輸入商品價格:"
-                    name="price"
-                    value={addItem.price}
-                    onChange={handleAddItem}
-                  />
+                  <div>
+                    <input
+                      type="text"
+                      className={`${styles.input} form-control`}
+                      id="name"
+                      placeholder="請輸入商品價格:"
+                      name="price"
+                      value={addItem.price}
+                      onChange={handleAddItem}
+                    />
+                  </div>
                 </div>
                 <div className="error fs-5 fw-bold">{errors.price}</div>
 
                 <div className="note mx-5 mt-3 d-flex justify-content-start align-items-center">
                   <div
                     htmlFor="shop_name"
-                    className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3"
-                    style={{ width: '150px', backgroundColor: '#FCC8A1' }}
+                    className={`${styles.box} form-label d-flex justify-content-center fw-bold me-3 py-1  rounded-3`}
                   >
                     商品備註
                   </div>
-                  <textarea
-                    type="text"
-                    className="form-control border-black"
-                    id="name"
-                    placeholder="請輸入商品備註:"
-                    name="note"
-                    value={addItem.note}
-                    onChange={handleAddItem}
-                  />
+                  <div>
+                    <textarea
+                      type="text"
+                      className={`${styles.textareainput} form-control`}
+                      id="name"
+                      placeholder="請輸入商品備註:"
+                      name="note"
+                      value={addItem.note}
+                      onChange={handleAddItem}
+                    />
+                  </div>
                 </div>
 
                 <div className="d-flex justify-content-between mt-3">
                   <div>
                     {/* <Btn text="確認送出" /> */}
                     <input
-                      className="btn btn-warning me-3 border border-black"
+                      className={styles.add}
                       type="submit"
                       value="確認新增"
                     />
@@ -310,7 +307,7 @@ export default function AddNewItem() {
                   <div>
                     {/* <Btn text="取消填寫" /> */}
                     <input
-                      className="btn btn-warning mx-3 border border-black"
+                      className={styles.cancel}
                       type="reset"
                       value="取消新增"
                     />

@@ -14,7 +14,8 @@ import ResAuthContext from '@/context/ResAuthContext';
 import { headers } from 'next/dist/client/components/headers';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
-
+import Stack from '@mui/material';
+import Pagination from '@mui/material/Pagination';
 export default function Management() {
   const router = useRouter();
   const { resAuth, setResAuth, logout } = useContext(ResAuthContext);
@@ -22,7 +23,10 @@ export default function Management() {
   // 拿到物件資料
   const [foodItem, setFoodItem] = useState([]);
   const [originalFoodItem, setOriginalFoodItem] = useState([]); // 給filter用的array
-
+  // 分頁功能
+  const [item, setItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const getFoodItems = async () => {
     // const res = await axios.get(`http://localhost:3003/res/item-management`);
     fetch(`http://localhost:3002/res/item-management`, {
@@ -199,6 +203,24 @@ export default function Management() {
       }
     });
   };
+  // page 功能
+  // const connect = async (page) => {
+  //   fetch(`http://localhost:3002/news/demo?page=${page}`)
+  //     .then((r) => r.json())
+  //     .then((data) => {
+  //       setItems(data.rows);
+  //       setTotalPages(data.totalPages);
+  //       setCurrentPage(page);
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   connect(1);
+  // }, []);
+
+  // const handlePageChange = (event, newPage) => {
+  //   connect(newPage);
+  // };
 
   return (
     <>
@@ -214,36 +236,6 @@ export default function Management() {
                   <Link href={`/res/add-item`}>
                     <button className={`${styles.addbtn} `}>新增商品</button>
                   </Link>
-
-                  <div className="mt-3">
-                    <ul className="pagination">
-                      <li className="page-item disabled">
-                        <a className="page-link">
-                          <AiOutlineArrowLeft className={styles.arrow}/>
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item active" aria-current="page">
-                        <a className="page-link" href="#">
-                          2
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          <AiOutlineArrowRight className={styles.arrow}/>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
 
                   {resAuth.account ? (
                     <>
@@ -294,25 +286,43 @@ export default function Management() {
                       );
                     })}
                   </select>
+                  <div className="w-100 d-flex justify-content-center mt-3">
+                    <Pagination
+                      count={totalPages}
+                      page={currentPage}
+                      // onChange={handlePageChange}
+                      sx={{
+                        '& .MuiPaginationItem-root': {
+                          fontSize: 20,
+                        },
+                        '& .Mui-selected': {
+                          fontSize: 25,
+                        },
+                        '& .MuiPaginationItem-page': {
+                          minWidth: '40px',
+                          padding: '7px',
+                        },
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
-              <div  className={styles.input}>
+              <div className={styles.input}>
                 <Input
-               
                   label="搜尋商品"
                   placeholder="請輸入搜尋文字"
                   name="keyword"
                   value={searchKeyword}
                   onChange={search}
                 />
-              
-              <button
-                type="button"
-                className={styles.search}
-                onClick={getSearchQuery}
-              >
-                搜尋
-              </button>
+
+                <button
+                  type="button"
+                  className={styles.search}
+                  onClick={getSearchQuery}
+                >
+                  搜尋
+                </button>
               </div>
             </div>
 
