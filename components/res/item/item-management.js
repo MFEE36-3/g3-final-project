@@ -38,6 +38,7 @@ export default function Management() {
       });
   };
 
+
   // imgLink
   const imgLink = 'http://localhost:3002/img/res-img/';
 
