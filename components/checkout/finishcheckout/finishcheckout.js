@@ -10,9 +10,6 @@ export default function FinishCheckout() {
     const [time, setTime] = useState(7);
     const router = useRouter()
     useEffect(() => {
-      localStorage.removeItem('shop')
-      localStorage.removeItem('order')
-      localStorage.removeItem('buy')
       localStorage.removeItem('subscribe')
         setTimeout(()=>{
             router.push({pathname:"http://localhost:3000/member"})

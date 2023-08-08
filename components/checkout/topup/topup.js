@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Money from '@/public/trycheckoutimage/money.svg'
-import CheckBox from '@/components/checkout/addcash/checkbox';
+import CheckBox from '@/components/checkout/topup/checkbox';
 import Button from '@mui/material/Button';
-import PaymentForCash from '@/components/checkout/addcash/paymentforcash';
+import PaymentForCash from '@/components/checkout/topup/paymentforcash';
 import { useRouter } from 'next/router';
 const Money1 = styled.img`
     @keyframes MoneyRun{
@@ -97,8 +97,8 @@ export default function AddCash() {
             <PaymentForCash payment={payment} setPayment={setPayment}/>
             <CheckBox addValue={addValue} setAddValue={setAddValue}/>
             <div className='d-flex'>
-                <Button variant="contained" className='w-25 d-flex align-items-center mx-auto p-1  bg-warning rounded-4 mt-4 mb-2 border-0 justify-content-center fs-4' style={{fontFamily:"Zen Maru Gothic"}} onClick={()=>backToMember()}>返回會員中心</Button>
-                <Button variant="contained" className='w-25 d-flex align-items-center mx-auto p-1  bg-primary rounded-4 mt-4 mb-2 border-0 justify-content-center fs-4' style={{fontFamily:"Zen Maru Gothic"}} onClick={()=>backToCheckout()}>返回結帳</Button>
+                <Button variant="contained" className='w-25 d-flex align-items-center mx-auto p-1  bg-primary rounded-4 mt-4 mb-2 border-0 justify-content-center fs-4' style={{fontFamily:"Zen Maru Gothic"}} onClick={()=>backToMember()}>返回會員中心</Button>
+                <Button variant="contained" className='w-25 d-flex align-items-center mx-auto p-1  bg-warning rounded-4 mt-4 mb-2 border-0 justify-content-center fs-4' style={{fontFamily:"Zen Maru Gothic"}} onClick={()=>backToCheckout()}>返回結帳</Button>
                 <Button variant="contained" className='w-25 d-flex align-items-center mx-auto p-1   bg-danger rounded-4 mt-4 mb-2 border-0 justify-content-center fs-4' style={{fontFamily:"Zen Maru Gothic"}} onClick={()=>topUp()}>前往儲値</Button>
             </div>
         </div>

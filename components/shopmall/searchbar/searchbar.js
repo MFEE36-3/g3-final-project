@@ -88,7 +88,7 @@ export default function SearchBar() {
   React.useEffect(()=> {
   const fetchCommandItems = async () => {
     const response = await fetch(`${host}/ecshop/item`) 
-    const {data} = await response.json()
+    const { data } = await response.json()
     setCommandItems(data)
   }
   fetchCommandItems()
@@ -102,8 +102,8 @@ export default function SearchBar() {
       }
   };
   return (
-    <div className='mx-5 d-flex justify-content-center align-items-center my-4'>
-      <Stack spacing={2} sx={{}} className='w-75'>
+    <div className=' mx-0 d-flex pe-0 pt-2 justify-content-center align-items-center my-xl-4'>
+      <Stack spacing={2} className='w-75'>
         <Autocomplete
           id="free-solo-demo"
           className=''

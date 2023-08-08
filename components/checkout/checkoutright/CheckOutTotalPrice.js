@@ -74,8 +74,8 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
       }, [couponId, memberCoupon]);
     useEffect(()=>{
     const orderItem = JSON.parse(localStorage.getItem('order'))
-    const day =  Object.values(orderItem).map(i=>i.togodate)
-    const time = Object.values(orderItem).map(i=>i.togotime)
+    const day =  Object.values(orderItem).map(i=>i.togodate).shift() || []
+    const time = Object.values(orderItem).map(i=>i.togotime).shift() || []
     setDate(`${day} ${time}`)
     },[])
     const createOrderLoading = (href) => {
@@ -109,7 +109,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
         if(!payment) return
         if(memberInfo.wallet < totalPrice && payment === 'wallet') setWalletError(true)
         const url = `${host}/ecshop/checkout`
-        const orderData = {
+        const shopOrderData = {
             items : showPages(items).map(item => ({
                 item_id: item.itemId,
                 amount: item.amount
@@ -133,7 +133,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                     'Content-Type': 'application/json',
                     'Authorization':`Bearer ${member.token}`
                   },
-                body:JSON.stringify(orderData)
+                body:JSON.stringify(shopOrderData)
             })
             const data = await response.json();
             return data
