@@ -21,12 +21,17 @@ export default function Management() {
   const { resAuth, setResAuth, logout } = useContext(ResAuthContext);
 
   // 拿到物件資料
-  const [foodItem, setFoodItem] = useState([]);
+  const [foodItem, setFoodItem] = useState({
+    redirect: "",
+    totalRows: 0,
+    perPage: 4,
+    totalPages: 0,
+    page: 1,
+    rows: [],
+  });
+
   const [originalFoodItem, setOriginalFoodItem] = useState([]); // 給filter用的array
-  // 分頁功能
-  const [item, setItems] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+
   const getFoodItems = async () => {
     // const res = await axios.get(`http://localhost:3003/res/item-management`);
     fetch(`http://localhost:3002/res/item-management`, {
@@ -37,8 +42,19 @@ export default function Management() {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
-        setFoodItem(data.rows);
-        setOriginalFoodItem(data.rows);
+        setFoodItem(data);
+        // setOriginalFoodItem(data);
+      });
+    fetch(`http://localhost:3002/res/get-all-item-management`, {
+      method: 'POST',
+      body: JSON.stringify(resAuth),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+        // setFoodItem(data);
+        setOriginalFoodItem(data);
       });
   };
 
@@ -65,40 +81,51 @@ export default function Management() {
 
   // 現在才開始做selectBox
   const [foodCate, setFoodCate] = useState(6);
-  const [foodCateString, setFoodCateString] = useState('');
-  const foodCateOptions = ['全部商品', '前菜', '主菜', '甜點', '飲料', '湯品'];
+  // const [foodCateString, setFoodCateString] = useState('');
+  const foodCateOptions = ['全部商品', '開胃菜', '主餐', '甜點', '飲料', '湯品'];
 
   const matchList = (e) => {
-    if (e.target.value == '前菜') {
-      setFoodCate('前菜');
+    if (e.target.value === '開胃菜') {
+      setFoodCate('開胃菜');
     }
-    if (e.target.value == '主菜') {
-      setFoodCate('主菜');
+    if (e.target.value === '主餐') {
+      setFoodCate('主餐');
     }
-    if (e.target.value == '甜點') {
+    if (e.target.value === '甜點') {
       setFoodCate('甜點');
     }
-    if (e.target.value == '飲料') {
+    if (e.target.value === '飲料') {
       setFoodCate('飲料');
     }
-    if (e.target.value == '湯品') {
+    if (e.target.value === '湯品') {
       setFoodCate('湯品');
     }
-    if (e.target.value == '全部商品') {
+    if (e.target.value === '全部商品') {
       setFoodCate(6);
     }
-    setFoodCateString(e.target.value);
+    // setFoodCateString(e.target.value);
   };
 
+
+  console.log(originalFoodItem)
   const foodCateFilter = () => {
     if (foodCate == 6) {
       router.push('/res/item-management');
-      setFoodItem(originalFoodItem);
+      // setFoodItem(originalFoodItem);
+      getFoodItems()
     } else {
-      const newArray = originalFoodItem.filter((v) => v.food_cate == foodCate);
-      setFoodItem(newArray);
+      console.log(originalFoodItem)
+      const newArray = originalFoodItem.rows.filter((v) => v.food_cate === foodCate);
+      console.log(newArray)
+      // setFoodItem(newArray);
+      setFoodItem({ ...originalFoodItem, rows: newArray })
+      console.log(foodItem)
     }
   };
+
+  useEffect(() => {
+    foodCateFilter();
+  }, [foodCate]);
 
   // 商品排序
   const [itemOrder, setItemOrder] = useState('');
@@ -115,8 +142,8 @@ export default function Management() {
     })
       .then((r) => r.json())
       .then((data) => {
-        setFoodItem(data.rows);
-        setOriginalFoodItem(data.rows);
+        setFoodItem(data);
+        setOriginalFoodItem(data);
       });
   };
   // 由舊到新
@@ -128,8 +155,8 @@ export default function Management() {
     })
       .then((r) => r.json())
       .then((data) => {
-        setFoodItem(data.rows);
-        setOriginalFoodItem(data.rows);
+        setFoodItem(data);
+        setOriginalFoodItem(data);
       });
   };
 
@@ -147,21 +174,22 @@ export default function Management() {
       setFoodItem(originalFoodItem);
       router.push('/res/item-management');
     }
-    // router.push(`?keyword=${searchKeyword}&shop_id=${resAuth.id}`) // 連到query
     console.log(router);
   };
-  // console.log(router)
+  console.log(router)
   // 拿到router.query後fetch到後端去
   useEffect(() => {
     if (Object.keys(router.query).length > 0) {
       const usp = new URLSearchParams(router.query); // {keyword:abc}
+      console.log(usp)
+      console.log(usp.toString())
       fetch(`http://localhost:3002/res/item-management?${usp.toString()}`, {
         method: 'GET',
       })
         .then((r) => r.json())
         .then((data) => {
           console.log(data);
-          setFoodItem(data.rows);
+          setFoodItem(data);
         });
     }
   }, [router.query]);
@@ -176,14 +204,6 @@ export default function Management() {
     }
   }, [itemOrder]);
 
-  // useEffect(() => {
-  //   foodCateFilter()
-
-  // }, [foodItem, foodCate])
-
-  useEffect(() => {
-    foodCateFilter();
-  }, [foodCate]);
 
   // 刪除商品
   const confirmDeleteItem = () => {
@@ -202,6 +222,10 @@ export default function Management() {
       }
     });
   };
+  // 分頁功能
+  const [item, setItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   // page 功能
   // const connect = async (page) => {
   //   fetch(`http://localhost:3002/news/demo?page=${page}`)
@@ -213,13 +237,128 @@ export default function Management() {
   //     });
   // };
 
+  // const connect = async (page) => {
+  //   fetch(`http://localhost:3002/res/item-management?page=${page}`)
+  //     .then((r) => r.json())
+  //     .then((data) => {
+  //       console.log(data)
+  //       setItems(data.rows);
+  //       setTotalPages(data.totalPages);
+  //       setCurrentPage(page);
+  //     });
+  // };
+
   // useEffect(() => {
   //   connect(1);
   // }, []);
 
-  // const handlePageChange = (event, newPage) => {
-  //   connect(newPage);
-  // };
+  const handlePageChange = (event, page) => {
+    // connect(page);
+    // setCurrentPage(page)
+    const query = { ...router.query, shop_id: resAuth.id }
+    if (page) {
+      query.page = page
+      router.push({
+        pathname: router.pathname,
+        query: query
+      }), undefined, { scroll: false }
+    }
+  };
+
+  console.log(foodItem)
+
+  const showFoodItems = () => {
+    // return foodItem.rows && foodItem.rows.length > 0 ?
+    return foodItem.rows && foodItem.rows.length > 0 ? foodItem.rows.map((v, i) => {
+      return (
+        <tr className={``} style={{ background: 'gray' }} key={i}>
+          <td className={`text-center ${styles.imgSize}`}>
+            <img
+              src={`${imgLink}${v.food_img}`}
+              className={`${styles.imgSize}`}
+            ></img>
+          </td>
+          <td className={`text-center`}>{v.food_title}</td>
+          <td
+            className={`text-center`}
+            style={{
+              width: '100px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {v.food_des}
+          </td>
+          <td className="text-center">{v.food_price}</td>
+          <td className={`text-center`}>{v.create_time}</td>
+
+          <td className={`text-center`}>
+            <Link
+              href={`/res/item-management/edit-item/${v.food_id}`}
+            >
+              <button
+                type="button"
+                className="me-3 btn btn-primary"
+                onClick={(e) => {
+                  router.push(
+                    `/res/item-management/edit-item/${v.food_id}`
+                  );
+                }}
+              >
+                <AiTwotoneEdit />
+              </button>
+            </Link>
+          </td>
+
+          <td className={`text-center`}>
+            {' '}
+            <button
+              type="button"
+              className="me-3 btn btn-primary"
+              onClick={(e) => { }}
+            >
+              <ImBoxRemove />
+            </button>
+          </td>
+          <td className="text-center">
+            <button
+              type="button"
+              className="me-3 btn btn-primary"
+              onClick={() => {
+                Swal.fire({
+                  title: '您確定要刪除此項商品嗎?',
+                  showDenyButton: true,
+                  showCancelButton: false,
+                  confirmButtonText: '確定刪除',
+                  denyButtonText: `取消刪除`,
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Swal.fire('刪除成功!', '', 'success');
+                    fetch(
+                      `http://localhost:3002/res/item-management/deleteItem/${v.food_id}`,
+                      { method: 'DELETE' }
+                    )
+                      .then((r) => r.json())
+                      .then((data) => {
+                        console.log(data);
+                        location.reload();
+                      });
+
+                    // router.push(`/res/item-management/delete-item/${v.food_id}`)
+                  } else if (result.isDenied) {
+                    Swal.fire('取消刪除', '', 'info');
+                  }
+                });
+              }}
+            >
+              <AiTwotoneDelete />
+            </button>
+          </td>
+        </tr>
+      );
+    }) : ''
+  }
 
   return (
     <>
@@ -272,7 +411,7 @@ export default function Management() {
                   </select>
 
                   <select
-                    value={foodCateString}
+                    value={foodCate}
                     onChange={matchList}
                     className="form-select mt-3 ms-3"
                   >
@@ -286,10 +425,11 @@ export default function Management() {
                     })}
                   </select>
                   <div className="w-100 d-flex justify-content-center mt-3">
+
                     <Pagination
-                      count={totalPages}
-                      page={currentPage}
-                      // onChange={handlePageChange}
+                      count={foodItem.totalPages}
+                      // page={currentPage}
+                      onChange={handlePageChange}
                       sx={{
                         '& .MuiPaginationItem-root': {
                           fontSize: 20,
@@ -343,12 +483,6 @@ export default function Management() {
                     <th scope="col" className="text-center">
                       價格
                     </th>
-                    {/* <th scope="col" className="text-center">
-                      分類
-                    </th> */}
-                    {/* <th scope="col" className="text-center">
-                      商品備註
-                    </th> */}
                     <th scope="col" className="text-center">
                       商品建立時間:
                     </th>
@@ -364,7 +498,8 @@ export default function Management() {
                   </tr>
                 </thead>
                 <tbody>
-                  {foodItem.map((v, i) => {
+                  {showFoodItems()}
+                  {/* {foodItem.rows && foodItem.rows.length > 0 ? foodItem.rows.map((v, i) => {
                     return (
                       <tr className={``} style={{ background: 'gray' }} key={i}>
                         <td className={`text-center ${styles.imgSize}`}>
@@ -386,8 +521,6 @@ export default function Management() {
                           {v.food_des}
                         </td>
                         <td className="text-center">{v.food_price}</td>
-                        {/* <td className="text-center">{v.foodCateToString}</td> */}
-                        {/* <td className="text-center">{v.food_note}</td> */}
                         <td className={`text-center`}>{v.create_time}</td>
 
                         <td className={`text-center`}>
@@ -413,7 +546,7 @@ export default function Management() {
                           <button
                             type="button"
                             className="me-3 btn btn-primary"
-                            onClick={(e) => {}}
+                            onClick={(e) => { }}
                           >
                             <ImBoxRemove />
                           </button>
@@ -454,7 +587,7 @@ export default function Management() {
                         </td>
                       </tr>
                     );
-                  })}
+                  }):''} */}
                 </tbody>
               </table>
             </div>

@@ -4,6 +4,7 @@ import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import styles from '@/components/res/order-management.js/order-management.module.css'
 import ResAuthContext, { } from '@/context/ResAuthContext';
+import Swal from 'sweetalert2'
 
 export default function OrderManagement() {
 
@@ -19,14 +20,14 @@ export default function OrderManagement() {
   // 訂單狀態
   const [orderState, setOrderState] = useState('')
   const [orderTimeState, setOrderTimeState] = useState([])
-  const orderStateOptions = ['所有訂單', '尚未出貨', '已完成，等待取餐', '已結單'];
+  const orderStateOptions = ['所有訂單', '未完成', '已完成，等待取餐', '已結單'];
 
   // 訂單順序
   const [orderTime, setOrderTime] = useState('')
   const orderTimeOptions = ['由新到舊', '由舊到新']
 
   // 訂單分類
-  const [orderCategory, setOrderCategory] = useState('')
+  const [orderCategory, setOrderCategory] = useState('揪團')
   const orderCategoryOptions = ['揪團', '外帶']
 
   // 拿到resAuth資料
@@ -55,9 +56,34 @@ export default function OrderManagement() {
       });
   }
 
+  // 拿到外帶訂單資料
+  const [togoOrder, setTogoOrder] = useState([])
+  // 拿各筆訂單的品項
+  const [togoItems, setTogoItems] = useState([])
+  // 拿每一個品項的數量
+  const [orderAmount, setOrderAmount] = useState([])
+
+  const getTogoOrder = async () => {
+    fetch(process.env.API_SERVER + '/res/getTogoOrder', {
+      method: 'POST',
+      body: JSON.stringify(resAuth),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(r => r.json())
+      .then(data => {
+        console.log(data)   // array
+        setTogoOrder(data.groupedOrderItems)
+        // setTogoItems(data.order_item)
+        // setOrderAmount(data.order_amount)
+      })
+  }
+
+  console.log(togoOrder)
+
   useEffect(() => {
     if (resAuth.account) {
       getShopOrder();
+      getTogoOrder()
       console.log(getOrders); // 這裡會顯示空陣列 []，因為 getShopOrder() 還沒完成
     }
   }, [resAuth]);
@@ -84,9 +110,26 @@ export default function OrderManagement() {
     setShowOrder(!showOrder)
   }
 
+  // 點擊通知完成後通知消費者訂單已完成，並將狀態改為等待消費者領取
+  const informMember = (i) => {
+    const modifiedTogoOrder = [...togoOrder];
+    console.log(modifiedTogoOrder)
+
+    modifiedTogoOrder[i][0].status = '已完成，等待取餐';
+
+    setTogoOrder(modifiedTogoOrder);
+
+    Swal.fire(
+      '已通知消費者取餐!',
+      '等候消費者來取餐',
+      'success'
+    );
+  }
+
+  console.log(togoOrder)
+
   return (
     <>
-      {/* <h1 className="container">OrderManagement-Component</h1> */}
       <div className={`container container-sm-fluid ${styles.tableBackGround} bg-subtle p-4 border border-black rounded-4 mt-3`}>
         <h2 className='fw-bold'>訂單管理</h2>
         <hr />
@@ -109,7 +152,7 @@ export default function OrderManagement() {
               <select className='form-select mt-3 ms-3' value={orderCategory} onChange={(e) => {
                 setOrderCategory(e.target.value)
               }}>
-                <option value={``}>---訂單種類---</option>
+                {/* <option value={``}>---訂單種類---</option> */}
                 {orderCategoryOptions.map((v, i) => {
                   return <option key={i} value={v}>{v}</option>
                 })}
@@ -130,108 +173,124 @@ export default function OrderManagement() {
         </div>
         <div>
           {/* table */}
-          <table class="table table-warning table-striped mt-3 table-borderless border-dark">
-            <thead>
-              <tr>
-                <th scope="col" className='text-center'>訂單編號</th>
-                <th scope="col" className='text-center'>訂單狀態</th>
-                <th scope="col" className='text-center'>訂單內容
-                  <button type='button' className='btn btn-warning ms-auto mt-auto' style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
-                </th>
-                <th scope="col" className='text-center'>總金額</th>
-                <th scope="col" className='text-center'>訂單成立時間</th>
-                <th scope="col" className='text-center'>通知完成訂單</th>
-              </tr>
-            </thead>
-            <tbody>
-              {getOrders.map((v, i) => {
-                return <tr key={i}>
-                  <td className='text-center'>{i}</td>
-                  <td className='text-center'>已結單</td>
-                  <td className={`d-flex flex-column mb-3" ${showOrder == false ? styles.orderShow_hidden : styles.orderShow_show} `}>
-                    {/* <td className={`d-flex flex-column mb-3"`}> */}
-
-                    <div key={i} className='d-flex justify-content-between'>
-                      <span className='me-auto fw-bold'>商品</span>
-                      {/* <span className='me-3'> x </span> */}
-                      <span className='me-1 fw-bold'>數量</span>
-                      <span className='fw-bold'>價格</span>
-                    </div>
-                    {v.titles.map((title, i) => (
-                      <div key={i} className='d-flex justify-content-between'>
-                        <span className='me-auto'>{title}</span>
-                        <span className='me-4'> x </span>
-                        <span className='me-4'>{v.amounts[i]}</span>
-                        <span>{v.prices[i]}</span>
-                      </div>
-                    ))}
-
+          {orderCategory == '揪團' ?
+            <table class="table table-warning table-striped mt-3 table-borderless border-dark">
+              <thead>
+                <tr>
+                  <th scope="col" className='text-center'>訂單編號</th>
+                  <th scope="col" className='text-center'>訂單狀態</th>
+                  <th scope="col" className='text-center'>訂單內容
                     <button type='button' className='btn btn-warning ms-auto mt-auto' style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
-
-                  </td>
-                  <td className='text-center'>{v.amounts.reduce((total, amount, index) => {
-                    return total + amount * v.prices[index];
-                  }, 0)}</td>
-                  <td className='text-center'>
-                    {orderTimeState.map((v2, i2) => {
-                      if (i2 == i) {
-                        return v2.meet_time
-                      }
-                    })}
-                  </td>
-                  <td className='text-center'><button type='button' className='btn btn-primary'>通知完成</button></td>
+                  </th>
+                  <th scope="col" className='text-center'>總金額</th>
+                  <th scope="col" className='text-center'>訂單成立時間</th>
+                  <th scope="col" className='text-center'>通知完成訂單</th>
                 </tr>
-              })}
+              </thead>
+              <tbody>
+                {getOrders.map((v, i) => {
+                  return <tr key={i}>
+                    <td className='text-center'>{i}</td>
+                    <td className='text-center'>已結單</td>
+                    <td className={`d-flex flex-column mb-3" ${showOrder == false ? styles.orderShow_hidden : styles.orderShow_show} `}>
+                      {/* <td className={`d-flex flex-column mb-3"`}> */}
 
-              <tr className=''>
-                <td className='text-center'>A001</td>
-                <td className='text-center'>尚未出貨</td>
-                <td className='text-center'>紅醬義大利麵X1,可樂X1</td>
-                {/* <td className='text-center'>無</td> */}
-                <td className='text-center'>180</td>
-                <td className='text-center'>2023:01-01 18:00:00</td>
-                {/* <td className='text-center'><Btn text='通知完成訂單' /></td> */}
-                <td className='text-center'><button type='button' className='btn btn-primary'>通知完成</button></td>
-              </tr>
-              <tr className=''>
-                <td className='text-center'>A001</td>
-                <td className='text-center'>已完成，等待取餐</td>
-                <td className='text-center'>紅醬義大利麵X1,可樂X1</td>
-                {/* <td className='text-center'>超級多，好讚</td> */}
-                <td className='text-center'>180</td>
-                <td className='text-center'>2023:01-01 18:00:00</td>
-                {/* <td className='text-center'><Btn text='通知完成訂單' /></td> */}
-                <td className='text-center'><button type='button' className='btn btn-primary'>通知完成</button></td>
-              </tr>
-              <tr className=''>
-                <td className='text-center'>A001</td>
-                <td className='text-center'>已結單</td>
-                <td className='text-center'>紅醬義大利麵X1,可樂X1</td>
-                {/* <td className='text-center'>不要付餐具，謝謝</td> */}
-                <td className='text-center'>180</td>
-                <td className='text-center'>2023:01-01 18:00:00</td>
-                {/* <td className='text-center'><Btn text='通知完成訂單' /></td> */}
-                <td className='text-center'><button type='button' className='btn btn-primary'>通知完成</button></td>
-              </tr>
+                      <div key={i} className='d-flex justify-content-between'>
+                        <span className='me-auto fw-bold'>商品</span>
+                        {/* <span className='me-3'> x </span> */}
+                        <span className='me-1 fw-bold'>數量</span>
+                        <span className='fw-bold'>價格</span>
+                      </div>
+                      {v.titles.map((title, i) => (
+                        <div key={i} className='d-flex justify-content-between'>
+                          <span className='me-auto'>{title}</span>
+                          <span className='me-4'> x </span>
+                          <span className='me-4'>{v.amounts[i]}</span>
+                          <span>{v.prices[i]}</span>
+                        </div>
+                      ))}
 
-            </tbody>
-          </table>
+                      <button type='button' className='btn btn-warning ms-auto mt-auto' style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
+
+                    </td>
+                    <td className='text-center'>{v.amounts.reduce((total, amount, index) => {
+                      return total + amount * v.prices[index];
+                    }, 0)}</td>
+                    <td className='text-center'>
+                      {orderTimeState.map((v2, i2) => {
+                        if (i2 == i) {
+                          return v2.meet_time
+                        }
+                      })}
+                    </td>
+                    <td className='text-center'><button type='button' className='btn btn-primary'
+                      onClick={(e) => { }}
+                    >通知完成</button></td>
+                  </tr>
+                })}
+
+              </tbody>
+            </table>
+
+            :
+
+            <table class="table table-warning table-striped mt-3 table-borderless border-dark">
+              <thead>
+                <tr>
+                  <th scope="col" className='text-center'>訂單編號</th>
+                  <th scope="col" className='text-center'>訂單狀態</th>
+                  <th scope="col" className='text-center'>訂單內容
+                    <button type='button' className='btn btn-warning ms-auto mt-auto' style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
+                  </th>
+                  <th scope="col" className='text-center'>總金額</th>
+                  <th scope="col" className='text-center'>訂單成立時間</th>
+                  <th scope="col" className='text-center'>通知完成訂單</th>
+                </tr>
+              </thead>
+              <tbody>
+                {togoOrder.map((v, i) => {
+                  return <tr key={i}>
+                    <td className='text-center'>{i + 1}</td>
+                    <td className='text-center'>{v[0].status}</td>
+                    <td className={`d-flex flex-column mb-3" ${showOrder == false ? styles.orderShow_hidden : styles.orderShow_show} `}>
+                      <table>
+                        <thead>
+                          <tr>
+                            <th scope="col" className='text-center'>商品</th>
+                            <th scope="col" className='text-center'>數量</th>
+                            <th scope="col" className='text-center'>價格</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Array(togoOrder[i].length).fill(1).map((val, ind) => (
+                            <tr key={ind}>
+                              <td className='text-center'>{v[ind].order_item}</td>
+                              <td className='text-center'>{v[ind].order_num}</td>
+                              <td className='text-center'>{v[ind].price}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+
+                      </table>
+
+                    </td>
+                    <td className='text-center'>{v[0].amount}</td>
+                    <td className='text-center'>{v[0].create_at}</td>
+                    <td className='text-center'><button type='button' className='btn btn-primary'
+                      onClick={informMember}
+                    >通知完成</button></td>
+                  </tr>
+                })}
+
+              </tbody>
+            </table>
+          }
+
         </div>
-        <div>
-          <hr />
-          <div className='d-flex justify-content-evenly'>
-            {/* <Btn text='外帶訂單' />
-            <Btn text='已結單' />
-            <Btn text='尚未結單' />
-            <Btn text='已完成，等待取餐' /> */}
-
-            {/* <button type='button' className='btn btn-primary'>外帶訂單</button>
-            <button type='button' className='btn btn-success'>已結單</button>
-            <button type='button' className='btn btn-warning'>尚未結單</button>
-            <button type='button' className='btn btn-danger'>已完成，等待取餐</button> */}
-          </div>
-        </div>
+        <hr />
       </div>
+
+
     </>
   );
 }
