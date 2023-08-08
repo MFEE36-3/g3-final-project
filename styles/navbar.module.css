@@ -263,7 +263,35 @@
 
 }
 
+@media screen and (max-width: 1240px) {
+  .btn_text {
+    transform: scale(0.8);
+    margin: 0 16px 0 60px;
+    line-height: 30px;
+  }
+
+  .navbtn {
+    padding: 8px 5px;
+  }
+
+  .navbtn_active {
+    padding: 8px 5px;
+  }
+}
+
 @media screen and (max-width: 1080px) {
+  .btn_text {
+    transform: scale(0.8);
+    margin: 0 5px 0 50px;
+  }
+
+  .navbtn {
+    padding: 8px 5px;
+  }
+
+  .navbtn_active {
+    padding: 8px 5px;
+  }
 
   .little_title {
     visibility: hidden;
@@ -288,8 +316,7 @@
 
 @media screen and (max-width: 900px) {
   .btn_text {
-    transform: scale(0.8);
-    margin: 0 0 0 50px;
+    margin: 0 0 0 55px;
   }
 
   .navbtn {
@@ -302,28 +329,28 @@
 
   .hamburger {
     position: absolute;
-    left: -95px;
+    left: -85px;
     top: -66px;
     transform: scale(0.20);
   }
 
   .candy {
     position: absolute;
-    left: -5px;
+    left: 5px;
     top: -21px;
     transform: scale(0.6);
   }
 
   .chips {
     position: absolute;
-    left: -102px;
+    left: -92px;
     top: -92px;
     transform: scale(0.20);
   }
 
   .bubble_tea {
     position: absolute;
-    left: -50px;
+    left: -40px;
     top: -95px;
     transform: scale(0.25);
   }
@@ -431,10 +458,12 @@
     color: white;
     z-index: 1;
     background-color: var(--main-color);
+    margin: 0 0 0 30%;
     margin-top: auto;
     margin-bottom: 5px;
     padding: 2px 6px 0 6px;
     transition: 0.3s ease-in-out;
+    /* transform: scale(0.8); */
   }
 
   .navbtn_active>.btn_text {
@@ -476,7 +505,38 @@
 
 
 
-@media screen and (max-width: 391px) {
+@media screen and (max-width: 710px) {
+  .btn_text {
+    margin: 0 10% 5px 40%;
+    transform: scale(0.7);
+  }
+}
+
+@media screen and (max-width: 576px){
+
+  .btn_text {
+    margin: 0 0 5px 40%;
+    transform: scale(0.55);
+  }
+
+  .chips {
+    left: -105px;
+  }
+
+  .hamburger {
+    left: -95px;
+  }
+
+  .bubble_tea {
+    left: -45px;
+  }
+
+  .candy {
+    left: -10px;
+  }
+}
+
+@media screen and (max-width: 468px) {
 
   .choco,
   .hand_left,
@@ -535,15 +595,15 @@
 
 
   .btn_text {
-    font-size: var(--h9);
+    font-size: var(--h7);
     font-weight: 600;
     color: white;
     margin: 0;
     z-index: 1;
     background-color: var(--main-color);
     margin-top: auto;
-    margin-bottom: 0;
-    padding: 2px 6px 0 6px;
+    margin-bottom: -8px;
+    padding: 2px 15% 0 15%;
     transition: 0.3s ease-in-out;
   }
 
@@ -557,29 +617,40 @@
 
   .hamburger {
     position: absolute;
-    left: -84px;
-    top: -75px;
-    transform: scale(0.2);
+    left: auto;
+    margin: auto;
+    top: -80px;
+    transform: scale(0.15);
   }
 
   .candy {
     position: absolute;
-    left: 0;
+    left: auto;
     top: -30px;
+    margin: auto;
     transform: scale(0.45);
   }
 
   .chips {
     position: absolute;
-    left: -95px;
+    left: auto;
     top: -100px;
-    transform: scale(0.18);
+    margin: auto;
+    transform: scale(0.16);
   }
 
   .bubble_tea {
     position: absolute;
-    left: -40px;
+    left: auto;
     top: -110px;
+    margin: auto;
     transform: scale(0.18);
   }
 }
+
+@media screen and (max-width: 428px) {
+  .btn_text {
+    font-size: var(--h9);
+  }
+}
+
