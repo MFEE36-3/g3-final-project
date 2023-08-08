@@ -17,7 +17,7 @@ export default function Top5() {
     fetch(`${process.env.API_SERVER}/reservation/top5`)
       .then(r => r.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setData(data.rows);
       })
   }, [])

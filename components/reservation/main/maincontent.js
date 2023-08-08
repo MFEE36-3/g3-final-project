@@ -6,12 +6,15 @@ import { AiFillStar } from 'react-icons/ai';
 import Link from "next/link";
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect, useContext } from 'react';
-import { auth } from '@/pages/reservation/index'
+// import { auth } from '@/pages/reservation/index'
+import { RouteRounded } from '@mui/icons-material';
+import Swal from 'sweetalert2';
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 export default function MainContent({ favorite, setFavorite }) {
-  const { token } = useContext(auth)
+  // const { token } = useContext(auth)
   const [data, setData] = useState([]);
-  // console.log(token);
+
   useEffect(() => {
     fetch(`${process.env.API_SERVER}/reservation/cards`)
       .then(r => r.json())
@@ -19,34 +22,89 @@ export default function MainContent({ favorite, setFavorite }) {
         // console.log(data)
         setData(data.rows);
       })
-  }, [])
-  // const loginAlert = () => {
-  //   Swal.fire({
-  //     title: '請先登入會員',
-  //     showClass: {
-  //       popup: 'animate__animated animate__fadeInDown'
-  //     },
-  //     hideClass: {
-  //       popup: 'animate__animated animate__fadeOutUp'
-  //     },
-  //     icon: 'warning',
-  //     confirmButtonText: '前往登入',
-  //     customClass: {
-  //       confirmButton: 'bg-danger'
-  //     }
-  //   }).then(result => {
-  //     if (result.isConfirmed) {
-  //       window.location.href = 'http://localhost:3001/login'
-  //     }
-  //   })
-  // }
 
-  const handleFavorite = () => {
-    // if (!token.token) loginAlert()
-    // if (!token.token) return
-    setFavorite((prev) => {
-      return !prev;
+    const member = JSON.parse(localStorage.getItem('auth'));
+    if (member?.sid) {
+      fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
+        .then(r => r.json())
+        .then(data => {
+          console.log(data)
+        })
+    }
+
+  }, [])
+
+  const handleFavorite = (sid) => {
+
+    const member = JSON.parse(localStorage.getItem('auth'));
+
+    //判斷是否登入
+    if (!member?.sid) {
+      Swal.fire({
+        title: '請先登入',
+        iconHtml: `<img src=${chocoCookie.src}>`,
+        customClass: {
+          icon: 'sweetalert_icon'
+        },
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: '前往登入',
+        denyButtonText: '我再想想',
+      }).then(
+        function (result) {
+          if (result.value) router.push('/login')
+        });
+      return;
+    }
+
+    // 判斷是否已收藏
+    if (favorite.includes(sid)) {
+      // 後端-刪除商品
+      fetch(`${process.env.API_SERVER}/reservation/favorite_delete/${member?.sid}/${sid}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: member.sid,
+          shop_id: sid,
+        })
+      })
+
+      // setFavorite
+      fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
+        .then(r => r.json())
+        .then(data => {
+          // console.log(data)
+
+          const newFav = data.rows.map(v => v.shop_id);
+          setFavorite(prev => newFav)
+        })
+      return;
+    }
+
+    // 後端-新增商品
+    fetch(`${process.env.API_SERVER}/reservation/favorite`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: member.sid,
+        shop_id: sid,
+      })
     })
+    // setFavorite
+    fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
+      .then(r => r.json())
+      .then(data => {
+        // console.log(data)
+
+        const newFav = data.rows.map(v => v.shop_id);
+        setFavorite(prev => newFav)
+      })
+
+
   }
 
 
@@ -92,8 +150,8 @@ export default function MainContent({ favorite, setFavorite }) {
                         </div>
                       </div>
                     </div>
-                    <div className="d-flex align-item-center" onClick={handleFavorite}>
-                      {favorite ?
+                    <div className="d-flex align-item-center" onClick={() => handleFavorite(sid)}>
+                      {favorite.includes(sid) ?
                         <FaHeart className={`${style.cardheart} fs-4 h-100`} /> :
                         <FaRegHeart className={`${style.cardheart} fs-4 h-100`} />
                       }

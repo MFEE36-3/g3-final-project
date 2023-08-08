@@ -8,7 +8,7 @@ import style from '@/styles/reservation/style.module.css'
 import { GoDotFill } from 'react-icons/go'
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import AuthContext from '@/context/AuthContext';
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 export default function Reservation({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo }) {
   const [memberInfo, setMemberInfo] = useState({})
@@ -41,10 +41,30 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
       }
     })
   }, [row.detail.sid, date, time, person, seat, memo])
+
   // 當點擊「送出訂位」按鈕時，處理資料提交
   const handleSubmit = () => {
     if (seat) {
+      const member = JSON.parse(localStorage.getItem('auth'));
 
+      //判斷是否登入
+      if (!member?.sid) {
+        Swal.fire({
+          title: '請先登入',
+          iconHtml: `<img src=${chocoCookie.src}>`,
+          customClass: {
+            icon: 'sweetalert_icon'
+          },
+          showDenyButton: true,
+          showCancelButton: false,
+          confirmButtonText: '前往登入',
+          denyButtonText: '我再想想',
+        }).then(
+          function (result) {
+            if (result.value) router.push('/login')
+          });
+        return;
+      }
 
       const confirmationText = `
         <div style="display:flex; flex-direction:column;">

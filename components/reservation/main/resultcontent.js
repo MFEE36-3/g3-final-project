@@ -14,8 +14,10 @@ import Select from '@mui/material/Select';
 import { Router, useRouter } from 'next/router';
 import Pagination from '@mui/material/Pagination';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Swal from 'sweetalert2';
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
-export default function ResultContent(favorite, setFavorite) {
+export default function ResultContent({ favorite, setFavorite }) {
 
   const router = useRouter();
   const [sortrating, setSortrating] = useState('');
@@ -41,7 +43,6 @@ export default function ResultContent(favorite, setFavorite) {
   useEffect(() => {
     if (router.query) {
       const usp = new URLSearchParams(router.query)
-      // console.log(`${process.env.API_SERVER}/search?${decodeURI(usp.toString()).replaceAll('%2C', ',')}`)
 
       fetch(`${process.env.API_SERVER}/reservation/restaurant` + window.location.search)
         .then(r => r.json())
@@ -52,10 +53,75 @@ export default function ResultContent(favorite, setFavorite) {
     }
   }, [router.query])
 
-  const handleFavorite = () => {
-    setFavorite((prev) => {
-      return !prev;
+  const handleFavorite = (sid) => {
+
+    const member = JSON.parse(localStorage.getItem('auth'));
+
+    //判斷是否登入
+    if (!member?.sid) {
+      Swal.fire({
+        title: '請先登入',
+        iconHtml: `<img src=${chocoCookie.src}>`,
+        customClass: {
+          icon: 'sweetalert_icon'
+        },
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: '前往登入',
+        denyButtonText: '我再想想',
+      }).then(
+        function (result) {
+          if (result.value) router.push('/login')
+        });
+      return;
+    }
+
+    // 判斷是否已收藏
+    if (favorite.includes(sid)) {
+      // 後端-刪除商品
+      fetch(`${process.env.API_SERVER}/reservation/favorite_delete/${member?.sid}/${sid}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: member.sid,
+          shop_id: sid,
+        })
+      })
+
+      fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
+        .then(r => r.json())
+        .then(data => {
+          // console.log(data)
+
+          const newFav = data.rows.map(v => v.shop_id);
+          setFavorite(prev => newFav)
+        })
+      return;
+    }
+
+    // 使用fetch將資料送至後端處理
+    fetch(`${process.env.API_SERVER}/reservation/favorite`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: member.sid,
+        shop_id: sid,
+      })
     })
+    fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
+      .then(r => r.json())
+      .then(data => {
+        // console.log(data)
+
+        const newFav = data.rows.map(v => v.shop_id);
+        setFavorite(prev => newFav)
+      })
+
+
   }
 
   const [currentPage, setCurrentPage] = useState();
@@ -170,8 +236,8 @@ export default function ResultContent(favorite, setFavorite) {
                       </div>
                     </div>
 
-                    <div className="d-flex align-item-center" onClick={handleFavorite}>
-                      {favorite ?
+                    <div className="d-flex align-item-center" onClick={() => handleFavorite(sid)}>
+                      {favorite.includes(sid) ?
                         <FaHeart className={`${style.cardheart} fs-4 h-100`} /> :
                         <FaRegHeart className={`${style.cardheart} fs-4 h-100`} />
                       }
