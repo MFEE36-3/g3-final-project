@@ -1,6 +1,7 @@
 .area1 {
   font-size: 18px;
   width: 100%;
+  height: 510px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -11,8 +12,8 @@
   margin-bottom: 60px;
   font-weight: 800;
   margin-top: 40px;
-  height: 600px;
-  padding: 3px;
+  padding: 7px;
+  background-color: #fff;
 }
 
 .area2 {
@@ -27,8 +28,8 @@
   font-weight: 800;
   border: 2px solid #921010;
   border-radius: 15px;
-  margin-top: 40px;
-  height: 500px;
+  margin-top: 20px;
+  height: 600px;
   background-color: #fff;
 }
 
@@ -46,10 +47,11 @@
   height: 100%;
   width: 100%;
   background-color: #ffffff;
-  padding-right: 7px;
   overflow-y: scroll;
   overflow-x: hidden;
-  margin-right: 10px;
+  margin-right: 5px;
+  margin-top: 10px;
+  padding-right: 10px;
 }
 
 .scroll::-webkit-scrollbar {
@@ -58,6 +60,63 @@
 
 .scroll::-webkit-scrollbar-thumb {
   background-color: #aeaeae; /* 設置滾輪顏色 */
+}
+
+.scroll2 {
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.scroll2::-webkit-scrollbar {
+  width: 3px; /* 設置滾輪寬度 */
+}
+
+.scroll2::-webkit-scrollbar-thumb {
+  background-color: #aeaeae; /* 設置滾輪顏色 */
+}
+
+.default {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+}
+
+.default:hover {
+  color: #921010;
+  transform: scaleX(1.1);
+  transition: all 0.2s ease;
+}
+
+.recordBtn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #aa9696;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: white;
+}
+
+.recordBtn:hover {
+  background-color: #d6bebe;
+  transition: all 0.1s ease-in;
+  transform: scale(1.1);
+}
+
+.btnArea {
+  display: flex;
+  margin-left: 10px;
+  gap: 10px;
 }
 
 @media screen and (max-width: 391px) {

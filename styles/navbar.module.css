@@ -48,7 +48,7 @@
   margin-right: 5%;
 }
 
-.big_title_container > img {
+.big_title_container>img {
   position: absolute;
   margin-top: 20px;
 }
@@ -78,7 +78,7 @@
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  border: 4.32px solid black;
+  border: 3px solid var(--sub-color);
   position: fixed;
   top: 16px;
   left: 94.5%;
@@ -132,6 +132,7 @@
 .btn_hamburger {
   margin-right: 11.5%;
 }
+
 .btn_right_container {
   display: flex;
   justify-content: space-between;
@@ -194,7 +195,177 @@
 
 /* ----------------RWD---------------- */
 
-@media screen and (max-width: 391px) {
+
+@media screen and (max-width: 1700px) {
+
+  .little_title {
+    transform: scale(0.8);
+    left: 10px;
+    top: 32px;
+  }
+
+  .member_icon {
+    height: 50px;
+    width: 50px;
+    top: 23px;
+    left: auto;
+    right: 20px;
+    z-index: 10;
+  }
+
+  .cart {
+    transform: scale(0.85);
+    left: auto;
+    right: 80px;
+    top: 26px;
+  }
+
+  .btn_text {
+    transform: scale(0.9);
+    margin: 0 0 0 50px;
+  }
+
+  .navbtn {
+    padding: 8px 5px;
+  }
+
+  .navbtn_active {
+    padding: 8px 5px;
+  }
+
+  .hamburger {
+    position: absolute;
+    left: -85px;
+    top: -66px;
+    transform: scale(0.25);
+  }
+
+  .candy {
+    position: absolute;
+    left: -5px;
+    top: -15px;
+    transform: scale(0.9);
+  }
+
+  .chips {
+    position: absolute;
+    left: -95px;
+    top: -88px;
+    transform: scale(0.25);
+  }
+
+  .bubble_tea {
+    position: absolute;
+    left: -40px;
+    top: -95px;
+    transform: scale(0.28);
+  }
+
+}
+
+@media screen and (max-width: 1240px) {
+  .btn_text {
+    transform: scale(0.8);
+    margin: 0 16px 0 60px;
+    line-height: 30px;
+  }
+
+  .navbtn {
+    padding: 8px 5px;
+  }
+
+  .navbtn_active {
+    padding: 8px 5px;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .btn_text {
+    transform: scale(0.8);
+    margin: 0 5px 0 50px;
+  }
+
+  .navbtn {
+    padding: 8px 5px;
+  }
+
+  .navbtn_active {
+    padding: 8px 5px;
+  }
+
+  .little_title {
+    visibility: hidden;
+  }
+
+  .member_icon {
+    height: 45px;
+    width: 45px;
+    top: 26px;
+    left: auto;
+    right: 10px;
+    z-index: 10;
+  }
+
+  .cart {
+    transform: scale(0.8);
+    left: auto;
+    right: 55px;
+    top: 26px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .btn_text {
+    margin: 0 0 0 55px;
+  }
+
+  .navbtn {
+    padding: 8px 5px;
+  }
+
+  .navbtn_active {
+    padding: 8px 5px;
+  }
+
+  .hamburger {
+    position: absolute;
+    left: -85px;
+    top: -66px;
+    transform: scale(0.20);
+  }
+
+  .candy {
+    position: absolute;
+    left: 5px;
+    top: -21px;
+    transform: scale(0.6);
+  }
+
+  .chips {
+    position: absolute;
+    left: -92px;
+    top: -92px;
+    transform: scale(0.20);
+  }
+
+  .bubble_tea {
+    position: absolute;
+    left: -40px;
+    top: -95px;
+    transform: scale(0.25);
+  }
+
+  .btn_outer_link {
+    margin: 0;
+  }
+
+  .btn_hamburger.btn_outer_link {
+    margin-right: 11.5%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
   .choco,
   .hand_left,
   .hand_right,
@@ -202,18 +373,20 @@
     display: none;
   }
 
+  .btn_outer_link {
+    margin: 0 1%;
+  }
+
+  .btn_outer_link.btn_hamburger {
+    margin-right: 1%;
+  }
+
   .member_icon {
     height: 40px;
     width: 40px;
-    border-radius: 50%;
-    border: 4.32px solid black;
-    position: fixed;
     top: 18px;
     left: auto;
     right: 20px;
-    background-image: url('/28a8513919088d3328aaa40284c6b13e.png');
-    background-size: cover;
-    z-index: 10;
   }
 
   .cart {
@@ -224,7 +397,8 @@
   }
 
   .little_title {
-    left: 20px;
+    visibility: visible;
+    left: 10px;
     top: 20px;
     width: 9.427%;
     z-index: 10;
@@ -264,17 +438,30 @@
     border-radius: 10px !important;
   }
 
+  .navbtn_active {
+    padding: 0;
+    height: 50px;
+    /* width: 80px; */
+    border-radius: 10px !important;
+  }
+
+
   .btn_text {
-    font-size: var(--h9);
+    font-size: var(--h4);
     font-weight: 600;
     color: white;
-    margin: 0;
     z-index: 1;
     background-color: var(--main-color);
+    margin: 0 0 0 30%;
     margin-top: auto;
-    margin-bottom: 0;
+    margin-bottom: 5px;
     padding: 2px 6px 0 6px;
     transition: 0.3s ease-in-out;
+    /* transform: scale(0.8); */
+  }
+
+  .navbtn_active>.btn_text {
+    background-color: var(--sub-color);
   }
 
   .navbtn:hover .btn_text {
@@ -291,7 +478,7 @@
   .candy {
     position: absolute;
     left: 0;
-    top: -30px;
+    top: -28px;
     transform: scale(0.45);
   }
 
@@ -305,7 +492,159 @@
   .bubble_tea {
     position: absolute;
     left: -40px;
-    top: -110px;
+    top: -100px;
     transform: scale(0.18);
   }
 }
+
+
+
+@media screen and (max-width: 710px) {
+  .btn_text {
+    margin: 0 10% 5px 40%;
+    transform: scale(0.7);
+  }
+}
+
+@media screen and (max-width: 576px){
+
+  .btn_text {
+    margin: 0 0 5px 40%;
+    transform: scale(0.55);
+  }
+
+  .chips {
+    left: -105px;
+  }
+
+  .hamburger {
+    left: -95px;
+  }
+
+  .bubble_tea {
+    left: -45px;
+  }
+
+  .candy {
+    left: -10px;
+  }
+}
+
+@media screen and (max-width: 468px) {
+
+  .choco,
+  .hand_left,
+  .hand_right,
+  .big_title_container {
+    display: none;
+  }
+
+  .little_title {
+    left: 0px;
+    top: 20px;
+    width: 9.427%;
+    z-index: 10;
+  }
+
+  .nav {
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    left: 0;
+    top: calc(100vh - 60px);
+    border-radius: 0;
+    z-index: 60;
+    /* padding: 5px 10px; */
+  }
+
+  .btn_outer_link {
+    margin: 0 1%;
+  }
+
+  .btn_hamburger {
+    margin-right: 1%;
+  }
+
+  .btn_right_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+
+  .navbtn {
+    padding: 0;
+    height: 50px;
+    /* width: 80px; */
+    border-radius: 10px !important;
+  }
+
+  .navbtn_active {
+    padding: 0;
+    height: 50px;
+    /* width: 80px; */
+    border-radius: 10px !important;
+  }
+
+
+  .btn_text {
+    font-size: var(--h7);
+    font-weight: 600;
+    color: white;
+    margin: 0;
+    z-index: 1;
+    background-color: var(--main-color);
+    margin-top: auto;
+    margin-bottom: -8px;
+    padding: 2px 15% 0 15%;
+    transition: 0.3s ease-in-out;
+  }
+
+  .navbtn_active>.btn_text {
+    background-color: var(--sub-color);
+  }
+
+  .navbtn:hover .btn_text {
+    background-color: var(--sub-color);
+  }
+
+  .hamburger {
+    position: absolute;
+    left: auto;
+    margin: auto;
+    top: -80px;
+    transform: scale(0.15);
+  }
+
+  .candy {
+    position: absolute;
+    left: auto;
+    top: -30px;
+    margin: auto;
+    transform: scale(0.45);
+  }
+
+  .chips {
+    position: absolute;
+    left: auto;
+    top: -100px;
+    margin: auto;
+    transform: scale(0.16);
+  }
+
+  .bubble_tea {
+    position: absolute;
+    left: auto;
+    top: -110px;
+    margin: auto;
+    transform: scale(0.18);
+  }
+}
+
+@media screen and (max-width: 428px) {
+  .btn_text {
+    font-size: var(--h9);
+  }
+}
+

@@ -15,6 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 
 
@@ -246,7 +247,10 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                         if (ordersheet.order_member_id === 0) {
                             Swal.fire({
                                 title: '請先登入',
-                                icon: 'warning',
+                                iconHtml: `<img src=${chocoCookie.src}>`,
+                                customClass: {
+                                    icon: 'sweetalert_icon'
+                                },
                                 showDenyButton: true,
                                 showCancelButton: false,
                                 confirmButtonText: '前往登入',

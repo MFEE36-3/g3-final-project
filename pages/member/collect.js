@@ -13,11 +13,15 @@ import MemCollectReocrd2 from '@/components/member/mem-collectRecord2';
 import MemBtn from '@/components/member/mem-Btn';
 import MemNologin from '@/components/member/mem-nologin';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Index() {
   const { auth } = useContext(AuthContext);
   const [list, setList] = useState([]);
   const [store, setStore] = useState([]);
+  const [forum, setForum] = useState([]);
+  const [open, setOpen] = useState('收藏貼文');
+  const [page, setPage] = useState(0);
 
   // 抓會員自己的發文
   useEffect(() => {
@@ -38,10 +42,11 @@ export default function Index() {
     }
   }, [auth]);
 
-  const MyList = list.map((v) => {
+  const MyList = list?.map((v) => {
     return {
       title: v.header,
       time: v.publishedTime?.substring(0, 10),
+      sid: v.forum_sid,
     };
   });
 
@@ -64,41 +69,24 @@ export default function Index() {
     }
   }, [auth]);
 
-  const ListForum = [
-    {
-      title: '有人喝過上宇林的鼎極鮮奶茶嗎?',
-      type: '閒聊',
-      author: 'a45678',
-      time: '2023/07/08',
-    },
-    {
-      title: '有人喝過上宇林的鼎極鮮奶茶嗎?',
-      type: '閒聊',
-      author: 'a45678',
-      time: '2023/07/08',
-    },
-    {
-      title: '有人喝過上宇林的鼎極鮮奶茶嗎?',
-      type: '閒聊',
-      author: 'a45678',
-      time: '2023/07/08',
-    },
-  ];
-
-  const [collect, setCollect] = useState(
-    <MemCollectReocrd1 ListForum={ListForum} />
-  );
-  const changeList = (e) => {
-    switch (e.currentTarget.value) {
-      case '貼文':
-        setCollect(<MemCollectReocrd1 ListForum={ListForum} />);
-        break;
-
-      case '店家':
-        setCollect(<MemCollectReocrd2 store={store} />);
-        break;
+  // 抓會員收藏的貼文
+  useEffect(() => {
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/member/favoritePost', {
+        method: 'GET',
+        headers: {
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setForum(data);
+        });
     }
-  };
+  }, [auth]);
 
   const router = useRouter();
 
@@ -120,22 +108,69 @@ export default function Index() {
         <div className={styles.rightArea}>
           <MemAllTitle title={'我的貼文'} />
           <div className={styles2.area1}>
-            <div className={styles2.scroll}>
-              {MyList.map((v) => {
-                return (
-                  <MemCollectBlog title={v.title} time={v.time} key={v4()} />
-                );
-              })}
-            </div>
+            {MyList ? (
+              <div className={styles2.scroll}>
+                {MyList.map((v) => {
+                  return (
+                    <MemCollectBlog
+                      sid={v.sid}
+                      title={v.title}
+                      time={v.time}
+                      key={v4()}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <Link
+                href={'http://localhost:3000/forum'}
+                className={styles2.default}
+              >
+                尚未撰寫任何貼文，前往論壇
+              </Link>
+            )}
           </div>
           <MemAllTitle title={'我的收藏'} />
+          <div className={styles2.btnArea}>
+            {open === '收藏店家'
+              ? Array.from({ length: Math.ceil(store.length / 3) }).map(
+                  (_, i) => (
+                    <button
+                      key={v4()}
+                      className={styles2.recordBtn}
+                      onClick={() => setPage(i * 3)}
+                    >
+                      {i + 1}
+                    </button>
+                  )
+                )
+              : Array.from({ length: Math.ceil(forum.length / 3) }).map(
+                  (_, i) => (
+                    <button
+                      key={v4()}
+                      className={styles2.recordBtn}
+                      onClick={() => setPage(i * 3)}
+                    >
+                      {i + 1}
+                    </button>
+                  )
+                )}
+          </div>
           <div className={styles2.area2}>
             <div className={styles2.scrollArea}>
-              <MemBtn text={'貼文'} onClick={changeList} />
+              <MemBtn text={'收藏貼文'} onClick={() => setOpen('收藏貼文')} />
 
-              <MemBtn text={'店家'} onClick={changeList} />
+              <MemBtn text={'收藏店家'} onClick={() => setOpen('收藏店家')} />
             </div>
-            <div className={styles2.scroll}>{collect}</div>
+            {open === '收藏店家' ? (
+              <div className={styles2.scroll2}>
+                <MemCollectReocrd2 store={store} page={page} />
+              </div>
+            ) : (
+              <div className={styles2.scroll2}>
+                <MemCollectReocrd1 forum={forum} page={page} />
+              </div>
+            )}
           </div>
         </div>
       </div>

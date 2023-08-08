@@ -50,7 +50,8 @@ export default function Info({ row }) {
                     </div>
                     <div className={style.infodetail}>
                         <BiSolidTimeFive className={style.iconstyle} />
-                        <div className='d-flex align-items-center'><BsCircleFill className={`${isopen ? style.openstyle : style.closestyle} me-2`} />{row.detail?.open_time} - {row.detail?.close_time}</div>
+                        <div className='d-flex align-items-center'><BsCircleFill className={`${isopen ? style.openstyle : style.closestyle} me-2`} />
+                            <span className={`${isopen ? style.openstyle : style.closestyle} me-2`}>{isopen ? '營業中' : '已打烊'}</span>{row.detail?.open_time} - {row.detail?.close_time}</div>
                     </div>
                     <div className={style.infodetail}>
                         <AiFillDollarCircle className={style.iconstyle} />

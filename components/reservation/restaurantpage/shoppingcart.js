@@ -4,22 +4,34 @@ import { Button } from 'react-bootstrap';
 import { BsTrash } from "react-icons/bs";
 import { GiShoppingCart } from "react-icons/gi";
 import { BsFillCalendar3WeekFill } from "react-icons/bs";
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime }) {
+export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togodate, setTogodate, togotime, setTogotime }) {
 
     // const [products, setProducts] = useState(Object.values(shoppingCart)); // 使用 Object.values() 取得購物車商品陣列
 
-
+    // const router = useRouter()
+    // const id = router.query.sid;
+    // const shopId = parseInt(id)
     const cartitem = localStorage.getItem('order')
     // console.log(cartitem);
 
     const menuItems = JSON.parse(cartitem) || 0;
     // console.log(menuItems);
+
     const menuItemsArray = Object.values(menuItems);
     // console.log(menuItemsArray);
-
     const [products, setProducts] = useState(menuItemsArray)
 
+    const localdatetime = JSON.parse(localStorage.getItem('order')) || {};
+    const nowdatetime = Object.entries(localdatetime).map(item => item.pop());
+    // console.log(nowdatetime);
+    // console.log(Object.values(nowdatetime)[0]?.togodate);
+    if (Object.values(nowdatetime).length > 0) {
+        setTogodate(Object.values(nowdatetime)[0]?.togodate);
+        setTogotime(Object.values(nowdatetime)[0]?.togotime);
+    }
 
     //商品數量-增加
     const handleAdd = (item) => {
@@ -36,6 +48,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
                 amount: item.amount + 1,
                 togodate: togodate,
                 togotime: togotime,
+                shop_id: row.detail.sid,
             }
         }))
 
@@ -64,6 +77,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
                     amount: item.amount - 1,
                     togodate: togodate,
                     togotime: togotime,
+                    shop_id: row.detail.sid,
                 }
             }))
         }
@@ -168,16 +182,17 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, togodate, 
                 </div>
             }
 
-            {products.length > 0 && togodate ?
+            {products.length > 0 ?
                 <div className={style.togotime}>
-                    <BsFillCalendar3WeekFill className='me-1' /> 取餐時間 {togodate}  {togotime} </div>
+                    <BsFillCalendar3WeekFill className='me-1' /> 取餐時間 {togodate} {togotime}</div>
                 : ''
             }
             <div>
-                <Button className={style.cartsendbutton}
-                >
-                    送出結帳
-                </Button>
+                <Link href="/checkout?page=order">
+                    <Button variant="text" className={style.cartsendbutton}>
+                        前往結帳
+                    </Button>
+                </Link>
             </div>
 
         </>

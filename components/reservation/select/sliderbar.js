@@ -68,7 +68,7 @@ export default function SliderBar({ keyword, setKeyword }) {
     if (slideval) {
       usp.set('price', slideval);
     }
-    if (numstar){
+    if (numstar) {
       usp.set('star', numstar);
     }
     if (searchkeyword) {
@@ -130,6 +130,7 @@ export default function SliderBar({ keyword, setKeyword }) {
               max={1200}
               step={50}
               position="bottom"
+              className={style.mt30}
             />
           </Box>
         </ThemeProvider>

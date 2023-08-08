@@ -10,33 +10,35 @@ import styles from './mem-activityRecord.module.css';
 import { v4 } from 'uuid';
 
 export function MemActivityRecord1({ Record1 }) {
+  const rowStyle = {
+    height: '90px',
+  };
+
+  const ceilStyle = {
+    minWidth: 80,
+    color: '#921010',
+    fontFamily: 'var(--ff1)',
+    fontSize: '20px',
+  };
+
+  const tdStyle = {
+    fontSize: '18px',
+    fontWeight: '600',
+    height: '70px',
+    fontFamily: 'var(--ff1)',
+  };
+
   return (
-    <TableContainer component={Paper} className={styles.body}>
+    <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow className={styles.row}>
-            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
-              編號
-            </TableCell>
-            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
-              主揪
-            </TableCell>
-            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
-              金額
-            </TableCell>
-            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
-              餐點
-            </TableCell>
-            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
-              店家
-            </TableCell>
-
-            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
-              時間
-            </TableCell>
-            <TableCell className={styles.cell} sx={{ minWidth: 80 }}>
-              評分
-            </TableCell>
+          <TableRow sx={rowStyle}>
+            <TableCell sx={ceilStyle}>主揪</TableCell>
+            <TableCell sx={ceilStyle}>金額</TableCell>
+            <TableCell sx={ceilStyle}>餐點</TableCell>
+            <TableCell sx={ceilStyle}>店家</TableCell>
+            <TableCell sx={ceilStyle}>時間</TableCell>
+            <TableCell sx={ceilStyle}>評分</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -45,15 +47,12 @@ export function MemActivityRecord1({ Record1 }) {
               key={v4()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" className={styles.td}>
-                {row.id}
-              </TableCell>
-              <TableCell className={styles.td}>{row.name}</TableCell>
-              <TableCell className={styles.td}>{row.money}</TableCell>
-              <TableCell className={styles.td}>{row.content}</TableCell>
-              <TableCell className={styles.td}>{row.store}</TableCell>
-              <TableCell className={styles.td}>{row.time}</TableCell>
-              <TableCell className={styles.td}>{row.score}</TableCell>
+              <TableCell sx={tdStyle}>{row.id}</TableCell>
+              <TableCell sx={tdStyle}>{row.money}</TableCell>
+              <TableCell sx={tdStyle}>{row.content}</TableCell>
+              <TableCell sx={tdStyle}>{row.store}</TableCell>
+              <TableCell sx={tdStyle}>{row.time}</TableCell>
+              <TableCell sx={tdStyle}>{row.score}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -64,16 +63,16 @@ export function MemActivityRecord1({ Record1 }) {
 
 export function MemActivityRecord2({ Record2 }) {
   return (
-    <TableContainer component={Paper} className={styles.body}>
+    <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow className={styles.row}>
-            <TableCell className={styles.cell}>編號</TableCell>
-            <TableCell className={styles.cell}>金額</TableCell>
-            <TableCell className={styles.cell}>餐點</TableCell>
-            <TableCell className={styles.cell}>店家</TableCell>
-            <TableCell className={styles.cell}>時間</TableCell>
-            <TableCell className={styles.cell}>評分</TableCell>
+          <TableRow>
+            <TableCell>編號</TableCell>
+            <TableCell>金額</TableCell>
+            <TableCell>餐點</TableCell>
+            <TableCell>店家</TableCell>
+            <TableCell>時間</TableCell>
+            <TableCell>評分</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -82,14 +81,14 @@ export function MemActivityRecord2({ Record2 }) {
               key={v4()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" className={styles.td}>
+              <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell className={styles.td}>{row.money}</TableCell>
-              <TableCell className={styles.td}>{row.content}</TableCell>
-              <TableCell className={styles.td}>{row.store}</TableCell>
-              <TableCell className={styles.td}>{row.time}</TableCell>
-              <TableCell className={styles.td}>{row.score}</TableCell>
+              <TableCell>{row.money}</TableCell>
+              <TableCell>{row.content}</TableCell>
+              <TableCell>{row.store}</TableCell>
+              <TableCell>{row.time}</TableCell>
+              <TableCell>{row.score}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -100,16 +99,16 @@ export function MemActivityRecord2({ Record2 }) {
 
 export function MemActivityRecord3({ Record3 }) {
   return (
-    <TableContainer component={Paper} className={styles.body}>
+    <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow className={styles.row}>
-            <TableCell className={styles.cell}>編號</TableCell>
-            <TableCell className={styles.cell}>金額</TableCell>
-            <TableCell className={styles.cell}>人數</TableCell>
-            <TableCell className={styles.cell}>店家</TableCell>
-            <TableCell className={styles.cell}>時間</TableCell>
-            <TableCell className={styles.cell}>評分</TableCell>
+          <TableRow>
+            <TableCell>編號</TableCell>
+            <TableCell>金額</TableCell>
+            <TableCell>人數</TableCell>
+            <TableCell>店家</TableCell>
+            <TableCell>時間</TableCell>
+            <TableCell>評分</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -118,14 +117,14 @@ export function MemActivityRecord3({ Record3 }) {
               key={v4()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" className={styles.td}>
+              <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell className={styles.td}>{row.money}</TableCell>
-              <TableCell className={styles.td}>{row.number}</TableCell>
-              <TableCell className={styles.td}>{row.store}</TableCell>
-              <TableCell className={styles.td}>{row.time}</TableCell>
-              <TableCell className={styles.td}>{row.score}</TableCell>
+              <TableCell>{row.money}</TableCell>
+              <TableCell>{row.number}</TableCell>
+              <TableCell>{row.store}</TableCell>
+              <TableCell>{row.time}</TableCell>
+              <TableCell>{row.score}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -136,16 +135,16 @@ export function MemActivityRecord3({ Record3 }) {
 
 export function MemActivityRecord4({ Record4 }) {
   return (
-    <TableContainer component={Paper} className={styles.body}>
+    <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow className={styles.row}>
-            <TableCell className={styles.cell}>編號</TableCell>
-            <TableCell className={styles.cell}>金額</TableCell>
-            <TableCell className={styles.cell}>餐點</TableCell>
-            <TableCell className={styles.cell}>店家</TableCell>
-            <TableCell className={styles.cell}>時間</TableCell>
-            <TableCell className={styles.cell}>評分</TableCell>
+          <TableRow>
+            <TableCell>編號</TableCell>
+            <TableCell>金額</TableCell>
+            <TableCell>餐點</TableCell>
+            <TableCell>店家</TableCell>
+            <TableCell>時間</TableCell>
+            <TableCell>評分</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -154,14 +153,14 @@ export function MemActivityRecord4({ Record4 }) {
               key={v4()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" className={styles.td}>
+              <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell className={styles.td}>{row.money}</TableCell>
-              <TableCell className={styles.td}>{row.content}</TableCell>
-              <TableCell className={styles.td}>{row.store}</TableCell>
-              <TableCell className={styles.td}>{row.time}</TableCell>
-              <TableCell className={styles.td}>{row.score}</TableCell>
+              <TableCell>{row.money}</TableCell>
+              <TableCell>{row.content}</TableCell>
+              <TableCell>{row.store}</TableCell>
+              <TableCell>{row.time}</TableCell>
+              <TableCell>{row.score}</TableCell>
             </TableRow>
           ))}
         </TableBody>

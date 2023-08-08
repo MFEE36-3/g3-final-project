@@ -26,7 +26,7 @@ export default function City({ keyword, setKeyword, cdata, setCdata }) {
     fetch(`${process.env.API_SERVER}/reservation/city`)
       .then(r => r.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setCdata(data.rows);
       })
   }, [])

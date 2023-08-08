@@ -11,11 +11,6 @@ import TogoDateTime from './togodatetime';
 export default function Togo({ row, shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime }) {
 
     const [category, setCategory] = useState(100)
-    // const [show, setShow] = useState(false);
-
-    // //購物車Offcanvas
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
 
     const handleCategory = (category) => {
         setCategory(category)
@@ -24,18 +19,8 @@ export default function Togo({ row, shoppingCart, setShoppingCart, togodate, set
     return (
         <>
             <div className={style.togoindex}>
-                {/* <Image src={ShoppingBag} variant="primary" onClick={handleShow} className={style.carticon} /> */}
                 <TogoDateTime row={row} togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} />
-                {/* <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
-                    <Offcanvas.Header closeButton>
-                        <Offcanvas.Title className={style.carttitle}>--您的購物車--</Offcanvas.Title>
-                    </Offcanvas.Header>
-                    <Offcanvas.Body>
-                        <ShoppingCart />
-                    </Offcanvas.Body>
-                </Offcanvas> */}
             </div>
-
             <CategoryDiv category={category} handleCategory={handleCategory} />
             <Products category={category} setCategory={setCategory} row={row} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} />
         </>

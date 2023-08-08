@@ -11,35 +11,17 @@ import { Host } from '@/components/shopmall/shopmallfinal'
 import {RxCross2} from "react-icons/rx"
 import { useRouter } from 'next/router';
 const H2div = styled.div`
-    font-size:var(--h2)
+    font-size:var(--h2);
+    @media (max-width: 576px) {
+    font-size:25px
+  }
 `
 const H4div = styled.div`
     font-size:var(--h4)
 `
-const H4buttondiv = styled.div`
-    font-size:var(--h4);
-    background:var(--main-color);
-    width:20%
-`
-const Colorbutton = styled.button`
-    background:var(--main-color)
-`
-const filterButton = () => {
-    return(
-    <>
-        <H4buttondiv className='d-flex rounded-3 justify-content-evenly ps-3 mb-5 align-items-center' >
-            <div className='my-4 text-light'>{"價格: $300 - $500"}</div>
-            <Colorbutton className='border-0 rounded-3 text-light' onClick={()=> {
-              
-            }}>
-                <RxCross2/>
-            </Colorbutton>
-        </H4buttondiv>
-    </>
-    )
-}
+
 export default function ShopSearchTitle() {
-    const {sortby, order, keyword, dispatch, items, isReset} = useContext(Host)
+    const {sortby, order, keyword, dispatch, items, isReset, totalpages} = useContext(Host)
     const [orders, setOrders] = useState('')
     const router = useRouter();
     const handleChange = (event) => {
@@ -77,14 +59,14 @@ export default function ShopSearchTitle() {
     setOrders('')
   },[isReset])
   return (
-    <div className='ms-4'>
+    <div className=''>
         <H2div className='text-danger'>{keyword}</H2div>
-        <div className='mt-3 mb-4 d-flex justify-content-between align-items-center'>
-        {keyword && <H4div >找到了{items.length}項商品</H4div>}
+        <div className='mt-3 w-100 mb-xl-4 d-flex justify-content-between align-items-center'>
+        {keyword && <div></div>}
         {!keyword && <>
         <div></div>
         </>}
-        <Box sx={{ minWidth: 150 }} className="me-5 border-3">
+        <Box sx={{ minWidth: 120 }} className="me-xl-5 border-3">
         <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label" className='d-flex align-items-center'>排序</InputLabel>
         <Select
@@ -102,7 +84,6 @@ export default function ShopSearchTitle() {
       </FormControl>
     </Box>
         </div>
-        {/* {filterButton()} */}
     </div>
   )
 }

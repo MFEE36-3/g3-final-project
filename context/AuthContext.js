@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 //創建一個useContext物件，用於儲存資料與修改狀態，並且可以快速傳遞至任何一個元件
 const AuthContext = createContext({});
@@ -9,6 +10,7 @@ export default AuthContext;
 export const AuthContextProvider = function ({ children }) {
   // 預設auth物件暫時沒有資料
 
+  const router = useRouter();
   const [auth, setAuth] = useState({});
 
   // 創建一個登出函式會清空localStorage，接著把auth物件清空
@@ -36,7 +38,7 @@ export const AuthContextProvider = function ({ children }) {
           setAuth(data[0]);
         });
     }
-  }, []);
+  }, [router]);
   // console.log(auth);
 
   // 完成建立Context.Provider頂層元件

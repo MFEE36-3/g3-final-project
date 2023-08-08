@@ -59,7 +59,7 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
 
     const selectedDist = event.target.value;
     setKeyword({ ...keyword, dist: selectedDist })
-    
+
     const arrfoodtype = router.query.foodtype ? router.query.foodtype.split(',') : [];
     const strfoodtype = arrfoodtype.join();
 
@@ -78,10 +78,10 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
     if (selectedDist && selectedDist.length !== 0) {
       usp.set('dist', selectedDist);
     }
-    if(slideval) {
+    if (slideval) {
       usp.set('price', slideval);
     }
-    if (numstar){
+    if (numstar) {
       usp.set('star', numstar);
     }
     if (searchkeyword) {
@@ -106,46 +106,50 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
 
   return (
     <div>
-      <ThemeProvider theme={theme}>
-        <FormControl sx={{ width: '100%' }} color="primary">
-          <InputLabel id="demo-multiple-chip-label" color="primary" sx={{ '&.MuiFormLabel-root.MuiInputLabel-root.Mui-focused': { color: 'white' } }}>
-            --請選擇區域--
-          </InputLabel>
-          <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            disabled={keyword.city ? false : true}
-            multiple
-            value={keyword.dist}
-            onChange={handleChange}
-            color="primary"
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-            MenuProps={MenuProps}
-          >
+      <FormControl sx={{ width: '100%' }} color="primary">
 
-            {ddata.map((v) => {
-              const { area_sid, city_id, area_id, areaname } = v;
-              return (
-                <MenuItem
-                  key={area_sid}
-                  value={areaname}
-                  style={getStyles(areaname, dist, theme)}
-                >
-                  {areaname}
-                </MenuItem>)
-            }
-            )}
+        <InputLabel id="demo-multiple-chip-label" color="primary"
+          sx={{ '&.MuiFormLabel-root.MuiInputLabel-root.Mui-focused': { color: '#911010' } }}>
+          --請選擇區域--
+        </InputLabel>
 
-          </Select>
-        </FormControl>
-      </ThemeProvider>
+
+        <Select
+          labelId="demo-multiple-chip-label"
+          id="demo-multiple-chip"
+          disabled={keyword.city ? false : true}
+          multiple
+          value={keyword.dist}
+          onChange={handleChange}
+          color="primary"
+          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          renderValue={(selected) => (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+              {selected.map((value) => (
+                <Chip key={value} label={value} />
+              ))}
+            </Box>
+          )}
+          MenuProps={MenuProps}
+        >
+
+
+          {ddata.map((v) => {
+            const { area_sid, city_id, area_id, areaname } = v;
+            return (
+              <MenuItem
+                key={area_sid}
+                value={areaname}
+                style={getStyles(areaname, dist, theme)}
+              >
+                {areaname}
+              </MenuItem>)
+          }
+          )}
+
+        </Select>
+
+      </FormControl>
     </div>
   );
 }

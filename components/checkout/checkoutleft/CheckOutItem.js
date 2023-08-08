@@ -28,7 +28,7 @@ export default function CheckOutItem() {
           const buyItem = JSON.parse(localStorage.getItem("buy"));
           const orderItem = JSON.parse(localStorage.getItem("order"));
           const shopItem = JSON.parse(localStorage.getItem("shop"));
-          const updatedShopItem = Object.entries(shopItem).filter(item => item[0] !== removeItem.itemId)
+          const updatedShopItem = Object.values(shopItem).filter(item => item[0] !== removeItem.itemId)
           localStorage.setItem("shop", JSON.stringify(Object.fromEntries(updatedShopItem)));
           Swal.fire(
             '刪除成功!',
@@ -43,7 +43,7 @@ export default function CheckOutItem() {
       const shortItemName = item.itemName.length > maxChars ? item.itemName.substring(0, maxChars) + '...' : item.itemName;
       return (
         <div key={item.itemId} className='border rounded-3 d-flex mb-4 position-relative'  style={{ width: "95%", boxShadow: "4px 2px 5px -2px #7A7070" }}>
-          <img src={item.src} alt={`${item.itemName}`} className='overflow-hidden object-fit-cover w-25 rounded-start-3' style={{height:"100%",}} ></img>
+          <img src={item.src} alt={`${item.itemName}`} className='overflow-hidden object-fit-cover w-25 rounded-start-3' style={{height:"120px",}} ></img>
           <div className='d-flex align-items-center ms-3 w-100 justify-content-between'>
             <div className='w-25 me-5' style={{fontSize:"18px"}}>{shortItemName}</div>
             <div className='d-flex align-items-center justify-content-between' style={{width:"70%"}}>

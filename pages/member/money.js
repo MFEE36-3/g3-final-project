@@ -13,11 +13,13 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import IconImg from '@/public/member/icon.png';
+import { v4 } from 'uuid';
 
 export default function Index() {
   const { auth } = useContext(AuthContext);
   const router = useRouter();
   const [record, setRecord] = useState([]);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     const str = localStorage.getItem('auth');
@@ -45,7 +47,7 @@ export default function Index() {
     };
   });
 
-  const totalMoney = rows.reduce((total, item) => total + item.money, 0);
+  // const totalMoney = rows.reduce((total, item) => total + item.money, 0);
 
   // 判斷式否登入，未登入跳轉回首頁
   useEffect(() => {
@@ -77,12 +79,11 @@ export default function Index() {
                   alt=""
                   className={styles.packageImg}
                 />
-                NT$ {totalMoney}
+                NT$ {auth.wallet}
               </div>
 
               <div className={styles.packDown}>
-                <input className={styles.inputArea}></input>
-                <Link href={''}>
+                <Link href={'http://localhost:3000/topup'}>
                   <button className={styles.packageBtn}>儲值+</button>
                 </Link>
               </div>
@@ -107,10 +108,23 @@ export default function Index() {
             </div>
           </div>
           <div className={styles2.recordArea}>
-            <MemAllTitle title={'儲值紀錄'} />
+            <MemAllTitle title={'錢包紀錄'} />
+            <div className={styles2.btnArea}>
+              {Array.from({ length: Math.ceil(rows.length / 5) }).map(
+                (_, i) => (
+                  <button
+                    key={v4()}
+                    className={styles2.recordBtn}
+                    onClick={() => setPage(i * 5)}
+                  >
+                    {i + 1}
+                  </button>
+                )
+              )}
+            </div>
             <div className={styles2.area3}>
               <div className={styles2.recordBox}>
-                <MemMoneyReocrdTable rows={rows} />
+                <MemMoneyReocrdTable rows={rows} page={page} />
               </div>
             </div>
           </div>

@@ -9,7 +9,6 @@ import AuthContext from '@/context/AuthContext';
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import MemAllTitle from '@/components/member/mem-allTitle';
-import Btn from '@/components/common/btn';
 import MemNologin from '@/components/member/mem-nologin';
 import MemAchieveArea from '@/components/member/mem-achieveArea';
 import MemBtn from '@/components/member/mem-Btn';
@@ -170,7 +169,7 @@ export default function Info() {
                   }}
                 >
                   <div className={styles2.achBtn}>
-                    <Btn
+                    <MemBtn
                       text="更換"
                       padding={'5px 1px'}
                       fs="var(--h7)"

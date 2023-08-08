@@ -17,7 +17,7 @@ export default function Top5() {
     fetch(`${process.env.API_SERVER}/reservation/top5`)
       .then(r => r.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setData(data.rows);
       })
   }, [])
@@ -53,7 +53,7 @@ export default function Top5() {
                 className={`${style.top5card} h-25 position-relative`}
                 style={{ transform: `translateX(${position}px)` }}
               >
-                <Image src={Crown} className='position-absolute top-0 start-0 ' alt="" />
+                <Image src={Crown} className={style.top5crown} alt="" />
                 <Card.Img src={`${process.env.API_SERVER}/img/res-img/${removeBackgroundImage}`} className='position-relative pt-5' alt="" />
                 <Card.Body className={style.top5cardbody}>
                   <div className={style.top5star}>

@@ -169,10 +169,9 @@
 }
 
 .buyforme_tablebox::-webkit-scrollbar-thumb {
-    border-radius: 8px;
+    border-radius: 15px;
     background-color: var(--main-color);
-    border-right: 5px white solid;
-    border-left: 5px white solid;
+    border: 5px white solid;
     background-clip: padding-box;
 }
 
@@ -309,7 +308,7 @@
 }
 
 .shop_infowindow_img_box {
-    width: 100%;
+    width: 530px;
     height: 300px;
     background-size: cover;
     background-position: center;
@@ -325,6 +324,10 @@
     border-radius: 5px;
 }
 
+.shop_infowindow_btn_box {
+    width: 530px;
+}
+
 .shop_infowindow_btn {
     background-color: var(--main-color) !important;
     border: none;
@@ -332,7 +335,7 @@
     color: white;
     font-size: var(--h7);
     font-family: var(--ff2);
-    margin: 10px 0 20px 72%;
+    margin: 10px 0 20px 390px;
     padding: 10px 20px;
     box-shadow: 0 2px 5px rgb(176, 176, 176);
 }
@@ -345,7 +348,7 @@
 .shop_infowindow_tag_star {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 530px;
     background-color: var(--main-color);
     padding: 0 15px;
 }
@@ -367,6 +370,7 @@
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
     margin: 10px;
+    width: 530px;
     display: flex;
 }
 
@@ -391,4 +395,220 @@
     height: 20px;
     background-size: contain;
     margin-right: 5px;
+}
+
+.check_open_follow_group {
+    position: absolute;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    top: 60px;
+    right: 10px;
+    font-family: var(--ff1);
+    border-radius: 30px;
+}
+
+.check_open_btn {
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 30px 0 0 30px;
+    padding: 8px 5px 8px 20px;
+    cursor: pointer;
+    order: 1;
+}
+
+.check_follow_btn {
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 0 30px 30px 0;
+    padding: 8px 20px 8px 5px;
+    cursor: pointer;
+    order: 3;
+}
+
+.check_open_btn:hover,
+.check_follow_btn:hover {
+    background-color: rgba(183, 183, 183, 0.75);
+    color: var(--main-color);
+}
+
+.check_open_btn_active {
+    background-color: rgba(183, 183, 183, 0.75);
+    color: var(--main-color);
+    border-radius: 30px 0 0 30px;
+    padding: 8px 5px 8px 20px;
+    order: 1;
+}
+
+.check_follow_btn_active {
+    background-color: rgba(183, 183, 183, 0.75);
+    color: var(--main-color);
+    border-radius: 0 30px 30px 0;
+    padding: 8px 20px 8px 5px;
+    cursor: pointer;
+    order: 3;
+}
+
+.check_middle_btn {
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    order: 2;
+}
+
+.arrow {
+    font-size: var(--h4);
+}
+
+.arrow_active_open {
+    font-size: var(--h4);
+    transform: rotate(-90deg);
+    color: var(--main-color);
+}
+
+.arrow_active_follow {
+    font-size: var(--h4);
+    transform: rotate(90deg);
+    color: var(--main-color);
+}
+
+.check_open_btn:hover~.check_middle_btn .arrow {
+    transform: rotate(-90deg);
+    color: var(--main-color);
+}
+
+.check_follow_btn:hover~.check_middle_btn .arrow {
+    transform: rotate(90deg);
+    color: var(--main-color);
+}
+
+
+/* -----------------------------RWD----------------------------- */
+@media screen and (max-width: 1080px) {
+    .buyforme_infobox {
+        right: 10px;
+        bottom: 150px;
+        width: 800px;
+        padding: 20px;
+    }
+
+    .buyforme_tablebox {
+        width: 100%;
+        padding: 0px 0px;
+    }
+
+    .buyforme_table {
+        width: 100%;
+        text-align: center;
+        vertical-align: middle;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .buyforme_infobox {
+        right: 10px;
+        bottom: 220px;
+        width: 600px;
+        padding: 20px;
+    }
+
+    .buyforme_tablebox {
+        width: 100%;
+        padding: 0px 0px;
+    }
+
+    .buyforme_table {
+        width: 150%;
+        text-align: center;
+        vertical-align: middle;
+    }
+}
+
+
+
+@media screen and (max-width: 576px) {
+
+    .sausageLeft {
+        position: absolute;
+        top: -20px;
+        left: -26px;
+        transform: scale(0.4);
+    }
+
+    .sausageRight {
+        position: absolute;
+        top: -20px;
+        left: 220px;
+        transform: scale(0.4);
+    }
+
+    .inputBox {
+        position: absolute;
+        top: 6.4px;
+        left: 68px;
+        background-color: rgba(255, 255, 255, 0.75);
+        transform: scale(0.8);
+    }
+
+    .switch_box {
+        position: absolute;
+        top: 60px;
+        right: auto;
+        transform: scale(0.7);
+    }
+
+    .walkbag {
+        right: 50px;
+        bottom: 20px;
+        transform: scale(0.7);
+    }
+
+    .buyforme_hint {
+        position: absolute;
+        right: 25px;
+        bottom: 170px;
+        transform: scale(0.7);
+    }
+
+    .chat_inputbtn {
+        bottom: 35px;
+        left: 110px;
+        transform: scale(0.8);
+    }
+
+    .chat_inputbox {
+        position: absolute;
+        bottom: 35px;
+        left: 86px;
+        background-color: white;
+        padding: 5px 30px 5px 60px;
+        border-radius: 30px;
+        transform: scale(0.78);
+    }
+
+
+    .buyforme_infobox {
+        right: 0px;
+        bottom: 90px;
+        width: 400px;
+        padding: 20px;
+    }
+
+    .buyforme_tablebox {
+        width: 100%;
+        padding: 0px 0px;
+    }
+
+    .buyforme_table {
+        width: 150%;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .check_open_follow_group {
+        top: 60px;
+        right: auto;
+        left: 120px;
+        transform: scale(0.7);
+    }
 }

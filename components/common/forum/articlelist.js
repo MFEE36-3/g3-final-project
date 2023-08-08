@@ -4,8 +4,8 @@ import { FiHeart } from 'react-icons/fi'; // 空心愛心
 import { BiSolidHeart } from 'react-icons/bi'; // 實心愛心
 import { BiSolidMessageAltDetail } from 'react-icons/bi';
 import { FaRegBookmark } from 'react-icons/fa';
-import { BsBookmarks } from 'react-icons/bs'      // 空心書籤
-import { BsBookmarksFill } from 'react-icons/bs'  // 實心書籤
+import { BsBookmarks } from 'react-icons/bs'; // 空心書籤
+import { BsBookmarksFill } from 'react-icons/bs'; // 實心書籤
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import AuthContext from '@/context/AuthContext';
@@ -27,27 +27,28 @@ export default function Articlelist({
     clickHeart: false,
     article_sid: '',
   });
-
-  const [clickCollect, setclickCollect] = useState(false)
+  const [hasCollected, setHasCollected] = useState(false);
+  const [clickCollect, setclickCollect] = useState(false);
   const [sendCollect, setSendCollect] = useState({
     // member_id: auth.sid ? auth.sid : '',
     member_id: '',
     clickCollect: false,
     article_sid: '',
-  })
+  });
 
   const getMemberIdForHeart = () => {
     setSendLike({ ...sendLike, member_id: auth.sid });
   };
 
   const getMemberIdForCollect = () => {
-    setSendCollect({ ...sendCollect, member_id: auth.sid })
-  }
+    setSendCollect({ ...sendCollect, member_id: auth.sid });
+  };
 
   // 網頁一進入就抓取會員按過哪些文章讚
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   // 設置一個接住會員按讚的狀態
+  const [memberCollect, setMemberCollect] = useState([]);
   const [memberLike, setMemberLike] = useState([]);
   useEffect(() => {
     if (auth.account) {
@@ -65,10 +66,23 @@ export default function Articlelist({
           console.log(data);
           setMemberLike(data);
         });
+      fetch(process.env.API_SERVER + '/forum/get-member-collect', {
+        method: 'POST',
+        body: JSON.stringify(auth),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          console.log(data);
+          setMemberCollect(data);
+        });
     }
   }, [auth.account]);
 
   console.log(memberLike);
+  console.log(memberCollect);
 
   useEffect(() => {
     // 在這裡處理後續程式碼，這裡的sendLike.article_sid將獲得最新值
@@ -94,7 +108,7 @@ export default function Articlelist({
     if (auth.account) {
       console.log('有帳號');
       e.preventDefault();
-      setClickHeart(!clickHeart);
+      setClickHeart(!clickHeart); // 切换点击状态
       setSendLike((prevSendLike) => ({
         ...prevSendLike,
         article_sid: article_sid,
@@ -107,6 +121,8 @@ export default function Articlelist({
         text: '需要登入即可按喜歡！',
         icon: 'warning',
         showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        // cancelButtonColor: '#d33',
         confirmButtonText: '登入',
         cancelButtonText: '取消登入',
       }).then((result) => {
@@ -121,13 +137,13 @@ export default function Articlelist({
   // 收藏:會員點擊即收藏文章()
   const clickCollectEvent = async (e, article_sid) => {
     if (auth.account) {
-      console.log('有帳號');
       e.preventDefault();
-      setclickCollect(!clickCollect)
+      const newClickCollect = !clickCollect; // 计算新的 clickCollect 状态
+      setclickCollect(newClickCollect); // 设置新的 clickCollect 状态
       setSendCollect((prevSendCollect) => ({
         ...prevSendCollect,
         article_sid: article_sid,
-        clickCollect: !clickCollect,
+        clickCollect: newClickCollect,
       }));
     } else {
       console.log('沒有帳號');
@@ -136,6 +152,8 @@ export default function Articlelist({
         text: '需要登入即可按喜歡！',
         icon: 'warning',
         showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
         confirmButtonText: '登入',
         cancelButtonText: '取消登入',
       }).then((result) => {
@@ -154,7 +172,7 @@ export default function Articlelist({
 
     // 在這裡執行後續程式碼
     if (sendCollect.article_sid) {
-      console.log('成功發送')
+      console.log('成功發送');
       fetch(process.env.API_SERVER + '/forum/handle-collect-list', {
         method: 'POST',
         body: JSON.stringify(sendCollect),
@@ -165,17 +183,18 @@ export default function Articlelist({
         .then((r) => r.json())
         .then((data) => {
           console.log(data);
+          getMemberIdForCollect(data);
         });
     }
   }, [sendCollect.article_sid, sendCollect.clickCollect]);
 
-
-
   return (
     <>
-
       {articles.map((c, i) => {
         const hasLiked = memberLike.some(
+          (item) => item.forum_sid === c.forum_sid
+        );
+        const hasCollect = memberCollect.some(
           (item) => item.forum_sid === c.forum_sid
         );
         return (
@@ -200,9 +219,8 @@ export default function Articlelist({
                     <div className={styles.ptext}>{c.forum_content}</div>
                   </Link>
 
-
                   <div className={styles.flex2}>
-                    {sendLike.clickHeart === false ? (
+                    {!hasLiked ? (
                       <FiHeart
                         className={styles.icon}
                         onClick={(e) => {
@@ -221,19 +239,21 @@ export default function Articlelist({
                     <BiSolidMessageAltDetail className={styles.message} />
                     <div className={styles.like}>{c.comment_count}</div>
 
-                    {sendCollect.clickCollect ?
-                      <BsBookmarksFill
-                        onClick={(e) => {
-                          clickCollectEvent(e, c.forum_sid)
-                        }}
-                        className={styles.bookmark} />
-                      :
+                    {!hasCollect ? (
                       <BsBookmarks
                         onClick={(e) => {
-                          clickCollectEvent(e, c.forum_sid)
+                          clickCollectEvent(e, c.forum_sid);
                         }}
-                        className={styles.bookmark} />}
-
+                        className={styles.bookmark}
+                      />
+                    ) : (
+                      <BsBookmarksFill
+                        onClick={(e) => {
+                          clickCollectEvent(e, c.forum_sid);
+                        }}
+                        className={styles.bookmark}
+                      />
+                    )}
 
                     {/* <BsBookmarksFill className={styles.bookmark} /> */}
                     <div className={styles.like}>收藏</div>
@@ -248,7 +268,6 @@ export default function Articlelist({
                   </div>
                 )}
               </div>
-
             </div>
           </div>
         );

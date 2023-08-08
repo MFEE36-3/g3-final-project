@@ -5,18 +5,66 @@ import SelectPerson from './person'
 import Memo from './memo';
 import Swal from 'sweetalert2';
 import style from '@/styles/reservation/style.module.css'
+import { GoDotFill } from 'react-icons/go'
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import AuthContext from '@/context/AuthContext';
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 export default function Reservation({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo }) {
+  const [memberInfo, setMemberInfo] = useState({})
+  const [reservationData, setReservationData] = useState({
+    id: 0,
+    shop_id: 0,
+    date: '',
+    time: '',
+    person: 0,
+    seat: '',
+    rating: '',
+    memo: '',
+    status: '未完成',
+  })
 
-  const { auth, setAuth, logout } = useContext(AuthContext);
   const router = useRouter();
-  // console.log(auth)
+  useEffect(() => {
+    const member = JSON.parse(localStorage.getItem('auth'));
+    setReservationData(prev => {
+      return {
+        id: member?.sid || 0,
+        shop_id: row.detail.sid,
+        date: date,
+        time: time,
+        person: person,
+        seat: seat,
+        rating: null,
+        memo: memo,
+        status: '未完成',
+      }
+    })
+  }, [row.detail.sid, date, time, person, seat, memo])
+
   // 當點擊「送出訂位」按鈕時，處理資料提交
   const handleSubmit = () => {
     if (seat) {
+      const member = JSON.parse(localStorage.getItem('auth'));
+
+      //判斷是否登入
+      if (!member?.sid) {
+        Swal.fire({
+          title: '請先登入',
+          iconHtml: `<img src=${chocoCookie.src}>`,
+          customClass: {
+            icon: 'sweetalert_icon'
+          },
+          showDenyButton: true,
+          showCancelButton: false,
+          confirmButtonText: '前往登入',
+          denyButtonText: '我再想想',
+        }).then(
+          function (result) {
+            if (result.value) router.push('/login')
+          });
+        return;
+      }
 
       const confirmationText = `
         <div style="display:flex; flex-direction:column;">
@@ -61,17 +109,17 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
           // ...
 
           // 整理要送出的資訊為一個物件
-          const reservationData = {
-            id: auth.sid, // ?
-            shop_id: row.detail.sid,
-            date: date,
-            time: time,
-            person: person,
-            seat: seat,
-            rating: null,
-            memo: memo,
-            status: '未完成',
-          };
+          // const reservationData = {
+          //   id: memberInfo.sid,
+          //   shop_id: row.detail.sid,
+          //   date: date,
+          //   time: time,
+          //   person: person,
+          //   seat: seat,
+          //   rating: null,
+          //   memo: memo,
+          //   status: '未完成',
+          // };
 
           // 將資料轉換為JSON格式
           const jsonData = JSON.stringify(reservationData);
@@ -94,7 +142,12 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
                 confirmButtonText: '確定',
               }).then(() => {
                 // 返回原餐廳畫面
-                window.location.reload();
+                setDate();
+                setTime();
+                setPerson();
+                setSeat();
+                setMemo();
+                router.push(`http://localhost:3000/reservation/${row.detail.sid}`)
               });
 
               // 提交成功後，設置訂位成功狀態為 true
@@ -118,7 +171,9 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
   return (
     <>
       <div className={style.divmb}>
-        <p className={style.subtitle}>用餐日期</p>
+        <div className='d-flex justify-content-center'>
+          <p className={style.subtitle}>請選擇<span style={{ color: '#911010' }}>用餐日期</span></p>
+        </div>
         <Calendar row={row} date={date} setDate={setDate} setTime={setTime} setPerson={setPerson} setSeat={setSeat} setMemo={setMemo} />
       </div>
 
@@ -128,20 +183,35 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
 
       {time ?
         <div className={style.divmb}>
-          <p className={style.subtitle}>用餐人數</p>
-          <SelectPerson row={row} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} setMemo={setMemo} />
+          <div className='d-flex justify-content-center'>
+            <p className={style.subtitle}>請選擇<span style={{ color: '#911010' }}>用餐人數</span></p>
+          </div>
+          <div className='d-flex justify-content-center'>
+            <SelectPerson row={row} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} setMemo={setMemo} />
+          </div>
         </div> : ''}
 
       {person ?
         <div className={style.divmb}>
-          <p className={style.subtitle}>用餐座位</p>
-          <InteriorPic row={row} seat={seat} setSeat={setSeat} person={person} date={date} time={time} setMemo={setMemo} />
+          <div className='d-flex justify-content-center'>
+            <p className={style.subtitle}>請選擇<span style={{ color: '#911010' }}>座位</span></p>
+          </div>
+          <div className='d-flex'>
+            <GoDotFill className={style.disabledicon} />已訂位或用餐人數不符
+          </div>
+          <div className='d-flex justify-content-center'>
+            <InteriorPic row={row} seat={seat} setSeat={setSeat} person={person} date={date} time={time} setMemo={setMemo} />
+          </div>
         </div> : ''}
 
       {seat ?
         <div className={style.divmb}>
-          <p className={style.subtitle}>備註</p>
-          <Memo memo={memo} setMemo={setMemo} />
+          <div className='d-flex justify-content-center'>
+            <p className={style.subtitle}>備註</p>
+          </div>
+          <div className='d-flex justify-content-center'>
+            <Memo memo={memo} setMemo={setMemo} />
+          </div>
         </div> : ''}
 
       {seat ?

@@ -9,6 +9,7 @@ import Articlelist from '@/components/common/forum/articlelist';
 import Newnav from '@/components/common/news/new_nav';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import AuthContext from '@/context/AuthContext';
 
 export default function Detail() {
   const router = useRouter();
@@ -17,6 +18,14 @@ export default function Detail() {
   const [sortOrder, setSortOrder] = useState('desc');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [favorit, setFavorit] = useState(false);
+  const [likeClick, setLikeClick] = useState(false);
+  const [collectionID, setCollectionID] = useState([]); // 判斷是否有收藏
+  const changeFavorit = (e) => {
+    setFavorit(!favorit);
+    setLikeClick(true);
+  };
+
   const imgPreview = `http://localhost:3002/img/forum/`;
 
   useEffect(() => {
@@ -64,7 +73,67 @@ export default function Detail() {
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
+  // useEffect(() => {
+  //   fetch(`${process.env.API_SERVER}/collection/findCollection`, {
+  //     method: 'POST',
+  //     body: JSON.stringify({ memberID: auth.member_id, forum_sid: forum_sid }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((r) => r.json())
+  //     .then((data) => {
+  //       setCollectionID(data.all);
+  //     });
+  //   fetch(`${process.env.API_SERVER}/order/getComment`, {
+  //     method: 'POST',
+  //     body: JSON.stringify({ productID: row.forum_sid }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((r) => r.json())
+  //     .then((data) => {
+  //       setAllContent(data.all);
+  //     });
+  // }, [row]);
+  // useEffect(() => {
+  //   if (collectionID.length > 0) {
+  //     setFavorit(true);
+  //   }
+  // }, [collectionID]);
 
+  // useEffect(() => {
+  //   if (auth.member_id != 0 && likeClick == true) {
+  //     if (favorit == true) {
+  //       fetch(`${process.env.API_SERVER}/collection/addCollection`, {
+  //         method: 'POST',
+  //         body: JSON.stringify({
+  //           memberID: auth.member_id,
+  //           productID: forum_sid,
+  //         }),
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       })
+  //         .then((r) => r.json())
+  //         .then((data) => {});
+  //     } else if (favorit == false) {
+  //       fetch(`${process.env.API_SERVER}/collection/deleteCollection`, {
+  //         method: 'POST',
+  //         body: JSON.stringify({
+  //           memberID: auth.member_id,
+  //           froum_sid: forum_sid,
+  //         }),
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       })
+  //         .then((r) => r.json())
+  //         .then((data) => {});
+  //     }
+  //   }
+  // }, [favorit, likeClick]);
   return (
     <>
       <div className={styles.container}>
