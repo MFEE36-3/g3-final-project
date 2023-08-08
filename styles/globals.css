@@ -146,3 +146,7 @@ a:active {
 .swal2-cancel {
   background-color: var(--sub-color) !important;
 }
+
+.sweetalert_icon{
+  transform: scale(0.5);
+}

@@ -1,9 +1,6 @@
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import InputArea from '../common/input';
 import { TextField } from '@mui/material';
 import styles from '@/styles/buyforme/opensheet.module.css';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -16,6 +13,7 @@ import { useContext, useEffect, useState } from 'react';
 import AuthContext from '@/context/AuthContext';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 
 
@@ -254,7 +252,7 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                         </LocalizationProvider>
 
                         <div className={styles.labels}>
-                            <TextField fullWidth sx={mui_style} label='面交地點' placeholder='你要送到哪' onChange={(e) => changePlace(e.target.value)} />
+                            <TextField fullWidth sx={mui_style} label='面交地點' placeholder='你要送到哪' required onChange={(e) => changePlace(e.target.value)} />
                         </div>
                         <div style={{ textAlign: 'center' }}>
                             <Btn text='開團!' padding='5px 20px' sx={{ width: '100%' }} onClick={() => {
@@ -271,7 +269,10 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                                 if (opensheet.open_member_id === 0) {
                                     Swal.fire({
                                         title: '請先登入',
-                                        icon: 'warning',
+                                        iconHtml: `<img src=${chocoCookie.src}>`,
+                                        customClass: {
+                                            icon: 'sweetalert_icon'
+                                        },
                                         showDenyButton: true,
                                         showCancelButton: false,
                                         confirmButtonText: '前往登入',
@@ -312,12 +313,6 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                     </DialogContent>
                 </div>)
             })}
-
-
-            <DialogActions>
-                {/* <div onClick={handlebuyformeClose}>Cancel</div>
-    <div onClick={handlebuyformeClose}>Subscribe</div> */}
-            </DialogActions>
         </Dialog>
     </>)
 };

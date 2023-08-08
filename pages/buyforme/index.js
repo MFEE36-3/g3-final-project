@@ -19,6 +19,7 @@ import OrderSheet from "@/components/buyforme/ordersheet";
 import My_Open_Follow from "@/components/buyforme/check_open_follow";
 import { FaArrowAltCircleUp } from "react-icons/fa";
 import Swal from 'sweetalert2';
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 
 const search_input_style = {
@@ -163,7 +164,10 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
         if (!auth.sid) {
             Swal.fire({
                 title: '請先登入',
-                icon: 'warning',
+                iconHtml: `<img src=${chocoCookie.src}>`,
+                customClass: {
+                    icon: 'sweetalert_icon'
+                },
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: '前往登入',
@@ -182,7 +186,10 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
         if (!auth.sid) {
             Swal.fire({
                 title: '請先登入',
-                icon: 'warning',
+                iconHtml: `<img src=${chocoCookie.src}>`,
+                customClass: {
+                    icon: 'sweetalert_icon'
+                },
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: '前往登入',
