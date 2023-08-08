@@ -273,8 +273,8 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
                                 return (
                                     <tr key={v.open_sid}>
                                         <td>{v.open_sid}</td>
-                                        <td>{v.nickname}</td>
-                                        <td className={v.shop.length > 15 ? styles.overlength_td : ''}>{v.shop}</td>
+                                        <td className={v.nickname.length > 6 ? styles.overlength_td : ''}>{v.nickname}</td>
+                                        <td className={v.shop.length > 10 ? styles.overlength_td : ''}>{v.shop}</td>
                                         <td>{dayjs(v.meet_time).format('MM-DD HH:mm')}</td>
                                         <td className={styles.meet_place_td} onClick={() => getLatlng(v.meet_place)}>{v.meet_place}</td>
                                         <td>{v.tip !== 0 ? v.tip : '免費'}</td>

@@ -501,6 +501,14 @@
         text-align: center;
         vertical-align: middle;
     }
+
+    .buyforme_table th:nth-child(6),
+    .buyforme_table td:nth-child(5){
+        white-space: nowrap;
+    }
+    .buyforme_table th:nth-child(1){
+        white-space: nowrap;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -610,5 +618,17 @@
         right: auto;
         left: 120px;
         transform: scale(0.7);
+    }
+
+    .buyforme_table th:nth-child(4){
+        padding: 0 15px;
+    }
+
+    .buyforme_table th:nth-child(6),
+    .buyforme_table td:nth-child(5){
+        white-space:normal
+    }
+    .buyforme_table th:nth-child(1){
+        white-space: nowrap;
     }
 }
