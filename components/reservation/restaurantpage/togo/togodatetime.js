@@ -6,6 +6,16 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#911010',
+            darker: '#053e85',
+        },
+    },
+});
 
 export default function TogoDateTime({ row, togodate, setTogodate, togotime, setTogotime }) {
 
@@ -102,21 +112,23 @@ export default function TogoDateTime({ row, togodate, setTogodate, togotime, set
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-                label="請選擇取餐日期"
-                shouldDisableDate={shouldDisableDate} // 禁用日期
-                // value={togodate}
-                onChange={handleDateChange}
-            />
+            <ThemeProvider theme={theme}>
+                <DatePicker
+                    label="請選擇取餐日期"
+                    shouldDisableDate={shouldDisableDate} // 禁用日期
+                    // value={togodate}
+                    onChange={handleDateChange}
+                />
 
-            <TimePicker
-                label="請選擇取餐時間"
-                shouldDisableTime={shouldDisableTime}
-                // value={togotime}
-                onChange={handleTimeChange}
-                minutesStep={15}
-                ampm={false}
-            />
+                <TimePicker
+                    label="請選擇取餐時間"
+                    shouldDisableTime={shouldDisableTime}
+                    // value={togotime}
+                    onChange={handleTimeChange}
+                    minutesStep={15}
+                    ampm={false}
+                />
+            </ThemeProvider>
         </LocalizationProvider>
     );
 }

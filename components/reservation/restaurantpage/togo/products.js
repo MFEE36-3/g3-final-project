@@ -6,8 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import useLocalStorage from "@/components/hooks/useLocalStorage";
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Swal from 'sweetalert2';
@@ -63,22 +62,25 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
 
     const handleAddToCart = (item) => {
         const member = JSON.parse(localStorage.getItem('auth'));
-        console.log(member)
-        //檢查是否登入
-        // if (member.sid === 0) {
-        //     Swal.fire({
-        //         title: '請先登入',
-        //         icon: 'warning',
-        //         showDenyButton: true,
-        //         showCancelButton: false,
-        //         confirmButtonText: '前往登入',
-        //         denyButtonText: '我再想想',
-        //     }).then(
-        //         function (result) {
-        //             if (result.value) router.push('/login')
-        //         });
-        //     return;
-        // }
+        // console.log(member)
+        if (!member?.sid) {
+            Swal.fire({
+                title: '請先登入',
+                iconHtml: `<img src=${chocoCookie.src}>`,
+                customClass: {
+                    icon: 'sweetalert_icon'
+                },
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: '前往登入',
+                denyButtonText: '我再想想',
+            }).then(
+                function (result) {
+                    if (result.value) router.push('/login')
+                });
+            return;
+        }
+
 
         if (!togodate || !togotime) {
             Swal.fire({
@@ -93,11 +95,45 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
         const nowcart = Object.entries(pastcart).map(item => item.pop());
         // console.log(Object.values(nowcart))
         // console.log(shopId)
-        if (Object.values(nowcart)[0]?.shop_id !== shopId) {
-            localStorage.removeItem('order')
+        if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) {
+
+            if (localStorage.getItem('order')) {
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: '購物車中已有其他餐廳商品',
+                    text: '要清空購物車嗎？',
+                    showCancelButton: true,
+                    confirmButtonText: '確定',
+                    cancelButtonText: '返回',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        localStorage.removeItem('order')
+
+                        const oldCart = JSON.parse(localStorage.getItem('order')) || {};
+                        const itemId = item.food_id;
+                        const updatedItem = {
+                            itemId: itemId,
+                            itemName: item.food_title,
+                            src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+                            price: item.food_price,
+                            amount: (oldCart[itemId]?.amount || 0) + 1,
+                            togodate: togodate,
+                            togotime: togotime,
+                            shop_id: row.detail.sid,
+                        };
+                        // console.log(updatedItem);
+                        // 更新LocalStorage
+                        localStorage.setItem('order', JSON.stringify({
+                            ...oldCart,
+                            [itemId]: updatedItem,
+                        }));
+
+                    }
+                })
+                return;
+            }
         }
-
-
 
         // //更新LocalStorage
         // const oldCart = JSON.parse(localStorage.getItem('order'))

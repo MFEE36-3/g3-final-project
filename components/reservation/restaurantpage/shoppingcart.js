@@ -5,6 +5,7 @@ import { BsTrash } from "react-icons/bs";
 import { GiShoppingCart } from "react-icons/gi";
 import { BsFillCalendar3WeekFill } from "react-icons/bs";
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togodate, setTogodate, togotime, setTogotime }) {
 
@@ -187,10 +188,11 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
                 : ''
             }
             <div>
-                <Button className={style.cartsendbutton}
-                >
-                    送出結帳
-                </Button>
+                <Link href="/checkout?page=order">
+                    <Button variant="text" className={style.cartsendbutton}>
+                        前往結帳
+                    </Button>
+                </Link>
             </div>
 
         </>

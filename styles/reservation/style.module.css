@@ -224,6 +224,8 @@
 /* 外帶頁-nav */
 .togoindex{
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .categorynav{
@@ -406,9 +408,9 @@
 }
 
 .carticon{
-  position: absolute;
+  position: sticky;
   right: 20px;
-  top: 800px;
+  top: 200px;
 }
 
 .carttitle{

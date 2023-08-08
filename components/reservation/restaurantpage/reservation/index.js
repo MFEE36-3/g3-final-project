@@ -45,6 +45,7 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
   const handleSubmit = () => {
     if (seat) {
 
+
       const confirmationText = `
         <div style="display:flex; flex-direction:column;">
           <div style="display:flex;">
