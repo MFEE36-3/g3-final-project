@@ -15,7 +15,7 @@ export default function AddNewItem() {
   const { resAuth, setResAuth, logout } = useContext(ResAuthContext);
 
   const [foodCate, setFoodCate] = useState('');
-  const foodCateOptions = ['前菜', '主菜', '甜點', '飲料', '湯品'];
+  const foodCateOptions = ['開胃菜', '主餐', '甜點', '飲料', '湯品'];
 
   const [addItem, setAddItem] = useState({
     shop_id: null,
@@ -167,7 +167,7 @@ export default function AddNewItem() {
                 <div className={`${styles.uploadImg}`}>
                   <div className="d-flex align-items-center fw-bold fs-5">
                     <div>
-                      <img src={`${imgLink}${getImg}`} style={{}} />
+                    <img src={`${imgLink}${getImg}`} className={styles.uploadImg1} />
                     </div>
                   </div>
                 </div>
@@ -310,6 +310,9 @@ export default function AddNewItem() {
                       className={styles.cancel}
                       type="reset"
                       value="取消新增"
+                      onClick={()=>{
+                        router.push('/res/item-management')
+                      }}
                     />
                   </div>
                 </div>

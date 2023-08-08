@@ -173,7 +173,7 @@ const Login = () => {
                   >
                     廠商登入
                   </Typography>
-                  <div class="mb-3">
+                  {/* <div class="mb-3">
                     <input
                       className=""
                       type="email"
@@ -194,9 +194,10 @@ const Login = () => {
                       id="password"
                       placeholder="請輸入密碼"
                       onChange={getLoginInfo}
+                      
                     />
                     <div style={{ color: 'red' }}>{loginSuccess.error}</div>
-                  </div>
+                  </div> */}
 
                   <Box
                     component="form"
@@ -208,11 +209,13 @@ const Login = () => {
                       margin="normal"
                       required
                       fullWidth
-                      id="email"
+                      id="account"
                       label="帳號"
-                      name="email"
+                      name="account"
                       autoComplete="email"
                       color="warning"
+                      value={loginInfo.account}
+                      onChange={getLoginInfo}
                     />
                     <TextField
                       margin="normal"
@@ -224,6 +227,8 @@ const Login = () => {
                       id="password"
                       autoComplete="current-password"
                       color="warning"
+                      value={loginInfo.password}
+                      onChange={getLoginInfo}
                     />
                     <FormControlLabel
                       control={<Checkbox value="remember" color="warning" />}

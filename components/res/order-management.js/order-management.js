@@ -111,19 +111,23 @@ export default function OrderManagement() {
   }
 
   // 點擊通知完成後通知消費者訂單已完成，並將狀態改為等待消費者領取
-  const informMember = (e) => {
-    // const modifiedTogoOrder = [...togoOrder];
-    
-    // modifiedTogoOrder[i].status = '已完成，等待取餐';
-    
-    // setTogoOrder(modifiedTogoOrder);
-    
-    // Swal.fire(
-    //   '已通知消費者取餐!',
-    //   '等候消費者來取餐',
-    //   'success'
-    // );
+  const informMember = (i) => {
+    const modifiedTogoOrder = [...togoOrder];
+    console.log(modifiedTogoOrder)
+
+    modifiedTogoOrder[i][0].status = '已完成，等待取餐';
+
+    setTogoOrder(modifiedTogoOrder);
+
+    Swal.fire(
+      '已通知消費者取餐!',
+      '等候消費者來取餐',
+      'success'
+    );
   }
+
+  console.log(togoOrder)
+
   return (
     <>
       <div className={`container container-sm-fluid ${styles.tableBackGround} bg-subtle p-4 border border-black rounded-4 mt-3`}>
@@ -220,7 +224,7 @@ export default function OrderManagement() {
                       })}
                     </td>
                     <td className='text-center'><button type='button' className='btn btn-primary'
-                    onClick={(e)=>{}}
+                      onClick={(e) => { }}
                     >通知完成</button></td>
                   </tr>
                 })}
@@ -247,7 +251,7 @@ export default function OrderManagement() {
                 {togoOrder.map((v, i) => {
                   return <tr key={i}>
                     <td className='text-center'>{i + 1}</td>
-                    <td className='text-center'>{v[i].status}</td>
+                    <td className='text-center'>{v[0].status}</td>
                     <td className={`d-flex flex-column mb-3" ${showOrder == false ? styles.orderShow_hidden : styles.orderShow_show} `}>
                       <table>
                         <thead>
@@ -258,37 +262,22 @@ export default function OrderManagement() {
                           </tr>
                         </thead>
                         <tbody>
-                        {Array(togoOrder[i].length).fill(1).map((val, ind) => (
+                          {Array(togoOrder[i].length).fill(1).map((val, ind) => (
                             <tr key={ind}>
                               <td className='text-center'>{v[ind].order_item}</td>
-                              <td className='text-center'>x</td>
+                              <td className='text-center'>{v[ind].order_num}</td>
                               <td className='text-center'>{v[ind].price}</td>
                             </tr>
                           ))}
-                          {/* {togoOrder.map((val, ind) => (
-                            <tr key={ind}>
-                              <td className='text-center'>{v[ind].order_item}</td>
-                              <td className='text-center'>x</td>
-                              <td className='text-center'>{v[ind].price}</td>
-                            </tr>
-                          ))} */}
                         </tbody>
 
                       </table>
 
                     </td>
-                    <td className='text-center'>{v[i].amount}
-                    </td>
-                    <td className='text-center'>
-                      {/* {orderTimeState.map((v2, i2) => {
-                        if (i2 == i) {
-                          return v2.meet_time
-                        }
-                      })} */}
-                      {v[i].create_at}
-                    </td>
+                    <td className='text-center'>{v[0].amount}</td>
+                    <td className='text-center'>{v[0].create_at}</td>
                     <td className='text-center'><button type='button' className='btn btn-primary'
-                    onClick={informMember}
+                      onClick={informMember}
                     >通知完成</button></td>
                   </tr>
                 })}

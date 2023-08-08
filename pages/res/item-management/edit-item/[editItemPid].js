@@ -9,15 +9,16 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 import { headers } from 'next/dist/client/components/headers';
 import axios from 'axios';
+import layoutRes from '@/components/layout/layoutRes'
 
-export default function AddNewItem() {
+const AddNewItem = () => {
   // 把從後端拿到的資料塞進state
   const [gotData, setGotData] = useState({
     shop_id: 0,
     food_img: '',
     food_title: '',
     food_des: '',
-    food_cate: 0,
+    food_cate: '',
     food_price: 0,
     food_note: '',
     create_time: '',
@@ -32,15 +33,6 @@ export default function AddNewItem() {
   };
 
   const router = useRouter();
-
-  // const getSingleItem = async (food_id) => {
-  //   fetch(`http://localhost:3002/res/item-management/editItem/${food_id}`)
-  //     .then(r => r.json())
-  //     .then(data => {
-  //       console.log(data)
-  //       setGotData(data.data[0])
-  //     })
-  // }
 
   const getSingleItem = async (food_id) => {
     fetch(`http://localhost:3002/res/item-management/editItem/${food_id}`)
@@ -66,7 +58,7 @@ export default function AddNewItem() {
   }, [router.query]);
 
   const [foodCate, setFoodCate] = useState('');
-  const foodCateOptions = ['前菜', '主菜', '甜點', '飲料'];
+  const foodCateOptions = ['開胃菜', '主餐', '甜點', '飲料','湯品'];
 
   const [addItem, setAddItem] = useState({
     shop_id: 1,
@@ -78,10 +70,6 @@ export default function AddNewItem() {
     note: '',
   });
 
-  // const handleAddItem = (e) => {
-  //   const newAddItem = { ...addItem, [e.target.name]: e.target.value }
-  //   setAddItem(newAddItem)
-  // }
 
   const [getImg, setGetImg] = useState(null);
   const fileUrl = 'http://localhost:3002/res/foodItemPreviewImg';
@@ -243,10 +231,6 @@ export default function AddNewItem() {
                         />
                       </div>
                     )}
-
-                    {/* <div>
-                      <img src={`${imgLink}${gotData.food_img}`} style={{ height: '400px', width: '400px', overflow: 'static', border: '10px' }} />
-                    </div> */}
                   </div>
                 </div>
 
@@ -312,11 +296,9 @@ export default function AddNewItem() {
                   <div>
                     <select
                       className={styles.textareainput}
-                      name="foodCate"
+                      name="food_cate"
                       value={gotData.food_cate}
-                      onChange={(e) => {
-                        setAddItem({ ...addItem, foodCate: e.target.value });
-                      }}
+                      onChange={handleEdit}
 
                       // className='form-select col-1'
                     >
@@ -401,3 +383,6 @@ export default function AddNewItem() {
     </>
   );
 }
+
+AddNewItem.getLayout = layoutRes
+export default AddNewItem

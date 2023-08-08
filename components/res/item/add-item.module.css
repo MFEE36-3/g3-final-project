@@ -7,6 +7,14 @@
     background-color: rgb(244, 244, 244);
     border: 2px solid var(--main-color);
 }
+.uploadImg1{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    height: 400px;
+    border: 2px solid var(--main-color);
+}
 .border{
     border: 2px solid var(--main-color);
 }
