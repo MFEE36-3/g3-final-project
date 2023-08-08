@@ -91,11 +91,6 @@ export default function ShopMallFinal() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [selectedCategory, setSelectedCategory] = useState([])
   const [rating, setRating] = useState('')
-  const [token, setToken] = useState({})
-  useEffect(()=>{
-    const memberToken = JSON.parse(localStorage.getItem('auth'));
-    setToken(memberToken)
-  },[])
   const router = useRouter()
   const resetButton = () => {
     dispatch({
@@ -164,14 +159,14 @@ export default function ShopMallFinal() {
     })
   },[state.isReset])
   return (
-    <Host.Provider value={{ ...state, dispatch, selectedCategory, setSelectedCategory, rating, setRating, token}}>
+    <Host.Provider value={{ ...state, dispatch, selectedCategory, setSelectedCategory, rating, setRating}}>
       <ShopContainer>
         <SearchBar/>
         <ShopBodyForSearch>
           <ShopFilter />
-          <div className='col-10 ps-0'>
-            <ShopSearchTitle />
-            {!state.isLoading && <HoverBtn onClick={resetButton} className='border-0 mb-5 text-danger bg-transparent fs-3' >清除篩選條件</HoverBtn>}
+          <div className='col-xl-10 col-12 ps-0 pe-0'>
+            <ShopSearchTitle/>
+            {!state.isLoading && <HoverBtn onClick={resetButton} className='border-0 mb-5 text-danger bg-transparent fs-3 ms-4' >清除篩選條件</HoverBtn>}
             {state.isLoading ? LoadingAni() :<ShopCard/>}
             {!state.isLoading && <ShopPagination />}
           </div>
