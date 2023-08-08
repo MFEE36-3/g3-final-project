@@ -6,8 +6,12 @@ import Button from '@mui/material/Button';
 import Newnav from '@/components/common/news/new_nav';
 import { useState } from 'react';
 import { useContext } from 'react';
+import { useRouter } from 'next/router';
+import AuthContext from '@/context/AuthContext';
 
 export default function Add() {
+  const { auth } = useContext(AuthContext);
+  const router = useRouter();
   const [header, setHeader] = useState('');
   const [content, setContent] = useState('');
   const [img, setImg] = useState('');
@@ -18,7 +22,7 @@ export default function Add() {
     setImg(URL.createObjectURL(e.target.files[0]));
     const formData = new FormData();
     formData.append('preImg', file);
-    formData.append('user_id', 3); // 添加 user_id
+    formData.append('user_id', auth.sid); // 添加 user_id
     formData.append('header', header); // 添加文章標題
     formData.append('content', content); // 添加內容
 
@@ -78,6 +82,7 @@ export default function Add() {
         // 清空輸入欄位
         setHeader('');
         setContent('');
+        router.push('/forum');
       } else {
         // 文章新增失敗，你可以在這裡做任何你想要的處理
         console.error('文章新增失敗');
@@ -120,23 +125,27 @@ export default function Add() {
         <div className={styles.end}></div>
       </div>
       {/* </div> */}
-      <button className={styles.cancel}>取消</button>
-      <button
-        className={styles.addbtn}
-        onClick={handleAddPost}
-        roles="presentation"
-      >
-        新增
-      </button>
-      <input
-        type="file"
-        name="preImg"
-        accept="image/jpeg, image/webp"
-        // value={handleAddPost}
-        onChange={imgUpload}
-      />
-      <div>
-        
+      {/* 新增和取消按钮的区块 */}
+
+      <div className={styles.buttonContainer}>
+        <div>
+          <input
+            type="file"
+            name="preImg"
+            accept="image/jpeg, image/webp"
+            onChange={imgUpload}
+          />
+        </div>
+        <div>
+        <button className={styles.cancel}>取消</button>
+        <button
+          className={styles.addbtn}
+          onClick={handleAddPost}
+          roles="presentation"
+        >
+          發布貼文
+        </button>
+        </div>
       </div>
     </>
   );

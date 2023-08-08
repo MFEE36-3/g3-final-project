@@ -1,13 +1,13 @@
-
-.center{
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    width: 80%;
+.buttonContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
     margin: 0 auto;
     box-sizing: border-box;
     height: 640px;
+    margin-top: 40px;
 }
+
 .text{
     font-size: var(--h6);
     margin-top: 30px;
@@ -55,16 +55,18 @@ resize: none;
     background-color: var(--main-color);
     color: white;
     font-size: var(--h7);
-    width: 50px;
+    width: 100px;
+    height: 30px;
     border: 0;
+    font-family: var(--ff2);
 }
 .cancel{
     border-radius: 5px;
-    width: 50px;
+    width: 100px;
     margin-right: 10px;
     border: 0;
     font-size: var(--h7);
-
+    font-family: var(--ff2);
 }
 .icon{
     width: 30px;
@@ -99,8 +101,6 @@ resize: none;
 }
 .container{
     width: 75%;
-    margin: 0 auto;
-    width: 80%;
     margin: 0 auto;
     box-sizing: border-box;
     height: 640px;

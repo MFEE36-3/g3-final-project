@@ -8,6 +8,36 @@
     height: 100px;
     overflow: visible;
 }
+.addbtn{
+    width: 100px;
+    height: 50px;
+    background-color: var(--main-color);
+    border-radius: 15px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    color: white;
+    font-family: var(--ff2);
+    padding: 10px;
+}
+.addbtn:hover{
+    background-color:rgba(169, 8, 8, 0.875);
+}
+.arrow{
+    font-size: var(--h5);
+}
+.input{
+   width: 50%;
+}
+.search{
+    background-color: var(--main-color);
+    color: white;
+    border: 0;
+    border-radius: 6px;
+    width: 12%;
+    height: 55px;
+}
 
 /* .div {
     text-align: center;

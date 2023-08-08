@@ -1,16 +1,98 @@
 .uploadImg {
-    background-color:rgb(237, 232, 202);
+    background-color:white;
     width: 300px;
     height: 300px;
-    border: 1px solid black;
+    border: 1px solid var(--main-color);
     display: flex;
     align-content: center;
     align-items: center;
     justify-content: center;
+    border-radius: 10px;
+}
+.btn{
+    border: 0;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 10px;
+    padding: 8px;
+    font-size: var(--h7);
+}
+.passwordbtn{
+        border: 0;
+        background-color: var(--main-color);
+        color: white;
+        border-radius: 10px;
+        padding: 8px;
+        font-size: var(--h8);
+}
+.line{
+    color:var(--main-color)
+}
+.box{
+    width: 150px;
+    background-color: var(--main-color);
+    color:white;
+    font-size: var(--h6); 
+}
+.verifyinput{
+    width: 90%;
+}
+.verifybtn{
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 10px;
+    border: 0;
+    width: 40%;
+    margin-top: 8px;
+}
+.verifybtn:active {
+    background-color: gray;
+}
+
+.input{
+    border: 1px solid gray;
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    padding: 8px;
+    color:black;
+    box-shadow: none;
+}
+
+.tableinput:focus{
+    border: 1px solid var(--main-color);
+}
+.input:focus{
+    border: 1px solid var(--main-color);
+}
+.input::placeholder{
+    color:rgba(0, 0, 0, 0.266);
 }
 
 .backGroundColor{
-    background-color: #FFE2E2;
+    background-color:white ;
+    border: 2px solid var(--main-color);
+}
+.title{
+    font-family: var(--ff1);
+}
+.cancel{
+    border: 0;
+    width: 100px;
+    border-radius: 8px;
+    padding: 5px;
+    margin-bottom: 20px;
+    height: 45px;
+}
+.add{
+    border: 0;
+    width: 100px;
+    border-radius: 8px;
+    background-color: var(--main-color);
+    color: white;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-right: 10px;
 }
 
 @media (max-width:400px){
