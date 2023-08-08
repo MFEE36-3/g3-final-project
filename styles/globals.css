@@ -65,15 +65,27 @@ main {
   src: url('/fonts/MochiyPopOne-Regular.ttf') format('truetype');
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1440px) {
   main {
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 360px - 360px);
   }
 }
 
-@media screen and (max-width: 391px) {
+@media screen and (max-width: 1080px) {
   main {
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 360px - 250px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    min-height: calc(100vh - 200px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  main {
+    min-height: calc(100vh - 180px);
   }
 }
 
@@ -121,10 +133,11 @@ a:active {
 }
 
 .swal2-container {
-  z-index: 2000; /* 使用你需要的數字 */
+  z-index: 2000;
+  /* 使用你需要的數字 */
 }
 
-.swal2-styled{
+.swal2-styled {
   font-family: var(--ff1);
   border-radius: 50px !important;
   letter-spacing: 1px;
@@ -147,6 +160,6 @@ a:active {
   background-color: var(--sub-color) !important;
 }
 
-.sweetalert_icon{
+.sweetalert_icon {
   transform: scale(0.5);
 }

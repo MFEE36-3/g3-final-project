@@ -175,43 +175,12 @@
 
 /* --------------RWD----------- */
 
-@media screen and (max-width: 1080px) {
-    .copy_right {
-        font-size: var(--h8);
-        bottom: -10px;
-    }
-}
 
 
-/* @media screen and (max-width: 768px) {
-    .copy_right {
-        position: absolute;
-        z-index: 4;
-        color: #dcdbdb;
-        font-size: var(--h11);
-        font-family: var(--ff3);
-        text-align: center;
-        width: 100%;
-        bottom: 46px;
-        line-height: 12px;
-    }
-
-    @keyframes belt_running {
-        0% {
-            transform: translateX(0);
-        }
-    
-        40% {
-            transform: translateX(-212px);
-        }
-    
-        100% {
-            transform: translateX(-256px);
-        }
-    }
+@media screen and (max-width: 1440px) {
 
     .outer {
-        height: 180px;
+        height: 360px;
         display: flex;
         align-items: flex-end;
         position: relative;
@@ -221,42 +190,109 @@
 
     .belt {
         position: absolute;
-        height: 180px;
+        height: 360px;
         z-index: 1;
         left: 0;
         bottom: 0px;
         width: 100%;
         overflow: hidden;
     }
-    
-    .belt_middle,.belt_left,.belt_right,.shield {
+
+    .happy_foods {
+        margin-bottom: 5%;
+    }
+
+    .gear_group {
+        margin-bottom: -4%;
+    }
+
+
+}
+
+
+@media screen and (max-width: 1080px) {
+    .copy_right {
+        font-size: var(--h8);
+        bottom: -10px;
+    }
+
+    .outer {
+        height: 250px;
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+        justify-content: center;
+        padding-bottom: 60px;
+    }
+
+    .belt {
+        position: absolute;
+        height: 250px;
+        z-index: 1;
+        left: 0;
+        bottom: 0px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .happy_foods {
+        margin-bottom: 5%;
+    }
+
+    .gear_group {
+        margin-bottom: -5.5%;
+    }
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .outer {
+        height: 200px;
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+        justify-content: center;
+        padding-bottom: 60px;
+    }
+
+    .belt_middle,
+    .belt_left,
+    .belt_right,
+    .shield {
         margin-bottom: 58px;
     }
-     
-} */
 
-@media screen and (max-width: 600px) {
     .copy_right {
         font-size: var(--h9);
-        bottom: -15px;
+        bottom: 45px;
     }
+
+    .happy_foods {
+        margin-bottom: 9%;
+    }
+
+    .gear_group {
+        margin-bottom: 0;
+    }
+
     @keyframes belt_running {
         0% {
             transform: translateX(0);
         }
-    
+
         40% {
             transform: translateX(-170px);
         }
-    
+
         100% {
             transform: translateX(-205px);
         }
     }
 }
 
-
-@media screen and (max-width: 391px) {
+@media screen and (max-width: 480px) {
     .copy_right {
         position: absolute;
         z-index: 4;
@@ -273,11 +309,11 @@
         0% {
             transform: translateX(0);
         }
-    
+
         40% {
             transform: translateX(-212px);
         }
-    
+
         100% {
             transform: translateX(-256px);
         }
@@ -301,9 +337,12 @@
         width: 100%;
         overflow: hidden;
     }
-    
-    .belt_middle,.belt_left,.belt_right,.shield {
-        margin-bottom: 58px;
+
+}
+
+@media screen and (max-width: 380px) {
+
+    .copy_right {
+        display: none;
     }
-     
 }
