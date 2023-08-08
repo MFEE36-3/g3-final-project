@@ -207,7 +207,7 @@
   .member_icon {
     height: 50px;
     width: 50px;
-    top: 26px;
+    top: 23px;
     left: auto;
     right: 20px;
     z-index: 10;
@@ -384,15 +384,9 @@
   .member_icon {
     height: 40px;
     width: 40px;
-    border-radius: 50%;
-    border: 4.32px solid black;
-    position: fixed;
     top: 18px;
     left: auto;
     right: 20px;
-    background-image: url('/28a8513919088d3328aaa40284c6b13e.png');
-    background-size: cover;
-    z-index: 10;
   }
 
   .cart {
