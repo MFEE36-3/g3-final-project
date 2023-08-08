@@ -11,9 +11,7 @@ export default function TopDiv({ keyword, setKeyword }) {
         <CarouselDiv />
         <div className='d-flex'>
           <SearchBar keyword={keyword} setKeyword={setKeyword} />
-          <div>
-            <BiCategory className={style.rwdselected} />
-          </div>
+          <BiCategory className={style.rwdselected} />
         </div>
       </div>
     </>

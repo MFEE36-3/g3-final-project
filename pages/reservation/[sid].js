@@ -23,10 +23,21 @@ export default function RestaurantPage() {
     const [togotime, setTogotime] = useState();
 
     const [show, setShow] = useState(false);
+    // const localdatetime = JSON.parse(localStorage.getItem('order')) || {};
 
     //購物車Offcanvas
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        setShow(true);
+        // const nowdatetime = Object.entries(localdatetime).map(item => item.pop());
+        // console.log(nowdatetime);
+        // console.log(Object.values(nowdatetime)[0]?.togodate);
+        // if (Object.values(nowdatetime).length > 0) {
+        //     setTogodate(Object.values(nowdatetime)[0]?.togodate);
+        //     setTogodate(Object.values(nowdatetime)[0]?.togotime);
+        // }
+
+    }
 
     useEffect(() => {
         if (router.query.sid) {
@@ -69,7 +80,7 @@ export default function RestaurantPage() {
                         <Offcanvas.Title><div className={style.carttitle}>--您的購物車--</div></Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
-                        <ShoppingCart shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
+                        <ShoppingCart row={row} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
                             togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} />
                     </Offcanvas.Body>
                 </Offcanvas>

@@ -5,10 +5,14 @@ import { FaUtensils } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
 import Link from "next/link";
 import style from '@/styles/reservation/style.module.css'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+// import { auth } from '@/pages/reservation/index'
+import { RouteRounded } from '@mui/icons-material';
+import Swal from 'sweetalert2';
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 export default function MainContent({ favorite, setFavorite }) {
-
+  // const { token } = useContext(auth)
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -18,12 +22,89 @@ export default function MainContent({ favorite, setFavorite }) {
         // console.log(data)
         setData(data.rows);
       })
+
+    const member = JSON.parse(localStorage.getItem('auth'));
+    if (member?.sid) {
+      fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
+        .then(r => r.json())
+        .then(data => {
+          console.log(data)
+        })
+    }
+
   }, [])
 
-  const handleFavorite = () => {
-    setFavorite((prev) => {
-      return !prev;
+  const handleFavorite = (sid) => {
+
+    const member = JSON.parse(localStorage.getItem('auth'));
+
+    //判斷是否登入
+    if (!member?.sid) {
+      Swal.fire({
+        title: '請先登入',
+        iconHtml: `<img src=${chocoCookie.src}>`,
+        customClass: {
+          icon: 'sweetalert_icon'
+        },
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: '前往登入',
+        denyButtonText: '我再想想',
+      }).then(
+        function (result) {
+          if (result.value) router.push('/login')
+        });
+      return;
+    }
+
+    // 判斷是否已收藏
+    if (favorite.includes(sid)) {
+      // 後端-刪除商品
+      fetch(`${process.env.API_SERVER}/reservation/favorite_delete/${member?.sid}/${sid}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: member.sid,
+          shop_id: sid,
+        })
+      })
+
+      // setFavorite
+      fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
+        .then(r => r.json())
+        .then(data => {
+          // console.log(data)
+
+          const newFav = data.rows.map(v => v.shop_id);
+          setFavorite(prev => newFav)
+        })
+      return;
+    }
+
+    // 後端-新增商品
+    fetch(`${process.env.API_SERVER}/reservation/favorite`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: member.sid,
+        shop_id: sid,
+      })
     })
+    // setFavorite
+    fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
+      .then(r => r.json())
+      .then(data => {
+        // console.log(data)
+
+        const newFav = data.rows.map(v => v.shop_id);
+        setFavorite(prev => newFav)
+      })
+
+
   }
 
 
@@ -48,37 +129,29 @@ export default function MainContent({ favorite, setFavorite }) {
                       src={`${process.env.API_SERVER}/img/shops/${photo}`}
                       className={`${style.cardimg}`}
                     />
-                    <div className={style.cardtext}>進入餐廳</div>
+                    <div className={style.cardtext}>查看餐廳</div>
                   </Link>
                 </div>
                 <Card.Body>
-                  <Card.Title>{shop}</Card.Title>
+                  <Card.Title className={style.cardtitle}>{shop}</Card.Title>
                   <Card.Text>{location}</Card.Text>
                   <div className="d-flex align-item-center justify-content-between">
-                    <div
-                      style={{
-                        fontSize: '14px',
-                        background: '#911010',
-                        borderRadius: 20,
-                        border: 0,
-                        color: 'white',
-                        padding: '5px',
-                      }}
-                    >
-                      <FaUtensils className={style.buttonicon} />
-                      {res_cate}
-                    </div>
-                    <div className="d-flex align-item-center">
-                      <AiFillStar
-                        className="fs-4 h-100 text-warning"
-                      // style={{ color: '#ecbd18' }}
-                      />
-                      <div className="d-flex align-item-center mb-0">
-                        {rating}
+                    <div className='d-flex'>
+                      <div className={style.cardbottomicon}>
+                        <FaUtensils className={style.buttonicon} />
+                        {res_cate}
+                      </div>
+                      <div className="d-flex align-item-center ms-1">
+                        <AiFillStar
+                          className="fs-4 h-100 text-warning"
+                        />
+                        <div className="d-flex align-item-center fs-5">
+                          {rating}
+                        </div>
                       </div>
                     </div>
-                    <div className="d-flex align-item-center" onClick={handleFavorite}>
-                      {favorite ?
+                    <div className="d-flex align-item-center" onClick={() => handleFavorite(sid)}>
+                      {favorite.includes(sid) ?
                         <FaHeart className={`${style.cardheart} fs-4 h-100`} /> :
                         <FaRegHeart className={`${style.cardheart} fs-4 h-100`} />
                       }

@@ -6,8 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import useLocalStorage from "@/components/hooks/useLocalStorage";
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Swal from 'sweetalert2';
@@ -54,40 +53,34 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
     //判斷商品category
     const filterData = row.fooditems.filter((v) => {
         if (category < 99) {
-            return v.food_sid === category
+            return v.food_cate === category
         } else {
-            return v.food_sid < category
+            return v.food_cate < category
         }
     }
     );
 
-    //商品加減
-    const plus = () => {
-        setNum(prev => prev + 1)
-    }
-    const minus = () => {
-        num > 1 && setNum(prev => prev - 1)
-    }
-
-    //塞進LocalStorage
-    // const handleCart = (item) => {
-    //     setOpen(false);
-    //     const itemInfo = {
-    //         itemId: item.food_id,
-    //         itemName: item.food_title,
-    //         src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
-    //         price: item.food_price,
-    //         amount: num
-    //     }
-    //     setCart({
-    //         ...cart,
-    //         [item.food_id]: itemInfo
-    //     });
-    // }
-
-    // 將選中的商品資訊存儲在狀態中
-
     const handleAddToCart = (item) => {
+        const member = JSON.parse(localStorage.getItem('auth'));
+        // console.log(member)
+        if (!member?.sid) {
+            Swal.fire({
+                title: '請先登入',
+                iconHtml: `<img src=${chocoCookie.src}>`,
+                customClass: {
+                    icon: 'sweetalert_icon'
+                },
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: '前往登入',
+                denyButtonText: '我再想想',
+            }).then(
+                function (result) {
+                    if (result.value) router.push('/login')
+                });
+            return;
+        }
+
 
         if (!togodate || !togotime) {
             Swal.fire({
@@ -100,16 +93,47 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
         }
 
         const nowcart = Object.entries(pastcart).map(item => item.pop());
-        console.log(Object.values(nowcart))
-        if (Object.values(nowcart)[0]?.shop_id !== shopId) {
-            localStorage.removeItem('order')
+        // console.log(Object.values(nowcart))
+        // console.log(shopId)
+        if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) {
+
+            if (localStorage.getItem('order')) {
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: '購物車中已有其他餐廳商品',
+                    text: '要清空購物車嗎？',
+                    showCancelButton: true,
+                    confirmButtonText: '確定',
+                    cancelButtonText: '返回',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        localStorage.removeItem('order')
+
+                        const oldCart = JSON.parse(localStorage.getItem('order')) || {};
+                        const itemId = item.food_id;
+                        const updatedItem = {
+                            itemId: itemId,
+                            itemName: item.food_title,
+                            src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+                            price: item.food_price,
+                            amount: (oldCart[itemId]?.amount || 0) + 1,
+                            togodate: togodate,
+                            togotime: togotime,
+                            shop_id: row.detail.sid,
+                        };
+                        // console.log(updatedItem);
+                        // 更新LocalStorage
+                        localStorage.setItem('order', JSON.stringify({
+                            ...oldCart,
+                            [itemId]: updatedItem,
+                        }));
+
+                    }
+                })
+                return;
+            }
         }
-        // console.log(nowcart.filter(item => item.shop_id === shopId))
-        // if (pastcart !== {}) {
-        //     if (nowcart.filter(item => item.shop_id !== shopId)) localStorage.removeItem('order')
-        // }
-
-
 
         // //更新LocalStorage
         // const oldCart = JSON.parse(localStorage.getItem('order'))
@@ -251,28 +275,14 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                             <img src={`${process.env.API_SERVER}/img/res-img/${itemdeatil.food_img}`} className='w-100 h-100' ></img>
                         </div>
                         <div className='col-5 h-100'>
-                            <Typography id="modal-modal-title" variant="h4" component="h2" className='h-25 d-flex justify-content-center pt-3'>
+                            <Typography id="modal-modal-title" component="h2" className={style.modaltitle}>
                                 {itemdeatil.food_title}
                             </Typography>
-                            {/* <Typography id="modal-modal-title" variant="h4" component="h2" className='h-25 d-flex justify-content-center pt-3'>
+                            <Typography id="modal-modal-title" component="h2" className={style.modaltext}>
                                 {itemdeatil.food_des}
-                            </Typography> */}
-                            <Typography id="modal-modal-description" variant="h5" className='d-flex flex-column justify-content-between h-75'>
-                                <div className='d-flex justify-content-between mt-5'>
-                                    <div className='fs-1 text-danger'>售價: {itemdeatil.food_price}</div>
-                                </div>
-                                <div className='position-relative'>
-                                    <div className='w-75 d-flex align-items-center mx-auto border border-secondary border-2 justify-content-center rounded-5 mb-4 position-relative'>
-                                        <Button variant="text" className='p-0 h-100 rounded-start-5 text-danger' onClick={minus}>
-                                            <AiOutlineMinus className='fs-1 p-1' />
-                                        </Button>
-                                        <Inputborder className='w-50 fs-3 border-0 text-center mx-5' value={num} readOnly></Inputborder>
-                                        <Button variant="text" className='p-0 rounded-end-5 text-danger' onClick={plus}>
-                                            <AiOutlinePlus className='fs-1 p-1' />
-                                        </Button>
-                                    </div>
-                                    <Button variant="text" className='border-0 rounded-3 w-100 text-light fs-3' style={{ background: "#911010" }} onClick={() => handleCart(itemdeatil)}>加入購物車</Button>
-                                </div>
+                            </Typography>
+                            <Typography id="modal-modal-description" className={style.modalprice}>
+                                售價: {itemdeatil.food_price}
                             </Typography>
                         </div>
                     </Box>

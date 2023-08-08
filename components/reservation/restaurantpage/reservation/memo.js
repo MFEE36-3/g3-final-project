@@ -18,7 +18,7 @@ export default function Memo({ memo, setMemo }) {
                 value={memo}
                 onChange={handleNoteChange}
                 rows={2}
-                cols={30}
+                cols={40}
                 wrap="soft"
             />
         </>

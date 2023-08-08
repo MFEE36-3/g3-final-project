@@ -3,6 +3,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#911010',
+            darker: '#911010',
+        },
+    },
+});
 
 export default function Calendar({ row, date, setDate, setTime, setPerson, setSeat, setMemo }) {
     const today = new Date();
@@ -44,14 +54,54 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
     };
 
     return (
-        <div style={{ width: "600px", display: "flex", justifyContent: "center" }}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateCalendar
-                    shouldDisableDate={shouldDisableDate} // 禁用日期
-                    // value={date}
-                    onChange={handleDateChange}
-                />
-            </LocalizationProvider>
+        <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+            <ThemeProvider theme={theme}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateCalendar
+                        sx={{
+                            '&.MuiDateCalendar-root': {
+                                width: '600px',
+                            },
+                            '& .MuiPickersCalendarHeader-root': {
+                                padding: '0px 2px 0px 10px',
+                            },
+                            '& .MuiDayCalendar-header': {
+                                width: '600px',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                            },
+                            '& .MuiDayCalendar-weekContainer': {
+                                width: '600px',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                // margin: '10px 0px'
+                            },
+                            '& .MuiPickersDay-root': {
+                                color: '#911010',
+                                fontSize: '20px',
+                                borderRadius: '15px',
+                                border: '1px solid #a8a8a8',
+                                padding: '22px',
+                            },
+                            '& .Mui-selected': {
+                                color: 'white',
+                                background: '#911010',
+                                '&:focus': {
+                                    background: '#911010',
+                                },
+                                '&:active': {
+                                    background: '#911010',
+                                },
+                            },
+
+                        }}
+
+                        shouldDisableDate={shouldDisableDate} // 禁用日期
+                        // value={date}
+                        onChange={handleDateChange}
+                    />
+                </LocalizationProvider>
+            </ThemeProvider>
         </div>
     );
 }

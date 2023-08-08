@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import TopDiv from '@/components/reservation/topdiv';
 import style from '@/styles/reservation/style.module.css';
 import SelectArea from '@/components/reservation/select';
 import Main from '@/components/reservation/main';
 import { useRouter } from 'next/router';
 
+export const auth = createContext()
 export default function Reservation() {
 
   const router = useRouter();
-
+  // const [token, setToken] = useState({})
   //加入收藏
-  const [favorite, setFavorite] = useState(0);
+  const [favorite, setFavorite] = useState([0]);
 
   // 篩選器 - 預設值(default)
   let totalKeyword = {
@@ -30,11 +31,26 @@ export default function Reservation() {
   }
   const [keyword, setKeyword] = useState(totalKeyword)
 
+  useEffect(() => {
+
+    if (localStorage.getItem('auth')) {
+      const member = JSON.parse(localStorage.getItem('auth'));
+
+      fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
+        .then(r => r.json())
+        .then(data => {
+          // console.log(data)
+
+          const newFav = data.rows.map(v => v.shop_id);
+          setFavorite(prev => newFav)
+        })
+    }
+
+
+  }, [])
+
 
   useEffect(() => {
-    // if (window.location.search) {
-    //   router.query = new URLSearchParams(window.location.search)
-    // }
 
     if (router.query) {
 
@@ -77,16 +93,34 @@ export default function Reservation() {
       }
       setKeyword(totalKeyword)
 
+      // 取得收藏店家資訊
+      if (localStorage.getItem('auth')) {
+        const member = JSON.parse(localStorage.getItem('auth'));
+
+        fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
+          .then(r => r.json())
+          .then(data => {
+            // console.log(data)
+
+            const newFav = data.rows.map(v => v.shop_id);
+            setFavorite(prev => newFav)
+          })
+      }
+
     }
   }, [router.query])
 
+  // useEffect(() => {
+  //   const memberToken = JSON.parse(localStorage.getItem('auth'));
+  //   setToken(memberToken)
+  // }, [])
   // console.log(router)
 
   return (
-    <>
-      <div className={style.body}>
-        <TopDiv keyword={keyword} setKeyword={setKeyword} />
-        {/* <div className="container-fluid">
+    // <auth.Provider value={{ token }}>
+    <div className={style.body}>
+      <TopDiv keyword={keyword} setKeyword={setKeyword} />
+      {/* <div className="container-fluid">
           <div className={`${style.contentdiv} row `}>
             <div className={`${style.rwdarea} col-2`}>
               <SelectArea keyword={keyword} setKeyword={setKeyword}/>
@@ -96,17 +130,17 @@ export default function Reservation() {
             </div>
           </div>
         </div> */}
-        <div className="container-fluid">
-          <div className={`${style.contentdiv} row `}>
-            <div className={`${style.leftdiv} ${style.rwdarea}`}>
-              <SelectArea keyword={keyword} setKeyword={setKeyword} />
-            </div>
-            <div className={style.rightdiv}>
-              <Main keyword={keyword} setKeyword={setKeyword} favorite={favorite} setFavorite={setFavorite} />
-            </div>
+      <div className="container-fluid">
+        <div className={`${style.contentdiv} row `}>
+          <div className={`${style.leftdiv} ${style.rwdarea}`}>
+            <SelectArea keyword={keyword} setKeyword={setKeyword} />
+          </div>
+          <div className={style.rightdiv}>
+            <Main keyword={keyword} setKeyword={setKeyword} favorite={favorite} setFavorite={setFavorite} />
           </div>
         </div>
       </div>
-    </>
+    </div>
+    // </auth.Provider >
   );
 }
