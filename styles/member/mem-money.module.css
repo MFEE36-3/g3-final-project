@@ -93,18 +93,14 @@
   flex-direction: column;
   border-radius: 15px;
   border: 2px solid #921010;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 380px;
+  height: 455px;
   background-color: #fff;
+  margin-top: 15px;
 }
 
-.area3::-webkit-scrollbar {
-  width: 3px; /* 設置滾輪寬度 */
-}
-
-.area3::-webkit-scrollbar-thumb {
-  background-color: #aeaeae; /* 設置滾輪顏色 */
+.recordBox {
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .text {
@@ -182,6 +178,30 @@
 
 .btn:hover {
   background-color: #ffe291;
+}
+
+.recordBtn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #aa9696;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: white;
+}
+
+.recordBtn:hover {
+  background-color: #d6bebe;
+  transition: all 0.1s ease-in;
+  transform: scale(1.1);
+}
+
+.btnArea {
+  display: flex;
+  margin-left: 10px;
+  gap: 10px;
 }
 
 @media screen and (max-width: 391px) {

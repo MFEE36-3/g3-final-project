@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { v4 } from 'uuid';
 
-export default function MemCouponRecord({ record }) {
+export default function MemCouponRecord({ record, page }) {
   const rowStyle = {
     height: '90px',
   };
@@ -46,25 +46,27 @@ export default function MemCouponRecord({ record }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {record.map((row) => (
-            <TableRow
-              key={v4()}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell align="center" sx={tdStyle}>
-                {row.name}
-              </TableCell>
-              <TableCell align="center" sx={tdStyle}>
-                {row.money}
-              </TableCell>
-              <TableCell align="center" sx={tdStyle}>
-                {row.time}
-              </TableCell>
-              <TableCell align="center" sx={tdStyle}>
-                {row.status === 2 ? '已使用' : '已過期'}
-              </TableCell>
-            </TableRow>
-          ))}
+          {record
+            ?.filter((value, index) => page <= index && index < page + 5)
+            .map((row) => (
+              <TableRow
+                key={v4()}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell align="center" sx={tdStyle}>
+                  {row.name}
+                </TableCell>
+                <TableCell align="center" sx={tdStyle}>
+                  {row.money}
+                </TableCell>
+                <TableCell align="center" sx={tdStyle}>
+                  {row.time}
+                </TableCell>
+                <TableCell align="center" sx={tdStyle}>
+                  {row.status === 2 ? '已使用' : '已過期'}
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

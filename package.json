@@ -30,6 +30,7 @@
     "dayjs": "^1.11.8",
     "escape-string-regexp": "^5.0.0",
     "eslint-config-next": "13.4.2",
+    "firebase": "^10.1.0",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.21",
     "next": "13.4.2",

@@ -1,5 +1,6 @@
 .main {
   display: flex;
+  flex-direction: column;
   gap: 35px;
   width: 100%;
 }
@@ -11,6 +12,16 @@
   width: 100%;
   height: 65px;
   padding-inline: 20px;
+}
+
+.main3 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  padding-inline: 15px;
 }
 
 .left {
@@ -35,10 +46,6 @@
 .img {
   border-radius: 15px;
   overflow: hidden;
-  margin-top: 20px;
-  margin-left: 25px;
-
-  /* border: 5px solid rgb(5, 45, 15); */
 }
 
 .star {
@@ -52,5 +59,18 @@
 
 .starArea {
   display: flex;
-  margin-top: 30px;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  padding-right: 15px;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 2px;
+}
+
+.card {
+  width: 100%;
+}
+
+.little {
+  width: 200px;
 }

@@ -2,13 +2,44 @@ import { useState, useEffect, useContext } from 'react';
 import MemBtn from './mem-Btn';
 import Image from 'next/image';
 import styles from './MemBookingDetail.module.css';
+import { useRouter } from 'next/router';
+import Swal from 'sweetalert2';
 
-export default function MemBookingDetail({ openDetail, data }) {
+export default function MemBookingDetail({ openDetail, data, setShowDetail }) {
   const [star1, setStar1] = useState(false);
   const [star2, setStar2] = useState(false);
   const [star3, setStar3] = useState(false);
   const [star4, setStar4] = useState(false);
   const [star5, setStar5] = useState(false);
+
+  const router = useRouter();
+
+  const finishBooking = (id) => {
+    const str = localStorage.getItem('auth');
+    if (str) {
+      const obj = JSON.parse(str);
+      const Authorization = 'Bearer ' + obj.token;
+      fetch(process.env.API_SERVER + '/member/finishBooking', {
+        method: 'POST',
+        body: JSON.stringify({ id: id }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization,
+        },
+      })
+        .then((res) => res.json())
+        .then(
+          Swal.fire({
+            title: '完成評價',
+            timer: 1500,
+            icon: 'success',
+            showConfirmButton: false,
+          })
+        )
+        .then(setShowDetail(false))
+        .then(router.push('/member'));
+    }
+  };
 
   const changeStar1 = () => {
     setStar1(true);
@@ -187,7 +218,11 @@ export default function MemBookingDetail({ openDetail, data }) {
       </div>
       <div className={styles.main2}>
         <MemBtn onClick={openDetail} text={'取消'} padding={'3px 5px'}></MemBtn>
-        <MemBtn text={'完成訂單'} padding={'3px 15px'}></MemBtn>
+        <MemBtn
+          text={'完成訂單'}
+          padding={'3px 15px'}
+          onClick={() => finishBooking(data?.booking_id)}
+        ></MemBtn>
       </div>
     </div>
   );

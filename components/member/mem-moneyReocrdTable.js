@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import styles from './mem-moneyReocrdTable.module.css';
 import { v4 } from 'uuid';
 
-export default function MemMoneyReocrdTable({ rows }) {
+export default function MemMoneyReocrdTable({ rows, page }) {
   const rowStyle = {
     height: '90px',
   };
@@ -19,6 +19,8 @@ export default function MemMoneyReocrdTable({ rows }) {
     color: '#921010',
     fontFamily: 'var(--ff1)',
     fontSize: '20px',
+    position: 'relative',
+    left: '80px',
   };
 
   const tdStyle = {
@@ -26,38 +28,46 @@ export default function MemMoneyReocrdTable({ rows }) {
     fontWeight: '600',
     height: '70px',
     fontFamily: 'var(--ff1)',
+    width: '200px',
+    position: 'relative',
+    left: '80px',
   };
 
   return (
     <TableContainer component={Paper} className={styles.body}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table
+        sx={{ minWidth: 650, overflow: 'hidden' }}
+        aria-label="simple table"
+      >
         <TableHead>
           <TableRow sx={rowStyle}>
-            <TableCell align="center" sx={ceilStyle}>
-              儲值內容
+            <TableCell align="left" sx={ceilStyle}>
+              內容
             </TableCell>
-            <TableCell align="center" sx={ceilStyle}>
-              儲值金額
+            <TableCell align="left" sx={ceilStyle}>
+              金額
             </TableCell>
-            <TableCell align="center" sx={ceilStyle}>
-              儲值時間
+            <TableCell align="left" sx={ceilStyle}>
+              時間
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={v4()}>
-              <TableCell align="center" sx={tdStyle}>
-                {row.content}
-              </TableCell>
-              <TableCell align="center" sx={tdStyle}>
-                {row.money}
-              </TableCell>
-              <TableCell align="center" sx={tdStyle}>
-                {row.time}
-              </TableCell>
-            </TableRow>
-          ))}
+          {rows
+            ?.filter((value, index) => page <= index && index < page + 5)
+            .map((row) => (
+              <TableRow key={v4()}>
+                <TableCell align="left" sx={tdStyle}>
+                  {row.content}
+                </TableCell>
+                <TableCell align="left" sx={tdStyle}>
+                  {row.money}
+                </TableCell>
+                <TableCell align="left" sx={tdStyle}>
+                  {row.time}
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

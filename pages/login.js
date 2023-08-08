@@ -72,13 +72,22 @@ const Login = () => {
         if (data.success) {
           const obj = { ...data.data };
           localStorage.setItem('auth', JSON.stringify(obj));
-          Swal.fire({ title: '登入成功', timer: 1500, icon: 'success' });
-          // setAuth(localStorage.getItem(auth));
+          Swal.fire({
+            title: '登入成功',
+            timer: 1500,
+            icon: 'success',
+            showConfirmButton: false,
+          });
+          // setAuth(JSON.parse(localStorage.getItem('auth')));
           setTimeout(() => {
             router.back();
           }, 1500);
         } else {
-          Swal.fire({ title: '帳號或密碼錯誤', timer: 1500 });
+          Swal.fire({
+            title: '帳號或密碼錯誤',
+            timer: 1500,
+            showConfirmButton: false,
+          });
         }
       });
   };

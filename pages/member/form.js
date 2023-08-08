@@ -79,7 +79,6 @@ export default function MemForm() {
   const upLoadImg = (e) => {
     e.preventDefault();
     const fileList = e.target.files;
-    // console.log(fileList[0].name);
 
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -106,7 +105,7 @@ export default function MemForm() {
     e.preventDefault();
 
     const fd = new FormData(formRef.current);
-    console.log(fd);
+    // console.log(fd);
     fetch(process.env.API_SERVER + '/member/add', {
       method: 'POST',
       body: fd,
