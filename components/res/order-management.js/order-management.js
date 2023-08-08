@@ -83,7 +83,7 @@ export default function OrderManagement() {
   useEffect(() => {
     if (resAuth.account) {
       getShopOrder();
-      getTogoOrder()
+      getTogoOrder();
       console.log(getOrders); // 這裡會顯示空陣列 []，因為 getShopOrder() 還沒完成
     }
   }, [resAuth]);
@@ -110,12 +110,32 @@ export default function OrderManagement() {
     setShowOrder(!showOrder)
   }
 
+  const [completeOrder, setCompleteOrder] = useState(false)
+  const turnToComplete = (i) => {
+
+    setCompleteOrder(true)
+    const modifiedTogoOrder = [...togoOrder];
+    console.log(modifiedTogoOrder)
+
+    modifiedTogoOrder[i][0].status = '已完成，等待取餐';
+
+    setTogoOrder(modifiedTogoOrder);
+
+    Swal.fire(
+      '已通知消費者取餐!',
+      '等候消費者來取餐',
+      'success'
+    );
+
+
+  }
+
   // 點擊通知完成後通知消費者訂單已完成，並將狀態改為等待消費者領取
   const informMember = (i) => {
     const modifiedTogoOrder = [...togoOrder];
     console.log(modifiedTogoOrder)
 
-    modifiedTogoOrder[i][0].status = '已完成，等待取餐';
+    modifiedTogoOrder[i][0].status = '已完成';
 
     setTogoOrder(modifiedTogoOrder);
 
@@ -276,9 +296,16 @@ export default function OrderManagement() {
                     </td>
                     <td className='text-center'>{v[0].amount}</td>
                     <td className='text-center'>{v[0].create_at}</td>
-                    <td className='text-center'><button type='button' className='btn btn-primary'
-                      onClick={informMember}
-                    >通知完成</button></td>
+                    <td className='text-center'>
+                      {completeOrder ? 
+                      <div>123</div> 
+                      : 
+                      <button type='button' id={`buttonIndex${i}`} className='btn btn-primary'
+                        onClick={() => turnToComplete(i)}
+                      >
+                      通知完成
+                      </button>}
+                    </td>
                   </tr>
                 })}
 
