@@ -37,7 +37,7 @@ export default function MemCollectReocrd1({ forum, page }) {
   const tdStyle = {
     fontSize: '18px',
     fontWeight: '600',
-    height: '70px',
+    height: '130px',
     fontFamily: 'var(--ff1)',
     position: 'relative',
     left: '-20px',
