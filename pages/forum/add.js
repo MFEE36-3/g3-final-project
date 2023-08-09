@@ -8,7 +8,9 @@ import { useState } from 'react';
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import AuthContext from '@/context/AuthContext';
-
+import Swal from 'sweetalert2';
+import { FaPhotoVideo } from 'react-icons/fa';
+import Head from 'next/head';
 export default function Add() {
   const { auth } = useContext(AuthContext);
   const router = useRouter();
@@ -54,6 +56,10 @@ export default function Add() {
     setContent(e.target.value);
   };
   const handleAddPost = async (e) => {
+    Swal.fire({
+      icon: 'success',
+      title: '新增文章成功！',
+    });
     console.log('yes');
     e.preventDefault();
 
@@ -94,6 +100,9 @@ export default function Add() {
 
   return (
     <>
+      <Head>
+        <title>食GOEAT! / 美食論壇</title>
+      </Head>
       <div className={styles.container}>
         <Newnav />
         <h3 className={styles.text}>新增貼文</h3>
@@ -120,31 +129,35 @@ export default function Add() {
           className={styles.input2}
           onChange={handlecontent}
         ></textarea>
-        {/* <div className={styles.between}> */}
-
         <div className={styles.end}></div>
       </div>
-      {/* </div> */}
-      {/* 新增和取消按钮的区块 */}
 
       <div className={styles.buttonContainer}>
-        <div>
-          <input
+        {/* <FaPhotoVideo className={styles.icon} onChange={imgUpload} /> */}
+        {/* <input
+            className={styles.fileinput}
             type="file"
             name="preImg"
             accept="image/jpeg, image/webp"
-            onChange={imgUpload}
-          />
-        </div>
+            // onChange={imgUpload}
+          /> */}
         <div>
-        <button className={styles.cancel}>取消</button>
-        <button
-          className={styles.addbtn}
-          onClick={handleAddPost}
-          roles="presentation"
-        >
-          發布貼文
-        </button>
+          {' '}
+          <label htmlFor="file-upload" className="custom-file-upload">
+            <FaPhotoVideo className={styles.icon} /> 請選擇照片
+          </label>
+          <input id="file-upload" type="file" onChange={imgUpload} />
+        </div>
+
+        <div>
+          <button className={styles.cancel}>取消</button>
+          <button
+            className={styles.addbtn}
+            onClick={handleAddPost}
+            roles="presentation"
+          >
+            發布貼文
+          </button>
         </div>
       </div>
     </>

@@ -7,6 +7,22 @@
     height: 640px;
     margin-top: 40px;
 }
+.input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
 
 .text{
     font-size: var(--h6);
@@ -15,7 +31,7 @@
 }
 
 .line{
-    border-bottom: 2px solid var(--main-color);
+    border-bottom: 1px solid var(--main-color);
     margin-bottom: 20px;
     margin-top: 10px;
     width: 100%;
@@ -34,15 +50,25 @@
 .input1{
     margin-top: 20px;
     margin-bottom: 20px;
+    border: 1px solid gray;
+    width: 100%;
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+}
+.input1:focus{
+    margin-top: 20px;
+    margin-bottom: 20px;
     border: 2px solid var(--main-color);
     width: 100%;
     border-radius: 5px;
     background-color: transparent;
     padding: 10px;
+    outline: none;
 
 }
 .input2{
-border: 2px solid var(--main-color);
+border: 1px solid gray;
 border-radius: 5px;
 width: 100%;
 height: 70%;
@@ -50,19 +76,29 @@ background-color: transparent;
 padding: 10px;
 resize: none;
 }
+.input2:focus{
+    border: 2px solid var(--main-color);
+    border-radius: 5px;
+    width: 100%;
+    height: 70%;
+    background-color: transparent;
+    padding: 10px;
+    outline: none;
+    }
 .addbtn{
     border-radius: 5px;
     background-color: var(--main-color);
     color: white;
     font-size: var(--h7);
     width: 100px;
-    height: 30px;
+    height: 40px;
     border: 0;
     font-family: var(--ff2);
 }
 .cancel{
     border-radius: 5px;
     width: 100px;
+    height: 40px;
     margin-right: 10px;
     border: 0;
     font-size: var(--h7);

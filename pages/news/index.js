@@ -7,7 +7,7 @@ import Newnav from '../../components/common/news/new_nav';
 import UncontrolledExample from '../../components/common/news/UncontrolledExample';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link';
-
+import Head from 'next/head';
 export default function Demo() {
   const [news, setnews] = useState([]);
   const connect = async (e) => {
@@ -33,6 +33,9 @@ export default function Demo() {
           </Link>
         );
       })}
+      <Head>
+            <title>食GOEAT! / 美食論壇</title>
+        </Head>
       <div className={`${styles.container}`}>
         <Newnav />
         <h1 className={`${styles.title}`}>美食新聞</h1>
