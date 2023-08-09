@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Forumbtn from '@/components/common/forum/forumbtn';
 import styles from './detail.module.css';
@@ -9,24 +9,26 @@ import Articlelist from '@/components/common/forum/articlelist';
 import Newnav from '@/components/common/news/new_nav';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Swal from 'sweetalert2';
 import AuthContext from '@/context/AuthContext';
 
 export default function Detail() {
   const router = useRouter();
+  const { auth, setAuth } = useContext(AuthContext);
+  const [clickHeart, setClickHeart] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [articles, setArticles] = useState([]);
   const [sortOrder, setSortOrder] = useState('desc');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [favorit, setFavorit] = useState(false);
-  const [likeClick, setLikeClick] = useState(false);
-  const [collectionID, setCollectionID] = useState([]); // 判斷是否有收藏
-  const changeFavorit = (e) => {
-    setFavorit(!favorit);
-    setLikeClick(true);
-  };
-
+  // 蒐藏按讚
+  const [likeDatas, setLikeDatas] = useState([]);
+  const [showLikeList, setShowLikeList] = useState(false);
+  const [addLikeList, setAddLikeList] = useState([]);
+  const [isClickingLike, setIsClickingLike] = useState(false);
   const imgPreview = `http://localhost:3002/img/forum/`;
+
+
 
   useEffect(() => {
     const keyword = router.query.forum_keyword || '';
@@ -37,8 +39,11 @@ export default function Detail() {
     fetch(`http://localhost:3002/forum/message?${usp.toString()}`)
       .then((response) => response.json())
       .then((data) => {
-        let sortedData = data;
-
+        // let sortedData = data;
+        let sortedData = data.map((v) => {
+          return { ...v, liked_by_user_id: !!v.liked_by_user_id };
+        });
+        console.log(sortedData);
         if (sortOrder === 'asc') {
           sortedData.sort(
             (a, b) => new Date(a.publishedTime) - new Date(b.publishedTime)
@@ -73,67 +78,93 @@ export default function Detail() {
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
-  // useEffect(() => {
-  //   fetch(`${process.env.API_SERVER}/collection/findCollection`, {
-  //     method: 'POST',
-  //     body: JSON.stringify({ memberID: auth.member_id, forum_sid: forum_sid }),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then((r) => r.json())
-  //     .then((data) => {
-  //       setCollectionID(data.all);
-  //     });
-  //   fetch(`${process.env.API_SERVER}/order/getComment`, {
-  //     method: 'POST',
-  //     body: JSON.stringify({ productID: row.forum_sid }),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then((r) => r.json())
-  //     .then((data) => {
-  //       setAllContent(data.all);
-  //     });
-  // }, [row]);
-  // useEffect(() => {
-  //   if (collectionID.length > 0) {
-  //     setFavorit(true);
-  //   }
-  // }, [collectionID]);
+  // 按讚及收藏 方法
+  const getLikeList = async (token = '') => {
+    const res = await fetch(`${process.env.API_SERVER}/forum/show-like`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    });
+    const data = await res.json();
+    // console.log(data);
 
-  // useEffect(() => {
-  //   if (auth.member_id != 0 && likeClick == true) {
-  //     if (favorit == true) {
-  //       fetch(`${process.env.API_SERVER}/collection/addCollection`, {
-  //         method: 'POST',
-  //         body: JSON.stringify({
-  //           memberID: auth.member_id,
-  //           productID: forum_sid,
-  //         }),
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       })
-  //         .then((r) => r.json())
-  //         .then((data) => {});
-  //     } else if (favorit == false) {
-  //       fetch(`${process.env.API_SERVER}/collection/deleteCollection`, {
-  //         method: 'POST',
-  //         body: JSON.stringify({
-  //           memberID: auth.member_id,
-  //           froum_sid: forum_sid,
-  //         }),
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       })
-  //         .then((r) => r.json())
-  //         .then((data) => {});
-  //     }
-  //   }
-  // }, [favorit, likeClick]);
+    if (data.likeDatas.length > 0) {
+      setLikeDatas(data.likeDatas);
+    }
+    console.log(likeDatas);
+  };
+
+  useEffect(() => {
+    if (!isClickingLike && addLikeList.length > 0) {
+      const member = JSON.parse(localStorage.getItem('auth'));
+      
+      sendLikeList(addLikeList, member.sid).then(() => {
+        //在成功送資料到後端後重置addLikeList
+        setAddLikeList([]);
+      });
+    }
+  }, [isClickingLike, addLikeList]);
+
+  //沒登入會員收藏，跳轉登入
+
+  // const toSingIn = () => {
+  //   const from = router.query;
+  //   router.push(
+  //   `/member/sign-in?from=${
+  //   process.env.WEB
+  //   }/restaurant/list?${new URLSearchParams(from).toString()}`
+  //   );
+  //   };
+
+  //卡片愛心收藏的相關函式-------------------------------------------------------
+  const clickHeartHandler = (id) => {
+    setIsClickingLike(true);
+    const timeClick = new Date().getTime();
+    const newData = articles.map((v) => {
+      if (v.forum_sid === id) {
+        const insideInLikeList = addLikeList.find(
+          (item) => item.forum_sid === id
+        );
+        if (insideInLikeList) {
+          setAddLikeList((preV) => preV.filter((v2) => v2.forum_sid !== id));
+        } else {
+          setAddLikeList((preV) => [
+            ...preV,
+            { forum_sid: id, time: timeClick ,clickHeart:!v.liked_by_user_id},
+          ]);
+        }
+
+        return { ...v, liked_by_user_id: !v.liked_by_user_id };
+      } else return { ...v };
+    });
+
+    setArticles(newData);
+
+    setTimeout(() => {
+      setIsClickingLike(false);
+    }, 1500);
+  };
+
+  //將資料送到後端
+  const sendLikeList = async (arr, id = '') => {
+    const res = await fetch(
+      `${process.env.API_SERVER}/forum/handle-like-list`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({arr,member_id:id }),
+      }
+    );
+    const data = await res.json();
+
+    if (data.success) {
+      console.log(data);
+    }
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -150,10 +181,41 @@ export default function Detail() {
             handleSortOrderChange={handleSortOrderChange}
           />
           <Hotnew />
-          <Articlelist
-            articles={articles.slice((currentPage - 1) * 10, currentPage * 10)}
-            imgPreview={imgPreview}
-          />
+          {articles.map((article, index) => {
+            const {
+              comment_count,
+              forum_content,
+              forum_photo,
+              forum_sid,
+              header,
+              like_count,
+              member_sid,
+              nickname,
+              publishedTime,
+              user_photo,
+              liked_by_user_id,
+            } = article;
+            return (
+              <Articlelist
+                forum_sid={forum_sid}
+                comment_count={comment_count}
+                forum_content={forum_content}
+                forum_photo={forum_photo}
+                header={header}
+                like_count={like_count}
+                nickname={nickname}
+                publishedTime={publishedTime}
+                user_photo={user_photo}
+                key={index}
+                articles={[article]}
+                imgPreview={imgPreview}
+                likeDatas={likeDatas}
+                liked_by_user_id={liked_by_user_id}
+                clickHeartHandler={clickHeartHandler} // 將按讚事件處理函數傳遞給子元件
+                // clickCollectEvent={clickHeartHandler} // 將收藏事件處理函數傳遞給子元件
+              />
+            );
+          })}
         </div>
         <div className="w-100 d-flex justify-content-center mb-5 pb-5 mt-2">
           <Stack spacing={2}>
