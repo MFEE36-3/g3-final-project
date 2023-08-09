@@ -5,6 +5,7 @@ import CheckBox from '@/components/checkout/topup/checkbox';
 import Button from '@mui/material/Button';
 import PaymentForCash from '@/components/checkout/topup/paymentforcash';
 import { useRouter } from 'next/router';
+import Swal from 'sweetalert2'
 const Money1 = styled.img`
     @keyframes MoneyRun{
         0%{
@@ -46,17 +47,25 @@ export default function AddCash() {
         getInfo()
     },[])
     const topUp = async () => {
-       const linepayTopup = async () =>{
+        if(payment === '') {
+            return (Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '請選擇支付方式!',
+              }))
+            
+        }
+        const linepayTopup = async () =>{
         const member = JSON.parse(localStorage.getItem('auth'))
-        const response = await fetch(`${process.env.API_SERVER}/ecshop/checkout/linepaytopup`,{
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json',
-                'Authorization':`Bearer ${member.token}`
-            },
-            body:JSON.stringify({
-                amount: addValue
-            })
+            const response = await fetch(`${process.env.API_SERVER}/ecshop/checkout/linepaytopup`,{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization':`Bearer ${member.token}`
+                },
+                body:JSON.stringify({
+                    amount: addValue
+                })
         })
         const data = await response.json()
         return data
