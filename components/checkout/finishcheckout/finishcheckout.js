@@ -10,7 +10,6 @@ export default function FinishCheckout() {
     const [time, setTime] = useState(7);
     const router = useRouter()
     useEffect(() => {
-      localStorage.removeItem('subscribe')
         setTimeout(()=>{
             router.push({pathname:"http://localhost:3000/member"})
         },7000)
@@ -41,7 +40,9 @@ export default function FinishCheckout() {
 
                 </div>
                 <div className='d-flex justify-content-center mt-2'>
-                    <button className='w-50 fs-5 p-2 border-0 rounded-4 d-flex justify-content-center bg-success-subtle'>{time} 秒後回到會員頁面</button>
+                    <button className='w-50 fs-5 p-2 border-0 rounded-4 d-flex justify-content-center bg-success-subtle' onClick={()=> {
+                      router.push('/member')
+                    }}>{time} 秒後回到會員頁面</button>
                 </div>
             </div>
         </div>

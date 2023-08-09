@@ -1,7 +1,14 @@
 import React from 'react'
 import ShopMallFinal from '@/components/shopmall/shopmallfinal'
+import Head from 'next/head';
 export default function shopmall() {
   return (
-    <ShopMallFinal/>
+    <>
+      <Head>
+            <title>食GOEAT! / 美食商城</title>
+      </Head>
+      <ShopMallFinal/>
+    </>
+      
   )
 }

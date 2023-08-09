@@ -26,13 +26,14 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
     return showPages(items).length > 0 ? showPages(items).map(item => item.price * item.amount).reduce((p ,c) => p + c) : 0
     }
     const fee = 60
-    const [couponId, setCouponId] = useState('')
+    const defaultCouponId = 0;
+    const [couponId, setCouponId] = useState(defaultCouponId)
     const [discount, setDiscount] = useState('')
     const [walletError, setWalletError] = useState(false)
     const handleChange = (event) => {
         setCouponId(event.target.value);
     };
-    const totalPrice = showPages(items).length > 0 ? `${pagePrice()+ (memberInfo.level === 2 ? 0 : showPages(items).length > 0 ? fee : 0) - discount}` : 0
+    const totalPrice = showPages(items).length > 0 ? `${pagePrice() + (page === 'order' ? 0 : memberInfo.level === 2 ? 0 : showPages(items).length > 0 ? fee : 0) - discount}` : 0
     const coupon = 
     <Box sx={{ minWidth: 200, textAlign: "center" }}>
         <FormControl fullWidth >
@@ -41,15 +42,16 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
             className='d-flex justify-content-end fs-5 '
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={couponId}
+            value={page === 'subscribe' ? 0 :couponId}
             label="折價"
+            readOnly={page === 'subscribe'}
             onChange={handleChange}
             sx={{textAlign:"center",display:'flex',alignItems:"center"}}
             >
             <MenuItem value={0} className='d-flex justify-content-center' >
-                不使用優惠卷
+                {page === 'subscribe' ? '該商品無法使用優惠卷' : "不使用優惠卷"}
             </MenuItem>
-            {memberCoupon.filter(coupon => coupon.coupon_status_sid === 1).map(c => 
+            {page !== 'subscribe' && memberCoupon.filter(coupon => coupon.coupon_status_sid === 1).map(c => 
                 <MenuItem value={c.get_coupon_sid} className='d-flex justify-content-between' key={c.get_coupon_sid}>
                     {c.coupon_title}
                     <span className='ms-3 text-danger'>${c.coupon_discount}</span>
@@ -74,6 +76,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
       }, [couponId, memberCoupon]);
     useEffect(()=>{
     const orderItem = JSON.parse(localStorage.getItem('order'))
+    if(!orderItem) return
     const day =  Object.values(orderItem).map(i=>i.togodate).shift() || []
     const time = Object.values(orderItem).map(i=>i.togotime).shift() || []
     setDate(`${day} ${time}`)
@@ -103,12 +106,35 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
         })
         )
         }
-        
     const handleOrder = async () => {
+        const query = {...router.query}
+        let orderData;
+        let url;
         if(showPages(items).length === 0) return
-        if(!payment) return
+        if(!payment) {
+            return (Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '請選擇支付方式!',
+              }))
+        }
         if(memberInfo.wallet < totalPrice && payment === 'wallet') setWalletError(true)
-        const url = `${host}/ecshop/checkout`
+        switch (query.page) {
+            case 'subscribe' :
+                url = `${host}/ecshop/checkout/premium`
+                break
+            case 'shop' :
+                url = `${host}/ecshop/checkout`
+                break
+            case 'buy' :
+                url = ``
+                break
+            case 'order' :
+                url = `${host}/ecshop/checkout/food`
+                break
+            default :
+                url = `${host}/ecshop/checkout/premium`
+        }
         const shopOrderData = {
             items : showPages(items).map(item => ({
                 item_id: item.itemId,
@@ -125,6 +151,41 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                 shipfee: fee,
             }
         }
+        const subscribeOrderData = {
+            sid : showPages(items).map(item=>item.itemID)
+        }
+        const takeoutOrderData = {         
+            shop_id: showPages(items).map(item => item.shop_id).shift(),
+            amount: showPages(items).map(item => Number(item.price) * Number(item.amount)).reduce((c, v) => c + v), 
+            order_date: showPages(items).map(item => item.togodate).shift(),
+            order_time: showPages(items).map(item => item.togotime).shift(),
+            foods: showPages(items).map(item => ({
+                food_id: item.itemId,
+                order_item: item.itemName,
+                order_num: item.amount,
+                price: item.price
+            })),
+            payment_info: {
+                shipfee: 0, 
+                coupon_sid: couponId !== 0 ? couponId : null,
+            }
+        }
+        switch (query.page) {
+            case 'shop' :
+                orderData = shopOrderData
+                break
+            case 'subscribe' :
+                orderData = subscribeOrderData
+                break
+            case 'buy' :
+                orderData = {}
+                break
+            case 'order' :
+                orderData = takeoutOrderData
+                break
+            default :
+                orderData = subscribeOrderData
+        }
         const createOrder = async () =>{
             const member = JSON.parse(localStorage.getItem('auth'))
             const response = await fetch(url,{
@@ -133,22 +194,38 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                     'Content-Type': 'application/json',
                     'Authorization':`Bearer ${member.token}`
                   },
-                body:JSON.stringify(shopOrderData)
+                body:JSON.stringify(orderData)
             })
             const data = await response.json();
-            return data
+            return { ...data, status: response.status }
         }
         try{
             const response = await createOrder()
-            if(response.message === 'Order created successful!') {
+            if(response.status === 200) {
+                switch (page) {
+                    case 'subscribe' : 
+                        localStorage.removeItem('subscribe')
+                        break
+                    case 'shop' : 
+                        localStorage.removeItem('shop')
+                        break
+                    case 'buy' : 
+                        localStorage.removeItem('buy')
+                        break
+                    case 'order' : 
+                        localStorage.removeItem('order')
+                        break
+                    default :
+                        localStorage.removeItem('subscribe')
+                }
                 const redirect = () =>  response.linepay_redirect ? setTimeout(()=>{window.location.href=response.linepay_redirect},6000) : 
-                setTimeout(()=>{router.push({pathname:'http://localhost:3000/completeorder/success'})},6000)
+                setTimeout(()=>{router.push("completeorder/success")},6000)
                 createOrderLoading(redirect())
-            }
-            else {
+            }else {
                 throw new Error(response.error)
             }
         }catch(error){
+            console.log('Response:', response)
             console.log('error', error)
             
         }
@@ -161,7 +238,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                 <Fs23pxSpan>$ {pagePrice()}</Fs23pxSpan>
             </div>
             <div className='d-flex justify-content-between mt-4'>
-                {page === 'subscribe' ? <></> : page === 'order' ? 
+                {page === 'order' ? 
                 <>
                     <Fs23pxSpan>取餐時間</Fs23pxSpan>
                     <Fs23pxSpan>{showPages(items).length > 0 ? `${date}` : '-'}</Fs23pxSpan>
@@ -170,7 +247,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                     <Fs23pxSpan>運費/外送費(會員免運)</Fs23pxSpan>
                     <Fs23pxSpan style={memberInfo.level === 2 ? {textDecoration:"line-through"} :{}} 
                     className={memberInfo.level === 2 ? 'text-danger' : ''}
-                    >{memberInfo.level === 2 ? `$ 0` : showPages(items).length > 0 ? `$ ${fee}` : 0}</Fs23pxSpan>
+                    >{page === 'subscribe'? '$ 0' : memberInfo.level === 2 ? `$ 0` : showPages(items).length > 0 ? `$ ${fee}` : `$ 0`}</Fs23pxSpan>
                 </>
                 }
             </div>

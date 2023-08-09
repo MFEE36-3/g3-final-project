@@ -27,7 +27,7 @@ export default function CheckOutMember() {
   const { memberInfo } = useContext(Cart)
   return (
     <div className='d-flex mt-3 mb-2 align-items-center justify-content-between position-relative'>
-    <StyledLink href={'http://localhost:3000/topup'} className='position-absolute fs-5 text-primary' style={{bottom:"0",right:"-6%"}}>前往儲值</StyledLink>
+    <StyledLink href={'http://localhost:3000/topup'} className='position-absolute fs-5 text-primary' style={{bottom:"0",right:"-2%"}}>前往儲值</StyledLink>
       <div className='d-flex align-items-center w-75'>
         <img src={`${process.env.API_SERVER}/img/member/${memberInfo.photo}`} alt={memberInfo.nickname} className=' rounded-circle h-100' style={{width:"40%"}}></img>
       <div className='fs-4 ms-2'>{memberInfo.nickname}</div>
