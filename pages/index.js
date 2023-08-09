@@ -297,21 +297,23 @@ const Home = () => {
             <div className={styles.card_box}>
               {commodity.filter((value, index) => randomvalue <= index && index < randomvalue + 5).map((v) => {
                 return (
-                  <div className={styles.commodity_card}>
-                    <div className={styles.card_img_box} style={{ 'backgroundImage': `url(${v.img_url})` }}></div>
-                    <div className={styles.commodity_info}>
-                      <div>{v.item_name}</div>
-                      <div className={styles.commodity_price}>NT${v.price}</div>
+                  <div className={styles.commodity_card_back}>
+                    <div className={styles.commodity_card}>
+                      <div className={styles.card_img_box} style={{ 'backgroundImage': `url(${v.img_url})` }}></div>
+                      <div className={styles.commodity_info}>
+                        <div>{v.item_name}</div>
+                        <div className={styles.commodity_price}>NT${v.price}</div>
+                      </div>
                     </div>
                   </div>)
               })}
 
             </div>
             <div className={styles.random_btn}>
-            <Btn text='隨機商品' onClick={() => { setRandomvalue(Math.round(7 * Math.random())) }} />
+              <Btn text='隨機商品' onClick={() => { setRandomvalue(Math.round(7 * Math.random())) }} />
             </div>
             <div className={styles.goshopmall_btn}>
-            <Btn text='GO SHOPPING' onClick={() => (router.push('/shopmall'))} />
+              <Btn text='GO SHOPPING' onClick={() => (router.push('/shopmall'))} />
             </div>
           </div>
 
