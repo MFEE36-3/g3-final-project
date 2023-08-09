@@ -83,9 +83,25 @@ export default function Index() {
                 <Image
                   src={cookie}
                   className={styles2.animate}
-                  width={150}
-                  height={150}
+                  width={80}
+                  height={80}
                   alt=""
+                />
+                <Image
+                  src={cookie}
+                  className={styles2.animate}
+                  width={80}
+                  height={80}
+                  alt=""
+                  style={{ left: '30px' }}
+                />
+                <Image
+                  src={cookie}
+                  className={styles2.animate}
+                  width={80}
+                  height={80}
+                  alt=""
+                  style={{ left: '60px' }}
                 />
               </div>
               <MemAllTitle title={'進行中的活動'} />
