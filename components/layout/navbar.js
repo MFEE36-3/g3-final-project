@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaShoppingCart } from 'react-icons/fa';
 import styles from '@/styles/navbar.module.css';
 import chocoCookie from '@/public/img_for_icon/chocoCookie.svg';
+import littlechoco from '@/public/buyforme/map/chocoCookie.svg';
 import bigtitle from '@/public/img_for_icon/bigtitle.svg';
 import littletitle from '@/public/img_for_icon/littletitle.svg';
 import hand from '@/public/img_for_icon/hand.svg';
@@ -99,10 +100,31 @@ export default function Navbar() {
           router_title.includes('/shopmall')
             ? '/checkout?page=shop'
             : router_title.includes('/reservation')
-            ? '/checkout?page=order'
-            : router_title.includes('/member')
-            ? '/checkout?page=subscribe'
-            : '/checkout'
+              ? '/checkout?page=order'
+              : router_title.includes('/member')
+                ? '/checkout?page=subscribe'
+                : '/checkout'
+        }
+
+        onClick={(e) => {
+          if (!localStorage.getItem('auth')) {
+            e.preventDefault();
+            Swal.fire({
+              title: '請先登入',
+              iconHtml: `<img src=${littlechoco.src}>`,
+              customClass: {
+                icon: 'sweetalert_icon'
+              },
+              showDenyButton: true,
+              showCancelButton: false,
+              confirmButtonText: '前往登入',
+              denyButtonText: '我再想想',
+            }).then(
+              function (result) {
+                if (result.value) router.push('/login')
+              });
+          }
+        }
         }
       >
         <FaShoppingCart className={styles.cart} />
@@ -230,7 +252,7 @@ export default function Navbar() {
             <button
               className={
                 router_title.includes('/forum') ||
-                router_title.includes('/news')
+                  router_title.includes('/news')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }

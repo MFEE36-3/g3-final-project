@@ -30,7 +30,7 @@
 
 .choco {
   position: absolute;
-  left: 26.875%;
+  left: 23.5%;
   top: 100px;
   z-index: 1;
 }
@@ -68,10 +68,34 @@
   top: 23.78px;
   font-size: 48px;
   z-index: 10;
+  transition: .3s ease-in-out;
 }
 
 .cart:hover {
   color: #fab3b3;
+  animation: .5s cart_shake;
+}
+
+@keyframes cart_shake {
+  0% {
+    transform: rotate(8deg);
+  }
+
+  20% {
+    transform: rotate(-8deg);
+  }
+
+  40% {
+    transform: rotate(3deg);
+  }
+
+  75% {
+    transform: rotate(-3deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .member_icon {
@@ -198,6 +222,13 @@
 
 @media screen and (max-width: 1700px) {
 
+  .choco {
+    position: absolute;
+    left:21%;
+    top: 103px;
+    transform: scale(0.95);
+  }
+
   .little_title {
     transform: scale(0.8);
     left: 10px;
@@ -218,6 +249,28 @@
     left: auto;
     right: 80px;
     top: 26px;
+  }
+
+  @keyframes cart_shake {
+    0% {
+      transform: rotate(8deg) scale(0.85);
+    }
+  
+    20% {
+      transform: rotate(-8deg) scale(0.85);
+    }
+  
+    40% {
+      transform: rotate(3deg) scale(0.85);
+    }
+  
+    75% {
+      transform: rotate(-3deg) scale(0.85);
+    }
+  
+    100% {
+      transform: rotate(0deg) scale(0.85);
+    }
   }
 
   .btn_text {
@@ -263,7 +316,26 @@
 
 }
 
+@media screen and (max-width: 1440px) {
+
+  .choco {
+    position: absolute;
+    left:20%;
+    top: 106px;
+    transform: scale(0.9);
+  }
+}
+
+
 @media screen and (max-width: 1240px) {
+
+  .choco {
+    position: absolute;
+    left: 16%;
+    top: 112px;
+    transform: scale(0.8);
+  }
+
   .btn_text {
     transform: scale(0.8);
     margin: 0 16px 0 60px;
@@ -312,9 +384,39 @@
     right: 55px;
     top: 26px;
   }
+
+  @keyframes cart_shake {
+    0% {
+      transform: rotate(8deg) scale(0.8);
+    }
+  
+    20% {
+      transform: rotate(-8deg) scale(0.8);
+    }
+  
+    40% {
+      transform: rotate(3deg) scale(0.8);
+    }
+  
+    75% {
+      transform: rotate(-3deg) scale(0.8);
+    }
+  
+    100% {
+      transform: rotate(0deg) scale(0.8);
+    }
+  }
 }
 
 @media screen and (max-width: 900px) {
+
+  .choco {
+    position: absolute;
+    left:13%;
+    top: 115px;
+    transform: scale(0.75);
+  }
+
   .btn_text {
     margin: 0 0 0 55px;
   }
@@ -394,6 +496,28 @@
     left: auto;
     right: 65px;
     top: 14px;
+  }
+
+  @keyframes cart_shake {
+    0% {
+      transform: rotate(8deg) scale(0.7);
+    }
+  
+    20% {
+      transform: rotate(-8deg) scale(0.7);
+    }
+  
+    40% {
+      transform: rotate(3deg) scale(0.7);
+    }
+  
+    75% {
+      transform: rotate(-3deg) scale(0.7);
+    }
+  
+    100% {
+      transform: rotate(0deg) scale(0.7);
+    }
   }
 
   .little_title {
@@ -506,7 +630,7 @@
   }
 }
 
-@media screen and (max-width: 576px){
+@media screen and (max-width: 576px) {
 
   .btn_text {
     margin: 0 0 5px 40%;
@@ -531,13 +655,6 @@
 }
 
 @media screen and (max-width: 468px) {
-
-  .choco,
-  .hand_left,
-  .hand_right,
-  .big_title_container {
-    display: none;
-  }
 
   .little_title {
     left: 0px;
@@ -647,4 +764,3 @@
     font-size: var(--h9);
   }
 }
-
