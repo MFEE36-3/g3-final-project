@@ -114,6 +114,12 @@ export default function Index() {
           </div>
           <div className={styles2.recordArea}>
             <MemAllTitle title={'錢包紀錄'} />
+
+            <div className={styles2.area3}>
+              <div className={styles2.recordBox}>
+                <MemMoneyReocrdTable rows={rows} page={page} />
+              </div>
+            </div>
             <div className={styles2.btnArea}>
               {Array.from({ length: Math.ceil(rows.length / 5) }).map(
                 (_, i) => (
@@ -126,11 +132,6 @@ export default function Index() {
                   </button>
                 )
               )}
-            </div>
-            <div className={styles2.area3}>
-              <div className={styles2.recordBox}>
-                <MemMoneyReocrdTable rows={rows} page={page} />
-              </div>
             </div>
           </div>
         </div>

@@ -52,6 +52,9 @@ export default function Index() {
         <MemBar />
         <div className={styles.rightArea}>
           <div className={styles2.actArea}>
+            {/* <div className={styles2.animateArea}>
+              <div className={styles2.animate}>123</div>
+            </div> */}
             <MemAllTitle title={'進行中的活動'} />
             <div className={styles2.area1}>
               <div className={styles2.scrollArea}>
@@ -71,6 +74,7 @@ export default function Index() {
                   padding={'20px 10px'}
                 />
               </div>
+
               <div>{list}</div>
             </div>
           </div>

@@ -115,7 +115,8 @@
 
 .btnArea {
   display: flex;
-  margin-left: 10px;
+  justify-content: center;
+  margin-top: -40px;
   gap: 10px;
 }
 

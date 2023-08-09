@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FaD } from 'react-icons/fa6';
 import Swal from 'sweetalert2';
+import dayjs from 'dayjs';
 
 export default function MemForm() {
   const [account, setAccount] = useState('※必填');
@@ -251,6 +252,8 @@ export default function MemForm() {
                 name="birthday"
                 type="date"
                 className={styles2.input2}
+                max={dayjs(Date.now()).format('YYYY-MM-DD')}
+                // defaultValue={`2000-01-01`}
               ></input>
               <div className={styles2.hide}></div>
             </div>

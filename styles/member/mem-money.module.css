@@ -95,7 +95,7 @@
   border: 2px solid #921010;
   height: 455px;
   background-color: #fff;
-  margin-top: 15px;
+  margin-top: 40px;
 }
 
 .recordBox {
@@ -200,8 +200,10 @@
 
 .btnArea {
   display: flex;
-  margin-left: 10px;
+  justify-content: center;
+  margin-top: 15px;
   gap: 10px;
+  position: relative;
 }
 
 @media screen and (max-width: 391px) {

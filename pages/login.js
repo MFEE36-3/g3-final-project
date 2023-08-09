@@ -84,16 +84,19 @@ const Login = () => {
           });
           // setAuth(JSON.parse(localStorage.getItem('auth')));
           setTimeout(() => {
-            if (router.asPath.includes('localhost')) {
-              router.back();
-            } else {
+            // router.push('/');
+
+            if (document?.referrer.includes('/member/form')) {
               router.push('/');
+            } else {
+              router.back();
             }
           }, 1500);
         } else {
           Swal.fire({
             title: '帳號或密碼錯誤',
             timer: 1500,
+            icon: 'error',
             showConfirmButton: false,
           });
         }

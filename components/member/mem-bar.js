@@ -10,12 +10,12 @@ import { useContext } from 'react';
 export default function MemBar() {
   // 創建一個陣列，包含此navbar需要的按鈕名與路徑
   const arr = [
-    { name: '會員中心', url: '/member' },
+    { name: '活動中心', url: '/member' },
     { name: '我的錢包', url: '/member/money' },
     { name: '個人資料', url: '/member/info' },
     { name: '貼文與收藏', url: '/member/collect' },
     { name: '我的優惠券', url: '/member/coupon' },
-    { name: '各項紀錄', url: '/member/record' },
+    // { name: '各項紀錄', url: '/member/record' },
   ];
 
   // 從useContext裡解構出auth驗證token跟基本會員資料memberData

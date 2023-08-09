@@ -9,7 +9,7 @@ import styles from './mem-achieveArea.module.css';
 import MemBtn from './mem-Btn';
 import Swal from 'sweetalert2';
 
-export default function MemAchieveCard({ image, name }) {
+export default function MemAchieveCard({ image, name, openAchiece }) {
   const router = useRouter();
   const { auth, setAuth } = useContext(AuthContext);
 
@@ -35,8 +35,9 @@ export default function MemAchieveCard({ image, name }) {
             showConfirmButton: false,
           });
           setAuth({ ...auth, achieve_image: image });
-          router.push('./info');
-        });
+        })
+        .then(openAchiece())
+        .then(router.push('./info'));
     }
   };
 

@@ -33,7 +33,12 @@ export default function MemAchieveArea({ openAchiece }) {
   return (
     <div className={styles.area}>
       {achieveCard?.map((v) => (
-        <MemAchieveCard key={v4()} image={v.image} name={v.name} />
+        <MemAchieveCard
+          key={v4()}
+          image={v.image}
+          name={v.name}
+          openAchiece={openAchiece}
+        />
       ))}
       <div className={styles.AchieveBtn}>
         <MemBtn

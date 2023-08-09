@@ -131,6 +131,23 @@ export default function Index() {
             )}
           </div>
           <MemAllTitle title={'我的收藏'} />
+
+          <div className={styles2.area2}>
+            <div className={styles2.scrollArea}>
+              <MemBtn text={'收藏貼文'} onClick={() => setOpen('收藏貼文')} />
+
+              <MemBtn text={'收藏店家'} onClick={() => setOpen('收藏店家')} />
+            </div>
+            {open === '收藏店家' ? (
+              <div className={styles2.scroll2}>
+                <MemCollectReocrd2 store={store} page={page} />
+              </div>
+            ) : (
+              <div className={styles2.scroll2}>
+                <MemCollectReocrd1 forum={forum} page={page} />
+              </div>
+            )}
+          </div>
           <div className={styles2.btnArea}>
             {open === '收藏店家'
               ? Array.from({ length: Math.ceil(store.length / 3) }).map(
@@ -155,22 +172,6 @@ export default function Index() {
                     </button>
                   )
                 )}
-          </div>
-          <div className={styles2.area2}>
-            <div className={styles2.scrollArea}>
-              <MemBtn text={'收藏貼文'} onClick={() => setOpen('收藏貼文')} />
-
-              <MemBtn text={'收藏店家'} onClick={() => setOpen('收藏店家')} />
-            </div>
-            {open === '收藏店家' ? (
-              <div className={styles2.scroll2}>
-                <MemCollectReocrd2 store={store} page={page} />
-              </div>
-            ) : (
-              <div className={styles2.scroll2}>
-                <MemCollectReocrd1 forum={forum} page={page} />
-              </div>
-            )}
           </div>
         </div>
       </div>
