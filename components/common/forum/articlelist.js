@@ -13,8 +13,7 @@ import { useRouter } from 'next/router';
 
 export default function Articlelist({
   liked_by_user_id,
-  clickHeartEvent,
-  clickCollectEvent,
+  is_favorite,
   collect = false,
   comment_count,
   forum_content,
@@ -26,6 +25,7 @@ export default function Articlelist({
   user_photo,
   clickHeartHandler,
   forum_sid,
+  clickCollectHandler,
 }) {
   const router = useRouter();
 
@@ -49,39 +49,44 @@ export default function Articlelist({
             </Link>
             <div className={styles.flex2}>
               {liked_by_user_id ? (
-                <BiSolidHeart
-                  className={styles.icon}
-                  onClick={(e) => {
-                    clickHeartHandler(forum_sid);
-                  }}
-                />
+                <div className={styles.likeContainer}>
+                  <BiSolidHeart
+                    className={styles.icon}
+                    onClick={(e) => {
+                      clickHeartHandler(forum_sid);
+                    }}
+                  />
+                  <div className={styles.like}>喜歡</div>
+                </div>
               ) : (
-                <FiHeart
-                  className={styles.icon}
-                  onClick={(e) => {
-                    clickHeartHandler(forum_sid);
-                  }}
-                />
+                <div className={styles.likeContainer}>
+                  <FiHeart
+                    className={styles.icon}
+                    onClick={(e) => {
+                      clickHeartHandler(forum_sid);
+                    }}
+                  />
+                  <div className={styles.like}>不喜歡</div>
+                </div>
               )}
-              <div className={styles.like}>{like_count}</div>
               <BiSolidMessageAltDetail className={styles.message} />
               <div className={styles.like}>{comment_count}</div>
-              {collect ? (
-                <BsBookmarks
+              {is_favorite ? (
+                <BsBookmarksFill
                   onClick={(e) => {
-                    clickCollectEvent(forum_sid);
+                    clickCollectHandler(forum_sid);
                   }}
                   className={styles.bookmark}
                 />
               ) : (
-                <BsBookmarksFill
+                <BsBookmarks
                   onClick={(e) => {
-                    clickCollectEvent(forum_sid);
+                    clickCollectHandler(forum_sid);
                   }}
                   className={styles.bookmark}
                 />
               )}
-              {collect ? (
+              {is_favorite ? (
                 <div className={styles.like}>收藏</div>
               ) : (
                 <div className={styles.like}>未收藏</div>

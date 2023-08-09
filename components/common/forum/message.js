@@ -3,7 +3,7 @@ import dayjs from 'dayjs'; // 載入 dayjs 或其他日期時間處理庫
 import styles from './message.module.css';
 
 export default function Message({ messages }) {
-  console.log(messages);
+ 
   return (
     <>
       {messages.map((message) => (

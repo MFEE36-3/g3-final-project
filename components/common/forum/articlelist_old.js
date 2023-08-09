@@ -19,6 +19,7 @@ export default function Articlelist({
   articles = [],
   clickHeartEvent,
   clickCollectEvent,
+  article,
 }) {
   console.log(articles);
   const router = useRouter();
@@ -70,7 +71,7 @@ export default function Articlelist({
                         }}
                       />
                     )}
-                    <div className={styles.like}>{c.like_count}</div>
+                    <div className={styles.like}>喜歡</div>
                     <BiSolidMessageAltDetail className={styles.message} />
                     <div className={styles.like}>{c.comment_count}</div>
                     {!hasCollect ? (

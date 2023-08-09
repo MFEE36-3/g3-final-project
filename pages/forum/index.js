@@ -11,6 +11,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Swal from 'sweetalert2';
 import AuthContext from '@/context/AuthContext';
+import Head from 'next/head';
 
 export default function Detail() {
   const router = useRouter();
@@ -21,15 +22,17 @@ export default function Detail() {
   const [sortOrder, setSortOrder] = useState('desc');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  // 蒐藏按讚
+  // 按讚
   const [likeDatas, setLikeDatas] = useState([]);
   const [showLikeList, setShowLikeList] = useState(false);
   const [addLikeList, setAddLikeList] = useState([]);
   const [isClickingLike, setIsClickingLike] = useState(false);
+  // 收藏
+  const [addCollectList, setAddCollectList] = useState([]);
+  const [isClickingCollect, setIsClickingCollect] = useState(false);
+
   const imgPreview = `http://localhost:3002/img/forum/`;
-
-
-
+  console.log(articles);
   useEffect(() => {
     const keyword = router.query.forum_keyword || '';
 
@@ -39,7 +42,7 @@ export default function Detail() {
     fetch(`http://localhost:3002/forum/message?${usp.toString()}`)
       .then((response) => response.json())
       .then((data) => {
-        // let sortedData = data;
+        console.log(data.article);
         let sortedData = data.map((v) => {
           return { ...v, liked_by_user_id: !!v.liked_by_user_id };
         });
@@ -54,11 +57,16 @@ export default function Detail() {
           );
         }
 
+        // 根据当前页码进行数据筛选
+        const startIndex = (currentPage - 1) * 10;
+        const endIndex = startIndex + 10;
+        const currentPageData = sortedData.slice(startIndex, endIndex);
+
         setArticles(sortedData);
         setTotalPages(Math.ceil(data.length / 10));
       })
       .catch((error) => console.error('Error fetching data:', error));
-  }, [router.query, sortOrder]);
+  }, [router.query, sortOrder, currentPage]);
 
   const sentKeyword = () => {
     router.push(`?forum_keyword=${searchKeyword}`);
@@ -78,35 +86,32 @@ export default function Detail() {
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
-  // 按讚及收藏 方法
-  const getLikeList = async (token = '') => {
-    const res = await fetch(`${process.env.API_SERVER}/forum/show-like`, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    });
-    const data = await res.json();
-    // console.log(data);
-
-    if (data.likeDatas.length > 0) {
-      setLikeDatas(data.likeDatas);
-    }
-    console.log(likeDatas);
-  };
-
   useEffect(() => {
     if (!isClickingLike && addLikeList.length > 0) {
       const member = JSON.parse(localStorage.getItem('auth'));
-      
-      sendLikeList(addLikeList, member.sid).then(() => {
-        //在成功送資料到後端後重置addLikeList
-        setAddLikeList([]);
-      });
+
+      if (member?.sid) {
+        sendLikeList(addLikeList, member.sid).then(() => {
+          //在成功送資料到後端後重置addLikeList
+          setAddLikeList([]);
+        });
+      }
     }
   }, [isClickingLike, addLikeList]);
 
-  //沒登入會員收藏，跳轉登入
+  useEffect(() => {
+    if (!isClickingCollect && addCollectList.length > 0) {
+      const member = JSON.parse(localStorage.getItem('auth'));
+      if (member?.sid) {
+        sendCollectList(addCollectList, member.sid).then(() => {
+          //在成功送資料到後端後重置addCollectList
+          setAddCollectList([]);
+        });
+      }
+    }
+  }, [isClickingCollect, addCollectList]);
+
+  // 沒登入會員收藏，跳轉登入
 
   // const toSingIn = () => {
   //   const from = router.query;
@@ -131,7 +136,7 @@ export default function Detail() {
         } else {
           setAddLikeList((preV) => [
             ...preV,
-            { forum_sid: id, time: timeClick ,clickHeart:!v.liked_by_user_id},
+            { forum_sid: id, time: timeClick, clickHeart: !v.liked_by_user_id },
           ]);
         }
 
@@ -155,7 +160,53 @@ export default function Detail() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({arr,member_id:id }),
+        body: JSON.stringify({ arr, member_id: id }),
+      }
+    );
+    const data = await res.json();
+
+    if (data.success) {
+      console.log(data);
+    }
+  };
+  // 收藏書籤方法
+  const clickCollectHandler = (id) => {
+    setIsClickingCollect(true);
+    const timeClick = new Date().getTime();
+    const newData = articles.map((v) => {
+      if (v.forum_sid === id) {
+        const insideInCollectList = addCollectList.find(
+          (item) => item.forum_sid === id
+        );
+        if (insideInCollectList) {
+          setAddCollectList((preV) => preV.filter((v2) => v2.forum_sid !== id));
+        } else {
+          setAddCollectList((preV) => [
+            ...preV,
+            { forum_sid: id, time: timeClick, clickcollect: !v.is_favorite },
+          ]);
+        }
+
+        return { ...v, is_favorite: !v.is_favorite };
+      } else return { ...v };
+    });
+
+    setArticles(newData);
+
+    setTimeout(() => {
+      setIsClickingCollect(false);
+    }, 1500);
+  };
+  //將資料送到後端
+  const sendCollectList = async (arr, id = '') => {
+    const res = await fetch(
+      `${process.env.API_SERVER}/forum/handle-collect-list`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ arr, member_id: id }),
       }
     );
     const data = await res.json();
@@ -167,6 +218,9 @@ export default function Detail() {
 
   return (
     <>
+     <Head>
+            <title>食GOEAT! / 美食論壇</title>
+        </Head>
       <div className={styles.container}>
         <Newnav />
         <div className={styles.title}>
@@ -194,9 +248,11 @@ export default function Detail() {
               publishedTime,
               user_photo,
               liked_by_user_id,
+              is_favorite,
             } = article;
             return (
               <Articlelist
+                article={article}
                 forum_sid={forum_sid}
                 comment_count={comment_count}
                 forum_content={forum_content}
@@ -210,9 +266,10 @@ export default function Detail() {
                 articles={[article]}
                 imgPreview={imgPreview}
                 likeDatas={likeDatas}
+                is_favorite={is_favorite}
                 liked_by_user_id={liked_by_user_id}
                 clickHeartHandler={clickHeartHandler} // 將按讚事件處理函數傳遞給子元件
-                // clickCollectEvent={clickHeartHandler} // 將收藏事件處理函數傳遞給子元件
+                clickCollectHandler={clickCollectHandler} // 將收藏事件處理函數傳遞給子元件
               />
             );
           })}

@@ -16,10 +16,11 @@ export default function Categorykanban({
       </div>
       <div className={styles.end}>
       <select
+          className={styles.border}
           value={sortOrder}
           onChange={(e) => handleSortOrderChange(e.target.value)} // 綁定 onChange 事件
         >
-          <option className={styles.border}>--排序方式--</option>
+          <option>--排序方式--</option>
           <option value="asc">由舊到新</option>
           <option value="desc">由新到舊</option>
         </select>

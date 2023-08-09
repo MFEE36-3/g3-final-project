@@ -7,6 +7,9 @@
     justify-content: space-between;
     height: 100%;
 }
+.likeContainer{
+    display: flex;
+}
 .avatar{
     height: 28px;
     width: 28px;

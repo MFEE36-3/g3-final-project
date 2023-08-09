@@ -10,6 +10,7 @@ export default function MessageInput({
   addMessage,
   handleAddContent,
   showLoginAlert,
+  forumSid,
 }) {
   const { auth } = useContext(AuthContext);
   const router = useRouter();
@@ -21,7 +22,6 @@ export default function MessageInput({
     }
   };
 
-  console.log(userPhoto);
   return (
     <>
       <div className={styles.inputContainer}>

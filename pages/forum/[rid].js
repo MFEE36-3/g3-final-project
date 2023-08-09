@@ -9,6 +9,7 @@ import AuthContext from '@/context/AuthContext';
 import Message from '@/components/common/forum/message';
 import MessageInput from '@/components/common/forum/messageinput';
 import Swal from 'sweetalert2';
+import Head from 'next/head';
 export default function ArticleDetail() {
   const router = useRouter();
   const [message, setMessage] = useState('');
@@ -151,7 +152,10 @@ export default function ArticleDetail() {
   const addMessage = (e) => {
     e.preventDefault();
     console.log(sendMessage);
-
+    Swal.fire({
+      icon: 'success',
+      title: '新增留言成功！',
+    });
     fetch(process.env.API_SERVER + '/forum/addmessage', {
       method: 'POST',
       body: JSON.stringify(sendMessage),
@@ -168,26 +172,26 @@ export default function ArticleDetail() {
         router.push(`/forum/${router.query.rid}`);
       });
   };
-  
 
-  // const showLoginAlert = (router) => {
-  //   Swal.fire({
-  //     title: '您尚未登入',
-  //     text: '需要登入即可按喜歡！',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonText: '取消',
-  //     confirmButtonText: '登入',
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       router.push('/login');
-  //     }
-  //   });
-  // };
+  // Swal.fire({
+  //   title: '您尚未登入',
+  //   text: '需要登入即可按喜歡！',
+  //   icon: 'warning',
+  //   showCancelButton: true,
+  //   confirmButtonColor: '#3085d6',
+  //   cancelButtonText: '取消',
+  //   confirmButtonText: '登入',
+  // }).then((result) => {
+  //   if (result.isConfirmed) {
+  //     router.push('/login');
+  //   }
+  // });
 
   return (
     <>
+     <Head>
+            <title>食GOEAT! / 美食論壇</title>
+        </Head>
       <div className={styles.container}>
         <Newnav />
         <div className={styles.flex}>
@@ -209,9 +213,9 @@ export default function ArticleDetail() {
             />
           </div>
         )}
-        <pre>
-          <DetailP data={article.forum_content} key={article.forum_sid} />
-        </pre>
+
+        <DetailP data={article.forum_content} key={article.forum_sid} />
+
         <MessageInput
           handleAddContent={handleAddContent}
           addMessage={addMessage}
