@@ -20,6 +20,7 @@ import My_Open_Follow from "@/components/buyforme/check_open_follow";
 import { FaArrowAltCircleUp } from "react-icons/fa";
 import Swal from 'sweetalert2';
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
+import Head from 'next/head';
 
 
 const search_input_style = {
@@ -160,7 +161,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
         setOpen_or_follow('');
     };
 
-    const handleOpenBtn =()=>{
+    const handleOpenBtn = () => {
         if (!auth.sid) {
             Swal.fire({
                 title: '請先登入',
@@ -182,7 +183,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
         setOpen_or_follow('open');
     };
 
-    const handleFollowBtn =()=>{
+    const handleFollowBtn = () => {
         if (!auth.sid) {
             Swal.fire({
                 title: '請先登入',
@@ -211,6 +212,9 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
     };
 
     return (<>
+        <Head>
+            <title>食GOEAT! / 順路買買</title>
+        </Head>
         <GoogleMapComponent data={data} chat={chat} mapcolor={mapcolor} openForm={openForm} setOpenForm={setOpenForm} setOpentargetstore={setOpentargetstore} review_data={review_data} destination={destination} />
 
         <div className={styles.inputBox}>

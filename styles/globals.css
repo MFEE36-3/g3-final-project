@@ -42,8 +42,8 @@ main {
 }
 
 ::-webkit-scrollbar {
-  width: 18px;
-  /* background-color: #cbcbcb; */
+  width: 16px;
+  background-color: #edd1d3bf;
 }
 
 ::-webkit-scrollbar-track-piece {
@@ -51,10 +51,11 @@ main {
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: var(--main-color);
-  border: 3px solid transparent;
+  border: 1px solid transparent;
   background-clip: padding-box;
+  /* box-shadow: inset 2px 2px 5px rgba(255, 255, 255,0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.4); */
 }
 
 

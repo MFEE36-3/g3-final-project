@@ -157,11 +157,12 @@
 
 .buyforme_tablebox::-webkit-scrollbar {
     width: 18px;
+    background-color: transparent;
 }
 
 .buyforme_tablebox::-webkit-scrollbar-button {
-    width: 10px;
-    height: 10px;
+    width: 0px;
+    height: 0px;
 }
 
 .buyforme_tablebox::-webkit-scrollbar-track-piece {
