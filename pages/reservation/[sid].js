@@ -74,7 +74,9 @@ export default function RestaurantPage() {
                         </div>
                     </div>
                 </div>
-                <Image src={ShoppingBag} variant="primary" onClick={handleShow} className={style.carticon} />
+                <div className={style.carticon}>
+                    <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
+                </div>
                 <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title><div className={style.carttitle}>--您的購物車--</div></Offcanvas.Title>

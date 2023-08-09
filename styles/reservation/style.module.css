@@ -56,6 +56,7 @@
   position: absolute;
   width: 270px;
   min-width: 270px;
+  height:370px;
   border: none;
   background:none;
   transition: transform 0.3s ease;
@@ -69,6 +70,7 @@
 
 .top5cardbody{
   display: flex;
+  height: 58px;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -90,7 +92,6 @@
   display: flex;
   justify-content: center;
   align-items:flex-end;
-  height: 100%;
   margin: 0;
 }
 
@@ -120,7 +121,8 @@
   justify-content: space-evenly;
 }
 
-/* 餐廳頁------*/
+/* 餐廳頁-------------*/
+
 .infodiv{
   width: 30%;
 }
@@ -410,7 +412,7 @@
 .carticon{
   position: sticky;
   right: 20px;
-  top: 200px;
+  top: 80px;
 }
 
 .carttitle{
@@ -570,8 +572,9 @@
 }
 
 .carouselitem{
-  object-fit: cover; 
+  object-fit: contain; 
   overflow: hidden;
+  margin-top: -300px;
 }
 
 .selectarea {
@@ -1015,8 +1018,7 @@
 .top5name{
   display: flex;
   justify-content: center;
-  align-items:flex-end;
-  height: 100%;
+  /* align-items:flex-end; */
   margin: 0;
   font-size: var(--h7);
 }
