@@ -132,10 +132,15 @@ const Login = () => {
           localStorage.setItem('res-auth', JSON.stringify(data.data));
 
           Swal.fire('登入成功!', '', 'success');
-          router.push('/res/item-management');
+          router.push('/res/res-order-management');
         } else {
           const newloginfail = { ...loginSuccess, error: data.error };
           setLoginSuccess(newloginfail);
+          Swal.fire({
+            title: '帳號或密碼錯誤',
+            timer: 1500,
+            showConfirmButton: false,
+          });
         }
       });
   };

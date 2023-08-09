@@ -16,6 +16,14 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import Stack from '@mui/material';
 import Pagination from '@mui/material/Pagination';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+// import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import muistyles from '@/components/res/item/add-item.module.css';
 export default function Management() {
   const router = useRouter();
   const { resAuth, setResAuth, logout } = useContext(ResAuthContext);
@@ -79,9 +87,8 @@ export default function Management() {
     }
   }, [resAuth]);
 
-  // 現在才開始做selectBox
+  // 現在開始做selectBox
   const [foodCate, setFoodCate] = useState(6);
-  // const [foodCateString, setFoodCateString] = useState('');
   const foodCateOptions = ['全部商品', '開胃菜', '主餐', '甜點', '飲料', '湯品'];
 
   const matchList = (e) => {
@@ -267,39 +274,65 @@ export default function Management() {
 
   console.log(foodItem)
 
+  // css樣式
+  const rowStyle = {
+    height: '90px',
+  };
+  const ceilStyle = {
+    minWidth: 80,
+    color: '#921010',
+    fontFamily: 'var(--ff1)',
+    fontSize: '20px',
+  };
+
+  const tdStyle = {
+    fontSize: '18px',
+    fontWeight: '600',
+    height: '70px',
+    fontFamily: 'var(--ff1)',
+  };
+
+  const desc = {
+    fontSize: '18px',
+    fontWeight: '600',
+    height: '70px',
+    fontFamily: 'var(--ff1)',
+    width: '300px'
+  }
+
   const showFoodItems = () => {
-    // return foodItem.rows && foodItem.rows.length > 0 ?
-    return foodItem.rows && foodItem.rows.length > 0 ? foodItem.rows.map((v, i) => {
-      return (
-        <tr className={``} style={{ background: 'gray' }} key={i}>
-          <td className={`text-center ${styles.imgSize}`}>
+    return (<TableBody>
+      {foodItem.rows && foodItem.rows.length > 0 ? foodItem.rows.map((v, i) => (
+
+        <TableRow
+          key={i}
+          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+        >
+          <TableCell align="center" sx={tdStyle}>
             <img
               src={`${imgLink}${v.food_img}`}
               className={`${styles.imgSize}`}
             ></img>
-          </td>
-          <td className={`text-center`}>{v.food_title}</td>
-          <td
-            className={`text-center`}
-            style={{
-              width: '100px',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
+          </TableCell>
+          <TableCell align="center" sx={tdStyle}>
+            {v.food_title}
+          </TableCell>
+          <TableCell align="center" sx={desc}>
             {v.food_des}
-          </td>
-          <td className="text-center">{v.food_price}</td>
-          <td className={`text-center`}>{v.create_time}</td>
-
-          <td className={`text-center`}>
+          </TableCell>
+          <TableCell align="center" sx={tdStyle}>
+            {v.food_price}
+          </TableCell>
+          <TableCell align="center" sx={tdStyle}>
+            {String(v.create_time).split(" ")[0]}
+          </TableCell>
+          <TableCell align="center" sx={tdStyle}>
             <Link
               href={`/res/item-management/edit-item/${v.food_id}`}
             >
               <button
                 type="button"
-                className="me-3 btn btn-primary"
+                className={`me-3 btn btn-primary ${muistyles.btnright}`}
                 onClick={(e) => {
                   router.push(
                     `/res/item-management/edit-item/${v.food_id}`
@@ -309,22 +342,20 @@ export default function Management() {
                 <AiTwotoneEdit />
               </button>
             </Link>
-          </td>
-
-          <td className={`text-center`}>
-            {' '}
+          </TableCell>
+          <TableCell align="center" sx={tdStyle}>
             <button
               type="button"
-              className="me-3 btn btn-primary"
+              className={`me-3 btn btn-primary ${muistyles.btnright}`}
               onClick={(e) => { }}
             >
               <ImBoxRemove />
             </button>
-          </td>
-          <td className="text-center">
-            <button
+          </TableCell>
+          <TableCell align="center" sx={tdStyle}>
+          <button
               type="button"
-              className="me-3 btn btn-primary"
+              className={`me-3 btn ${muistyles.btnright}`}
               onClick={() => {
                 Swal.fire({
                   title: '您確定要刪除此項商品嗎?',
@@ -344,7 +375,6 @@ export default function Management() {
                         console.log(data);
                         location.reload();
                       });
-
                     // router.push(`/res/item-management/delete-item/${v.food_id}`)
                   } else if (result.isDenied) {
                     Swal.fire('取消刪除', '', 'info');
@@ -354,119 +384,147 @@ export default function Management() {
             >
               <AiTwotoneDelete />
             </button>
-          </td>
-        </tr>
-      );
-    }) : ''
+          </TableCell>
+        </TableRow>
+      )) : ''}
+    </TableBody>)
   }
 
   return (
     <>
-      <h3 className="container">商品管理</h3>
       <div
-        className={`container-xxl-fluid container container-sm-fluid d-flex flex-column ${styles.formbgc} p-3 col-10 border border-2 rounded-4 border-black`}
+        className={`container-xxl-fluid container container-sm-fluid d-flex flex-column ${styles.formbgc} p-3 col-10 border border-2 rounded-4 border-black mt-4`}
       >
         <div className="row">
           <div className="col-xxl-12 col-sm-12">
             <div className="d-flex justify-content-between mt-3">
               <div className="">
-                <div className="d-flex justify-content-between align-items-center">
+                <div className="d-flex justify-content-start align-items-center">
                   <Link href={`/res/add-item`}>
-                    <button className={`${styles.addbtn} `}>新增商品</button>
+                    <button className={`${styles.addbtn} ms-3 `}>新增商品</button>
                   </Link>
 
                   {resAuth.account ? (
                     <>
-                      <label className="ms-3 fw-bold">
+                      <label className="ms-3 fw-bold fs-3">
                         歡迎回來，{resAuth.shop}
-                      </label>{' '}
-                      <button
-                        type="button"
-                        className="ms-3 btn btn-primary"
-                        onClick={logout}
-                      >
-                        登出
-                      </button>
+                      </label>
                     </>
                   ) : (
                     ''
                   )}
                 </div>
-                <div className="d-flex justify-content-between">
-                  <select
-                    className="form-select mt-3 ms-3"
-                    value={itemOrder}
-                    onChange={(e) => {
-                      setItemOrder(e.target.value);
-                    }}
-                  >
-                    <option value="">請選擇商品排序:</option>
-                    {orderOption.map((v, i) => {
-                      return (
-                        <option key={i} value={v}>
-                          {v}
-                        </option>
-                      );
-                    })}
-                  </select>
-
-                  <select
-                    value={foodCate}
-                    onChange={matchList}
-                    className="form-select mt-3 ms-3"
-                  >
-                    <option value="">---請選擇分類---</option>
-                    {foodCateOptions.map((v, i) => {
-                      return (
-                        <option key={i} value={v}>
-                          {v}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <div className="w-100 d-flex justify-content-center mt-3">
-
-                    <Pagination
-                      count={foodItem.totalPages}
-                      // page={currentPage}
-                      onChange={handlePageChange}
-                      sx={{
-                        '& .MuiPaginationItem-root': {
-                          fontSize: 20,
-                        },
-                        '& .Mui-selected': {
-                          fontSize: 25,
-                        },
-                        '& .MuiPaginationItem-page': {
-                          minWidth: '40px',
-                          padding: '7px',
-                        },
+                <div className='d-flex justify-content-between'>
+                  <div className="d-flex justify-content-between">
+                    <select
+                      className="form-select mt-3 ms-3"
+                      value={itemOrder}
+                      onChange={(e) => {
+                        setItemOrder(e.target.value);
                       }}
+                    >
+                      <option value="">請選擇商品排序:</option>
+                      {orderOption.map((v, i) => {
+                        return (
+                          <option key={i} value={v}>
+                            {v}
+                          </option>
+                        );
+                      })}
+                    </select>
+
+                    <select
+                      value={foodCate}
+                      onChange={matchList}
+                      className="form-select mt-3 ms-3"
+                    >
+                      <option value="">---請選擇分類---</option>
+                      {foodCateOptions.map((v, i) => {
+                        return (
+                          <option key={i} value={v}>
+                            {v}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <div className="w-100 d-flex justify-content-center mt-3">
+
+                      <Pagination
+                        count={foodItem.totalPages}
+                        // page={currentPage}
+                        className={styles.page}
+                        onChange={handlePageChange}
+                        sx={{
+                          '& .MuiPaginationItem-root': {
+                            fontSize: 20,
+                          },
+                          '& .Mui-selected': {
+                            fontSize: 25,
+                          },
+                          '& .MuiPaginationItem-page': {
+                            minWidth: '40px',
+                            padding: '7px',
+                          },
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.input}>
+                    <Input
+                      label="搜尋商品"
+                      placeholder="請輸入搜尋文字"
+                      name="keyword"
+                      value={searchKeyword}
+                      onChange={search}
                     />
+
+                    <button
+                      type="button"
+                      className={styles.search}
+                      onClick={getSearchQuery}
+                    >
+                      搜尋
+                    </button>
                   </div>
                 </div>
               </div>
-              <div className={styles.input}>
-                <Input
-                  label="搜尋商品"
-                  placeholder="請輸入搜尋文字"
-                  name="keyword"
-                  value={searchKeyword}
-                  onChange={search}
-                />
-
-                <button
-                  type="button"
-                  className={styles.search}
-                  onClick={getSearchQuery}
-                >
-                  搜尋
-                </button>
-              </div>
             </div>
 
-            <div className="">
-              <table
+            <div className="mt-3">
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow sx={rowStyle}>
+                      <TableCell align="center" sx={ceilStyle}>
+                        商品圖片
+                      </TableCell>
+                      <TableCell align="center" sx={ceilStyle}>
+                        商品名稱
+                      </TableCell>
+                      <TableCell align="center" sx={ceilStyle}>
+                        商品敘述
+                      </TableCell>
+                      <TableCell align="center" sx={ceilStyle}>
+                        價格
+                      </TableCell>
+                      <TableCell align="center" sx={ceilStyle}>
+                        商品建立時間
+                      </TableCell>
+                      <TableCell align="center" sx={ceilStyle}>
+                        編輯
+                      </TableCell>
+                      <TableCell align="center" sx={ceilStyle}>
+                        下架
+                      </TableCell>
+                      <TableCell align="center" sx={ceilStyle}>
+                        刪除
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  {showFoodItems()}
+                </Table>
+              </TableContainer>
+              {/* <table
                 className={`table mt-3 table-borderless rounded-5 border-black table-warning table-striped ${styles.itemTable}`}
               >
                 <thead>
@@ -499,7 +557,7 @@ export default function Management() {
                 </thead>
                 <tbody>
                   {showFoodItems()}
-                  {/* {foodItem.rows && foodItem.rows.length > 0 ? foodItem.rows.map((v, i) => {
+                  {foodItem.rows && foodItem.rows.length > 0 ? foodItem.rows.map((v, i) => {
                     return (
                       <tr className={``} style={{ background: 'gray' }} key={i}>
                         <td className={`text-center ${styles.imgSize}`}>
@@ -587,9 +645,9 @@ export default function Management() {
                         </td>
                       </tr>
                     );
-                  }):''} */}
+                  }):''}
                 </tbody>
-              </table>
+              </table> */}
             </div>
           </div>
         </div>

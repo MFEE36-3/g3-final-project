@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import ResAuthContext from '@/context/ResAuthContext';
 import { check } from 'prettier';
+import muistyles from '@/components/res/item/add-item.module.css';
 
 export default function resSetting() {
   const router = useRouter()
@@ -39,7 +40,7 @@ export default function resSetting() {
         console.log(data)
         setShop({
           ...shop,
-          shopId:resAuth.id,
+          shopId: resAuth.id,
           shopname: data.shop,
           phone: data.phone,
           city: data.city,
@@ -96,7 +97,7 @@ export default function resSetting() {
   }
 
   const [shop, setShop] = useState({
-    shopId:'',
+    shopId: '',
     shopname: '',
     phone: '',
     city: '',
@@ -306,16 +307,16 @@ export default function resSetting() {
           console.log(data)
           if (data.success) {
             setChangePwdSuccess('修改密碼成功!')
-          }else {
+          } else {
             console.log(data)
             newError.oldPassword = '輸入密碼與舊密碼不相符!'
             setPasswordErrors(newError)
           }
         })
-    } else{
+    } else {
       setPasswordErrors(newError)
     }
-    
+
   }
 
   const handleChangePassword = async (e) => {
@@ -426,11 +427,11 @@ export default function resSetting() {
             <div className="col-xxl-mx-5">
 
               <div className='' style={{ border: '3px solid lightgray' }}>
-                <h3 className={`mb-2 fw-bold ${styles.titleWord}`} style={{ background: 'lightgray' }}>修改密碼</h3>
+                <h3 className={`mb-2 ps-3 fw-bold ${styles.titleWord}`} style={{ background: 'lightgray' }}>修改密碼</h3>
 
                 <div className='password mx-1 d-flex justify-content-start align-items-center mt-3'>
 
-                  <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold ms-3 me-3 py-1 rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>輸入當前密碼:</div>
+                  <div htmlFor="shop_password" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>輸入舊密碼</div>
 
                   <div className="input-group mb-3 d-flex flex-row mb-3 me-3">
                     <input
@@ -442,7 +443,7 @@ export default function resSetting() {
                       value={sendPassword.oldPassword}
                       onChange={handleChangePassword}
                     />
-                    <button type='button' className='btn btn-warning btn-outline-secondary' style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
+                    <button type='button' className={`btn  btn-outline-secondary ${muistyles.btnright}`} style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
                   </div>
 
                 </div>
@@ -453,7 +454,7 @@ export default function resSetting() {
 
                 <div className='password2 ms-3 d-flex justify-content-start align-items-center mt-1'>
 
-                  <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold ms-2 me-3 py-1 rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>輸入新密碼:</div>
+                  <div htmlFor="shop_password" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>輸入新密碼</div>
                   <input
                     type="password"
                     className="form-control border-black me-3"
@@ -468,7 +469,7 @@ export default function resSetting() {
 
                 <div className='password2 ms-3 d-flex justify-content-start align-items-center mt-3 mb-3'>
 
-                  <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold ms-2 me-3 py-1 rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>驗證新密碼:</div>
+                  <div htmlFor="shop_password" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>驗證新密碼</div>
 
                   <input
                     type="password"
@@ -484,9 +485,9 @@ export default function resSetting() {
                 <div className='d-flex justify-content-center align-items-center mt-1 mb-1 fw-bold fs-5' style={{ color: 'red' }}>{passwordErrors.newPassword}</div>
 
                 <div className='d-flex justify-content-start align-items-center mb-3 ms-4'>
-                  <button type='button' className='btn btn-primary ms-3' onClick={changePassword}>確定修改
+                  <button type='button' className={`btn btn-primary ms-3 ${muistyles.btnright}`} onClick={changePassword}>確定修改
                   </button>
-                  <div className='ms-4 fw-bold' style={{color:'green', paddingLeft:'10px'}}>{changePwdSuccess}</div>
+                  <div className='ms-4 fw-bold' style={{ color: 'green', paddingLeft: '10px' }}>{changePwdSuccess}</div>
                 </div>
 
 
@@ -494,11 +495,11 @@ export default function resSetting() {
               </div>
 
               <div className='mt-3' style={{ border: '3px solid lightgray' }}>
-                <h3 className={`mb-2 fw-bold ${styles.titleWord}`} style={{ background: 'lightgray' }}>聯絡資訊</h3>
+                <h3 className={`mb-2 ps-3 fw-bold ${styles.titleWord}`} style={{ background: 'lightgray' }}>聯絡資訊</h3>
 
                 <div className='phone mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                  <div htmlFor="shop_phone" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>電話:</div>
+                  <div htmlFor="shop_phone" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>電話</div>
                   <input
                     type="text"
                     className="form-control border-black"
@@ -515,7 +516,7 @@ export default function resSetting() {
 
                 <div className='account mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                  <div htmlFor="shop_account" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>帳號:</div>
+                  <div htmlFor="shop_account" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>帳號</div>
                   <input
                     type="text"
                     className="form-control border-black"
@@ -533,10 +534,10 @@ export default function resSetting() {
 
 
               <div className='mt-3' style={{ border: '3px solid lightgray' }}>
-                <h3 className={`mb-2 fw-bold ${styles.titleWord}`} style={{ background: 'lightgray' }}>餐廳基本資料</h3>
+                <h3 className={`mb-2 ps-3 fw-bold ${styles.titleWord}`} style={{ background: 'lightgray' }}>餐廳基本資料</h3>
 
                 <div className='name mt-3 mx-5 d-flex justify-content-start align-items-center'>
-                  <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>店名:</div>
+                  <div htmlFor="shop_name" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>店名:</div>
                   <input
                     type="text"
                     className="form-control border-black"
@@ -552,7 +553,7 @@ export default function resSetting() {
 
                 <div className='owner mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                  <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>負責人姓名:</div>
+                  <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>負責人姓名</div>
                   <input
                     type="text"
                     className="form-control border-black"
@@ -570,7 +571,7 @@ export default function resSetting() {
 
                 <div className='description mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                  <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>餐廳敘述:</div>
+                  <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳敘述</div>
                   <textarea
                     className="form-control border-black"
                     id="description"
@@ -586,7 +587,7 @@ export default function resSetting() {
 
                 <div className='avg_consumption mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                  <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>平均消費金額:</div>
+                  <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>平均消費額</div>
                   <input
                     type="text"
                     className="form-control border-black"
@@ -601,7 +602,7 @@ export default function resSetting() {
 
                 <div className='res_cate mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                  <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>餐廳分類:</div>
+                  <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳分類</div>
 
                   <select
                     value={shop.res_cate}
@@ -618,12 +619,12 @@ export default function resSetting() {
                   </select>
 
                 </div>
+                {/* <div htmlFor="shop_owner" className={`ms-5 form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳敘述:</div> */}
 
-                <div className="photo d-flex justify-content-start mt-3 mx-5">
-                  <div className="d-flex flex-row align-items-center">
-                    <div htmlFor="res_photo" className="form-label mb-3"></div>
+                <div className='description mx-5 d-flex flex-column mb-1 mt-3'>
 
-                    <div className='d-flex flex-column mb-3'>
+                  <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 mb-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳圖片</div>
+                  <div className='d-flex flex-column mb-3'>
                       {showImg == false ? (
                         <img
                           src={`${oldImg + shop.photo}`}
@@ -645,12 +646,19 @@ export default function resSetting() {
                       </div>
                     </div>
 
-                  </div>
                 </div>
+
+                <div className='description mx-5 d-flex justify-content-start align-items-center mt-3'></div>
+                {/* <div className="photo d-flex justify-content-start mt-3 mx-5">
+                  <div className="d-flex flex-row align-items-center">
+                    <div htmlFor="res_photo" className="form-label mb-3"></div>
+
+                  </div>
+                </div> */}
 
                 <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.avg_consumption}</div>
 
-                <div className='address mx-5 fw-bold mt-3'>請輸入完整地址:</div>
+                <div className='address mx-5 fw-bold mt-3'>完整地址</div>
                 <div className={`d-flex justify-content-between mt-1 col-xxl-3 col-sm-6 mx-5 ${styles.addressDisplay}`}
                 >
                   <select name='city' value={shop.city} onChange={areas}
@@ -774,77 +782,10 @@ export default function resSetting() {
                 </div>
 
                 <div className="col-5 mx-5">
-                  <div className="mt-3 fw-bold">如欲開放訂位功能，請勾選並填寫桌型:</div>
-
                   <div className={`d-flex flex-row my-3 ${styles.openDays}`}>
-
-                    <button
-                      type='button'
-                      className='form-label  btn btn-primary rounded-3 px-3 py-2 fw-bold me-5'
-                      // style={{ backgroundColor: '#FCC8A1' }}
-                      onClick={(e) => {
-                        setSwitchTable('normal')
-                        setShop({ ...shop, table_number: '' })
-                      }}
-                    >一般桌型</button>
-
-                    <button
-                      type='button'
-                      className='form-label  btn btn-primary rounded-3 px-3 py-2 fw-bold ms-1'
-                      onClick={(e) => {
-                        setSwitchTable('advance')
-                        setShop({ ...shop, table_number: '' })
-                      }}
-                    >進階桌型</button>
-
                   </div>
 
-                  {switchTable == 'normal' ?
-                    <div className='normal'>
-                      <div className='fw-bold'>一般桌型:</div>
-                      <input
-                        type="text"
-                        className="form-control border-black"
-                        id="shop_capacity"
-                        placeholder="請填入可內用人數"
-                        name='table_number'
-                        value={shop.table_number}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    :
-                    <div className="advance mt-3" id='advanceTable'>
-                      <div>(這個是進階桌型的部分)</div>
-                      <div className='fw-bold'>進階桌型:</div>
-
-                      <div className=" d-flex align-items-center justify-content-between">
-                        <select className="form-select me-3">
-                          <option selected>兩人桌</option>
-                          <option value="1">四人桌</option>
-                          <option value="2">六人桌</option>
-                          <option value="3">八人桌</option>
-                        </select>
-                        <input
-                          type="text"
-                          className="form-control border-black"
-                          id="shop_tables"
-                          placeholder="請填入桌數"
-                          name='table_number'
-                          value={shop.table_number}
-                          onChange={handleChange}
-                        />
-                      </div>
-
-                      <div>
-                        <button
-                          className='form-label border border-black rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
-                          style={{ backgroundColor: '#FCC8A1' }}
-                          onClick={(e) => {
-                          }}
-                        >+新增桌型</button>
-                      </div>
-                    </div>
-                  }
+                  <div className='mb-3'>您的餐廳有{shop.table_number}個位子</div>
 
                 </div>
 
@@ -853,11 +794,11 @@ export default function resSetting() {
               <hr />
 
               <div className='d-flex justify-content-center'>
-                <button type="submit" className="btn btn-primary my-3 mx-3" onSubmit={handleSubmit} onClick={handleSubmit}>
+                <button type="submit" className={`btn btn-primary my-3 mx-3 ${muistyles.btnright}`} onSubmit={handleSubmit} onClick={handleSubmit}>
                   確認編輯
                 </button>
 
-                <button type="reset" className="btn btn-danger my-3 mx-3" onClick={()=>{
+                <button type="reset" className="btn btn-danger my-3 mx-3" onClick={() => {
                   router.push('/res/res-order-management')
                 }}>
                   取消編輯

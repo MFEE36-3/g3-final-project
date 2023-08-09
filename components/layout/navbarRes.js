@@ -15,6 +15,7 @@ import chip from '@/public/img_for_icon/chip.svg';
 import bubble_tea from '@/public/img_for_icon/bubble_tea.svg';
 import AuthContext from '@/context/AuthContext';
 import { useState, useEffect, useContext } from 'react';
+import ResAuthContext, { } from '@/context/ResAuthContext';
 import { useRouter } from 'next/router';
 import Btn from '../common/btn';
 
@@ -32,6 +33,9 @@ export default function Navbar() {
   const [isLogin, setIsLogin] = useState(false);
   const [first, setFirst] = useState(false);
 
+  const { resAuth, setResAuth, resLogout } = useContext(ResAuthContext)
+  const [resIsLogin, setResIsLogin] = useState(false)
+
   const { auth, logout } = useContext(AuthContext);
 
   const handleToggle = () => {
@@ -39,7 +43,8 @@ export default function Navbar() {
   };
 
   const islogout = () => {
-    logout();
+    resLogout();
+    setResIsLogin(false)
     setIsLogin(false);
     router.push('/');
     // console.log(isLogin);
@@ -51,7 +56,8 @@ export default function Navbar() {
 
   useEffect(() => {
     if (localStorage.getItem('auth')) setIsLogin(true);
-  }, [auth, first]);
+    if (localStorage.getItem('res-auth')) setResIsLogin(true);
+  }, [resAuth]);
 
   //下面寫if判斷路由關鍵字 如果有符合就把router_title設成那個
 
@@ -81,23 +87,21 @@ export default function Navbar() {
         ></Image>
       </Link>
       <Link href="#">
-        <FaShoppingCart className={styles.cart} />
+        {/* <FaShoppingCart className={styles.cart} /> */}
       </Link>
 
-      {auth ? (
-        <button className={styles.member_icon} onClick={handleToggle}>
+      {resAuth ? (
+        <button className={styles.member_icon} onClick={handleToggle} style={{backgroundImage:`url(${process.env.API_SERVER}/img/shops/${resAuth.photo})`}}>
           {isOpen && (
-            <div className={styles.iconArea}>
-              {!isLogin ? (
+            <div className={styles.iconArea} style={
+              {height:100,width:100}
+            }>
+              {!resIsLogin ? (
                 <Link href="/member/form">
                   <Btn text={'註冊'} padding={'2px 5px'} />
                 </Link>
-              ) : (
-                <Link href="/member">
-                  <Btn text={'會員中心'} padding={'2px 5px'} />
-                </Link>
-              )}
-              {!isLogin ? (
+              ) : ''}
+              {!resIsLogin ? (
                 <Link href="/login">
                   <Btn text={'登入'} padding={'2px 5px'} />
                 </Link>
@@ -186,7 +190,7 @@ export default function Navbar() {
               <p className={styles.btn_text}>編輯商品</p>
             </button>
           </Link>
-          <Link href="/res/statistic" className={styles.btn_outer_link}>
+          {/* <Link href="/res/statistic" className={styles.btn_outer_link}>
             <button
               className={
                 router_title === 'shopping-mall'
@@ -202,7 +206,7 @@ export default function Navbar() {
               ></Image>
               <p className={styles.btn_text}>營業統計</p>
             </button>
-          </Link>
+          </Link> */}
           <Link href="/res/res-setting" className={styles.btn_outer_link}>
             <button
               className={

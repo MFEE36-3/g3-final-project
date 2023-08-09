@@ -5,6 +5,16 @@ import Input from '@/components/common/input';
 import styles from '@/components/res/order-management.js/order-management.module.css'
 import ResAuthContext, { } from '@/context/ResAuthContext';
 import Swal from 'sweetalert2'
+import Pagination from '@mui/material/Pagination';
+import muistyles from '@/components/res/item/add-item.module.css';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import DateTime from '@/components/reservation/restaurantpage/reservation/datetime';
 
 export default function OrderManagement() {
 
@@ -29,9 +39,17 @@ export default function OrderManagement() {
   // 訂單分類
   const [orderCategory, setOrderCategory] = useState('揪團')
   const orderCategoryOptions = ['揪團', '外帶']
+  const setOriginalOrder = () => {
+    if (orderCategory == '外帶') {
+      setTogoOrder(originalTogoOrder)
+    }
+  }
+  useEffect(() => {
+    setOriginalOrder()
+  }, [orderCategory])
 
   // 拿到resAuth資料
-  const { resAuth, setResAuth, logout } = useContext(ResAuthContext)
+  const { resAuth, setResAuth, resLogout } = useContext(ResAuthContext)
 
   // 接後端response的資料
   const [getOrders, setGetOrders] = useState([])  // array
@@ -58,11 +76,15 @@ export default function OrderManagement() {
 
   // 拿到外帶訂單資料
   const [togoOrder, setTogoOrder] = useState([])
+  // 拿到原始外帶訂單資料
+  const [originalTogoOrder, setOriginalTogoOrder] = useState([])
   // 拿各筆訂單的品項
   const [togoItems, setTogoItems] = useState([])
   // 拿每一個品項的數量
   const [orderAmount, setOrderAmount] = useState([])
 
+  // 拿有多少分頁
+  const [totalTogoPage, setTotalTogoPage] = useState(0)
   const getTogoOrder = async () => {
     fetch(process.env.API_SERVER + '/res/getTogoOrder', {
       method: 'POST',
@@ -73,11 +95,12 @@ export default function OrderManagement() {
       .then(data => {
         console.log(data)   // array
         setTogoOrder(data.groupedOrderItems)
-        // setTogoItems(data.order_item)
-        // setOrderAmount(data.order_amount)
+        setOriginalTogoOrder(data.groupedOrderItems)
+        setTotalTogoPage(data.totalPages)
       })
   }
 
+  console.log(totalTogoPage)
   console.log(togoOrder)
 
   useEffect(() => {
@@ -126,8 +149,6 @@ export default function OrderManagement() {
       '等候消費者來取餐',
       'success'
     );
-
-
   }
 
   // 點擊通知完成後通知消費者訂單已完成，並將狀態改為等待消費者領取
@@ -146,7 +167,47 @@ export default function OrderManagement() {
     );
   }
 
+  // 設置切換呈現資料的狀態
+  const [page, setPage] = useState(1)
+  const handleChange = (event, value) => {
+    // 在這裡處理頁碼變化的邏輯
+    console.log(`跳轉到頁碼：${value}`);
+    setPage(value)
+  };
+  console.log(page)
   console.log(togoOrder)
+
+  // 關鍵字搜尋
+  const [getKeyword, setGetKeyword] = useState('')
+  const searchKeyword = () => {
+    if(getKeyword){
+      const searchResult = togoOrder.filter((v, i) => {
+        const arr = v.filter((v2, i2) => v2.order_item.includes(getKeyword));
+        if (arr.length !== 0) return v;
+      })
+      setTogoOrder(searchResult)
+    }else{
+      setTogoOrder(originalTogoOrder)
+    }
+
+  }
+
+  const rowStyle = {
+    height: '90px',
+  };
+  const ceilStyle = {
+    minWidth: 80,
+    color: '#921010',
+    fontFamily: 'var(--ff1)',
+    fontSize: '20px',
+  };
+
+  const tdStyle = {
+    fontSize: '18px',
+    fontWeight: '600',
+    height: '70px',
+    fontFamily: 'var(--ff1)',
+  };
 
   return (
     <>
@@ -156,8 +217,25 @@ export default function OrderManagement() {
         <div className="d-flex justify-content-between">
           <div className="justify-content-between me-3">
             <Btn text="所有訂單" className="me-3" />
-            <button type='button' className='btn btn-primary ms-3' onClick={logout}>登出</button>
             <div className='mt-3 ms-3 fw-bold fs-4'>歡迎回來，{resAuth.shop}</div>
+            <Pagination
+              count={totalTogoPage}
+              // page={totalTogoPage}
+              // onChange={handlePageChange}
+              onChange={handleChange}
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  fontSize: 20,
+                },
+                '& .Mui-selected': {
+                  fontSize: 25,
+                },
+                '& .MuiPaginationItem-page': {
+                  minWidth: '40px',
+                  padding: '7px',
+                },
+              }}
+            />
 
             <div className='d-flex justify-content-between'>
               <select className="form-select mt-3" value={orderTime} onChange={(e) => {
@@ -188,136 +266,187 @@ export default function OrderManagement() {
           </div>
 
           <div>
-            <Input placeholder="請輸入搜尋關鍵字" label="請輸入搜尋關鍵字" />
+            <div>
+              <Input placeholder="請輸入搜尋關鍵字" label="請輸入搜尋關鍵字" onChange={(e) => {
+                // console.log(togoOrder)
+                // console.log(togoOrder.map((v, i) => console.log(v)))
+                setGetKeyword(e.target.value)
+
+                // const searchResult = togoOrder.filter((v, i) => {
+                //   const arr = v.filter((v2, i2) => v2.order_item.includes(e.target.value));
+                //   if (arr.length !== 0) return v;
+                // })
+                // setTogoOrder(searchResult)
+
+                console.log(togoOrder.filter((v, i) => {
+                  const arr = v.filter((v2, i2) => v2.order_item.includes(e.target.value));
+                  if (arr.length !== 0) return v;
+                }))
+              }} />
+              <button className={`${muistyles.btnright}`} onClick={searchKeyword}>搜尋</button>
+            </div>
           </div>
         </div>
-        <div>
-          {/* table */}
-          {orderCategory == '揪團' ?
-            <table class="table table-warning table-striped mt-3 table-borderless border-dark">
-              <thead>
-                <tr>
-                  <th scope="col" className='text-center'>訂單編號</th>
-                  <th scope="col" className='text-center'>訂單狀態</th>
-                  <th scope="col" className='text-center'>訂單內容
-                    <button type='button' className='btn btn-warning ms-auto mt-auto' style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
-                  </th>
-                  <th scope="col" className='text-center'>總金額</th>
-                  <th scope="col" className='text-center'>訂單成立時間</th>
-                  <th scope="col" className='text-center'>通知完成訂單</th>
-                </tr>
-              </thead>
-              <tbody>
-                {getOrders.map((v, i) => {
-                  return <tr key={i}>
-                    <td className='text-center'>{i}</td>
-                    <td className='text-center'>已結單</td>
-                    <td className={`d-flex flex-column mb-3" ${showOrder == false ? styles.orderShow_hidden : styles.orderShow_show} `}>
-                      {/* <td className={`d-flex flex-column mb-3"`}> */}
+        <div className='mt-3'>
+          {orderCategory == '揪團' ? (<TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow sx={rowStyle}>
+                  <TableCell align="center" sx={ceilStyle}>
+                    訂單編號
+                  </TableCell>
+                  <TableCell align="center" sx={ceilStyle}>
+                    訂單狀態
+                  </TableCell>
+                  <TableCell align="center" sx={ceilStyle}>
+                    訂單內容
+                    <button type='button' className={`btn btn-warning ms-auto mt-auto ${muistyles.btnright}`} style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
+                  </TableCell>
+                  <TableCell align="center" sx={ceilStyle}>
+                    總金額
+                  </TableCell>
+                  <TableCell align="center" sx={ceilStyle}>
+                    訂單成立時間
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {getOrders
+                  .map((v, i) => {
+                    const finish = orderTimeState.filter((v2, i2) => { if (i2 === i) return v2 })[0]
+                    return <TableRow
+                      key={i}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell align="center" sx={tdStyle}>
+                        {i + 1}
+                      </TableCell>
+                      <TableCell align="center" sx={tdStyle}>
+                        {new Date(finish.meet_time) < Date.now() ? '已結單' : '未完成'}
+                      </TableCell>
+                      <TableCell align="center" sx={tdStyle}>
+                        <td className={`d-flex flex-column mb-3" ${showOrder == false ? styles.orderShow_hidden : styles.orderShow_show} `}>
+                          <div key={i} className='d-flex justify-content-between'>
+                            <span className='me-auto fw-bold'>商品</span>
+                            <span className='me-1 fw-bold'>數量</span>
+                            <span className='fw-bold'>價格</span>
+                          </div>
+                          {v.titles.map((title, i) => (
+                            <div key={i} className='d-flex justify-content-between'>
+                              <span className='me-auto'>{title}</span>
+                              <span className='me-4'> x </span>
+                              <span className='me-4'>{v.amounts[i]}</span>
+                              <span>{v.prices[i]}</span>
+                            </div>
+                          ))}
+                        </td>
+                      </TableCell>
+                      <TableCell align="center" sx={tdStyle}>
+                        {v.amounts.reduce((total, amount, index) => {
+                          return total + amount * v.prices[index];
+                        }, 0)}
+                      </TableCell>
+                      <TableCell align="center" sx={tdStyle}>
+                        {orderTimeState.map((v2, i2) => {
+                          if (i2 == i) {
+                            return v2.meet_time
+                          }
+                        })}
+                      </TableCell>
+                    </TableRow>
+                  })}
 
-                      <div key={i} className='d-flex justify-content-between'>
-                        <span className='me-auto fw-bold'>商品</span>
-                        {/* <span className='me-3'> x </span> */}
-                        <span className='me-1 fw-bold'>數量</span>
-                        <span className='fw-bold'>價格</span>
-                      </div>
-                      {v.titles.map((title, i) => (
-                        <div key={i} className='d-flex justify-content-between'>
-                          <span className='me-auto'>{title}</span>
-                          <span className='me-4'> x </span>
-                          <span className='me-4'>{v.amounts[i]}</span>
-                          <span>{v.prices[i]}</span>
-                        </div>
-                      ))}
-
-                      <button type='button' className='btn btn-warning ms-auto mt-auto' style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
-
-                    </td>
-                    <td className='text-center'>{v.amounts.reduce((total, amount, index) => {
-                      return total + amount * v.prices[index];
-                    }, 0)}</td>
-                    <td className='text-center'>
-                      {orderTimeState.map((v2, i2) => {
-                        if (i2 == i) {
-                          return v2.meet_time
-                        }
-                      })}
-                    </td>
-                    <td className='text-center'><button type='button' className='btn btn-primary'
-                      onClick={(e) => { }}
-                    >通知完成</button></td>
-                  </tr>
-                })}
-
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
+          </TableContainer>)
 
             :
 
-            <table class="table table-warning table-striped mt-3 table-borderless border-dark">
-              <thead>
-                <tr>
-                  <th scope="col" className='text-center'>訂單編號</th>
-                  <th scope="col" className='text-center'>訂單狀態</th>
-                  <th scope="col" className='text-center'>訂單內容
-                    <button type='button' className='btn btn-warning ms-auto mt-auto' style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
-                  </th>
-                  <th scope="col" className='text-center'>總金額</th>
-                  <th scope="col" className='text-center'>訂單成立時間</th>
-                  <th scope="col" className='text-center'>通知完成訂單</th>
-                </tr>
-              </thead>
-              <tbody>
-                {togoOrder.map((v, i) => {
-                  return <tr key={i}>
-                    <td className='text-center'>{i + 1}</td>
-                    <td className='text-center'>{v[0].status}</td>
-                    <td className={`d-flex flex-column mb-3" ${showOrder == false ? styles.orderShow_hidden : styles.orderShow_show} `}>
-                      <table>
-                        <thead>
-                          <tr>
-                            <th scope="col" className='text-center'>商品</th>
-                            <th scope="col" className='text-center'>數量</th>
-                            <th scope="col" className='text-center'>價格</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Array(togoOrder[i].length).fill(1).map((val, ind) => (
-                            <tr key={ind}>
-                              <td className='text-center'>{v[ind].order_item}</td>
-                              <td className='text-center'>{v[ind].order_num}</td>
-                              <td className='text-center'>{v[ind].price}</td>
-                            </tr>
-                          ))}
-                        </tbody>
+            (<TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow sx={rowStyle}>
+                    <TableCell align="center" sx={ceilStyle}>
+                      訂單編號
+                    </TableCell>
+                    <TableCell align="center" sx={ceilStyle}>
+                      訂單狀態
+                    </TableCell>
+                    <TableCell align="center" sx={ceilStyle}>
+                      訂單內容
+                      <button type='button' className={`btn btn-warning ms-auto mt-auto ${muistyles.btnright}`} style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
+                    </TableCell>
+                    <TableCell align="center" sx={ceilStyle}>
+                      總金額
+                    </TableCell>
+                    <TableCell align="center" sx={ceilStyle}>
+                      訂單成立時間
+                    </TableCell>
+                    <TableCell align="center" sx={ceilStyle}>
+                      通知完成訂單
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {togoOrder.filter((value, index) => page <= index && index < page + 10).map((v, i) => {
+                    return <TableRow
+                      key={i}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell align="center" sx={tdStyle}>
+                        {((page - 1) * 10) + i + 1}
+                      </TableCell>
+                      <TableCell align="center" sx={tdStyle}>
+                        {v[0].status}
+                      </TableCell>
+                      <TableCell align="center" sx={tdStyle}>
 
-                      </table>
 
-                    </td>
-                    <td className='text-center'>{v[0].amount}</td>
-                    <td className='text-center'>{v[0].create_at}</td>
-                    <td className='text-center'>
-                      {completeOrder ? 
-                      <div>123</div> 
-                      : 
-                      <button type='button' id={`buttonIndex${i}`} className='btn btn-primary'
-                        onClick={() => turnToComplete(i)}
-                      >
-                      通知完成
-                      </button>}
-                    </td>
-                  </tr>
-                })}
-
-              </tbody>
-            </table>
+                        <td className={`d-flex flex-column mb-3" ${showOrder == false ? styles.orderShow_hidden : styles.orderShow_show} `}>
+                          <div key={i} className='d-flex justify-content-between'>
+                            <span className='me-auto fw-bold'>商品</span>
+                            <span className='me-1 fw-bold'>數量</span>
+                            <span className='fw-bold'>價格</span>
+                          </div>
+                          {togoOrder[i].map((val, ind) => {
+                            return (
+                              <>
+                                <div key={i} className='d-flex justify-content-between'>
+                                  <span className='me-auto'>{val.order_item}</span>
+                                  <span className='me-4'> x </span>
+                                  <span className='me-4'>{val.order_num}</span>
+                                  <span>{val.price}</span>
+                                </div>
+                              </>
+                            )
+                          })}
+                        </td>
+                      </TableCell>
+                      <TableCell align="center" sx={tdStyle}>
+                        {v[0].amount}
+                      </TableCell>
+                      <TableCell align="center" sx={tdStyle}>
+                        {v[0].create_at}
+                      </TableCell>
+                      <TableCell align="center" sx={tdStyle}>
+                        {completeOrder ?
+                          <div>123</div>
+                          :
+                          <button type='button' id={`buttonIndex${i}`} className={`btn btn-primary ${muistyles.btnright}`}
+                            onClick={() => turnToComplete(i)}
+                          >
+                            通知完成
+                          </button>}
+                      </TableCell>
+                    </TableRow>
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>)
           }
-
         </div>
         <hr />
       </div>
-
-
     </>
   );
 }

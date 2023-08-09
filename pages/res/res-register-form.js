@@ -7,7 +7,7 @@ import BlankLayout from '@/components/layout/blank-layout';
 export default function RegisterForm() {
   return (
     <>
-      <div className="container">RegisterForm</div>
+      {/* <div className="container">RegisterForm</div> */}
       {/* <RegisterFormComponent /> */}
       <RegisterForm1 />
     </>

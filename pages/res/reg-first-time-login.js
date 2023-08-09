@@ -5,7 +5,7 @@ import FirstTimeAddItem from '@/components/res/item/first-time-add-item';
 
 const FirstTimeLogin = () => {
     return <>
-        <div className='container'>FirstTimeLogin</div>
+        {/* <div className='container'>FirstTimeLogin</div> */}
         <FirstTimeAddItem />
     </>
 }

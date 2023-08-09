@@ -1,0 +1,18 @@
+.nav{
+    background-color:transparent;
+    background-color: var(--main-color);
+    padding: 2px 16px;
+    color: white;
+    font-size: var(--h5);
+    font-weight: bold;
+    border: 0;
+    border-right: 4px solid white;
+    margin-top:10px ;
+    transition: 0.5s;
+}
+ .nav:hover{
+    background-color: #6a0202;
+} 
+.line{
+    border-bottom: 2px solid var(--main-color);
+}

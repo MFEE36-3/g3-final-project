@@ -188,7 +188,7 @@ const AddNewItem = () => {
           }
         `}
       </style>
-      <div className="container d-flex justify-content-center">
+      <div className="container mt-3 d-flex justify-content-center">
         <div>
           <div className={`${styles.border} card p-5 rounded-3 border-3`}>
             <div className="card-title d-flex justify-content-center fw-bold fs-5">

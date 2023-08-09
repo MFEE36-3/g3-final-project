@@ -1,0 +1,23 @@
+.bigcontainer{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--main-color);
+}
+
+.container1{
+
+    display: flex;
+}
+.container2{
+    display: flex;
+   
+}
+.ptext{
+    font-size: var(--h4);
+    padding-right: 30px;
+    /* font-weight: bold; */
+    padding-left: 20px;
+}
+.ptext:hover{
+    border-bottom: 3px solid var(--main-color);
+}
