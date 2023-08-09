@@ -24,6 +24,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import muistyles from '@/components/res/item/add-item.module.css';
+import Head from 'next/head'
+
 export default function Management() {
   const router = useRouter();
   const { resAuth, setResAuth, logout } = useContext(ResAuthContext);
@@ -301,93 +303,100 @@ export default function Management() {
   }
 
   const showFoodItems = () => {
-    return (<TableBody>
-      {foodItem.rows && foodItem.rows.length > 0 ? foodItem.rows.map((v, i) => (
 
-        <TableRow
-          key={i}
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-        >
-          <TableCell align="center" sx={tdStyle}>
-            <img
-              src={`${imgLink}${v.food_img}`}
-              className={`${styles.imgSize}`}
-            ></img>
-          </TableCell>
-          <TableCell align="center" sx={tdStyle}>
-            {v.food_title}
-          </TableCell>
-          <TableCell align="center" sx={desc}>
-            {v.food_des}
-          </TableCell>
-          <TableCell align="center" sx={tdStyle}>
-            {v.food_price}
-          </TableCell>
-          <TableCell align="center" sx={tdStyle}>
-            {String(v.create_time).split(" ")[0]}
-          </TableCell>
-          <TableCell align="center" sx={tdStyle}>
-            <Link
-              href={`/res/item-management/edit-item/${v.food_id}`}
+
+    return (
+      <>
+        <Head>
+          <title>食GOEAT! / 商家中心</title>
+        </Head>
+        <TableBody>
+          {foodItem.rows && foodItem.rows.length > 0 ? foodItem.rows.map((v, i) => (
+
+            <TableRow
+              key={i}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <button
-                type="button"
-                className={`me-3 btn btn-primary ${muistyles.btnright}`}
-                onClick={(e) => {
-                  router.push(
-                    `/res/item-management/edit-item/${v.food_id}`
-                  );
-                }}
-              >
-                <AiTwotoneEdit />
-              </button>
-            </Link>
-          </TableCell>
-          <TableCell align="center" sx={tdStyle}>
-            <button
-              type="button"
-              className={`me-3 btn btn-primary ${muistyles.btnright}`}
-              onClick={(e) => { }}
-            >
-              <ImBoxRemove />
-            </button>
-          </TableCell>
-          <TableCell align="center" sx={tdStyle}>
-          <button
-              type="button"
-              className={`me-3 btn ${muistyles.btnright}`}
-              onClick={() => {
-                Swal.fire({
-                  title: '您確定要刪除此項商品嗎?',
-                  showDenyButton: true,
-                  showCancelButton: false,
-                  confirmButtonText: '確定刪除',
-                  denyButtonText: `取消刪除`,
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    Swal.fire('刪除成功!', '', 'success');
-                    fetch(
-                      `http://localhost:3002/res/item-management/deleteItem/${v.food_id}`,
-                      { method: 'DELETE' }
-                    )
-                      .then((r) => r.json())
-                      .then((data) => {
-                        console.log(data);
-                        location.reload();
-                      });
-                    // router.push(`/res/item-management/delete-item/${v.food_id}`)
-                  } else if (result.isDenied) {
-                    Swal.fire('取消刪除', '', 'info');
-                  }
-                });
-              }}
-            >
-              <AiTwotoneDelete />
-            </button>
-          </TableCell>
-        </TableRow>
-      )) : ''}
-    </TableBody>)
+              <TableCell align="center" sx={tdStyle}>
+                <img
+                  src={`${imgLink}${v.food_img}`}
+                  className={`${styles.imgSize}`}
+                ></img>
+              </TableCell>
+              <TableCell align="center" sx={tdStyle}>
+                {v.food_title}
+              </TableCell>
+              <TableCell align="center" sx={desc}>
+                {v.food_des}
+              </TableCell>
+              <TableCell align="center" sx={tdStyle}>
+                {v.food_price}
+              </TableCell>
+              <TableCell align="center" sx={tdStyle}>
+                {String(v.create_time).split(" ")[0]}
+              </TableCell>
+              <TableCell align="center" sx={tdStyle}>
+                <Link
+                  href={`/res/item-management/edit-item/${v.food_id}`}
+                >
+                  <button
+                    type="button"
+                    className={`me-3 btn btn-primary ${muistyles.btnright}`}
+                    onClick={(e) => {
+                      router.push(
+                        `/res/item-management/edit-item/${v.food_id}`
+                      );
+                    }}
+                  >
+                    <AiTwotoneEdit />
+                  </button>
+                </Link>
+              </TableCell>
+              <TableCell align="center" sx={tdStyle}>
+                <button
+                  type="button"
+                  className={`me-3 btn btn-primary ${muistyles.btnright}`}
+                  onClick={(e) => { }}
+                >
+                  <ImBoxRemove />
+                </button>
+              </TableCell>
+              <TableCell align="center" sx={tdStyle}>
+                <button
+                  type="button"
+                  className={`me-3 btn ${muistyles.btnright}`}
+                  onClick={() => {
+                    Swal.fire({
+                      title: '您確定要刪除此項商品嗎?',
+                      showDenyButton: true,
+                      showCancelButton: false,
+                      confirmButtonText: '確定刪除',
+                      denyButtonText: `取消刪除`,
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        Swal.fire('刪除成功!', '', 'success');
+                        fetch(
+                          `http://localhost:3002/res/item-management/deleteItem/${v.food_id}`,
+                          { method: 'DELETE' }
+                        )
+                          .then((r) => r.json())
+                          .then((data) => {
+                            console.log(data);
+                            location.reload();
+                          });
+                        // router.push(`/res/item-management/delete-item/${v.food_id}`)
+                      } else if (result.isDenied) {
+                        Swal.fire('取消刪除', '', 'info');
+                      }
+                    });
+                  }}
+                >
+                  <AiTwotoneDelete />
+                </button>
+              </TableCell>
+            </TableRow>
+          )) : ''}
+        </TableBody></>)
   }
 
   return (

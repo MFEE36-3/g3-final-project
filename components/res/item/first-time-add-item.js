@@ -2,28 +2,19 @@ import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Head from 'next/head'
 
 export default function firstTimeAddItem() {
 
     const router = useRouter()
 
-    // const switchToItemPageAfter5sec = () => {
-    //     setTimeout(() => {
-    //         router.push('/res/item-management')
-    //     }, 5000);
-    // }
-
-    // useEffect(()=>{
-    //     switchToItemPageAfter5sec()
-    // }, [])
-
     return <>
-        <div className='container'>regSuccessComponent</div>
+          <Head>
+        <title>食GOEAT! / 商家中心</title>
+      </Head>
         <div className='container d-flex justify-content-center'>
             <div className="row d-flex justify-content-center">
                 <div className="col-8 d-flex">
-
-
 
                     <div class="card d-flex justify-content-center mt-3">
                         <div class="card-body border rounded-4" style={{ backgroundColor: '#911010', color: 'white', height: '400px', width: '400px' }}>

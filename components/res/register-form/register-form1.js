@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import muistyles from '@/components/res/item/add-item.module.css';
+import Head from 'next/head'
 
 export default function RegisterForm() {
   const router = useRouter()
@@ -67,25 +68,26 @@ export default function RegisterForm() {
   })
 
   // 設計進階桌型的人數總數
-  const originalSeats = {    
-    seat2:0,
-    seat4:0,
-    seat6:0,
-    seat8:0,}
+  const originalSeats = {
+    seat2: 0,
+    seat4: 0,
+    seat6: 0,
+    seat8: 0,
+  }
   const [totalSeatNumber, setTotalSeatNumber] = useState({
-    seat2:0,
-    seat4:0,
-    seat6:0,
-    seat8:0,
+    seat2: 0,
+    seat4: 0,
+    seat6: 0,
+    seat8: 0,
   })
   const handleTotalSeats = (e) => {
-    setTotalSeatNumber({...totalSeatNumber, [e.target.name]:e.target.value})
+    setTotalSeatNumber({ ...totalSeatNumber, [e.target.name]: e.target.value })
   }
   // 計算進階桌型的總人數
   const calculatTotalSeats = (e) => {
-    const totalSeats = parseInt(totalSeatNumber.seat2)*2 + parseInt(totalSeatNumber.seat4)*4 + parseInt(totalSeatNumber.seat6)*6 + parseInt(totalSeatNumber.seat8)*8
+    const totalSeats = parseInt(totalSeatNumber.seat2) * 2 + parseInt(totalSeatNumber.seat4) * 4 + parseInt(totalSeatNumber.seat6) * 6 + parseInt(totalSeatNumber.seat8) * 8
     console.log(String(totalSeats))
-    setShop({...shop,table_number : String(totalSeats)})
+    setShop({ ...shop, table_number: String(totalSeats) })
   }
 
   const handleOpenDays = (e) => {
@@ -402,6 +404,9 @@ export default function RegisterForm() {
 
   return (
     <>
+      <Head>
+        <title>食GOEAT! / 商家中心</title>
+      </Head>
       <style jsx>
         {`
           .error {

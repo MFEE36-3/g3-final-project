@@ -12,6 +12,7 @@ import Link from 'next/link';
 import ResAuthContext from '@/context/ResAuthContext';
 import { check } from 'prettier';
 import muistyles from '@/components/res/item/add-item.module.css';
+import Head from 'next/head'
 
 export default function resSetting() {
   const router = useRouter()
@@ -409,6 +410,9 @@ export default function resSetting() {
 
   return (
     <>
+      <Head>
+        <title>食GOEAT! / 商家中心</title>
+      </Head>
       <style jsx>
         {`
           .error {
@@ -619,32 +623,31 @@ export default function resSetting() {
                   </select>
 
                 </div>
-                {/* <div htmlFor="shop_owner" className={`ms-5 form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳敘述:</div> */}
 
                 <div className='description mx-5 d-flex flex-column mb-1 mt-3'>
 
                   <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 mb-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳圖片</div>
                   <div className='d-flex flex-column mb-3'>
-                      {showImg == false ? (
-                        <img
-                          src={`${oldImg + shop.photo}`}
-                          style={{ height: '300px', width: '300px', overflow: 'static' }}
-                          alt="" />
-                      ) : (
-                        <div
-                          htmlFor="res_photo"
-                          className={`${styles.uploadImg} me-3`}
-                          name='photo'
-                          onChange={handleChange}>
+                    {showImg == false ? (
+                      <img
+                        src={`${oldImg + shop.photo}`}
+                        style={{ height: '300px', width: '300px', overflow: 'static' }}
+                        alt="" />
+                    ) : (
+                      <div
+                        htmlFor="res_photo"
+                        className={`${styles.uploadImg} me-3`}
+                        name='photo'
+                        onChange={handleChange}>
 
-                          <img src={`${imgPreview + showImg}`} style={{ height: '300px', width: '300px', overflow: 'static' }} alt="" />
-                        </div>)}
+                        <img src={`${imgPreview + showImg}`} style={{ height: '300px', width: '300px', overflow: 'static' }} alt="" />
+                      </div>)}
 
-                      <div className="mt-3">
-                        <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
+                    <div className="mt-3">
+                      <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
 
-                      </div>
                     </div>
+                  </div>
 
                 </div>
 
