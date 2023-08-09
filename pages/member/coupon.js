@@ -11,6 +11,7 @@ import AuthContext from '@/context/AuthContext';
 import { useState, useEffect, useContext } from 'react';
 import MemNologin from '@/components/member/mem-nologin';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 export default function Index() {
   const { auth } = useContext(AuthContext);
@@ -69,58 +70,70 @@ export default function Index() {
   }, []);
 
   return !auth.account ? (
-    <MemNologin />
+    <>
+      <Head>
+        <title>食GOEAT! / 會員中心</title>
+      </Head>
+
+      <MemNologin />
+    </>
   ) : (
-    <div className={styles.body}>
-      <div className={styles.container}>
-        <MemBar />
-        <div className={styles.rightArea}>
-          <div className={styles2.flexArea}>
-            <MemAllTitle title={'我的優惠券'} />
-            <div className={styles2.area1}>
-              {mycoupon ? (
-                <div className={styles2.scroll}>
-                  {mycoupon.map((v) => {
-                    return (
-                      <MemCouponCard
-                        name={v.name}
-                        money={v.money}
-                        time={v.time}
-                        key={v4()}
-                      />
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className={styles2.default}>優惠券都用完囉</div>
-              )}
-            </div>
-            <MemAllTitle title={'已使用 /已過期'} />
-            <div className={styles2.btnArea}>
-              {Array.from({ length: Math.ceil(record.length / 5) }).map(
-                (_, i) => (
-                  <button
-                    key={v4()}
-                    className={styles2.recordBtn}
-                    onClick={() => setPage(i * 5)}
-                  >
-                    {i + 1}
-                  </button>
-                )
-              )}
-            </div>
-            <div className={styles2.area2}>
-              {mycoupon ? (
-                <div className={styles2.recordBox}>
-                  <MemCouponRecord record={record} page={page} />
-                </div>
-              ) : (
-                <div className={styles2.default}>目前沒有使用紀錄</div>
-              )}
+    <>
+      <Head>
+        <title>食GOEAT! / 會員中心</title>
+      </Head>
+      <div className={styles.body}>
+        <div className={styles.container}>
+          <MemBar />
+          <div className={styles.rightArea}>
+            <div className={styles2.flexArea}>
+              <MemAllTitle title={'我的優惠券'} />
+              <div className={styles2.area1}>
+                {mycoupon ? (
+                  <div className={styles2.scroll}>
+                    {mycoupon.map((v) => {
+                      return (
+                        <MemCouponCard
+                          name={v.name}
+                          money={v.money}
+                          time={v.time}
+                          key={v4()}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className={styles2.default}>優惠券都用完囉</div>
+                )}
+              </div>
+              <MemAllTitle title={'已使用 /已過期'} />
+
+              <div className={styles2.area2}>
+                {mycoupon ? (
+                  <div className={styles2.recordBox}>
+                    <MemCouponRecord record={record} page={page} />
+                  </div>
+                ) : (
+                  <div className={styles2.default}>目前沒有使用紀錄</div>
+                )}
+              </div>
+              <div className={styles2.btnArea}>
+                {Array.from({ length: Math.ceil(record.length / 5) }).map(
+                  (_, i) => (
+                    <button
+                      key={v4()}
+                      className={styles2.recordBtn}
+                      onClick={() => setPage(i * 5)}
+                    >
+                      {i + 1}
+                    </button>
+                  )
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

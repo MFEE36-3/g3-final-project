@@ -12,6 +12,7 @@ import MemAllTitle from '@/components/member/mem-allTitle';
 import MemNologin from '@/components/member/mem-nologin';
 import MemAchieveArea from '@/components/member/mem-achieveArea';
 import MemBtn from '@/components/member/mem-Btn';
+import Head from 'next/head';
 
 export default function Info() {
   const router = useRouter();
@@ -109,95 +110,105 @@ export default function Info() {
   }, []);
 
   return !auth.account ? (
-    <MemNologin />
+    <>
+      <Head>
+        <title>食GOEAT! / 會員中心</title>
+      </Head>
+      <MemNologin />
+    </>
   ) : (
-    <div className={styles.body}>
-      <div className={styles.container}>
-        {showAchieve && (
-          <div className={styles2.AchieveArea}>
-            <MemAchieveArea openAchiece={openAchiece} />
-          </div>
-        )}
-        <MemrBar />
-        <div className={styles2.rightArea}>
-          <div className={styles2.flex}>
-            <div className={styles2.imgflex}>
-              <div className={styles2.img}>
-                <Image
-                  src={'http://localhost:3002/img/member/' + getImg}
-                  className={styles2.imgbig}
-                  width={300}
-                  height={300}
-                  alt=""
-                />
-              </div>
-              <div className={styles2.btn}>
-                <Image
-                  src={'/member/camera2.png'}
-                  width={65}
-                  height={65}
-                  className={styles2.imgsmall}
-                  alt=""
-                />
-                <input
-                  type="file"
-                  id="imageUpload"
-                  accept="image/*"
-                  className={styles2.uploadInput}
-                  title=""
-                  onChange={changeImg}
-                  name="preImg"
-                />
-              </div>
+    <>
+      <Head>
+        <title>食GOEAT! / 會員中心</title>
+      </Head>
+      <div className={styles.body}>
+        <div className={styles.container}>
+          {showAchieve && (
+            <div className={styles2.AchieveArea}>
+              <MemAchieveArea openAchiece={openAchiece} />
             </div>
-            <div className={styles2.achieveBox}>
-              <MemAllTitle title={achieve_name} />
-              <Image
-                src={'http://localhost:3002/img/' + auth?.achieve_image}
-                style={{ objectFit: 'cover' }}
-                className={styles2.box}
-                width={200}
-                height={200}
-                alt=""
-              />
-              <div className={styles2.achieveArea}>
-                <div
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'end',
-                  }}
-                >
-                  <div className={styles2.achBtn}>
-                    <MemBtn
-                      text="更換"
-                      padding={'5px 1px'}
-                      fs="var(--h7)"
-                      onClick={openAchiece}
-                    />
+          )}
+          <MemrBar />
+          <div className={styles2.rightArea}>
+            <div className={styles2.flex}>
+              <div className={styles2.imgflex}>
+                <div className={styles2.img}>
+                  <Image
+                    src={'http://localhost:3002/img/member/' + getImg}
+                    className={styles2.imgbig}
+                    width={300}
+                    height={300}
+                    alt=""
+                  />
+                </div>
+                <div className={styles2.btn}>
+                  <Image
+                    src={'/member/camera2.png'}
+                    width={65}
+                    height={65}
+                    className={styles2.imgsmall}
+                    alt=""
+                  />
+                  <input
+                    type="file"
+                    id="imageUpload"
+                    accept="image/*"
+                    className={styles2.uploadInput}
+                    title=""
+                    onChange={changeImg}
+                    name="preImg"
+                  />
+                </div>
+              </div>
+              <div className={styles2.achieveBox}>
+                <MemAllTitle title={achieve_name} />
+                <Image
+                  src={'http://localhost:3002/img/' + auth?.achieve_image}
+                  style={{ objectFit: 'cover' }}
+                  className={styles2.box}
+                  width={200}
+                  height={200}
+                  alt=""
+                />
+                <div className={styles2.achieveArea}>
+                  <div
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'end',
+                    }}
+                  >
+                    <div className={styles2.achBtn}>
+                      <MemBtn
+                        text="更換"
+                        padding={'5px 1px'}
+                        fs="var(--h7)"
+                        onClick={openAchiece}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div>
-            {list.map((v) => {
-              return (
-                <MemInfoInput
-                  tag={v.tag}
-                  content={v.content}
-                  change={v.change}
-                  key={v4()}
-                  sid={sid}
-                  title={v.title}
-                  setAuth={setAuth}
-                  auth={auth}
-                />
-              );
-            })}
+            <div>
+              {list.map((v) => {
+                return (
+                  <MemInfoInput
+                    tag={v.tag}
+                    content={v.content}
+                    change={v.change}
+                    key={v4()}
+                    sid={sid}
+                    title={v.title}
+                    setAuth={setAuth}
+                    auth={auth}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

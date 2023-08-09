@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MemBtn from '@/components/member/mem-Btn';
 import MemNologin from '@/components/member/mem-nologin';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 export default function Record() {
   const Record1 = [
@@ -112,28 +113,38 @@ export default function Record() {
   }, []);
 
   return !auth.account ? (
-    <MemNologin />
+    <>
+      <Head>
+        <title>食GOEAT! / 會員中心</title>
+      </Head>
+      <MemNologin />
+    </>
   ) : (
-    <div className={styles.body}>
-      <div className={styles.container}>
-        <MemBar />
-        <div className={styles.rightArea}>
-          <div className={styles2.actArea}>
-            <MemAllTitle title={'活動紀錄'} />
-            <div className={styles2.area2}>
-              <div className={styles2.scrollArea2} style={{ width: '100%' }}>
-                <MemBtn text={'跟團'} onClick={changeRecord} />
-                <MemBtn text={'開團'} onClick={changeRecord} />
-                <MemBtn text={'訂位'} onClick={changeRecord} />
-                <MemBtn text={'外帶'} onClick={changeRecord} />
-                <MemBtn text={'商城'} onClick={changeRecord} />
-              </div>
+    <>
+      <Head>
+        <title>食GOEAT! / 會員中心</title>
+      </Head>
+      <div className={styles.body}>
+        <div className={styles.container}>
+          <MemBar />
+          <div className={styles.rightArea}>
+            <div className={styles2.actArea}>
+              <MemAllTitle title={'活動紀錄'} />
+              <div className={styles2.area2}>
+                <div className={styles2.scrollArea2} style={{ width: '100%' }}>
+                  <MemBtn text={'跟團'} onClick={changeRecord} />
+                  <MemBtn text={'開團'} onClick={changeRecord} />
+                  <MemBtn text={'訂位'} onClick={changeRecord} />
+                  <MemBtn text={'外帶'} onClick={changeRecord} />
+                  <MemBtn text={'商城'} onClick={changeRecord} />
+                </div>
 
-              <div className={styles2.scroll2}>{record}</div>
+                <div className={styles2.scroll2}>{record}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
