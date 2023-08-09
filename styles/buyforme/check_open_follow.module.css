@@ -73,3 +73,7 @@
 .small_font {
     font-size: var(--h9) !important;
 }
+
+.text_nowrap{
+    white-space: nowrap;
+}

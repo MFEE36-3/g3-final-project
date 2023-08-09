@@ -41,6 +41,22 @@ main {
   min-height: calc(100vh - 360px - 470px);
 }
 
+::-webkit-scrollbar {
+  width: 18px;
+  /* background-color: #cbcbcb; */
+}
+
+::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 15px;
+  background-color: var(--main-color);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
 
 
 @font-face {
