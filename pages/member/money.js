@@ -47,7 +47,11 @@ export default function Index() {
     };
   });
 
-  // const totalMoney = rows.reduce((total, item) => total + item.money, 0);
+  // 計算尊榮會員剩下幾天
+  const deadTime = new Date(auth.dead_time);
+  const today = new Date();
+  const timeDifference = deadTime.getTime() - today.getTime();
+  const remainingDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
   // 判斷式否登入，未登入跳轉回首頁
   useEffect(() => {
@@ -75,7 +79,8 @@ export default function Index() {
               <div className={styles.packageMoney}>
                 <Image
                   src={IconImg}
-                  width={80}
+                  width={90}
+                  height={70}
                   alt=""
                   className={styles.packageImg}
                 />
@@ -84,7 +89,7 @@ export default function Index() {
 
               <div className={styles.packDown}>
                 <Link href={'http://localhost:3000/topup'}>
-                  <button className={styles.packageBtn}>儲值+</button>
+                  <button className={styles.packageBtn}>前往儲值</button>
                 </Link>
               </div>
             </div>
@@ -93,7 +98,7 @@ export default function Index() {
               <div className={styles2.imgText}>
                 {auth.level === 1
                   ? '歡迎加入食goEat會員享更多優惠'
-                  : '您的尊榮會員還有 21 天到期'}
+                  : '您的尊榮會員還有 ' + remainingDays + ' 天到期'}
               </div>
             </div>
           </div>

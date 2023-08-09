@@ -1,16 +1,21 @@
 import useFirebase from '@/hooks/use-firebase';
 import axios from 'axios';
+// import { useAuth } from '@/hooks/use-auth';
 import GoogleLogo from '@/components/icons/google-logo';
 import Link from 'next/link';
+import { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import AuthContext from '@/context/AuthContext';
 
 export default function GoogleLogin() {
   const { loginGoogle, logoutFirebase } = useFirebase();
+  const { auth, setAuth } = useContext(AuthContext);
 
   const callbackGoogleLogin = async (providerData) => {
     console.log(providerData);
 
     const res = await axios.post(
-      'http://localhost:3005/api/google-login/session',
+      process.env.API_SERVER + '/member/googlelogin',
       providerData,
       {
         withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
@@ -18,24 +23,27 @@ export default function GoogleLogin() {
     );
 
     console.log(res.data);
+    /*去自己的後端 送res.data
+確認有使用者 則登入
+沒有 則創造一個新的
 
-    // if (res.data.message === 'success') {
-    //   setGoogleAuth({
-    //     isGoogleAuth: true,
-    //     userData: res.data.user,
-    //   });
-    // } else {
-    //   alert('有錯誤');
-    // }
+若登入 則後端比照原本的 模式 發送訊息給前端
+然後前端setAUTH 然後前端setAUTH SETLOCALSTORAGE
+  */
+
+    /*  setAuth({
+        isAuth: true,
+        userData: res.data.user,
+      }); */
   };
 
-  const checkLogin = async () => {
-    const res = await axios.get('http://localhost:3005/api/auth/check-login', {
-      withCredentials: true, // 從瀏覽器獲取cookie
-    });
+  //   const checkLogin = async () => {
+  //     const res = await axios.get('http://localhost:3005/api/auth/check-login', {
+  //       withCredentials: true, // 從瀏覽器獲取cookie
+  //     });
 
-    console.log(res.data);
-  };
+  //     console.log(res.data);
+  //   };
 
   const logout = async () => {
     // firebase logout(注意，並不會登出google帳號)
@@ -43,30 +51,28 @@ export default function GoogleLogin() {
 
     // 伺服器logout
     const res = await axios.post(
-      'http://localhost:3005/api/auth/logout',
+      process.env.API_SERVER + '/member/googlelogout',
       {},
       {
         withCredentials: true, // save cookie in browser
       }
     );
 
-    // if (res.data.message === 'success') {
-    //   setGoogleAuth({
-    //     isGoogleAuth: false,
-    //     userData: {
-    //       id: 0,
-    //       name: '',
-    //       username: '',
-    //       r_date: '',
-    //     },
-    //   });
-    // }
+    setAuth({
+      isAuth: false,
+      userData: {
+        id: 0,
+        name: '',
+        username: '',
+        r_date: '',
+      },
+    });
   };
 
   return (
     <>
       <h1>google-login測試頁(session-cookie)</h1>
-      <p>會員狀態:{'已登入'}</p>
+      <p>會員狀態:{auth.isAuth ? '已登入' : '未登入'}</p>
       <button onClick={() => loginGoogle(callbackGoogleLogin)}>
         <GoogleLogo /> 用google登入
       </button>

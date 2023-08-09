@@ -22,6 +22,9 @@ import MemLoginBtn from '@/components/member/mem-loginBtn';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 import AuthContext from '@/context/AuthContext';
+import GoogleLogo from '@/components/icons/google-logo';
+import axios from 'axios';
+import useFirebase from '@/hooks/use-firebase';
 
 function Copyright(props) {
   return (
@@ -45,6 +48,7 @@ const defaultTheme = createTheme();
 
 const Login = () => {
   const { auth, setAuth } = useContext(AuthContext);
+  const { loginGoogle, logoutFirebase } = useFirebase();
 
   //引入useRouter，之後切換頁面時使用
   const router = useRouter();
@@ -80,7 +84,11 @@ const Login = () => {
           });
           // setAuth(JSON.parse(localStorage.getItem('auth')));
           setTimeout(() => {
-            router.back();
+            if (router.asPath.includes('localhost')) {
+              router.back();
+            } else {
+              router.push('/');
+            }
           }, 1500);
         } else {
           Swal.fire({
@@ -90,6 +98,40 @@ const Login = () => {
           });
         }
       });
+  };
+
+  // google登入的function
+  const callbackGoogleLogin = async (providerData) => {
+    // console.log(providerData);
+
+    const res = await axios.post(
+      process.env.API_SERVER + '/member/googlelogin',
+      providerData,
+      {
+        withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+      }
+    );
+
+    // console.log(res.data);
+
+    if (res.data.success) {
+      const obj = { ...res.data.data };
+      localStorage.setItem('auth', JSON.stringify(obj));
+      Swal.fire({
+        title: '登入成功',
+        timer: 1500,
+        icon: 'success',
+        showConfirmButton: false,
+      });
+      // setAuth(JSON.parse(localStorage.getItem('auth')));
+      setTimeout(() => {
+        if (router.asPath.includes('localhost')) {
+          router.back();
+        } else {
+          router.push('/');
+        }
+      }, 1500);
+    }
   };
 
   const [loginInfo, setLoginInfo] = useState({
@@ -120,7 +162,7 @@ const Login = () => {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           const newloginSuccess = {
             ...loginSuccess,
@@ -143,10 +185,10 @@ const Login = () => {
   useEffect(() => {
     if (loginSuccess.account == true) {
       setLoginSuccess({ ...loginSuccess, error: '' });
-      console.log(loginSuccess);
+      // console.log(loginSuccess);
     }
     if (loginSuccess.account == false) {
-      console.log(loginSuccess);
+      // console.log(loginSuccess);
     }
   }, [loginSuccess]);
 
@@ -309,6 +351,13 @@ const Login = () => {
                   >
                     會員登入
                   </Typography>
+                  <button
+                    className={styles.google}
+                    onClick={() => loginGoogle(callbackGoogleLogin)}
+                  >
+                    <GoogleLogo />
+                    Google登入
+                  </button>
                   <Box
                     component="form"
                     onSubmit={handleSubmit}
@@ -336,19 +385,22 @@ const Login = () => {
                       autoComplete="current-password"
                       color="warning"
                     />
-                    <FormControlLabel
-                      control={<Checkbox value="remember" color="warning" />}
-                      label="記住我"
-                      className={styles.text}
-                    />
+
                     <Button
                       type="submit"
                       fullWidth
                       variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
+                      sx={{ mt: 2, mb: 10 }}
                       color="warning"
                     >
-                      登入
+                      <div
+                        style={{
+                          fontSize: '13px',
+                          fontFamily: 'Zen Maru Gothic',
+                        }}
+                      >
+                        登入
+                      </div>
                     </Button>
                     <Grid container>
                       <Grid item xs>
@@ -357,7 +409,11 @@ const Login = () => {
                         </Link>
                       </Grid>
                       <Grid item>
-                        <Link href="#" variant="body2" className={styles.text}>
+                        <Link
+                          href="./member/form"
+                          variant="body2"
+                          className={styles.text}
+                        >
                           {'尚未註冊?'}
                         </Link>
                       </Grid>

@@ -97,7 +97,8 @@
 .package {
   width: 550px;
   height: 320px;
-  background-color: rgb(213, 207, 207);
+  background-image: url('/member/credit_card.png');
+  background-size: cover;
   border-radius: 20px;
   padding: 20px;
   display: flex;
@@ -105,7 +106,7 @@
   justify-content: space-between;
   font-size: 14px;
   font-weight: 800;
-  box-shadow: inset -2px -2px 5px rgba(65, 65, 65, 0.5);
+  box-shadow: inset -2px -2px 3px rgba(65, 65, 65, 0.5);
 }
 
 .packDown {
@@ -128,24 +129,24 @@
 }
 
 .packageBtn {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Zen Maru Gothic';
   font-weight: bolder;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 60px;
   text-align: center;
-  border-radius: 50%;
-  font-size: 18px;
+  border-radius: 30px;
+  font-size: 16px;
   padding: 2px;
-  background-color: #ffffff;
+  background-color: #ffedcc;
   border: none;
-  box-shadow: inset -3px -3px 5px rgb(67, 67, 67);
+  box-shadow: inset -5px -5px 7px rgb(166, 139, 104);
 }
 
 .packageBtn:hover {
   /* background-color: rgb(255, 178, 178); */
   transform: scale(1.1);
   transition: all 0.1s ease-in;
-  color: #921010;
+  /* color: #921010; */
 }
 
 /*輪播牆會用到的*/
