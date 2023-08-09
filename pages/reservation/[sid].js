@@ -8,6 +8,7 @@ import ShoppingCart from '@/components/reservation/restaurantpage/shoppingcart';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Image from 'next/image';
 import ShoppingBag from '@/public/reservation/shoppingbag.svg'
+import Head from 'next/head';
 
 export default function RestaurantPage() {
 
@@ -40,6 +41,7 @@ export default function RestaurantPage() {
     }
 
     useEffect(() => {
+
         if (router.query.sid) {
             fetch(process.env.API_SERVER + "/reservation/" + router.query.sid)
                 .then((r) => r.json())
@@ -57,6 +59,9 @@ export default function RestaurantPage() {
 
     return (
         <>
+            <Head>
+                <title>食GOEAT! / 訂位/外帶</title>
+            </Head>
             <div className={style.body}>
                 <Rcarousel row={row} />
                 <div className="container">
@@ -74,7 +79,9 @@ export default function RestaurantPage() {
                         </div>
                     </div>
                 </div>
-                <Image src={ShoppingBag} variant="primary" onClick={handleShow} className={style.carticon} />
+                <div className={style.carticon}>
+                    <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
+                </div>
                 <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title><div className={style.carttitle}>--您的購物車--</div></Offcanvas.Title>
@@ -85,6 +92,7 @@ export default function RestaurantPage() {
                     </Offcanvas.Body>
                 </Offcanvas>
             </div>
+
         </>
     );
 }

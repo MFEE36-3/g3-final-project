@@ -6,6 +6,7 @@ import { AiFillStar } from 'react-icons/ai';
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect } from 'react';
+import Link from "next/link";
 
 export default function Top5() {
 
@@ -34,7 +35,6 @@ export default function Top5() {
     )
   }
 
-
   return (
     <>
       <div className={`${style.fonttitle} ${style.borderbottom} d-flex justify-content-center mb-3 pb-1`}>
@@ -50,18 +50,22 @@ export default function Top5() {
             return (
               <Card
                 key={sid}
-                className={`${style.top5card} h-25 position-relative`}
+                className={`${style.top5card} position-relative`}
                 style={{ transform: `translateX(${position}px)` }}
               >
                 <Image src={Crown} className={style.top5crown} alt="" />
-                <Card.Img src={`${process.env.API_SERVER}/img/res-img/${removeBackgroundImage}`} className='position-relative pt-5' alt="" />
-                <Card.Body className={style.top5cardbody}>
+                <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+                  <Link href={"/reservation/" + sid}>
+                    <Card.Img src={`${process.env.API_SERVER}/img/top5/${removeBackgroundImage}`} className={style.top5img} alt="" />
+                  </Link>
+                </div>
+                <div className={style.top5cardbody}>
                   <div className={style.top5star}>
                     <div className={style.me5}>{rating}</div>
                     <AiFillStar />
                   </div>
                   <Card.Title className={style.top5name}>{shop}</Card.Title>
-                </Card.Body>
+                </div>
               </Card>
             )
           })}

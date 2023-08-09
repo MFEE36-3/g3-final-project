@@ -4,6 +4,7 @@ import style from '@/styles/reservation/style.module.css';
 import SelectArea from '@/components/reservation/select';
 import Main from '@/components/reservation/main';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 export const auth = createContext()
 export default function Reservation() {
@@ -110,17 +111,15 @@ export default function Reservation() {
     }
   }, [router.query])
 
-  // useEffect(() => {
-  //   const memberToken = JSON.parse(localStorage.getItem('auth'));
-  //   setToken(memberToken)
-  // }, [])
-  // console.log(router)
 
   return (
-    // <auth.Provider value={{ token }}>
-    <div className={style.body}>
-      <TopDiv keyword={keyword} setKeyword={setKeyword} />
-      {/* <div className="container-fluid">
+    <>
+      <Head>
+        <title>食GOEAT! / 訂位/外帶</title>
+      </Head>
+      <div className={style.body}>
+        <TopDiv keyword={keyword} setKeyword={setKeyword} />
+        {/* <div className="container-fluid">
           <div className={`${style.contentdiv} row `}>
             <div className={`${style.rwdarea} col-2`}>
               <SelectArea keyword={keyword} setKeyword={setKeyword}/>
@@ -130,17 +129,17 @@ export default function Reservation() {
             </div>
           </div>
         </div> */}
-      <div className="container-fluid">
-        <div className={`${style.contentdiv} row `}>
-          <div className={`${style.leftdiv} ${style.rwdarea}`}>
-            <SelectArea keyword={keyword} setKeyword={setKeyword} />
-          </div>
-          <div className={style.rightdiv}>
-            <Main keyword={keyword} setKeyword={setKeyword} favorite={favorite} setFavorite={setFavorite} />
+        <div className="container-fluid">
+          <div className={`${style.contentdiv} row `}>
+            <div className={`${style.leftdiv} ${style.rwdarea}`}>
+              <SelectArea keyword={keyword} setKeyword={setKeyword} />
+            </div>
+            <div className={style.rightdiv}>
+              <Main keyword={keyword} setKeyword={setKeyword} favorite={favorite} setFavorite={setFavorite} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    // </auth.Provider >
+    </>
   );
 }

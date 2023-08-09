@@ -16,7 +16,7 @@ export default function SearchBar({ keyword, setKeyword }) {
 
   const clearInput = () => {
     setKeyword({ ...keyword, searchkeyword: '' })
-    
+
     const strcity = router.query.city;
     const arrfoodtype = router.query.foodtype ? router.query.foodtype.split(',') : [];
     const strfoodtype = arrfoodtype.join();
@@ -110,7 +110,7 @@ export default function SearchBar({ keyword, setKeyword }) {
         <Image src={Search} />
         <input type="text" value={keyword.searchkeyword} placeholder='請輸入餐廳 ...' className={style.searchinput}
           onChange={handleInputText} onKeyUp={handleInputTextURL}></input>
-        <Image src={CloseButton} onClick={clearInput} />
+        <Image src={CloseButton} onClick={clearInput} style={{ cursor: 'pointer' }} />
       </div>
     </>
   );
