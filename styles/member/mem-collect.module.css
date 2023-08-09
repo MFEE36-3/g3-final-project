@@ -28,7 +28,7 @@
   font-weight: 800;
   border: 2px solid #921010;
   border-radius: 15px;
-  margin-top: 20px;
+  margin-top: 40px;
   height: 600px;
   background-color: #fff;
 }
@@ -115,7 +115,9 @@
 
 .btnArea {
   display: flex;
-  margin-left: 10px;
+  justify-content: center;
+  margin-top: -40px;
+  margin-bottom: -5px;
   gap: 10px;
 }
 

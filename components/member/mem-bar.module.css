@@ -24,10 +24,11 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
   background-color: #fff3e7;
   border: 3px solid #fcc8a1;
+  gap: 20px;
 }
 
 .memBtn {
@@ -59,36 +60,39 @@
 .memImgBox {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  overflow: visible;
   float: left;
   width: 100%;
 }
 
 .memImg {
-  width: 150px;
-  height: 150px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   background-color: rgb(203, 203, 203);
   margin-bottom: 15px;
-  margin-top: 15px;
   border: 3px solid #fcc8a1;
+  position: relative;
+  top: -35px;
 }
 
 .memEmail {
   font-size: 16px;
   color: #921010;
+  position: relative;
+  top: 40px;
 }
 
 .memText {
   color: #921010;
-  margin-bottom: 20px;
+  position: relative;
+  top: 20px;
 }
 
 .achImg {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   float: left;
   position: relative;
   overflow: visible;

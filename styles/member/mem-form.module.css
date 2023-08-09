@@ -41,6 +41,7 @@
   border-radius: 10px;
   height: 50px;
   padding: 5px;
+  padding-left: 10px;
   margin-left: 100px;
 }
 
@@ -48,10 +49,10 @@
   border: 2px solid #921010;
   border-radius: 10px;
   height: 50px;
+  width: 337px;
   padding: 5px;
-  margin-left: 70px;
   position: relative;
-  left: -25px;
+  left: 70px;
 }
 
 .hide {
@@ -83,7 +84,7 @@
 
 .birth {
   position: relative;
-  left: 20px;
+  left: 50px;
 }
 
 .file {
@@ -91,4 +92,9 @@
   left: -215px;
   width: 300px;
   object-fit: cover;
+}
+
+.label {
+  position: relative;
+  left: 30px;
 }

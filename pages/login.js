@@ -22,6 +22,10 @@ import MemLoginBtn from '@/components/member/mem-loginBtn';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 import AuthContext from '@/context/AuthContext';
+import GoogleLogo from '@/components/icons/google-logo';
+import axios from 'axios';
+import useFirebase from '@/hooks/use-firebase';
+import Head from 'next/head';
 
 function Copyright(props) {
   return (
@@ -45,6 +49,7 @@ const defaultTheme = createTheme();
 
 const Login = () => {
   const { auth, setAuth } = useContext(AuthContext);
+  const { loginGoogle, logoutFirebase } = useFirebase();
 
   //引入useRouter，之後切換頁面時使用
   const router = useRouter();
@@ -80,16 +85,57 @@ const Login = () => {
           });
           // setAuth(JSON.parse(localStorage.getItem('auth')));
           setTimeout(() => {
-            router.back();
+            // router.push('/');
+
+            if (document?.referrer.includes('/member/form')) {
+              router.push('/');
+            } else {
+              router.back();
+            }
           }, 1500);
         } else {
           Swal.fire({
             title: '帳號或密碼錯誤',
             timer: 1500,
+            icon: 'error',
             showConfirmButton: false,
           });
         }
       });
+  };
+
+  // google登入的function
+  const callbackGoogleLogin = async (providerData) => {
+    // console.log(providerData);
+
+    const res = await axios.post(
+      process.env.API_SERVER + '/member/googlelogin',
+      providerData,
+      {
+        withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+      }
+    );
+
+    // console.log(res.data);
+
+    if (res.data.success) {
+      const obj = { ...res.data.data };
+      localStorage.setItem('auth', JSON.stringify(obj));
+      Swal.fire({
+        title: '登入成功',
+        timer: 1500,
+        icon: 'success',
+        showConfirmButton: false,
+      });
+      // setAuth(JSON.parse(localStorage.getItem('auth')));
+      setTimeout(() => {
+        if (router.asPath.includes('localhost')) {
+          router.back();
+        } else {
+          router.push('/');
+        }
+      }, 1500);
+    }
   };
 
   const [loginInfo, setLoginInfo] = useState({
@@ -120,7 +166,7 @@ const Login = () => {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           const newloginSuccess = {
             ...loginSuccess,
@@ -148,52 +194,56 @@ const Login = () => {
   useEffect(() => {
     if (loginSuccess.account == true) {
       setLoginSuccess({ ...loginSuccess, error: '' });
-      console.log(loginSuccess);
+      // console.log(loginSuccess);
     }
     if (loginSuccess.account == false) {
-      console.log(loginSuccess);
+      // console.log(loginSuccess);
     }
   }, [loginSuccess]);
 
   const [change, setChange] = React.useState(false);
 
   return (
-    <div className={styles.container}>
-      <div>
-        <div className={styles.logintext}>選擇登入身分</div>
-        <div className={styles.littleBox}>
-          <MemLoginBtn change={change} setChange={setChange} />
+    <>
+      <Head>
+        <title>食GOEAT! </title>
+      </Head>
+      <div className={styles.container}>
+        <div>
+          <div className={styles.logintext}>選擇登入身分</div>
+          <div className={styles.littleBox}>
+            <MemLoginBtn change={change} setChange={setChange} />
+          </div>
         </div>
-      </div>
 
-      <div className={styles.area2}>
-        {change ? (
-          <div className={styles.cardBody}>
-            <ThemeProvider theme={defaultTheme}>
-              <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                  sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Image
-                    src="/member/hamburger.png"
-                    width={100}
-                    height={100}
-                    alt=""
-                  />
-                  <Typography
-                    component="h1"
-                    variant="h5"
-                    sx={{ fontFamily: 'var(--ff1)', color: '#921010' }}
+        <div className={styles.area2}>
+          {change ? (
+            <div className={styles.cardBody}>
+              <ThemeProvider theme={defaultTheme}>
+                <Container component="main" maxWidth="xs">
+                  <CssBaseline />
+                  <Box
+                    sx={{
+                      marginTop: 8,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                    }}
                   >
-                    廠商登入
-                  </Typography>
-                  {/* <div class="mb-3">
+                    <Image
+                      src="/member/hamburger.png"
+                      width={100}
+                      height={100}
+                      alt=""
+                    />
+                    <Typography
+                      component="h1"
+                      variant="h5"
+                      sx={{ fontFamily: 'var(--ff1)', color: '#921010' }}
+                    >
+                      廠商登入
+                    </Typography>
+                    {/* <div class="mb-3">
                     <input
                       className=""
                       type="email"
@@ -219,163 +269,186 @@ const Login = () => {
                     <div style={{ color: 'red' }}>{loginSuccess.error}</div>
                   </div> */}
 
-                  <Box
-                    component="form"
-                    onSubmit={resHandleSubmit}
-                    noValidate
-                    sx={{ mt: 1 }}
-                  >
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="account"
-                      label="帳號"
-                      name="account"
-                      autoComplete="email"
-                      color="warning"
-                      value={loginInfo.account}
-                      onChange={getLoginInfo}
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="密碼"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                      color="warning"
-                      value={loginInfo.password}
-                      onChange={getLoginInfo}
-                    />
-                    <FormControlLabel
-                      control={<Checkbox value="remember" color="warning" />}
-                      label="記住我"
-                      className={styles.text}
-                    />
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                      color="warning"
-                      onChange={() => {}}
+                    <Box
+                      component="form"
                       onSubmit={resHandleSubmit}
+                      noValidate
+                      sx={{ mt: 1 }}
                     >
-                      登入
-                    </Button>
-                    <Grid container>
-                      <Grid item xs>
-                        <Link href="#" variant="body2" className={styles.text}>
-                          忘記密碼?
-                        </Link>
+                      <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="account"
+                        label="帳號"
+                        name="account"
+                        autoComplete="email"
+                        color="warning"
+                        value={loginInfo.account}
+                        onChange={getLoginInfo}
+                      />
+                      <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="密碼"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        color="warning"
+                        value={loginInfo.password}
+                        onChange={getLoginInfo}
+                      />
+                      <FormControlLabel
+                        control={<Checkbox value="remember" color="warning" />}
+                        label="記住我"
+                        className={styles.text}
+                      />
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        color="warning"
+                        onChange={() => {}}
+                        onSubmit={resHandleSubmit}
+                      >
+                        登入
+                      </Button>
+                      <Grid container>
+                        <Grid item xs>
+                          <Link
+                            href="#"
+                            variant="body2"
+                            className={styles.text}
+                          >
+                            忘記密碼?
+                          </Link>
+                        </Grid>
+                        <Grid item>
+                          <Link
+                            href="/res/res-register-form"
+                            variant="body2"
+                            className={styles.text}
+                          >
+                            {'尚未註冊?'}
+                          </Link>
+                        </Grid>
                       </Grid>
-                      <Grid item>
-                        <Link
-                          href="/res/res-register-form"
-                          variant="body2"
-                          className={styles.text}
-                        >
-                          {'尚未註冊?'}
-                        </Link>
-                      </Grid>
-                    </Grid>
+                    </Box>
                   </Box>
-                </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
-              </Container>
-            </ThemeProvider>
-          </div>
-        ) : (
-          <div className={styles.cardBody2}>
-            <ThemeProvider theme={defaultTheme}>
-              <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                  sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Image
-                    src="/member/cookie3.png"
-                    width={100}
-                    height={100}
-                    alt=""
-                  />
-                  <Typography
-                    component="h1"
-                    variant="h5"
-                    sx={{ fontFamily: 'var(--ff1)', color: '#921010' }}
-                  >
-                    會員登入
-                  </Typography>
+                  <Copyright sx={{ mt: 8, mb: 4 }} />
+                </Container>
+              </ThemeProvider>
+            </div>
+          ) : (
+            <div className={styles.cardBody2}>
+              <ThemeProvider theme={defaultTheme}>
+                <Container component="main" maxWidth="xs">
+                  <CssBaseline />
                   <Box
-                    component="form"
-                    onSubmit={handleSubmit}
-                    noValidate
-                    sx={{ mt: 1 }}
+                    sx={{
+                      marginTop: 8,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                    }}
                   >
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="email"
-                      label="帳號"
-                      name="email"
-                      autoComplete="email"
-                      color="warning"
+                    <Image
+                      src="/member/cookie3.png"
+                      width={100}
+                      height={100}
+                      alt=""
                     />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="密碼"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                      color="warning"
-                    />
-                    <FormControlLabel
-                      control={<Checkbox value="remember" color="warning" />}
-                      label="記住我"
-                      className={styles.text}
-                    />
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                      color="warning"
+                    <Typography
+                      component="h1"
+                      variant="h5"
+                      sx={{ fontFamily: 'var(--ff1)', color: '#921010' }}
                     >
-                      登入
-                    </Button>
-                    <Grid container>
-                      <Grid item xs>
-                        <Link href="#" variant="body2" className={styles.text}>
-                          忘記密碼?
-                        </Link>
+                      會員登入
+                    </Typography>
+                    <button
+                      className={styles.google}
+                      onClick={() => loginGoogle(callbackGoogleLogin)}
+                    >
+                      <GoogleLogo />
+                      Google登入
+                    </button>
+                    <Box
+                      component="form"
+                      onSubmit={handleSubmit}
+                      noValidate
+                      sx={{ mt: 1 }}
+                    >
+                      <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="帳號"
+                        name="email"
+                        autoComplete="email"
+                        color="warning"
+                      />
+                      <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="密碼"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        color="warning"
+                      />
+
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 2, mb: 10 }}
+                        color="warning"
+                      >
+                        <div
+                          style={{
+                            fontSize: '13px',
+                            fontFamily: 'Zen Maru Gothic',
+                          }}
+                        >
+                          登入
+                        </div>
+                      </Button>
+                      <Grid container>
+                        <Grid item xs>
+                          <Link
+                            href="#"
+                            variant="body2"
+                            className={styles.text}
+                          >
+                            忘記密碼?
+                          </Link>
+                        </Grid>
+                        <Grid item>
+                          <Link
+                            href="./member/form"
+                            variant="body2"
+                            className={styles.text}
+                          >
+                            {'尚未註冊?'}
+                          </Link>
+                        </Grid>
                       </Grid>
-                      <Grid item>
-                        <Link href="#" variant="body2" className={styles.text}>
-                          {'尚未註冊?'}
-                        </Link>
-                      </Grid>
-                    </Grid>
+                    </Box>
                   </Box>
-                </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
-              </Container>
-            </ThemeProvider>
-          </div>
-        )}
+                  <Copyright sx={{ mt: 8, mb: 4 }} />
+                </Container>
+              </ThemeProvider>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

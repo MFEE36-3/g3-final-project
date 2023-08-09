@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import MemInfoInputDefault from './mem-infoinputDefault';
 import MemInfoInputChange from './mem-infoinputChange';
+import Swal from 'sweetalert2';
 
 export default function MemInfoInput({
   tag,
@@ -42,6 +43,12 @@ export default function MemInfoInput({
       .then((txt) => {
         setUpdate(false);
         setAuth({ ...auth, [title]: info });
+        Swal.fire({
+          title: '修改成功',
+          timer: 1500,
+          icon: 'success',
+          showConfirmButton: false,
+        });
       });
   }
 

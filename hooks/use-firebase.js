@@ -44,20 +44,20 @@ const loginGoogle = async (callback) => {
 };
 
 // TODO: fb有許多前置設定需求，目前並未在此專案使用
-const loginFB = (callback) => {
-  const provider = new FacebookAuthProvider();
-  const auth = getAuth();
-  signInWithPopup(auth, provider)
-    .then(async (result) => {
-      const user = result.user;
-      console.log(user.providerData[0]);
-      // user後端寫入資料庫等等的操作
-      callback(user.providerData[0]);
-    })
-    .catch((error) => {
-      //   console.log(error);
-    });
-};
+// const loginFB = (callback) => {
+//   const provider = new FacebookAuthProvider();
+//   const auth = getAuth();
+//   signInWithPopup(auth, provider)
+//     .then(async (result) => {
+//       const user = result.user;
+//       console.log(user.providerData[0]);
+//       // user後端寫入資料庫等等的操作
+//       callback(user.providerData[0]);
+//     })
+//     .catch((error) => {
+//       //   console.log(error);
+//     });
+// };
 
 export default function useFirebase() {
   useEffect(() => {

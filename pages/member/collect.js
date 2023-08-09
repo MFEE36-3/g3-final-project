@@ -14,6 +14,7 @@ import MemBtn from '@/components/member/mem-Btn';
 import MemNologin from '@/components/member/mem-nologin';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
 
 export default function Index() {
   const { auth } = useContext(AuthContext);
@@ -100,80 +101,91 @@ export default function Index() {
   }, []);
 
   return !auth.account ? (
-    <MemNologin />
+    <>
+      <Head>
+        <title>食GOEAT! / 會員中心</title>
+      </Head>
+      <MemNologin />
+    </>
   ) : (
-    <div className={styles.body}>
-      <div className={styles.container}>
-        <MemBar />
-        <div className={styles.rightArea}>
-          <MemAllTitle title={'我的貼文'} />
-          <div className={styles2.area1}>
-            {MyList ? (
-              <div className={styles2.scroll}>
-                {MyList.map((v) => {
-                  return (
-                    <MemCollectBlog
-                      sid={v.sid}
-                      title={v.title}
-                      time={v.time}
-                      key={v4()}
-                    />
-                  );
-                })}
-              </div>
-            ) : (
-              <Link
-                href={'http://localhost:3000/forum'}
-                className={styles2.default}
-              >
-                尚未撰寫任何貼文，前往論壇
-              </Link>
-            )}
-          </div>
-          <MemAllTitle title={'我的收藏'} />
-          <div className={styles2.btnArea}>
-            {open === '收藏店家'
-              ? Array.from({ length: Math.ceil(store.length / 3) }).map(
-                  (_, i) => (
-                    <button
-                      key={v4()}
-                      className={styles2.recordBtn}
-                      onClick={() => setPage(i * 3)}
-                    >
-                      {i + 1}
-                    </button>
-                  )
-                )
-              : Array.from({ length: Math.ceil(forum.length / 3) }).map(
-                  (_, i) => (
-                    <button
-                      key={v4()}
-                      className={styles2.recordBtn}
-                      onClick={() => setPage(i * 3)}
-                    >
-                      {i + 1}
-                    </button>
-                  )
-                )}
-          </div>
-          <div className={styles2.area2}>
-            <div className={styles2.scrollArea}>
-              <MemBtn text={'收藏貼文'} onClick={() => setOpen('收藏貼文')} />
-
-              <MemBtn text={'收藏店家'} onClick={() => setOpen('收藏店家')} />
+    <>
+      <Head>
+        <title>食GOEAT! / 會員中心</title>
+      </Head>
+      <div className={styles.body}>
+        <div className={styles.container}>
+          <MemBar />
+          <div className={styles.rightArea}>
+            <MemAllTitle title={'我的貼文'} />
+            <div className={styles2.area1}>
+              {MyList ? (
+                <div className={styles2.scroll}>
+                  {MyList.map((v) => {
+                    return (
+                      <MemCollectBlog
+                        sid={v.sid}
+                        title={v.title}
+                        time={v.time}
+                        key={v4()}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <Link
+                  href={'http://localhost:3000/forum'}
+                  className={styles2.default}
+                >
+                  尚未撰寫任何貼文，前往論壇
+                </Link>
+              )}
             </div>
-            {open === '收藏店家' ? (
-              <div className={styles2.scroll2}>
-                <MemCollectReocrd2 store={store} page={page} />
+            <MemAllTitle title={'我的收藏'} />
+
+            <div className={styles2.area2}>
+              <div className={styles2.scrollArea}>
+                <MemBtn text={'收藏貼文'} onClick={() => setOpen('收藏貼文')} />
+
+                <MemBtn text={'收藏店家'} onClick={() => setOpen('收藏店家')} />
               </div>
-            ) : (
-              <div className={styles2.scroll2}>
-                <MemCollectReocrd1 forum={forum} page={page} />
-              </div>
-            )}
+              {open === '收藏店家' ? (
+                <div className={styles2.scroll2}>
+                  <MemCollectReocrd2 store={store} page={page} />
+                </div>
+              ) : (
+                <div className={styles2.scroll2}>
+                  <MemCollectReocrd1 forum={forum} page={page} />
+                </div>
+              )}
+            </div>
+            <div className={styles2.btnArea}>
+              {open === '收藏店家'
+                ? Array.from({ length: Math.ceil(store.length / 3) }).map(
+                    (_, i) => (
+                      <button
+                        key={v4()}
+                        className={styles2.recordBtn}
+                        onClick={() => setPage(i * 3)}
+                      >
+                        {i + 1}
+                      </button>
+                    )
+                  )
+                : Array.from({ length: Math.ceil(forum.length / 3) }).map(
+                    (_, i) => (
+                      <button
+                        key={v4()}
+                        className={styles2.recordBtn}
+                        onClick={() => setPage(i * 3)}
+                      >
+                        {i + 1}
+                      </button>
+                    )
+                  )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
