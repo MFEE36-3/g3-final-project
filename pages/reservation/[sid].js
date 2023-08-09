@@ -40,6 +40,18 @@ export default function RestaurantPage() {
     }
 
     useEffect(() => {
+
+        console.log(router.query.sid)
+
+        if (router.query.sid) {
+            if (isNaN(Number(router.query.sid))) {
+                router.push('/reservation');
+                return;
+            }
+        }
+
+
+
         if (router.query.sid) {
             fetch(process.env.API_SERVER + "/reservation/" + router.query.sid)
                 .then((r) => r.json())
@@ -57,36 +69,40 @@ export default function RestaurantPage() {
 
     return (
         <>
-            <div className={style.body}>
-                <Rcarousel row={row} />
-                <div className="container">
-                    <div className="row">
-                        <div className={style.infodiv}>
-                            <Info row={row} />
-                        </div>
+            {!router.query.sid ? '' : !isNaN(Number(router.query.sid)) ?
+                <div className={style.body}>
+                    <Rcarousel row={row} />
+                    <div className="container">
+                        <div className="row">
+                            <div className={style.infodiv}>
+                                <Info row={row} />
+                            </div>
 
-                        <div className={style.reservationdiv}>
-                            <ReservationPage row={row} date={date} setDate={setDate} time={time} setTime={setTime}
-                                person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo}
-                                shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} togodate={togodate} setTogodate={setTogodate}
-                                togotime={togotime} setTogotime={setTogotime}
-                            />
+                            <div className={style.reservationdiv}>
+                                <ReservationPage row={row} date={date} setDate={setDate} time={time} setTime={setTime}
+                                    person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo}
+                                    shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} togodate={togodate} setTogodate={setTogodate}
+                                    togotime={togotime} setTogotime={setTogotime}
+                                />
+                            </div>
                         </div>
                     </div>
+                    <div className={style.carticon}>
+                        <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
+                    </div>
+                    <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
+                        <Offcanvas.Header closeButton>
+                            <Offcanvas.Title><div className={style.carttitle}>--您的購物車--</div></Offcanvas.Title>
+                        </Offcanvas.Header>
+                        <Offcanvas.Body>
+                            <ShoppingCart row={row} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
+                                togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} />
+                        </Offcanvas.Body>
+                    </Offcanvas>
                 </div>
-                <div className={style.carticon}>
-                    <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
-                </div>
-                <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
-                    <Offcanvas.Header closeButton>
-                        <Offcanvas.Title><div className={style.carttitle}>--您的購物車--</div></Offcanvas.Title>
-                    </Offcanvas.Header>
-                    <Offcanvas.Body>
-                        <ShoppingCart row={row} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
-                            togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} />
-                    </Offcanvas.Body>
-                </Offcanvas>
-            </div>
+                :
+                <div>沒有這家餐廳哦 </div>}
+
         </>
     );
 }

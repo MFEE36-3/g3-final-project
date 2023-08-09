@@ -68,6 +68,32 @@
   left: 0;
 }
 
+.top5img{
+  position: relative;
+  padding-top: 5px;
+  filter: drop-shadow(0 0 20px #fed003);
+  transition: .5s ease-in-out;
+}
+
+.top5img:hover{
+  /* transform: scale(1.1); */
+  animation: .5s imghover;
+}
+
+@keyframes imghover{
+  0% {
+    transform: rotate(8deg);
+  }25% {
+    transform: rotate(-8deg);
+  }50% {
+    transform: rotate(3deg);
+  }75% {
+    transform: rotate(-3deg);
+  }100% {
+    transform: rotate(0);
+  }
+}
+
 .top5cardbody{
   display: flex;
   height: 58px;
@@ -308,6 +334,9 @@
 
 .cardtitle{
   font-weight: bold;
+  white-space: nowrap; /* 不換行 */
+  overflow: hidden; /* 超過部分隱藏 */
+  text-overflow: ellipsis; 
 }
 
 .cardbottomicon{
@@ -359,12 +388,20 @@
   opacity: 1;
 }
 
+.additem{
+  display: none;
+  color: var(--main-color);
+  font-weight: bold;
+}
+
 .cardheart{
   color: #911010;
+  width: 30px;
 }
 
 .cardheart:hover{
   color: #911010;
+  cursor: pointer;
 }
 
 .paginationbar{
@@ -410,9 +447,9 @@
 }
 
 .carticon{
-  position: sticky;
+  position: absolute;
   right: 20px;
-  top: 80px;
+  top: 900px;
 }
 
 .carttitle{

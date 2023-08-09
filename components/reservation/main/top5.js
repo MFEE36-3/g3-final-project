@@ -6,6 +6,7 @@ import { AiFillStar } from 'react-icons/ai';
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect } from 'react';
+import Link from "next/link";
 
 export default function Top5() {
 
@@ -53,9 +54,10 @@ export default function Top5() {
                 style={{ transform: `translateX(${position}px)` }}
               >
                 <Image src={Crown} className={style.top5crown} alt="" />
-                <div style=
-                  {{ flexGrow: 1, display: 'flex', alignItems: 'center' }} >
-                  <Card.Img src={`${process.env.API_SERVER}/img/top5/${removeBackgroundImage}`} className='position-relative pt-5' alt="" />
+                <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+                  <Link href={"/reservation/" + sid}>
+                    <Card.Img src={`${process.env.API_SERVER}/img/top5/${removeBackgroundImage}`} className={style.top5img} alt="" />
+                  </Link>
                 </div>
                 <div className={style.top5cardbody}>
                   <div className={style.top5star}>

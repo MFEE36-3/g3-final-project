@@ -37,11 +37,13 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
     const [itemdeatil, setItemdeatil] = useState(null);
     const [open, setOpen] = useState(false);
     const [num, setNum] = useState(1);
-    // const [cart, setCart] = useLocalStorage("order", {})
     const pastcart = JSON.parse(localStorage.getItem('order')) || {};
     const router = useRouter()
     const id = router.query.sid;
     const shopId = parseInt(id)
+
+    //增加商品效果用
+    const [showAddText, setShowAddText] = useState(false);
 
     const handleOpen = (item) => {
         setItemdeatil(item);
@@ -135,38 +137,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
             }
         }
 
-        // //更新LocalStorage
-        // const oldCart = JSON.parse(localStorage.getItem('order'))
-        // localStorage.setItem('order', JSON.stringify({
-        //     ...oldCart,
-        //     [item.food_id]: {
-        //         itemId: item.food_id,
-        //         itemName: item.food_title,
-        //         src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
-        //         price: item.food_price,
-        //         amount: (oldCart[item.food_id]?.amount || 0) + 1,
-        //         togodate: togodate,
-        //         togotime: togotime,
-        //     }
-        // }))
-
-        // //更新LocalStorage
-        // const oldCart = JSON.parse(localStorage.getItem('order'))
-        // localStorage.setItem('order', JSON.stringify({
-        //     ...oldCart,
-        //     [item.food_id]: {
-        //         itemId: item.food_id,
-        //         itemName: item.food_title,
-        //         src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
-        //         price: item.food_price,
-        //         amount: 1,
-        //         togodate: togodate,
-        //         togotime: togotime,
-        //     }
-        // }))
-
         // 檢查購物車中是否已有該商品
-
         const oldCart = JSON.parse(localStorage.getItem('order')) || {};
         const itemId = item.food_id;
         const updatedItem = {
@@ -179,12 +150,18 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
             togotime: togotime,
             shop_id: row.detail.sid,
         };
-        // console.log(updatedItem);
+
         // 更新LocalStorage
         localStorage.setItem('order', JSON.stringify({
             ...oldCart,
             [itemId]: updatedItem,
         }));
+
+        //顯示商品增加效果
+        setShowAddText(true);
+        setTimeout(() => {
+            setShowAddText(false);
+        }, 1000);
 
 
         // 檢查購物車中是否已有該商品
@@ -218,6 +195,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
 
         }
 
+
     };
 
     return (
@@ -242,6 +220,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                                     <Card.Title>{v.food_title}</Card.Title>
                                     <Card.Text className='fs-xl-3 text-xl-danger'>${v.food_price}</Card.Text>
                                     <div className="d-flex align-item-center justify-content-between">
+                                        <div className={`${style.additem} ${showAddText ? 'show' : ''}`} >+1</div>
                                         <Button
                                             style={{
                                                 width: '100%',
@@ -262,6 +241,8 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                         )
                     })}
                 </div>
+
+
                 {/* Modal視窗 */}
                 {itemdeatil && <Modal
                     open={open}
