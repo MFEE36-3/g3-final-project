@@ -225,7 +225,6 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                 throw new Error(response.error)
             }
         }catch(error){
-            console.log('Response:', response)
             console.log('error', error)
             
         }
