@@ -6,7 +6,6 @@ import AddItemOverComponent from "@/components/res/item/add-item-over-component"
 const addItemOver = () => {
 
     return <>
-        <h1>addItemOver</h1>
         <AddItemOverComponent />
     </>
 }

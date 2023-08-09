@@ -7,7 +7,6 @@ import Management from "@/components/res/item/item-management";
 
 const ItemManagement = () => {
     return <>
-        <h2 className="container mt-3">商品編輯</h2>
         <Management />
     </>
 }

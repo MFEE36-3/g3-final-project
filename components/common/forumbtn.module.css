@@ -1,0 +1,15 @@
+.btn{
+    background-color: var(--main-color);
+    color: white;
+    padding: 20px 50px;
+    font-weight: bold;
+    font-size: var(--h5);
+    border: 0;
+    /* margin-top: 30px; */
+}
+.container{
+    width: 80%;
+}
+.btn:hover {
+    background: linear-gradient(45deg, var(--sub-color) 100%, #FF8E53 0%);
+}

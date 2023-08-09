@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 import ResAuthContext from '@/context/ResAuthContext';
 import { useContext } from 'react';
+import Head from 'next/head'
+import Head from 'next/head'
 
 export default function AddNewItem() {
   const router = useRouter();
@@ -150,15 +152,19 @@ export default function AddNewItem() {
           }
         `}
       </style>
-      <div className="container d-flex justify-content-center">
+      <Head>
+        <title>食GOEAT! / 商家中心</title>
+      </Head>
+      <div className="container d-flex justify-content-center mt-3">
         <div>
           <div className={`${styles.border} card p-5 rounded-3 border-3`}>
-            <div className="card-title d-flex justify-content-center fw-bold fs-5">
+            <div className="card-title d-flex justify-content-center align-items-center fw-bold fs-5">
               {/* <Btn text="新增商品" /> */}
-              <button className={styles.btnleft}>新增商品</button>
+              <div className='fs-1 me-5'>新增商品</div>
+              {/* <button className={styles.btnleft}>新增商品</button> */}
               <Link href={`/res/item-management`}>
                 {/* <Btn text="商品清單" /> */}
-                <button className={styles.btnright}>商品清單</button>
+                <button className={`${styles.btnright} ms-5`}>返回商品清單</button>
               </Link>
             </div>
 
@@ -167,7 +173,7 @@ export default function AddNewItem() {
                 <div className={`${styles.uploadImg}`}>
                   <div className="d-flex align-items-center fw-bold fs-5">
                     <div>
-                    <img src={`${imgLink}${getImg}`} className={styles.uploadImg1} />
+                      <img src={`${imgLink}${getImg}`} className={styles.uploadImg1} />
                     </div>
                   </div>
                 </div>
@@ -310,7 +316,7 @@ export default function AddNewItem() {
                       className={styles.cancel}
                       type="reset"
                       value="取消新增"
-                      onClick={()=>{
+                      onClick={() => {
                         router.push('/res/item-management')
                       }}
                     />

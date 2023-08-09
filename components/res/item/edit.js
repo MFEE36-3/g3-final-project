@@ -8,6 +8,9 @@ import Link from 'next/link';
 export default function EditItem() {
   return (
     <>
+      <Head>
+        <title>食GOEAT! / 商家中心</title>
+      </Head>
       <div className="container d-flex justify-content-center">
         <div>
           <div className="card p-5 bg-info rounded-3 border-black border-3">

@@ -1,0 +1,88 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-block: 50px;
+}
+
+.cardBody {
+  border: 1px solid rgb(157, 157, 157);
+  border-radius: 10px;
+  background-color: #ffffff;
+  width: 600px;
+  height: 750px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.btn {
+  background-color: #921010;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.btn:hover {
+  background-color: #c64141;
+}
+
+.text {
+  font-weight: 600;
+  color: #921010;
+}
+
+.area2 {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cardBody2 {
+  border: 1px solid rgb(157, 157, 157);
+  border-radius: 10px;
+  background-color: #ffffff;
+  width: 600px;
+  height: 750px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+@keyframes rotateAndMove {
+  0% {
+    transform: rotate(0) translate(0, 0);
+  }
+
+  100% {
+    transform: rotate(180deg) translate(50%, 0);
+  }
+}
+
+.cardBody3 {
+  transform-style: preserve-3d;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.logintext {
+  font-size: 18px;
+  color: #921010;
+  font-weight: bolder;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 391px) {
+  .container {
+    width: 90%;
+    display: flex;
+  }
+
+  .cardBody {
+    width: 90%;
+  }
+
+  .cardBody2 {
+    width: 90%;
+  }
+}

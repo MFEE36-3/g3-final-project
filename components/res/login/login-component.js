@@ -3,11 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import styles from './login.module.css';
+import Head from 'next/head'
 
 export default function LoginComponent() {
   return (
     <>
-      <h4 className="container">LoginComponent</h4>
+      <Head>
+        <title>食GOEAT! / 商家中心</title>
+      </Head>
       <div className="container d-flex justify-content-between col-10 bg-danger-subtle border rounded-3 ">
         <div className={`${styles.leftdiv} border rounded-3`}>
           <div className="text-light fw-bold">商家登入</div>

@@ -7,6 +7,7 @@ import { add, shuffle } from 'lodash';
 import Link from 'next/link';
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router';
+import Head from 'next/head'
 
 export default function AddNewItem() {
 
@@ -16,11 +17,11 @@ export default function AddNewItem() {
   // console.log('--------')
   // console.log(router.asPath)
   const itemId = router.asPath.split('/')[4].toString()
-  console.log('itemId:'+itemId)  
+  console.log('itemId:' + itemId)
 
   const getSingleItem = async () => {
-    fetch(`http://localhost:3002/res/item-management/editItem/${itemId}`,{
-      method:'GET'
+    fetch(`http://localhost:3002/res/item-management/editItem/${itemId}`, {
+      method: 'GET'
     })
       .then(r => r.json())
       .then(data => console.log(data))
@@ -160,6 +161,9 @@ export default function AddNewItem() {
           }
         `}
       </style>
+      <Head>
+        <title>食GOEAT! / 商家中心</title>
+      </Head>
       <div className="container d-flex justify-content-center">
         <div>
           <div className="card p-5 rounded-3 border-black border-3" style={{ backgroundColor: '#FFE2E2' }}>

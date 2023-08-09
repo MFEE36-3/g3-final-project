@@ -18,10 +18,10 @@ export const ResContextProvider = function ({ children }) {
   const router = useRouter();
   const [resAuth, setResAuth] = useState({ ...noLoginState });
 
-  const logout = () => {
-    localStorage.removeItem('auth');
+  const resLogout = () => {
+    localStorage.removeItem('res-auth');
     setResAuth(noLoginState);
-    router.push('/login');
+    // router.push('/login');
   };
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export const ResContextProvider = function ({ children }) {
   }, []);
 
   return (
-    <ResAuthContext.Provider value={{ resAuth, setResAuth, logout }}>
+    <ResAuthContext.Provider value={{ resAuth, setResAuth, resLogout }}>
       {children}
     </ResAuthContext.Provider>
   );
