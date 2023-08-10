@@ -240,4 +240,14 @@
   .scrollBtn {
     font-size: 12px;
   }
+
+  .animate {
+    animation: none;
+    transform: none;
+  }
+
+  .animate2 {
+    animation: none;
+    transform: none;
+  }
 }
