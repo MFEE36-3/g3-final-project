@@ -89,7 +89,7 @@ export default function Index() {
                 />
                 <Image
                   src={cookie}
-                  className={styles2.animate}
+                  className={styles2.animate2}
                   width={80}
                   height={80}
                   alt=""
@@ -105,7 +105,7 @@ export default function Index() {
                 />
                 <Image
                   src={cookie}
-                  className={styles2.animate}
+                  className={styles2.animate2}
                   width={80}
                   height={80}
                   alt=""
