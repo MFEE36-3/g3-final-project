@@ -132,11 +132,18 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
         }
     }
 
+    //判斷購物車中是否有商品
     useEffect(() => {
-        if (!localStorage.getItem('order')) return;
-        const items = JSON.parse(localStorage.getItem('order'))
-        const count = Object?.values(items).length
-        setShopCount(count);
+        // 無商品-設為0
+        if (!localStorage.getItem('order')) {
+            setShopCount(0);
+        }
+        // 有商品-更新數量
+        if (localStorage.getItem('order')) {
+            const items = JSON.parse(localStorage.getItem('order'))
+            const count = Object?.values(items).length
+            setShopCount(count);
+        }
     }, [products])
 
     return (

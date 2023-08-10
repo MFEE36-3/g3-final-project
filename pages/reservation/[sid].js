@@ -23,7 +23,7 @@ export default function RestaurantPage() {
     const [shoppingCart, setShoppingCart] = useState([]);
     const [togodate, setTogodate] = useState();
     const [togotime, setTogotime] = useState();
-    const [shopcount, setShopCount] = useState('');
+    const [shopcount, setShopCount] = useState(0);
     const [item, setItem] = useState({})
     const [show, setShow] = useState(false);
     // const localdatetime = JSON.parse(localStorage.getItem('order')) || {};
@@ -52,11 +52,12 @@ export default function RestaurantPage() {
         };
     }, [router.query]);
 
+    //第一次取得localStorage的品項數量
     useEffect(() => {
         if (!localStorage.getItem('order')) return;
         const items = JSON.parse(localStorage.getItem('order'))
         const count = Object.keys(items).length;
-        console.log(count)
+        // console.log(count)
         setShopCount(count);
     }, [])
 
@@ -64,15 +65,16 @@ export default function RestaurantPage() {
         if (!localStorage.getItem('order')) return;
         const items = JSON.parse(localStorage.getItem('order'))
         const count = Object.keys(items).length;
-        console.log(count)
+        // console.log(count)
         setShopCount(count);
     }, [item])
 
     return (
         <>
             <Head>
-                <title>食GOEAT! / 訂位/外帶</title>
+                <title>食GOEAT! / 訂位外帶</title>
             </Head>
+
             <div className={style.body}>
                 <Rcarousel row={row} />
                 <div className="container">

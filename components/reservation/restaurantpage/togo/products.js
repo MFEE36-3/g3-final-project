@@ -186,6 +186,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
         // }
 
         // 檢查購物車中是否已有該商品
+
         const oldCart = JSON.parse(localStorage.getItem('order')) || {};
         const itemId = item.food_id;
         const updatedItem = {
