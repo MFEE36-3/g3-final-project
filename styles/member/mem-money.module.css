@@ -305,4 +305,18 @@
   .label {
     height: 60px;
   }
+
+  .imgText {
+    left: 40px;
+    top: 250px;
+    width: 300px;
+    height: 130px;
+    font-size: 20px;
+  }
+
+  .imgArea {
+    width: 200px;
+    margin-bottom: 30px;
+    left: 0;
+  }
 }

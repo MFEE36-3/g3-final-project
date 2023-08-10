@@ -69,8 +69,12 @@
     padding: 0;
   }
 
-  .listcontent .listcontent2 {
-    height: 20px;
+  .listcontent {
+    border-radius: 20px;
+  }
+
+  .listcontent2 {
+    border-radius: 20px;
   }
 
   .listflex {

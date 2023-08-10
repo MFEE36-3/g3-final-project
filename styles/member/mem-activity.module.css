@@ -244,10 +244,25 @@
   .animate {
     animation: none;
     transform: none;
+    position: relative;
+    /* display: none; */
   }
 
   .animate2 {
     animation: none;
     transform: none;
+    position: relative;
+    /* display: none; */
+  }
+
+  .animateArea {
+    /* display: none; */
+    width: 360px;
+    overflow: hidden;
+    padding-left: 10px;
+  }
+
+  .actArea {
+    height: 100%;
   }
 }

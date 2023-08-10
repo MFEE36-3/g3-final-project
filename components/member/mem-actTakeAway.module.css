@@ -174,3 +174,76 @@
   background-color: #fff;
   margin-top: 5px;
 }
+
+@media screen and (max-width: 391px) {
+  .body {
+    width: 350px;
+  }
+
+  .td0 {
+    display: none;
+  }
+
+  .img0 {
+    display: none;
+  }
+
+  .area1 {
+    width: 350px;
+    height: 550px;
+  }
+
+  .title {
+    width: 100%;
+    padding-left: 15px;
+  }
+
+  .title > * {
+    width: 70px;
+  }
+
+  .row {
+    gap: 5px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .row2 {
+    font-size: 14px;
+    padding: 1px;
+    margin-top: 10px;
+  }
+
+  .hideArea {
+    width: 100%;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    justify-content: space-around;
+  }
+  .hideArea > img {
+    position: relative;
+    width: 30px;
+    height: 30px;
+  }
+
+  .hideArea > * {
+    width: 60px;
+    position: relative;
+    left: -47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+
+  .td3 {
+    width: 80px;
+  }
+
+  .detailArea {
+    width: 350px;
+    left: 0;
+  }
+}
