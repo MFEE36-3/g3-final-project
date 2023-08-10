@@ -4,7 +4,7 @@ import AddNewItem from "@/components/res/item/add-item";
 
 const AddItem = () => {
     return <>
-        <div className="container">AddItem</div>
+        {/* <div className="container">AddItem</div> */}
         <AddNewItem />
     </>
 }

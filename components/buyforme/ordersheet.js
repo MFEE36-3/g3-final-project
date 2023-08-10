@@ -270,7 +270,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                             .then(r => r.json())
                             .then(obj => {
 
-                                if (obj.result.affectedRows !== 0 && !obj.result2.includes(0)) {
+                                if (obj.result[0].affectedRows !== 0 && obj.result2 !== 0) {
                                     Swal.fire({
                                         title: '跟團成功!',
                                         icon: 'success',
@@ -288,7 +288,7 @@ export default function OrderSheet({ openbuyforme, handlebuyformeClose, foodlist
                                     const buyforme_order_data = {}
 
                                     ordersheet.order_detail.forEach((v) => {
-                                        buyforme_order_data[v.food_id] = { itemId: v.food_id, itemName: v.food_title, price: v.food_price, amount: v.food_quantity, src: process.env.API_SERVER + '/img/res-img/' + v.food_img, tip: v.tip }
+                                        buyforme_order_data[v.food_id] = { itemId: v.food_id, itemName: v.food_title, price: v.food_price, amount: v.food_quantity, src: process.env.API_SERVER + '/img/res-img/' + v.food_img, tip: v.tip, order_sid: obj.order_sid }
                                     })
 
                                     localStorage.setItem('buy', JSON.stringify(buyforme_order_data))

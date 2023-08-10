@@ -152,8 +152,8 @@ export default function MainContent({ favorite, setFavorite }) {
                     </div>
                     <div className="d-flex align-item-center" onClick={() => handleFavorite(sid)}>
                       {favorite.includes(sid) ?
-                        <FaHeart className={`${style.cardheart} fs-4 h-100`} /> :
-                        <FaRegHeart className={`${style.cardheart} fs-4 h-100`} />
+                        <FaHeart className={`${style.cardheart} h-100`} /> :
+                        <FaRegHeart className={`${style.cardheart} h-100`} />
                       }
                     </div>
                   </div>

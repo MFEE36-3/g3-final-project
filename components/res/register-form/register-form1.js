@@ -9,6 +9,8 @@ import styles from './res-resgister-form.module.css';
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import muistyles from '@/components/res/item/add-item.module.css';
+import Head from 'next/head'
 
 export default function RegisterForm() {
   const router = useRouter()
@@ -65,25 +67,28 @@ export default function RegisterForm() {
     verifyEmail: false
   })
 
-  const [testShop, setTestShop] = useState({
-    name: '測試用自助餐店',
-    phone: '0913654987',
-    city: '台北市',
-    area: '大同區',
-    account: 'testtest@gmail.com',
-    password: 'abcabcabc',
-    password2: 'abcabcabc',
-    owner: '陳小華',
-    res_cate: '中式',
-    photo: 'testImg.jpg',
-    description: '這是一筆測試用資料123123123',
-    fulladdress: '',
-    fulladdress1: '大同路一段一號',
-    open_time: '1:00',
-    close_time: '18:00',
-    open_days: ['星期二', '星期三', '星期四', '星期五', '星期六',],
-    table_number: '10',
+  // 設計進階桌型的人數總數
+  const originalSeats = {
+    seat2: 0,
+    seat4: 0,
+    seat6: 0,
+    seat8: 0,
+  }
+  const [totalSeatNumber, setTotalSeatNumber] = useState({
+    seat2: 0,
+    seat4: 0,
+    seat6: 0,
+    seat8: 0,
   })
+  const handleTotalSeats = (e) => {
+    setTotalSeatNumber({ ...totalSeatNumber, [e.target.name]: e.target.value })
+  }
+  // 計算進階桌型的總人數
+  const calculatTotalSeats = (e) => {
+    const totalSeats = parseInt(totalSeatNumber.seat2) * 2 + parseInt(totalSeatNumber.seat4) * 4 + parseInt(totalSeatNumber.seat6) * 6 + parseInt(totalSeatNumber.seat8) * 8
+    console.log(String(totalSeats))
+    setShop({ ...shop, table_number: String(totalSeats) })
+  }
 
   const handleOpenDays = (e) => {
     const targetValue = e.target.value;
@@ -399,6 +404,9 @@ export default function RegisterForm() {
 
   return (
     <>
+      <Head>
+        <title>食GOEAT! / 商家中心</title>
+      </Head>
       <style jsx>
         {`
           .error {
@@ -407,8 +415,7 @@ export default function RegisterForm() {
           }
         `}
       </style>
-      <div className="container">RegisterForm-Component</div>
-      <div className="container container-sm-fluid">
+      <div className="container container-sm-fluid mt-3">
         <div className='row'>
           <form className={`${styles.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-3`}
           // onSubmit={handleSubmit}
@@ -419,7 +426,7 @@ export default function RegisterForm() {
             <div className="col-xxl-mx-5">
 
               <div className='name mx-5 d-flex justify-content-start align-items-center'>
-                <div htmlFor="shop_name" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>店名:</div>
+                <div htmlFor="shop_name" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>店名:</div>
                 <input
                   type="text"
                   className="form-control border-black"
@@ -435,7 +442,7 @@ export default function RegisterForm() {
 
               <div className='phone mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_phone" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>電話:</div>
+                <div htmlFor="shop_phone" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>電話:</div>
                 <input
                   type="text"
                   className="form-control border-black"
@@ -452,7 +459,7 @@ export default function RegisterForm() {
 
               <div className='account mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_account" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>帳號:</div>
+                <div htmlFor="shop_account" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>帳號:</div>
                 <input
                   type="text"
                   className="form-control border-black"
@@ -468,7 +475,7 @@ export default function RegisterForm() {
 
               <div className='password mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>密碼:</div>
+                <div htmlFor="shop_password" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>密碼:</div>
 
                 <div className="input-group mb-3 d-flex flex-row mb-3">
                   <input
@@ -480,19 +487,8 @@ export default function RegisterForm() {
                     value={shop.password}
                     onChange={handleChange}
                   />
-                  <button type='button' className='btn btn-warning btn-outline-secondary' style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
+                  <button type='button' className={`btn btn-warning btn-outline-secondary ${muistyles.btnright}`} style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
                 </div>
-
-                {/* <input
-                                    type={showPassword ? 'text' : 'password'}
-                                    className="form-control  border-black me-3"
-                                    id="shop_password"
-                                    placeholder="請輸入密碼，密碼須至少大於六個字:"
-                                    name='password'
-                                    value={shop.password}
-                                    onChange={handleChange}
-                                />
-                                <button type='button' className='btn btn-warning btn-outline-secondary' style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button> */}
 
               </div>
 
@@ -500,7 +496,7 @@ export default function RegisterForm() {
 
               <div className='password2 mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_password" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>確認密碼:</div>
+                <div htmlFor="shop_password" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>確認密碼:</div>
                 <input
                   type="password"
                   className="form-control border-black"
@@ -517,7 +513,7 @@ export default function RegisterForm() {
 
               <div className='owner mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>負責人姓名:</div>
+                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>負責人姓名:</div>
                 <input
                   type="text"
                   className="form-control border-black"
@@ -535,7 +531,7 @@ export default function RegisterForm() {
 
               <div className='description mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>餐廳敘述:</div>
+                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>餐廳敘述:</div>
                 <textarea
                   className="form-control border-black"
                   id="description"
@@ -551,7 +547,7 @@ export default function RegisterForm() {
 
               <div className='avg_consumption mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>平均消費金額:</div>
+                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>平均消費額:</div>
                 <input
                   type="text"
                   className="form-control border-black"
@@ -566,7 +562,7 @@ export default function RegisterForm() {
 
               <div className='res_cate mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_owner" className="form-label d-flex justify-content-center fw-bold me-3 py-1 border border-black rounded-3" style={{ width: '150px', backgroundColor: '#FCC8A1' }}>餐廳分類:</div>
+                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳分類:</div>
                 <select value={resCate} onChange={(e) => {
                   setResCate(e.target.value)
                   setShop({ ...shop, res_cate: e.target.value })
@@ -584,7 +580,6 @@ export default function RegisterForm() {
               <div className="photo d-flex justify-content-start mt-3 mx-5">
                 <div className="d-flex flex-row align-items-center">
                   <div htmlFor="res_photo" className="form-label mb-3">
-
 
                   </div>
 
@@ -604,10 +599,8 @@ export default function RegisterForm() {
                     <div className="mt-3">
                       <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
 
-
                     </div>
                   </div>
-
 
                   {/* https://github.com/mfee-react/example-projects/tree/main/%E5%9C%96%E6%AA%94%E4%B8%8A%E5%82%B3%E8%88%87%E9%A0%90%E8%A6%BD */}
 
@@ -662,7 +655,7 @@ export default function RegisterForm() {
                     <input
                       type='text'
                       className="form-control border-black"
-                      placeholder="請填入完整地址123"
+                      placeholder="請填入完整地址"
                       name='fulladdress1'
                       value={shop.fulladdress1}
                       onChange={handleChange}
@@ -674,7 +667,6 @@ export default function RegisterForm() {
                   <div id="shop" className="form-text">
                     請填入完整地址
                   </div>
-                  <button type='button' className='btn btn-primary' onClick={testGoogleAPI}>測試api按鈕</button>
                 </div>
               </div>
 
@@ -740,14 +732,14 @@ export default function RegisterForm() {
                 </div>
               </div>
 
-              <div className="col-5 mx-5">
+              <div className="seats col-5 mx-5">
                 <div className="mt-3 fw-bold">如欲開放訂位功能，請勾選並填寫桌型:</div>
 
                 <div className={`d-flex flex-row my-3 ${styles.openDays}`}>
 
                   <button
                     type='button'
-                    className='form-label  btn btn-primary rounded-3 px-3 py-2 fw-bold me-5'
+                    className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`}
                     // style={{ backgroundColor: '#FCC8A1' }}
                     onClick={(e) => {
                       setSwitchTable('normal')
@@ -757,11 +749,12 @@ export default function RegisterForm() {
 
                   <button
                     type='button'
-                    className='form-label  btn btn-primary rounded-3 px-3 py-2 fw-bold ms-1'
+                    className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`}
                     // style={{ backgroundColor: '#FCC8A1' }}
                     onClick={(e) => {
                       setSwitchTable('advance')
                       setShop({ ...shop, table_number: '' })
+                      setTotalSeatNumber(originalSeats)
                     }}
                   >進階桌型</button>
 
@@ -782,42 +775,67 @@ export default function RegisterForm() {
                   </div>
                   :
                   <div className="advance mt-3" id='advanceTable'>
-                    <div>(這個是進階桌型的部分)</div>
-                    <div className='fw-bold'>進階桌型:</div>
+
 
                     <div className=" d-flex align-items-center justify-content-between">
-                      <select className="form-select me-3">
-                        <option selected>兩人桌</option>
-                        <option value="1">四人桌</option>
-                        <option value="2">六人桌</option>
-                        <option value="3">八人桌</option>
-                      </select>
+                      <div className='fw-bold'>兩人桌:</div>
                       <input
                         type="text"
                         className="form-control border-black"
                         id="shop_tables"
                         placeholder="請填入桌數"
-                        name='table_number'
-                        value={shop.table_number}
-                        onChange={handleChange}
+                        name='seat2'
+                        value={totalSeatNumber.seat2}
+                        onChange={handleTotalSeats}
+                        onBlur={calculatTotalSeats}
                       />
                     </div>
-
-                    <div>
-                      <button
-                        className='form-label border border-black rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
-                        style={{ backgroundColor: '#FCC8A1' }}
-                        onClick={(e) => {
-                          // addTable.createElement('<select>')
-                        }}
-                      >+新增桌型</button>
+                    <div className=" d-flex align-items-center justify-content-between">
+                      <div className='fw-bold'>四人桌:</div>
+                      <input
+                        type="text"
+                        className="form-control border-black"
+                        id="shop_tables"
+                        placeholder="請填入桌數"
+                        name='seat4'
+                        value={totalSeatNumber.seat4}
+                        onChange={handleTotalSeats}
+                        onBlur={calculatTotalSeats}
+                      />
+                    </div>
+                    <div className=" d-flex align-items-center justify-content-between">
+                      <div className='fw-bold'>六人桌:</div>
+                      <input
+                        type="text"
+                        className="form-control border-black"
+                        id="shop_tables"
+                        placeholder="請填入桌數"
+                        name='seat6'
+                        value={totalSeatNumber.seat6}
+                        onChange={handleTotalSeats}
+                        onBlur={calculatTotalSeats}
+                      />
+                    </div>
+                    <div className=" d-flex align-items-center justify-content-between">
+                      <div className='fw-bold'>八人桌:</div>
+                      <input
+                        type="text"
+                        className="form-control border-black"
+                        id="shop_tables"
+                        placeholder="請填入桌數"
+                        name='seat8'
+                        value={totalSeatNumber.seat8}
+                        onChange={handleTotalSeats}
+                        onBlur={calculatTotalSeats}
+                      />
                     </div>
                   </div>
                 }
+                <div className='mt-2'>您的餐廳共有:{shop.table_number}個位子</div>
 
               </div>
 
-              <div className="d-flex justify-content-between mt-3 mx-5">
+              <div className="verifyMail d-flex justify-content-between mt-3 mx-5">
                 <div className="justify-content-between d-flex align-items-center">
                   <input
                     type="text"
@@ -828,23 +846,18 @@ export default function RegisterForm() {
                     onChange={handleCodeChange}
                     placeholder="請填入六位數驗證碼"
                     onBlur={checkSixDigitCode}
-                  // onKeyUp={(e)=>{
-                  //     if(e.code === 'Enter'){
-                  //         checkSixDigitCode
-                  //     }
-                  // }}
                   />
                   <button
                     type='button'
-                    className='form-label btn btn-primary rounded-3 px-3 py-1 fw-bold ms-1 mt-3'
-                    // style={{ backgroundColor: '#FCC8A1' }}
+                    className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`}
                     onClick={sendVerifyCodeEmail}
                   >
                     寄送驗證碼</button>
-                  <div className='ms-3 fw-bold' style={{ color: 'black' }}>{sendMailHint}</div>
+
                 </div>
 
               </div>
+              <div className='mx-5 fw-bold' style={{ color: 'black' }}>{sendMailHint}</div>
               <div
                 className={`d-flex justify-content-between mx-5 fw-bold`}
                 style={{ color: `${showMessage == '驗證碼正確!' ? 'green' : 'red'}` }}
@@ -854,7 +867,7 @@ export default function RegisterForm() {
               <hr />
 
               <div className='d-flex justify-content-center'>
-                <button type="submit" className="btn btn-primary my-3 mx-3" onSubmit={handleSubmit} onClick={handleSubmit}>
+                <button type="submit" className={`btn my-3 mx-3 ${muistyles.btnright}`} onSubmit={handleSubmit} onClick={handleSubmit}>
                   確認送出
                 </button>
 

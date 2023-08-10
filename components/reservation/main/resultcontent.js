@@ -215,7 +215,7 @@ export default function ResultContent({ favorite, setFavorite }) {
                   </Link>
                 </div>
                 <Card.Body>
-                  <Card.Title style={{ fontWeight: "bold" }}>{shop}</Card.Title>
+                  <Card.Title className={style.cardtitle}>{shop}</Card.Title>
                   <Card.Text>{location}</Card.Text>
 
 

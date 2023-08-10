@@ -56,6 +56,7 @@
   position: absolute;
   width: 270px;
   min-width: 270px;
+  height:370px;
   border: none;
   background:none;
   transition: transform 0.3s ease;
@@ -67,8 +68,35 @@
   left: 0;
 }
 
+.top5img{
+  position: relative;
+  padding-top: 5px;
+  filter: drop-shadow(0 0 20px #fed003);
+  transition: .5s ease-in-out;
+}
+
+.top5img:hover{
+  /* transform: scale(1.1); */
+  animation: .5s imghover;
+}
+
+@keyframes imghover{
+  0% {
+    transform: rotate(8deg);
+  }25% {
+    transform: rotate(-8deg);
+  }50% {
+    transform: rotate(3deg);
+  }75% {
+    transform: rotate(-3deg);
+  }100% {
+    transform: rotate(0);
+  }
+}
+
 .top5cardbody{
   display: flex;
+  height: 58px;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -90,7 +118,6 @@
   display: flex;
   justify-content: center;
   align-items:flex-end;
-  height: 100%;
   margin: 0;
 }
 
@@ -120,7 +147,8 @@
   justify-content: space-evenly;
 }
 
-/* 餐廳頁------*/
+/* 餐廳頁-------------*/
+
 .infodiv{
   width: 30%;
 }
@@ -306,6 +334,9 @@
 
 .cardtitle{
   font-weight: bold;
+  white-space: nowrap; /* 不換行 */
+  overflow: hidden; /* 超過部分隱藏 */
+  text-overflow: ellipsis; 
 }
 
 .cardbottomicon{
@@ -357,12 +388,36 @@
   opacity: 1;
 }
 
+.additembutton{
+  display: flex;
+  flex-direction: column;
+}
+
+.additem {
+  display: none;
+  position: absolute;
+  top:-20px;
+  right:10px;
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: var(--h4);
+  transform: translateY(0);
+  transition: transform 0.2s ease-in-out;
+}
+
+.showplus {
+  display: block;
+  transform: translateY(-30px);
+}
+
 .cardheart{
   color: #911010;
+  width: 30px;
 }
 
 .cardheart:hover{
   color: #911010;
+  cursor: pointer;
 }
 
 .paginationbar{
@@ -408,15 +463,28 @@
 }
 
 .carticon{
-  position: sticky;
+  position: absolute;
   right: 20px;
-  top: 200px;
+  top: 900px;
 }
 
 .carttitle{
   font-size: var(--h4);
 }
 
+.shoptitle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--h4);
+  color: var(--main-color);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.shoptitleicon{
+  margin-right: 10px;
+}
 
 .shoppingcartdiv{
   display: flex;
@@ -547,7 +615,29 @@
 
  .cartsendbutton:hover{
   background-color:var(--sub-color);
+  color: var(--main-color);
  }
+
+ .noitemdiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+
+ .noitemimg{
+  height: 300px;
+  width: 300px;
+  margin-top: 50px;
+ }
+
+  .noitemtext{
+    font-size: var(--h3);
+    color:var(--sub-color);
+    margin-top: 20px;
+  }
+
+
 
 
 /* ---------------------------------------- */
@@ -570,8 +660,9 @@
 }
 
 .carouselitem{
-  object-fit: cover; 
+  object-fit: contain; 
   overflow: hidden;
+  margin-top: -300px;
 }
 
 .selectarea {
@@ -1015,8 +1106,7 @@
 .top5name{
   display: flex;
   justify-content: center;
-  align-items:flex-end;
-  height: 100%;
+  /* align-items:flex-end; */
   margin: 0;
   font-size: var(--h7);
 }

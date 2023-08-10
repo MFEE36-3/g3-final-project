@@ -65,3 +65,15 @@
     font-size: var(--h8);
     font-family: var(--ff1);
 }
+
+.tbody_open{
+    border-bottom: 15px solid white;
+}
+
+.small_font {
+    font-size: var(--h9) !important;
+}
+
+.text_nowrap{
+    white-space: nowrap;
+}

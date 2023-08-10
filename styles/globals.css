@@ -35,10 +35,42 @@ body {
 html {
   height: 100%;
 }
-
+input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
 
 main {
   min-height: calc(100vh - 360px - 470px);
+}
+
+::-webkit-scrollbar {
+  width: 16px;
+  background-color: #edd1d3bf;
+}
+
+::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--main-color);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  /* box-shadow: inset 2px 2px 5px rgba(255, 255, 255,0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.4); */
 }
 
 

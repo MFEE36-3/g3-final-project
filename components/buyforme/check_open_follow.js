@@ -28,7 +28,7 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
             })
                 .then(r => r.json())
                 .then(obj => {
-                    setData(obj.rows);
+                    setData(obj.rows.filter((v) => v.foods.length !== 0));
                 })
         } else if (open_or_follow === 'open') {
             fetch(process.env.API_SERVER + '/buyforme/openforyou_followers', {
@@ -67,23 +67,24 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
                             <table className={`table ` + styles.buyforme_table}>
                                 <thead>
                                     <tr>
-                                        <th>開團人</th>
-                                        <th>取餐地點</th>
-                                        <th>取餐時間</th>
-                                        <th>餐點內容</th>
-                                        <th>訂單狀態</th>
+                                        <th className={styles.text_nowrap}>開團人</th>
+                                        <th className={styles.text_nowrap}>取餐地點</th>
+                                        <th className={styles.text_nowrap}>取餐時間</th>
+                                        <th className={styles.text_nowrap}>餐點內容</th>
+                                        <th className={styles.text_nowrap}>訂單狀態</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {data.map((v) => {
                                         return (
-                                            <tr key={v.open_sid}>
-                                                <td>{v.nickname}</td>
-                                                <td>{v.meet_place}</td>
+                                            <tr key={v.open_sid + v.meet_place + Math.floor(10 * Math.random())}>
+                                                <td className={styles.text_nowrap + ' ' + (v.nickname.length > 6 ? styles.small_font : '')}>{v.nickname}</td>
+                                                <td className={v.meet_place.length > 5 ? styles.small_font : ''}>{v.meet_place}</td>
                                                 <td>{dayjs(v.meet_time).format('MM-DD HH:mm')}</td>
-                                                <td>{v.foods.map((food) => {
+                                                <td>{v.foods.map((food, i) => {
+                                                    console.log(food[0] + food[1] * i)
                                                     return (<>
-                                                        <div key={food[0]}>{food[0]} * {food[1]}</div>
+                                                        <div key={food[0] + food[1] * i} className={food[0].length > 6 ? styles.small_font : ''}>{food[0]} * {food[1]}</div>
                                                     </>)
                                                 })}</td>
                                                 <td>
@@ -145,44 +146,42 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
                                 <table className={`table ` + styles.buyforme_table}>
                                     <thead>
                                         <tr>
-                                            <th>開單號</th>
-                                            <th>取餐地點</th>
-                                            <th>取餐時間</th>
-                                            <th>店名</th>
-                                            <th>跑腿費</th>
+                                            <th className={styles.text_nowrap}>開單號</th>
+                                            <th className={styles.text_nowrap}>取餐地點</th>
+                                            <th className={styles.text_nowrap}>取餐時間</th>
+                                            <th className={styles.text_nowrap}>店名</th>
+                                            <th className={styles.text_nowrap}>跑腿費</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {follower.map((v) => {
-                                            return (<>
-                                                <tr key={v.open_sid} className={styles.open_tr}>
-                                                    <td>{v.open_sid}</td>
-                                                    <td>{v.meet_place}</td>
-                                                    <td>{dayjs(v.meet_time).format('MM-DD HH:mm')}</td>
-                                                    <td>{v.shop}</td>
-                                                    <td>{v.tip === 0 ? '免費' : v.tip}</td>
-                                                </tr>
+                                    {follower.map((v) => {
+                                        return (<tbody key={v.open_sid} className={styles.tbody_open}>
+                                            <tr className={styles.open_tr}>
+                                                <td>{v.open_sid}</td>
+                                                <td className={v.meet_place.length > 5 ? styles.small_font : ''}>{v.meet_place}</td>
+                                                <td>{dayjs(v.meet_time).format('MM-DD HH:mm')}</td>
+                                                <td className={styles.text_nowrap + ' ' + (v.shop.length > 10 ? styles.small_font : '')}>{v.shop}</td>
+                                                <td>{v.tip === 0 ? '免費' : v.tip}</td>
+                                            </tr>
 
-                                                {v.orders.map((item, i) => {
-                                                    return (
-                                                        <tr key={item[0] + item[3]} className={styles.detail_tr}>
-                                                            <td>{i+1}</td>
-                                                            <td>{item[0]}</td>
-                                                            <td>{item[1].map((detail) => {
-                                                                return (<div>{detail.join('*')}</div>)
-                                                            })}</td>
-                                                            <td colspan="2" className={styles.last_td}>
-                                                                <div>{'電話： ' + item[4]}</div>
-                                                                <div>{'備註： ' + item[2]}</div>
-                                                                <div className={styles.amount}>{'訂單總額： ' + item[3]}</div>
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                })}
+                                            {v.orders.map((item, i) => {
+                                                return (
+                                                    <tr key={item[0] + item[3]} className={styles.detail_tr}>
+                                                        <td>{i + 1}</td>
+                                                        <td>{item[0]}</td>
+                                                        <td className={styles.text_nowrap}>{item[1].map((detail, i) => {
+                                                            return (<div key={detail[0] + i}>{detail.join('*')}</div>)
+                                                        })}</td>
+                                                        <td colSpan="2" className={styles.last_td}>
+                                                            <div>{'電話： ' + item[4]}</div>
+                                                            <div>{'備註： ' + item[2]}</div>
+                                                            <div className={styles.amount}>{'訂單總額： ' + item[3]}</div>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })}
 
-                                            </>)
-                                        })}
-                                    </tbody>
+                                        </tbody>)
+                                    })}
                                 </table>
                             </div>
 

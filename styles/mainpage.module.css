@@ -383,14 +383,14 @@
     position: absolute;
     bottom: 0;
     top: 30px;
-    left: 250px;
+    left: 10%;
     z-index: -10;
 }
 
 .shrimp {
     position: absolute;
     top: 40px;
-    right: 120px;
+    right: 5%;
     z-index: -10;
     transform: scale(0.8);
 }
@@ -414,58 +414,99 @@
     margin-top: 50px;
 }
 
-.commodity_card:nth-child(1) {
+.commodity_card_back:nth-child(1) {
     transform: rotate(-20deg) scale(0.75) translate(220px, 222px);
     z-index: 2;
 }
 
-.commodity_card:nth-child(2) {
+.commodity_card_back:nth-child(2) {
     transform: rotate(-10deg) scale(0.85) translate(100px, 56px);
     z-index: 2;
 }
 
-.commodity_card:nth-child(3) {
+.commodity_card_back:nth-child(3) {
     z-index: 3;
 }
 
-.commodity_card:nth-child(4) {
+.commodity_card_back:nth-child(4) {
     transform: rotate(10deg) scale(0.85) translate(-100px, 56px);
     z-index: 2;
 }
 
-.commodity_card:nth-child(5) {
+.commodity_card_back:nth-child(5) {
     transform: rotate(20deg) scale(0.75) translate(-220px, 222px);
 }
 
-.commodity_card {
+.commodity_card_back {
     height: 500px;
     width: 350px;
+    background: #07182E;
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgb(174, 174, 174);
+}
+
+.commodity_card {
+    height: 490px;
+    width: 340px;
     background-color: white;
     border-radius: 15px;
-    border: 5px solid var(--main-color);
+    /* border: 5px solid var(--main-color); */
     display: flex;
     flex-direction: column;
     overflow: hidden;
     transition: .5s ease-in-out;
+    z-index: 1;
 }
 
-.commodity_card:nth-child(3):hover {
+.commodity_card_back::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    background-image: linear-gradient(180deg, gold, rgb(224, 57, 57));
+    height: 130%;
+    animation: rotBGimg 3s linear infinite;
+    transition: all 0.2s linear;
+}
+
+@keyframes rotBGimg {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.commodity_card_back::after {
+    content: '';
+    position: absolute;
+    background: #07182E;
+    inset: 5px;
+    border-radius: 15px;
+}
+
+.commodity_card_back:nth-child(3):hover {
     transform: scale(1.1) translateY(-20px);
 }
 
-.commodity_card:nth-child(1):hover {
+.commodity_card_back:nth-child(1):hover {
     transform: rotate(-20deg) scale(0.85) translate(120px, 100px);
 }
 
-.commodity_card:nth-child(2):hover {
+.commodity_card_back:nth-child(2):hover {
     transform: rotate(-10deg) scale(0.95) translate(20px, 10px);
 }
 
-.commodity_card:nth-child(4):hover {
+.commodity_card_back:nth-child(4):hover {
     transform: rotate(10deg) scale(0.95) translate(-20px, 10px);
 }
 
-.commodity_card:nth-child(5):hover {
+.commodity_card_back:nth-child(5):hover {
     transform: rotate(20deg) scale(0.85) translate(-120px, 100px);
 }
 
@@ -485,6 +526,7 @@
     font-family: var(--ff1);
     height: 120px;
     background-color: var(--sub-color);
+    padding: 0 20px;
 }
 
 .commodity_price {
@@ -499,7 +541,7 @@
     right: 50px;
 }
 
-.random_btn{
+.random_btn {
     margin-top: 50px;
 }
 
@@ -1015,7 +1057,7 @@
     }
 
     .goReservationTitle>div>div>p:last-child {
-        font-size: var(--h8);
+        font-size: var(--h9);
     }
 
     .icon_outer {
@@ -1153,6 +1195,108 @@
 
     .information_box>div {
         transform: scale(0.8);
+    }
+
+
+    /* 商城 */
+
+    .shopmall {
+        height: 60vh;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 80px 0 0 0;
+    }
+
+    .kamaboko {
+        position: absolute;
+        bottom: 0;
+        top: -60px;
+        left: -50px;
+        z-index: -10;
+        transform: scale(0.25);
+    }
+
+    .shrimp {
+        position: absolute;
+        top: -100px;
+        right: -120px;
+        z-index: -10;
+        transform: scale(0.15);
+    }
+
+    .shopmall_container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .bestseller {
+        font-size: var(--h3);
+        font-family: var(--ff1);
+        color: var(--main-color);
+        margin-left: 50px;
+    }
+
+    .card_box {
+        flex-flow: 1;
+        display: flex;
+        margin-top: -160px;
+        margin-left: 48px;
+        transform: scale(0.3);
+    }
+
+
+    .commodity_info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: center;
+        font-family: var(--ff1);
+        font-size: var(--h3);
+        width: 100%;
+    }
+
+    .commodity_info div:first-child {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .commodity_price {
+        font-size: var(--h3);
+        color: var(--main-color);
+        align-self: center;
+    }
+
+    .chip_go {
+        transform: scale(0.5);
+        position: absolute;
+        bottom: -30px;
+        right: auto;
+        left: 10px;
+    }
+
+    .random_btn {
+        margin-top: -170px;
+        margin-left: 48px;
+        transform: scale(0.7);
+    }
+
+    .goshopmall_btn {
+        position: absolute;
+        bottom: 50px;
+        right: 30px;
+        transform: scale(0.7);
+    }
+
+    .commodity_card_back:nth-child(1),
+    .commodity_card_back:nth-child(5) {
+        display: none;
     }
 
 

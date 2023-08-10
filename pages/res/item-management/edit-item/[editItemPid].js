@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { headers } from 'next/dist/client/components/headers';
 import axios from 'axios';
 import layoutRes from '@/components/layout/layoutRes'
+import Head from 'next/head'
 
 const AddNewItem = () => {
   // 把從後端拿到的資料塞進state
@@ -58,7 +59,7 @@ const AddNewItem = () => {
   }, [router.query]);
 
   const [foodCate, setFoodCate] = useState('');
-  const foodCateOptions = ['開胃菜', '主餐', '甜點', '飲料','湯品'];
+  const foodCateOptions = ['開胃菜', '主餐', '甜點', '飲料', '湯品'];
 
   const [addItem, setAddItem] = useState({
     shop_id: 1,
@@ -188,7 +189,10 @@ const AddNewItem = () => {
           }
         `}
       </style>
-      <div className="container d-flex justify-content-center">
+      <Head>
+        <title>食GOEAT! / 商家中心</title>
+      </Head>
+      <div className="container mt-3 d-flex justify-content-center">
         <div>
           <div className={`${styles.border} card p-5 rounded-3 border-3`}>
             <div className="card-title d-flex justify-content-center fw-bold fs-5">
@@ -300,7 +304,7 @@ const AddNewItem = () => {
                       value={gotData.food_cate}
                       onChange={handleEdit}
 
-                      // className='form-select col-1'
+                    // className='form-select col-1'
                     >
                       <option value={''}>---請選擇商品分類---</option>
                       {foodCateOptions.map((v, i) => {
@@ -345,16 +349,16 @@ const AddNewItem = () => {
                     商品備註
                   </div>
                   <div>
-                  <textarea
-                    type="text"
-                    className={styles.textareainput}
-                    id="name"
-                    placeholder="請輸入商品備註:"
-                    name="food_note"
-                    value={gotData.food_note}
-                    onChange={handleEdit}
-                  />
-                </div>
+                    <textarea
+                      type="text"
+                      className={styles.textareainput}
+                      id="name"
+                      placeholder="請輸入商品備註:"
+                      name="food_note"
+                      value={gotData.food_note}
+                      onChange={handleEdit}
+                    />
+                  </div>
                 </div>
 
                 <div className="d-flex justify-content-between mt-3">

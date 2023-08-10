@@ -108,19 +108,6 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
           // 可以在這裡呼叫提交資訊的函式
           // ...
 
-          // 整理要送出的資訊為一個物件
-          // const reservationData = {
-          //   id: memberInfo.sid,
-          //   shop_id: row.detail.sid,
-          //   date: date,
-          //   time: time,
-          //   person: person,
-          //   seat: seat,
-          //   rating: null,
-          //   memo: memo,
-          //   status: '未完成',
-          // };
-
           // 將資料轉換為JSON格式
           const jsonData = JSON.stringify(reservationData);
 

@@ -5,10 +5,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import ShopPagination from '@/components/shopmall/shoppage/pagination';
-
 import { Host } from '@/components/shopmall/shopmallfinal'
-import {RxCross2} from "react-icons/rx"
 import { useRouter } from 'next/router';
 const H2div = styled.div`
     font-size:var(--h2);

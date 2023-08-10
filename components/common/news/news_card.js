@@ -41,29 +41,33 @@ export default function Newscard({ news_sid = '', article = [] }) {
 
   return (
     <>
+    <div className='row m-0' >
       {news.map((v, i) => {
         // 使用 Link 元件作為每個新聞卡片的容器，設定 to 屬性為對應的路由
         return (
-          <div
-            className={`col-sm-12 col-md-4 ${styles.cardbody}`}
-            key={v.news_sid}
-          >
-            <Link href={`/news/${v.news_sid}`}>
-              <div className={styles.card}>
-                <img src={`${imgPreview + v.photo}`} className={styles.img} />
-              </div>
-              <div className={styles.line}>
-                <p className={styles.ptext}>{v.header}</p>
-                {/* 使用 dayjs 來格式化時間 */}
-                <div className={styles.time}>
-                  {dayjs(v.publishedTime).format('YYYY-MM-DD')}
+          
+            <div
+              className={`col-sm-12 col-md-4 ${styles.cardbody}`}
+              key={v.news_sid}
+            >
+              <Link href={`/news/${v.news_sid}`}>
+                <div className={styles.card}>
+                  <img src={`${imgPreview + v.photo}`} className={styles.img} />
                 </div>
-              </div>
-              <Hashtag />
-            </Link>
-          </div>
+                <div className={styles.line}>
+                  <p className={styles.ptext}>{v.header}</p>
+                  {/* 使用 dayjs 來格式化時間 */}
+                  <div className={styles.time}>
+                    {dayjs(v.publishedTime).format('YYYY-MM-DD')}
+                  </div>
+                </div>
+                {/* <Hashtag /> */}
+              </Link>
+            </div>
+          
         );
       })}
+      </div>
       <div className="w-100 d-flex justify-content-center mb-5 pb-5 mt-2">
         <Stack spacing={2}>
           <Pagination

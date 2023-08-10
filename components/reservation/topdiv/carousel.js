@@ -8,19 +8,19 @@ export default function CarouselDiv() {
       <Carousel.Item interval={1500} className={style.carousel}>
         <img
           className={`${style.carouselitem} d-block w-100`}
-          src="../../reservation/one.jpeg"
+          src="../../reservation/carousel_4.jpg"
         />
       </Carousel.Item>
       <Carousel.Item interval={1500} className={style.carousel}>
         <img
           className={`${style.carouselitem} d-block w-100`}
-          src="http://localhost:3000/reservation/two.jpeg"
+          src="../../reservation/carousel_2.jpg"
         />
       </Carousel.Item>
       <Carousel.Item interval={1500} className={style.carousel}>
         <img
           className={`${style.carouselitem} d-block w-100`}
-          src="http://localhost:3000/reservation/three.jpeg"
+          src="../../reservation/carousel_3.jpg"
         />
       </Carousel.Item>
     </Carousel>

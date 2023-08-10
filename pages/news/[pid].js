@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Article from '@/components/common/news/new_article';
 import HotArticle from '@/components/common/news/hot_article';
 import Catalog from '@/components/common/news/catalog';
+import Head from 'next/head';
 export default function NewsDetailed() {
   const { query } = useRouter();
   const router = useRouter();
@@ -26,6 +27,9 @@ export default function NewsDetailed() {
 
   return (
     <>
+     <Head>
+            <title>食GOEAT! / 美食論壇</title>
+        </Head>
       <div className={styles.container}>
         <Newnav />
         <div className={styles.line}>

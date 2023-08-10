@@ -31,6 +31,7 @@ import scrollIntoView from 'scroll-into-view-if-needed';
 import kamaboko from '@/public/main_page/kamaboko.svg';
 import shrimp from '@/public/main_page/shrimp.svg';
 import chip from '@/public/img_for_icon/chip.svg';
+import Head from 'next/head';
 
 
 const commodity_data = [
@@ -162,6 +163,9 @@ const Home = () => {
 
   return (
     <>
+      <Head>
+        <title>食GOEAT!</title>
+      </Head>
       <div className={styles.container} id='mainpage_container'>
         <div className={styles.first_page} id='firstPage'>
           <div className={styles.blank_area}></div>
@@ -297,21 +301,23 @@ const Home = () => {
             <div className={styles.card_box}>
               {commodity.filter((value, index) => randomvalue <= index && index < randomvalue + 5).map((v) => {
                 return (
-                  <div className={styles.commodity_card}>
-                    <div className={styles.card_img_box} style={{ 'backgroundImage': `url(${v.img_url})` }}></div>
-                    <div className={styles.commodity_info}>
-                      <div>{v.item_name}</div>
-                      <div className={styles.commodity_price}>NT${v.price}</div>
+                  <div className={styles.commodity_card_back}>
+                    <div className={styles.commodity_card}>
+                      <div className={styles.card_img_box} style={{ 'backgroundImage': `url(${v.img_url})` }}></div>
+                      <div className={styles.commodity_info}>
+                        <div>{v.item_name}</div>
+                        <div className={styles.commodity_price}>NT${v.price}</div>
+                      </div>
                     </div>
                   </div>)
               })}
 
             </div>
             <div className={styles.random_btn}>
-            <Btn text='隨機商品' onClick={() => { setRandomvalue(Math.round(7 * Math.random())) }} />
+              <Btn text='隨機商品' onClick={() => { setRandomvalue(Math.round(7 * Math.random())) }} />
             </div>
             <div className={styles.goshopmall_btn}>
-            <Btn text='GO SHOPPING' onClick={() => (router.push('/shopmall'))} />
+              <Btn text='GO SHOPPING' onClick={() => (router.push('/shopmall'))} />
             </div>
           </div>
 
@@ -328,7 +334,7 @@ const Home = () => {
 
             <p>美食新聞</p>
             <div className={styles.newsBtn}>
-              <Btn text='GO! NEWS' onClick={() => (router.push('/news'))} />
+              <Btn text='GO! NEWS' onClick={() => (router.push('/news'))} style={{ boxShadow: '0 1px 3px 1px red' }} />
             </div>
 
           </div>

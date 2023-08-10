@@ -1,0 +1,22 @@
+.cell {
+  font-size: 22px;
+  font-weight: 900;
+  color: #921010;
+  text-align: center;
+}
+
+.row {
+  height: 90px;
+}
+
+.td {
+  font-size: 18px;
+  font-weight: 600;
+  height: 70px;
+  text-align: center;
+}
+
+.body {
+  border-radius: 7px;
+  padding: 10px;
+}

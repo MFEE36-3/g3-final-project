@@ -2,18 +2,16 @@ import { useState, useEffect } from 'react'
 import style from '@/styles/reservation/style.module.css'
 import { Button } from 'react-bootstrap';
 import { BsTrash } from "react-icons/bs";
-import { GiShoppingCart } from "react-icons/gi";
+import { GiShoppingCart, GiShop } from "react-icons/gi";
 import { BsFillCalendar3WeekFill } from "react-icons/bs";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Swal from 'sweetalert2';
+import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togodate, setTogodate, togotime, setTogotime }) {
 
-    // const [products, setProducts] = useState(Object.values(shoppingCart)); // 使用 Object.values() 取得購物車商品陣列
-
-    // const router = useRouter()
-    // const id = router.query.sid;
-    // const shopId = parseInt(id)
+    const router = useRouter();
     const cartitem = localStorage.getItem('order')
     // console.log(cartitem);
 
@@ -26,8 +24,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
 
     const localdatetime = JSON.parse(localStorage.getItem('order')) || {};
     const nowdatetime = Object.entries(localdatetime).map(item => item.pop());
-    // console.log(nowdatetime);
-    // console.log(Object.values(nowdatetime)[0]?.togodate);
+
     if (Object.values(nowdatetime).length > 0) {
         setTogodate(Object.values(nowdatetime)[0]?.togodate);
         setTogotime(Object.values(nowdatetime)[0]?.togotime);
@@ -42,6 +39,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
             ...oldCart,
             [item.itemId]: {
                 itemId: item.itemId,
+                shop: item.shop,
                 itemName: item.itemName,
                 src: item.src,
                 price: item.price,
@@ -71,6 +69,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
                 ...oldCart,
                 [item.itemId]: {
                     itemId: item.itemId,
+                    shop: item.shop,
                     itemName: item.itemName,
                     src: item.src,
                     price: item.price,
@@ -114,9 +113,35 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
         return products.reduce((total, product) => total + (product.amount * product.price), 0);
     }
 
+    const handleSendCart = () => {
+        //判斷否登入
+        const member = JSON.parse(localStorage.getItem('auth'));
+        // console.log(member)
+        if (!member?.sid) {
+            Swal.fire({
+                title: '請先登入',
+                iconHtml: `<img src=${chocoCookie.src}>`,
+                customClass: {
+                    icon: 'sweetalert_icon'
+                },
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: '前往登入',
+                denyButtonText: '我再想想',
+            }).then(
+                function (result) {
+                    if (result.value) router.push('/login')
+                });
+            return;
+        }
+        router.push("/checkout?page=order")
+    }
+
     return (
         <>
-
+            <div className={style.shoptitle}>
+                <div><GiShop className={style.shoptitleicon} />{products[0].shop}</div>
+            </div>
             {products.length > 0 ?
                 <div>
                     {
@@ -188,11 +213,11 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
                 : ''
             }
             <div>
-                <Link href="/checkout?page=order">
-                    <Button variant="text" className={style.cartsendbutton}>
-                        前往結帳
-                    </Button>
-                </Link>
+                {/* <Link href="/checkout?page=order"> */}
+                <Button className={style.cartsendbutton} onClick={handleSendCart}>
+                    前往結帳
+                </Button>
+                {/* </Link> */}
             </div>
 
         </>

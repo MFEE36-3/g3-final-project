@@ -3,30 +3,17 @@ import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-export default function Rcarousel() {
+export default function Rcarousel({ row }) {
+
     return (
-        <Carousel>
-            <Carousel.Item interval={1000} className={style.carousel}>
+        <div>
+            <div className={style.carousel} style={{ overflow: 'hidden' }}>
                 <img
                     className="d-block w-100"
-                    src="../../reservation/one.jpeg"
-                    style={{ objectFit: 'cover', overFlow: 'hidden' }}
+                    src={`${process.env.API_SERVER}/img/shops/${row.detail?.photo}`}
+                    style={{ objectFit: 'cover', overFlow: 'hidden', marginTop: '-250px' }}
                 />
-            </Carousel.Item>
-            <Carousel.Item interval={1000} className={style.carousel}>
-                <img
-                    className="d-block w-100"
-                    src="http://localhost:3000/reservation/two.jpeg"
-                    style={{ objectFit: 'cover', overFlow: 'hidden' }}
-                />
-            </Carousel.Item>
-            <Carousel.Item className={style.carousel}>
-                <img
-                    className="d-block w-100"
-                    src="http://localhost:3000/reservation/three.jpeg"
-                    style={{ objectFit: 'cover', overFlow: 'hidden' }}
-                />
-            </Carousel.Item>
-        </Carousel>
+            </div>
+        </div>
     )
 }

@@ -3,6 +3,10 @@
     /* background-color: #450d22; */
 }
 
+.page{
+    width: 300px;
+}
+
 .imgSize {
     width: 100px;
     height: 100px;

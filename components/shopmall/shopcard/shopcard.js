@@ -11,6 +11,7 @@ import Modal from '@mui/material/Modal';
 import useLocalStorage from "@/components/hooks/useLocalStorage";
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 import {  AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
+import { useRouter } from 'next/router';
 
 const style = {
   position: 'absolute',
@@ -32,6 +33,12 @@ const style = {
 const Fs13pxdiv = styled.div`
   @media (max-width: 576px) {
     font-size:13px
+  }
+`
+const ModalDiv = styled.div`
+  width:75%;
+  @media (max-width: 576px) {
+    width:100%
   }
 `
 const Fs16pxdiv = styled.div`
@@ -120,6 +127,7 @@ export default function ShopCard() {
   const [selectedItem, setSelectedItem] = useState(null)
   const [num, setNum] = useState(1)
   const [userCart, setUserCart] = useLocalStorage("shop",  {})
+  const router = useRouter()
   const handleOpen = (item) => {
     setSelectedItem(item)
     setOpen(true)
@@ -210,7 +218,7 @@ export default function ShopCard() {
                 <AiFillStar className='text-warning fs-4'/>
                 <Span16px className='ms-2'>{v.avg_rating.toFixed(1)} / 5</Span16px>
             </div>
-            <Span16px>已售出 {v.sales}0 件</Span16px>
+            <Span16px>已售出 {v.sales}00 件</Span16px>
           </div>
       </div>
     </div>
@@ -246,7 +254,7 @@ export default function ShopCard() {
                       <Fs13pxdiv>庫存: {remain} 件</Fs13pxdiv>
                     </Fs13pxdiv>
                     <div className=''>
-                      <div className='w-100 d-flex align-items-center mx-auto border border-secondary border-2 justify-content-center mt-xl-1  rounded-5 mb-xl-4 mb-2 position-relative'>
+                      <ModalDiv className='d-flex align-items-center mx-auto border border-secondary border-2 justify-content-center mt-xl-1  rounded-5 mb-xl-4 mb-2 position-relative'>
                         <Button variant="text" className='p-0 h-100 rounded-start-5 text-danger' onClick={minus}>
                           <AiOutlineMinus className='fs-3  p-xl-1'/>
                         </Button>
@@ -254,7 +262,7 @@ export default function ShopCard() {
                         <Button variant="text" className='p-0 rounded-end-5 text-danger' onClick={plus}>
                           <AiOutlinePlus className='fs-3 p-xl-1'/>
                         </Button>
-                      </div>
+                      </ModalDiv>
                       <StyleButton variant="text" className='border-0 rounded-3 w-100 w-50  d-flex justify-content-center  text-light' style={{background:"#911010"}} onClick={()=>handleCart(selectedItem)}>加入購物車</StyleButton>
                     </div>
                   </div>
