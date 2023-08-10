@@ -54,6 +54,5 @@
 
 .default:hover {
   color: #921010;
-  transform: scaleX(1.1);
   transition: all 0.2s ease;
 }

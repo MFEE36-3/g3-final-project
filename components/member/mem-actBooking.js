@@ -95,7 +95,7 @@ export default function MemActBooking() {
           </div>
         </div>
       ) : (
-        <div className={styles.default}>您目前沒有任何訂位</div>
+        <div className={styles.default}>您目前沒有任何餐廳訂位</div>
       )}
     </div>
   );

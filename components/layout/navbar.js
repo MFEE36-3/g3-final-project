@@ -100,12 +100,11 @@ export default function Navbar() {
           router_title.includes('/shopmall')
             ? '/checkout?page=shop'
             : router_title.includes('/reservation')
-              ? '/checkout?page=order'
-              : router_title.includes('/member')
-                ? '/checkout?page=subscribe'
-                : '/checkout'
+            ? '/checkout?page=order'
+            : router_title.includes('/member')
+            ? '/checkout?page=subscribe'
+            : '/checkout'
         }
-
         onClick={(e) => {
           if (!localStorage.getItem('auth')) {
             e.preventDefault();
@@ -113,19 +112,17 @@ export default function Navbar() {
               title: '請先登入',
               iconHtml: `<img src=${littlechoco.src}>`,
               customClass: {
-                icon: 'sweetalert_icon'
+                icon: 'sweetalert_icon',
               },
               showDenyButton: true,
               showCancelButton: false,
               confirmButtonText: '前往登入',
               denyButtonText: '我再想想',
-            }).then(
-              function (result) {
-                if (result.value) router.push('/login')
-              });
+            }).then(function (result) {
+              if (result.value) router.push('/login');
+            });
           }
-        }
-        }
+        }}
       >
         <FaShoppingCart className={styles.cart} />
       </Link>
@@ -252,7 +249,7 @@ export default function Navbar() {
             <button
               className={
                 router_title.includes('/forum') ||
-                  router_title.includes('/news')
+                router_title.includes('/news')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }

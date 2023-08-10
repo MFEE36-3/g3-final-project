@@ -85,14 +85,8 @@ const Login = () => {
           });
           // setAuth(JSON.parse(localStorage.getItem('auth')));
           setTimeout(() => {
-            // router.push('/');
-
-            if (document?.referrer.includes('/member/form')) {
-              router.push('/');
-            } else {
-              router.back();
-            }
-          }, 1500);
+            router.back();
+          }, 1000);
         } else {
           Swal.fire({
             title: '帳號或密碼錯誤',
