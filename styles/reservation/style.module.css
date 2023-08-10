@@ -394,7 +394,7 @@
 }
 
 .additem {
-  display: none;
+  opacity: 0;
   position: absolute;
   top:-20px;
   right:10px;
@@ -406,9 +406,27 @@
 }
 
 .showplus {
-  display: block;
-  transform: translateY(-30px);
+  animation: .5s showplus ease-in-out;
+  animation-fill-mode: forwards;
 }
+
+@keyframes showplus {
+  0%{
+    opacity: .5;
+    transform: translateY(-10px);
+  }
+  60%{
+    opacity: 1;
+    transform: translateY(-30px);
+  }
+  100%{
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+}
+
+
 
 .cardheart{
   color: #911010;

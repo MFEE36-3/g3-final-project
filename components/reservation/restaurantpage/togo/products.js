@@ -29,7 +29,7 @@ const stylemodal = {
 };
 
 
-export default function Products({ row, category, shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime }) {
+export default function Products({ row, category, shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime, item, setItem }) {
 
     const [itemdeatil, setItemdeatil] = useState(null);
     const [open, setOpen] = useState(false);
@@ -83,9 +83,14 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
             return;
         }
 
-        // const nowcart = Object.entries(pastcart).map(item => item.pop());
-        // console.log(Object.values(nowcart))
-        // console.log(shopId)
+        if (!togodate || !togotime) {
+            Swal.fire({
+                icon: 'warning',
+                text: '請先選擇訂餐日期及時間',
+                confirmButtonText: '確定',
+            })
+            return;
+        }
 
         // if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) {
 
@@ -128,8 +133,10 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
         //     }
         // }
 
-        const checkShop = () => {
+
+        if (localStorage.getItem('order')) {
             if (Object.keys(JSON.parse(localStorage.getItem('order'))).length === 0) return
+
             if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) {
 
                 if (localStorage.getItem('order')) {
@@ -149,6 +156,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                             const itemId = item.food_id;
                             const updatedItem = {
                                 itemId: itemId,
+                                shop: row.detail.shop,
                                 itemName: item.food_title,
                                 src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
                                 price: item.food_price,
@@ -157,30 +165,25 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                                 togotime: togotime,
                                 shop_id: row.detail.sid,
                             };
-                            // console.log(updatedItem);
                             // 更新LocalStorage
                             localStorage.setItem('order', JSON.stringify({
                                 ...oldCart,
                                 [itemId]: updatedItem,
                             }));
-
                         }
                     })
                     return;
                 }
             }
         }
-        checkShop()
 
-        if (!togodate || !togotime) {
-            Swal.fire({
-                icon: 'warning',
-                // title: '請先選擇訂餐日期及時間',
-                text: '請先選擇訂餐日期及時間',
-                confirmButtonText: '確定',
-            })
-            return;
-        }
+        // if (localStorage.getItem('order')) {
+
+        //     if (Object.keys(JSON.parse(!localStorage.getItem('order'))).length !== 0) {
+
+        //         if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) return
+        //     }
+        // }
 
         // 檢查購物車中是否已有該商品
         const oldCart = JSON.parse(localStorage.getItem('order')) || {};
@@ -202,6 +205,10 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
             ...oldCart,
             [itemId]: updatedItem,
         }));
+
+        setItem({ ...item, updatedItem })
+
+
 
         //顯示商品增加效果
         setShowAddText(prevShowAddText => ({

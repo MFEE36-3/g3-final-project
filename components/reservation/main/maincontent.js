@@ -1,18 +1,17 @@
 import Card from 'react-bootstrap/Card';
-// import cards from '@/data/reservation/cards.json';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { FaUtensils } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
 import Link from "next/link";
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect, useContext } from 'react';
-// import { auth } from '@/pages/reservation/index'
-import { RouteRounded } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 export default function MainContent({ favorite, setFavorite }) {
-  // const { token } = useContext(auth)
+
+  const router = useRouter();
   const [data, setData] = useState([]);
 
   useEffect(() => {

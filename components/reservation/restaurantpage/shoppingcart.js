@@ -5,25 +5,25 @@ import { BsTrash } from "react-icons/bs";
 import { GiShoppingCart, GiShop } from "react-icons/gi";
 import { BsFillCalendar3WeekFill } from "react-icons/bs";
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Swal from 'sweetalert2';
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
+import dayjs from 'dayjs';
 
-export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togodate, setTogodate, togotime, setTogotime }) {
+export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togodate, setTogodate, togotime, setTogotime, shopcount, setShopCount }) {
 
     const router = useRouter();
     const cartitem = localStorage.getItem('order')
-    // console.log(cartitem);
 
     const menuItems = JSON.parse(cartitem) || 0;
-    // console.log(menuItems);
 
     const menuItemsArray = Object.values(menuItems);
-    // console.log(menuItemsArray);
+
     const [products, setProducts] = useState(menuItemsArray)
 
     const localdatetime = JSON.parse(localStorage.getItem('order')) || {};
     const nowdatetime = Object.entries(localdatetime).map(item => item.pop());
+
+
 
     if (Object.values(nowdatetime).length > 0) {
         setTogodate(Object.values(nowdatetime)[0]?.togodate);
@@ -35,25 +35,21 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
 
         //更新LocalStorage
         const oldCart = JSON.parse(localStorage.getItem('order'))
+        const updatedAmount = item.amount + 1;
         localStorage.setItem('order', JSON.stringify({
             ...oldCart,
             [item.itemId]: {
-                itemId: item.itemId,
-                shop: item.shop,
-                itemName: item.itemName,
-                src: item.src,
-                price: item.price,
-                amount: item.amount + 1,
-                togodate: togodate,
-                togotime: togotime,
-                shop_id: row.detail.sid,
+                ...item,
+                amount: updatedAmount,
             }
         }))
 
         setProducts(prevProuducts => {
             return prevProuducts.map(product => {
                 if (product.itemId === item.itemId) {
-                    return { ...product, amount: product.amount + 1 }
+                    return {
+                        ...product, amount: updatedAmount
+                    }
                 }
                 return product;
             })
@@ -65,31 +61,27 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
         if (item.amount > 1) {
             //更新LocalStorage
             const oldCart = JSON.parse(localStorage.getItem('order'))
+            const updatedAmount = item.amount - 1;
             localStorage.setItem('order', JSON.stringify({
                 ...oldCart,
                 [item.itemId]: {
-                    itemId: item.itemId,
-                    shop: item.shop,
-                    itemName: item.itemName,
-                    src: item.src,
-                    price: item.price,
-                    amount: item.amount - 1,
-                    togodate: togodate,
-                    togotime: togotime,
-                    shop_id: row.detail.sid,
+                    ...item,
+                    amount: updatedAmount,
                 }
             }))
-        }
 
-        setProducts(prevProuducts => {
-            return prevProuducts.map(product => {
-                if (product.itemId === item.itemId && product.amount > 1) {
-                    return { ...product, amount: product.amount - 1 }
-                }
-                return product;
+
+            setProducts(prevProuducts => {
+                return prevProuducts.map(product => {
+                    if (product.itemId === item.itemId && product.amount > 1) {
+                        return {
+                            ...product, amount: updatedAmount
+                        }
+                    }
+                    return product;
+                })
             })
-        })
-
+        }
     }
     //商品數量-刪除
     const handleRemove = (item) => {
@@ -99,20 +91,21 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
         delete oldCart[item.itemId];
         localStorage.setItem('order', JSON.stringify(oldCart));
 
-        // 检查localStorage是否为空，如果为空，则删除该localStorage项
+        // 檢查localStorage是否為空
         if (Object.keys(oldCart).length === 0) {
             localStorage.removeItem('order');
+            // localStorage.setItem('order', JSON.stringify({}));
         }
 
         setProducts(prevProducts => {
             return prevProducts.filter(product => product.itemId !== item.itemId);
         });
     }
-
+    //商品總額計算
     const getTotalAmount = () => {
         return products.reduce((total, product) => total + (product.amount * product.price), 0);
     }
-
+    //結帳按鈕
     const handleSendCart = () => {
         //判斷否登入
         const member = JSON.parse(localStorage.getItem('auth'));
@@ -134,13 +127,25 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
                 });
             return;
         }
-        router.push("/checkout?page=order")
+        if (products.length !== 0) {
+            router.push("/checkout?page=order")
+        }
     }
+
+    useEffect(() => {
+        if (!localStorage.getItem('order')) return;
+        const items = JSON.parse(localStorage.getItem('order'))
+        const count = Object?.values(items).length
+        setShopCount(count);
+    }, [products])
 
     return (
         <>
             <div className={style.shoptitle}>
-                <div><GiShop className={style.shoptitleicon} />{products[0].shop}</div>
+                <div>
+                    {products.length !== 0 && <GiShop className={style.shoptitleicon} />}
+                    {products[0]?.shop}
+                </div>
             </div>
             {products.length > 0 ?
                 <div>
@@ -214,7 +219,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
             }
             <div>
                 {/* <Link href="/checkout?page=order"> */}
-                <button className={style.cartsendbutton} onClick={handleSendCart}>
+                <button className={style.cartsendbutton} style={{ display: products.length === 0 ? 'none' : 'block' }} onClick={handleSendCart}>
                     前往結帳
                 </button>
                 {/* </Link> */}

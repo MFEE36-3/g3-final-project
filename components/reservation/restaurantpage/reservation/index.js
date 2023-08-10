@@ -10,7 +10,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
-export default function Reservation({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo }) {
+export default function Reservation({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo, item, setItem }) {
   const [memberInfo, setMemberInfo] = useState({})
   const [reservationData, setReservationData] = useState({
     id: 0,

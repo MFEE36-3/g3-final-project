@@ -8,6 +8,7 @@ import ShoppingCart from '@/components/reservation/restaurantpage/shoppingcart';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Image from 'next/image';
 import ShoppingBag from '@/public/reservation/shoppingbag.svg'
+import Badge from '@mui/material/Badge';
 import Head from 'next/head';
 
 export default function RestaurantPage() {
@@ -22,22 +23,16 @@ export default function RestaurantPage() {
     const [shoppingCart, setShoppingCart] = useState([]);
     const [togodate, setTogodate] = useState();
     const [togotime, setTogotime] = useState();
-
+    const [shopcount, setShopCount] = useState('');
+    const [item, setItem] = useState({})
     const [show, setShow] = useState(false);
     // const localdatetime = JSON.parse(localStorage.getItem('order')) || {};
 
     //購物車Offcanvas
     const handleClose = () => setShow(false);
+
     const handleShow = () => {
         setShow(true);
-        // const nowdatetime = Object.entries(localdatetime).map(item => item.pop());
-        // console.log(nowdatetime);
-        // console.log(Object.values(nowdatetime)[0]?.togodate);
-        // if (Object.values(nowdatetime).length > 0) {
-        //     setTogodate(Object.values(nowdatetime)[0]?.togodate);
-        //     setTogodate(Object.values(nowdatetime)[0]?.togotime);
-        // }
-
     }
 
     useEffect(() => {
@@ -57,6 +52,22 @@ export default function RestaurantPage() {
         };
     }, [router.query]);
 
+    useEffect(() => {
+        if (!localStorage.getItem('order')) return;
+        const items = JSON.parse(localStorage.getItem('order'))
+        const count = Object.keys(items).length;
+        console.log(count)
+        setShopCount(count);
+    }, [])
+
+    useEffect(() => {
+        if (!localStorage.getItem('order')) return;
+        const items = JSON.parse(localStorage.getItem('order'))
+        const count = Object.keys(items).length;
+        console.log(count)
+        setShopCount(count);
+    }, [item])
+
     return (
         <>
             <Head>
@@ -74,13 +85,15 @@ export default function RestaurantPage() {
                             <ReservationPage row={row} date={date} setDate={setDate} time={time} setTime={setTime}
                                 person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo}
                                 shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} togodate={togodate} setTogodate={setTogodate}
-                                togotime={togotime} setTogotime={setTogotime}
+                                togotime={togotime} setTogotime={setTogotime} item={item} setItem={setItem}
                             />
                         </div>
                     </div>
                 </div>
                 <div className={style.carticon}>
-                    <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
+                    <Badge badgeContent={shopcount} color="primary">
+                        <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
+                    </Badge>
                 </div>
                 <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
                     <Offcanvas.Header closeButton>
@@ -88,7 +101,9 @@ export default function RestaurantPage() {
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <ShoppingCart row={row} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
-                            togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} />
+                            togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} shopcount={shopcount}
+                            setShopCount={setShopCount}
+                        />
                     </Offcanvas.Body>
                 </Offcanvas>
             </div>
