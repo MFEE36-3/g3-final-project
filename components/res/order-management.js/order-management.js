@@ -64,8 +64,8 @@ export default function OrderManagement() {
 
   // 訂單狀態
   const [orderState, setOrderState] = useState('')
-  const [orderTimeState, setOrderTimeState] = useState([])
-  const orderStateOptions = ['所有訂單', '未完成', '已完成，等待取餐', '已結單'];
+  const [orderTimeState, setOrderTimeState] = useState('')
+  const orderStateOptions = ['所有訂單', '未完成', '已完成',];
 
   // 訂單順序
   const [orderTime, setOrderTime] = useState('')
@@ -118,12 +118,12 @@ export default function OrderManagement() {
   }
   useEffect(() => {
     if (getOrders) {
-      console.log(getOrders)
+      // console.log(getOrders)
     }
   }, [getOrders])
 
-  console.log(totalShopOrder)
-  console.log(totalShopPage)    // int
+  // console.log(totalShopOrder)
+  // console.log(totalShopPage)    // int
 
   // 拿到外帶訂單資料
   const [togoOrder, setTogoOrder] = useState([])
@@ -145,21 +145,78 @@ export default function OrderManagement() {
       .then(r => r.json())
       .then(data => {
         console.log(data)   // array
-        setTogoOrder(data.groupedOrderItems)
-        setOriginalTogoOrder(data.groupedOrderItems)
-        setOrderAmount(data.groupedOrderItems.length)
-        setTotalTogoPage(data.totalPages)
+
+        const orders = data.orders  // array
+        // console.log(groupedOrderItems)
+        const sortedOrders = orders.slice().sort((a, b) => b.order_detail[0].sid - a.order_detail[0].sid)
+        // setOriginalOrder(sortedOrders)
+        console.log(sortedOrders)
+        setTogoOrder(sortedOrders)
+        // for(let i = 0; i < sortedOrders.length; i ++){
+        //   sortedOrders
+        // }
+        sortedOrders.forEach((v, i) => {
+          v.order_detail[0].status == '已完成' ? v.finished = true : v.finished = false
+        })
+        console.log(sortedOrders)
+        // setTogoOrder([...sortedOrders])
+        setOriginalTogoOrder(sortedOrders)
+
+        const dataLength = data.orders.length
+        const totalPages = Math.ceil(dataLength / 10)
+
+        setOrderAmount(data.length)
+        setTotalTogoPage(totalPages)
       })
   }
-
+  // console.log(orderAmount)
+  // console.log(originalTogoOrder)
+  // console.log(togoOrder)
 
   useEffect(() => {
     if (resAuth.account) {
       getShopOrder();
       getTogoOrder();
-      console.log(getOrders); // 這裡會顯示空陣列 []，因為 getShopOrder() 還沒完成
+      // console.log(getOrders); // 這裡會顯示空陣列 []，因為 getShopOrder() 還沒完成
     }
   }, [resAuth]);
+
+  // console.log(originalTogoOrder)
+  // 訂單狀態
+  const stateChange = () => {
+    console.log(originalTogoOrder)
+    if (orderState == '所有訂單') {
+      setTogoOrder(togoOrder)
+      setTotalTogoPage(Math.ceil(originalTogoOrder.length / 10))
+    }
+    if (orderState == '未完成') {
+      const stateResult = originalTogoOrder.filter((v, i) => {
+        // const arr = v.filter((v2, i2) => v2.status == '未完成');
+        // if (arr.length !== 0) return v;
+        if (v.order_detail[0].status == '未完成') {
+          return v
+        }
+      })
+      setTogoOrder(stateResult)
+      // console.log(stateResult)
+      setTotalTogoPage(Math.ceil(stateResult.length / 10))
+    }
+    if (orderState == '已完成') {
+      const stateResult = originalTogoOrder.filter((v, i) => {
+        // const arr = v.filter((v2, i2) => v2.status == '未完成');
+        // if (arr.length !== 0) return v;
+        if (v.order_detail[0].status == '已完成') {
+          return v
+        }
+      })
+      setTogoOrder(stateResult)
+      // console.log(stateResult.length)
+      setTotalTogoPage(Math.ceil(stateResult.length / 10))
+    }
+  }
+  useEffect(() => {
+    stateChange()
+  }, [orderState])
 
   const amounts = [3, 5, 3, 2, 4, 3, 3, 4, 4, 1, 2, 6, 1, 3, 3, 1];
   const prices = [60, 40, 50, 60, 10, 20, 40, 70, 30, 30, 50, 50, 50, 80, 40, 30];
@@ -169,7 +226,7 @@ export default function OrderManagement() {
     return total + amount * prices[index];
   }, 0);
 
-  console.log(totalAmountPrice); // 1230
+  // console.log(totalAmountPrice); // 1230
 
   // 訂單顯示更多或隱藏
   const [showOrder, setShowOrder] = useState(false)
@@ -179,44 +236,27 @@ export default function OrderManagement() {
 
   const [completeOrder, setCompleteOrder] = useState(false)
   const turnToComplete = (i) => {
-
     setCompleteOrder(true)
-    const modifiedTogoOrder = [...togoOrder];
-    console.log(modifiedTogoOrder)
 
-    modifiedTogoOrder[i][0].status = '已完成，等待取餐';
-
-    setTogoOrder(modifiedTogoOrder);
-
+    console.log(originalTogoOrder)
+    // setTogoOrder([...originalTogoOrder, originalTogoOrder[i].finished = true])
+    setTogoOrder([...originalTogoOrder,originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成'])
+    // stateChange()
     Swal.fire(
-      '已通知消費者取餐!',
-      '等候消費者來取餐',
-      'success'
-    );
-  }
-
-  // 點擊通知完成後通知消費者訂單已完成，並將狀態改為等待消費者領取
-  const informMember = (i) => {
-    const modifiedTogoOrder = [...togoOrder];
-    console.log(modifiedTogoOrder)
-
-    modifiedTogoOrder[i][0].status = '已完成';
-
-    setTogoOrder(modifiedTogoOrder);
-
-    Swal.fire(
-      '已通知消費者取餐!',
-      '等候消費者來取餐',
+      '已完成該筆訂單!',
+      '',
       'success'
     );
   }
 
   // 設置切換呈現資料的狀態
   const [page, setPage] = useState(1)
+  const [orderList, setOrderList] = useState(0)
   const handleChange = (event, value) => {
     // 在這裡處理頁碼變化的邏輯
     console.log(`跳轉到頁碼：${value}`);
     setPage(value)
+    setOrderList((value - 1) * 10)
   };
 
   // 關鍵字搜尋
@@ -231,14 +271,13 @@ export default function OrderManagement() {
         const arr = v.filter((v2, i2) => v2.order_item.includes(getKeyword));
         if (arr.length !== 0) return v;
       })
-      console.log(searchResult)
+      // console.log(searchResult)
       if (searchResult.length = 0) {    // 沒有這筆訂單
         setNoKeyWordMessage('沒有這項訂單!')
         setTogoOrder(originalTogoOrder)
-      } else { 
-
-        setTogoOrder(searchResult) 
-        console.log(togoOrder)
+      } else {
+        setTogoOrder(searchResult)
+        // console.log(togoOrder)
       }
     } else {
       setTogoOrder(originalTogoOrder)
@@ -316,30 +355,22 @@ export default function OrderManagement() {
 
 
             <div className='d-flex justify-content-between'>
-              <select className="form-select mt-3" value={orderTime} onChange={(e) => {
-                setOrderTime(e.target.value)
-              }}>
-                <option value='/'>---訂單順序---</option>
-                {orderTimeOptions.map((v, i) => {
-                  return <option key={i} value={v}>{v}</option>
-                })}
-              </select>
+
 
               <select className='form-select mt-3 ms-3' value={orderCategory} onChange={(e) => {
                 setOrderCategory(e.target.value)
               }}>
-                {/* <option value={``}>---訂單種類---</option> */}
                 {orderCategoryOptions.map((v, i) => {
                   return <option key={i} value={v}>{v}</option>
                 })}
               </select>
 
-              <select className="form-select mt-3 ms-3" value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
+              {orderCategory == '揪團' ? '' : <select className="form-select mt-3 ms-3" value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
                 <option selected value={``}>---訂單狀態----</option>
                 {orderStateOptions.map((v, i) => {
                   return <option key={i} value={v}>{v}</option>
                 })}
-              </select>
+              </select>}
             </div>
           </div>
 
@@ -371,9 +402,9 @@ export default function OrderManagement() {
                       <TableCell align="center" sx={ceilStyle}>
                         訂單狀態
                       </TableCell>
-                      <TableCell align="center" sx={ceilStyle}>
+                      <TableCell align="center" sx={ceilStyle} className='me-3'>
                         訂單內容
-                        <button type='button' className={`btn btn-warning ms-auto mt-auto ${muistyles.btnright}`} style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
+                        <button type='button' className={`btn btn-warning ms-3 ${muistyles.btnright}`} style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
                       </TableCell>
                       <TableCell align="center" sx={ceilStyle}>
                         總金額
@@ -384,7 +415,8 @@ export default function OrderManagement() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {getOrders.filter((value, index) => page <= index && index < page + 10).map((v, i) => {
+                    {getOrders.filter((value, index) => (page - 1) * 10 <= (index + 1) && index < (page - 1) * 10 + 9).map((v, i) => {
+
                       const finish = orderTimeState.filter((v2, i2) => { if (i2 === i) return v2 })[0]
                       return <TableRow
                         key={i}
@@ -431,9 +463,6 @@ export default function OrderManagement() {
                     }
                     )
                     })
-
-
-
                   </TableBody>
                 </Table>
               </TableContainer>)
@@ -461,22 +490,26 @@ export default function OrderManagement() {
                       訂單成立時間
                     </TableCell>
                     <TableCell align="center" sx={ceilStyle}>
-                      通知完成訂單
+                      完成訂單
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {togoOrder.filter((value, index) => page <= index && index < page + 10).map((v, i) => {
+                  {togoOrder.filter((value, index) => (page - 1) * 10 <= (index + 1) && index < (page - 1) * 10 + 9).map((v, i) => {
+                    {/* console.log(togoOrder) */ }
                     return <TableRow
                       key={i}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell align="center" sx={tdStyle}>
-                        {orderAmount - (page - 1) * 10 - i}
+                        {/* {orderAmount - (page - 1) * 10 - i} */}
                         {/* {((page - 1) * 10) + i + 1} */}
+                        {v.order_detail[0].sid}
+                        {/* {v.order_sid} */}
                       </TableCell>
                       <TableCell align="center" sx={tdStyle}>
-                        {v[0].status}
+                        {/* {v[0].status} */}
+                        {v.order_detail[0].status}
                       </TableCell>
                       <TableCell align="center" sx={tdStyle}>
 
@@ -487,7 +520,7 @@ export default function OrderManagement() {
                             <span className='me-1 fw-bold'>數量</span>
                             <span className='fw-bold'>價格</span>
                           </div>
-                          {togoOrder[i].map((val, ind) => {
+                          {/* {togoOrder[i].map((val, ind) => {
                             return (
                               <>
                                 <div key={i} className='d-flex justify-content-between'>
@@ -498,24 +531,44 @@ export default function OrderManagement() {
                                 </div>
                               </>
                             )
+                          })} */}
+                          {v.order_detail.map((val, ind) => {
+                            return (<>
+                              <div key={i} className='d-flex justify-content-between'>
+                                <span className='me-auto'>{val.order_item}</span>
+                                <span className='me-4'> x </span>
+                                <span className='me-4'>{val.order_num}</span>
+                                <span>{val.price}</span>
+                              </div>
+                            </>)
                           })}
                         </td>
                       </TableCell>
                       <TableCell align="center" sx={tdStyle}>
-                        {v[0].amount}
+                        {/* {v[0].amount} */}
+                        {v.order_detail[0].amount}
                       </TableCell>
                       <TableCell align="center" sx={tdStyle}>
-                        {v[0].create_at}
-                      </TableCell>
+                        {/* {v[0].create_at} */}
+                        {v.order_detail[0].create_at}
+                      </TableCell>`
                       <TableCell align="center" sx={tdStyle}>
-                        {completeOrder ?
-                          <div>123</div>
+                        {v.finished ?
+                          <div>訂單已完成!</div>
                           :
                           <button type='button' id={`buttonIndex${i}`} className={`btn btn-primary ${muistyles.btnright}`}
                             onClick={() => turnToComplete(i)}
                           >
-                            通知完成
+                            完成訂單
                           </button>}
+                        {/* {v.order_detail[0].status == '未完成' ? v.finished ?
+                          <div>訂單已完成!</div>
+                          :
+                          <button type='button' id={`buttonIndex${i}`} className={`btn btn-primary ${muistyles.btnright}`}
+                            onClick={() => turnToComplete(i)}
+                          >
+                            完成訂單
+                          </button> : '訂單已完成!'} */}
                       </TableCell>
                     </TableRow>
                   })}

@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import BlankLayout from '@/components/layout/blank-layout';
-import InputTest from '@/components/common/input-test';
-import BtnTest from '@/components/common/btn-test';
+// import InputTest from '@/components/common/input-test';
+// import BtnTest from '@/components/common/btn-test';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,6 +13,7 @@ import ResAuthContext from '@/context/ResAuthContext';
 import { check } from 'prettier';
 import muistyles from '@/components/res/item/add-item.module.css';
 import Head from 'next/head'
+import { FaPhotoVideo } from 'react-icons/fa';
 
 export default function resSetting() {
   const router = useRouter()
@@ -379,7 +380,7 @@ export default function resSetting() {
     if (isPass) {
 
       Swal.fire({
-        title: '您確定要送出註冊資料嗎?',
+        title: '您確定要編輯資料嗎?',
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: '確定送出',
@@ -433,7 +434,7 @@ export default function resSetting() {
               <div className='' style={{ border: '3px solid lightgray' }}>
                 <h3 className={`mb-2 ps-3 fw-bold ${styles.titleWord}`} style={{ background: 'lightgray' }}>修改密碼</h3>
 
-                <div className='password mx-1 d-flex justify-content-start align-items-center mt-3'>
+                <div className='password ms-3 d-flex justify-content-start align-items-center mt-1'>
 
                   <div htmlFor="shop_password" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>輸入舊密碼</div>
 
@@ -489,8 +490,9 @@ export default function resSetting() {
                 <div className='d-flex justify-content-center align-items-center mt-1 mb-1 fw-bold fs-5' style={{ color: 'red' }}>{passwordErrors.newPassword}</div>
 
                 <div className='d-flex justify-content-start align-items-center mb-3 ms-4'>
-                  <button type='button' className={`btn btn-primary ms-3 ${muistyles.btnright}`} onClick={changePassword}>確定修改
-                  </button>
+                  {/* <button type='button' className={`btn btn-primary ms-3 ${muistyles.btnright}`} onClick={changePassword}>確定修改
+                  </button> */}
+                  <button type="button" class={`btn btn-warning`} onClick={changePassword}>確定修改</button>
                   <div className='ms-4 fw-bold' style={{ color: 'green', paddingLeft: '10px' }}>{changePwdSuccess}</div>
                 </div>
 
@@ -643,10 +645,16 @@ export default function resSetting() {
                         <img src={`${imgPreview + showImg}`} style={{ height: '300px', width: '300px', overflow: 'static' }} alt="" />
                       </div>)}
 
-                    <div className="mt-3">
-                      <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
-
+                    <div className={styles.upload}>
+                      <label htmlFor="file-upload" className="custom-file-upload mt-3">
+                        <FaPhotoVideo className={styles.icon} /> 請選擇照片
+                      </label>
+                      <input id="file-upload" type="file" onChange={previewImg} />
                     </div>
+
+                    {/* <div className="mt-3">
+                      <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
+                    </div> */}
                   </div>
 
                 </div>

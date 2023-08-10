@@ -69,6 +69,17 @@
     color:rgba(0, 0, 0, 0.266);
 }
 
+.upload input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+
 .backGroundColor{
     background-color:white ;
     border: 2px solid var(--main-color);
