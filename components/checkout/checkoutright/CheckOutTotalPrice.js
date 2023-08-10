@@ -116,7 +116,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
             return (Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: '<div style="font-family: Mochiy Pop One;">請選擇支付方式!</div>',
+                html: '<div style="font-family: Mochiy Pop One;">請選擇支付方式!</div>',
               }))
         }
         if(memberInfo.wallet < totalPrice && payment === 'wallet') setWalletError(true)
