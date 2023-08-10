@@ -118,7 +118,7 @@ export default function Index() {
           <div className={styles.rightArea}>
             <MemAllTitle title={'我的貼文'} />
             <div className={styles2.area1}>
-              {MyList ? (
+              {MyList[0] ? (
                 <div className={styles2.scroll}>
                   {MyList.map((v) => {
                     return (

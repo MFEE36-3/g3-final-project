@@ -123,13 +123,17 @@ export default function Index() {
               </div>
             </div>
             <div className={styles2.recordArea}>
-              <MemAllTitle title={'錢包紀錄'} />
+              <MemAllTitle title={'交易紀錄'} />
 
-              <div className={styles2.area3}>
-                <div className={styles2.recordBox}>
-                  <MemMoneyReocrdTable rows={rows} page={page} />
+              {rows[0] ? (
+                <div className={styles2.area3}>
+                  <div className={styles2.recordBox}>
+                    <MemMoneyReocrdTable rows={rows} page={page} />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className={styles.default}>您目前沒有交易紀錄</div>
+              )}
               <div className={styles2.btnArea}>
                 {Array.from({ length: Math.ceil(rows.length / 5) }).map(
                   (_, i) => (

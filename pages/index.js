@@ -23,7 +23,7 @@ import sausageLeft from '@/public/main_page/half-sausage-left.svg';
 import sausageRight from '@/public/main_page/half-sausage-right.svg';
 import Input from '@/components/common/input';
 import TextField from '@mui/material/TextField';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import flyHamburger from '@/public/main_page/fly_hamburger.svg';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -32,6 +32,7 @@ import kamaboko from '@/public/main_page/kamaboko.svg';
 import shrimp from '@/public/main_page/shrimp.svg';
 import chip from '@/public/img_for_icon/chip.svg';
 import Head from 'next/head';
+import AuthContext from '@/context/AuthContext';
 
 const commodity_data = [
   {
@@ -114,6 +115,8 @@ const commodity_data = [
 
 const Home = () => {
   const router = useRouter();
+
+  const { auth } = useContext(AuthContext);
 
   const [sausage_open, setSausage_Open] = useState(false);
   const [search, setSearch] = useState('');
@@ -217,7 +220,7 @@ const Home = () => {
           <Link href="#contactUs" className={styles.linkOffstyle}>
             <li className={styles.liBtn}>聯絡我們</li>
           </Link>
-          {localStorage.getItem('auth') ? (
+          {auth.account ? (
             <Link href="./member" className={styles.linkOffstyle}>
               <li className={styles.liBtn}>會員中心</li>
             </Link>
