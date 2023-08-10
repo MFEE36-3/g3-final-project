@@ -160,7 +160,7 @@ export default function CheckOutFinal(){
     return (
     <>  
         <Cart.Provider value={{page, setPage, items, setItems, showPages, memberInfo, memberInfo, host, memberCoupon}}> 
-        <div className='overflow-hidden'>      
+        <div className='d-flex align-items-center justify-content-center'>      
             <CheckOutContainer>
                 {token ? 
                 <>

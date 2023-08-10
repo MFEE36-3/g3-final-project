@@ -127,7 +127,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                 url = `${host}/ecshop/checkout`
                 break
             case 'buy' :
-                url = ``
+                url = `${host}/buyforme/checkout_buyforme`
                 break
             case 'order' :
                 url = `${host}/ecshop/checkout/food`
@@ -154,6 +154,10 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
         const subscribeOrderData = {
             sid : showPages(items).map(item=>item.itemID)
         }
+        const buyOrderData = {
+            order_sid: showPages(items).map(item => item.order_sid)
+        }
+        
         const takeoutOrderData = {         
             shop_id: showPages(items).map(item => item.shop_id).shift(),
             amount: showPages(items).map(item => Number(item.price) * Number(item.amount)).reduce((c, v) => c + v), 
@@ -178,7 +182,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                 orderData = subscribeOrderData
                 break
             case 'buy' :
-                orderData = {}
+                orderData = buyOrderData
                 break
             case 'order' :
                 orderData = takeoutOrderData
