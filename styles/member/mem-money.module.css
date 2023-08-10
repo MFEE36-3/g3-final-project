@@ -18,6 +18,10 @@
   justify-content: center;
 }
 
+.imgArea:hover {
+  transform: scale(1.1);
+}
+
 @keyframes moveUpDown {
   0% {
     transform: translateY(0);

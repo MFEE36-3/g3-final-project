@@ -105,12 +105,11 @@ export default function Index() {
                 </div>
               </div>
 
-              <div className={styles2.imgArea}>
-                <div className={styles2.imgText}>
-                  {auth.level === 1
-                    ? '歡迎加入食goEat會員享更多優惠'
-                    : '您的尊榮會員還有 ' + remainingDays + ' 天到期'}
-                </div>
+              <div className={styles2.imgArea}></div>
+              <div className={styles2.imgText}>
+                {auth.level === 1
+                  ? '歡迎加入食goEat會員享更多優惠'
+                  : '您的尊榮會員還有 ' + remainingDays + ' 天到期'}
               </div>
             </div>
             <div className={styles2.levelArea}>
