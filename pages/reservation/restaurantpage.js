@@ -1,56 +1,56 @@
-import { useState } from 'react'
-import style from '@/styles/reservation/style.module.css';
-import Rcarousel from '@/components/reservation/restaurantpage/carousel'
-import Info from '@/components/reservation/restaurantpage/info';
-import ReservationPage from '@/components/reservation/restaurantpage';
-import ShoppingCart from '@/components/reservation/restaurantpage/shoppingcart';
-import Image from 'next/image';
-import ShoppingBag from '@/public/reservation/shoppingbag.svg'
-// import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+// import { useState } from 'react'
+// import style from '@/styles/reservation/style.module.css';
+// import Rcarousel from '@/components/reservation/restaurantpage/carousel'
+// import Info from '@/components/reservation/restaurantpage/info';
+// import ReservationPage from '@/components/reservation/restaurantpage';
+// import ShoppingCart from '@/components/reservation/restaurantpage/shoppingcart';
+// import Image from 'next/image';
+// import ShoppingBag from '@/public/reservation/shoppingbag.svg'
+// // import Button from 'react-bootstrap/Button';
+// import Offcanvas from 'react-bootstrap/Offcanvas';
 
 
 
-export default function RestaurantPage() {
+// export default function RestaurantPage() {
 
-  const [show, setShow] = useState(false);
+//   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+//   const handleClose = () => setShow(false);
+//   const handleShow = () => setShow(true);
 
-  return (
-    <>
-      <div className={style.body}>
-        <Rcarousel />
-        <div className="container">
-          <div className="row">
-            <div className="col-3">
-              <Info />
-            </div>
+//   return (
+//     <>
+//       <div className={style.body}>
+//         <Rcarousel />
+//         <div className="container">
+//           <div className="row">
+//             <div className="col-3">
+//               <Info />
+//             </div>
 
-            <div className="col-9">
-              <div>
-                <Image src={ShoppingBag} variant="primary" onClick={handleShow}/>
+//             <div className="col-9">
+//               <div>
+//                 <Image src={ShoppingBag} variant="primary" onClick={handleShow}/>
 
-                <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
-                  <Offcanvas.Header closeButton>
-                    <Offcanvas.Title className={style.carttitle}>--您的購物車--</Offcanvas.Title>
-                  </Offcanvas.Header>
-                  <Offcanvas.Body>
-                   <ShoppingCart/>
-                  </Offcanvas.Body>
-                </Offcanvas>
-
-
-              </div>
-              <ReservationPage />
-            </div>
+//                 <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
+//                   <Offcanvas.Header closeButton>
+//                     <Offcanvas.Title className={style.carttitle}>--您的購物車--</Offcanvas.Title>
+//                   </Offcanvas.Header>
+//                   <Offcanvas.Body>
+//                    <ShoppingCart/>
+//                   </Offcanvas.Body>
+//                 </Offcanvas>
 
 
-          </div>
-        </div>
+//               </div>
+//               <ReservationPage />
+//             </div>
 
-      </div>
-    </>
-  );
-}
+
+//           </div>
+//         </div>
+
+//       </div>
+//     </>
+//   );
+// }

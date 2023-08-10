@@ -87,46 +87,90 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
         // console.log(Object.values(nowcart))
         // console.log(shopId)
 
-        if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) {
+        // if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) {
 
-            if (localStorage.getItem('order')) {
+        //     if (localStorage.getItem('order')) {
 
-                Swal.fire({
-                    icon: 'warning',
-                    title: '購物車中已有其他餐廳商品',
-                    text: '要清空購物車嗎？',
-                    showCancelButton: true,
-                    confirmButtonText: '確定',
-                    cancelButtonText: '返回',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        localStorage.removeItem('order')
+        //         Swal.fire({
+        //             icon: 'warning',
+        //             title: '購物車中已有其他餐廳商品',
+        //             text: '要清空購物車嗎？',
+        //             showCancelButton: true,
+        //             confirmButtonText: '確定',
+        //             cancelButtonText: '返回',
+        //         }).then((result) => {
+        //             if (result.isConfirmed) {
+        //                 localStorage.removeItem('order')
 
-                        const oldCart = JSON.parse(localStorage.getItem('order')) || {};
-                        const itemId = item.food_id;
-                        const updatedItem = {
-                            itemId: itemId,
-                            shop: row.detail.shop,
-                            itemName: item.food_title,
-                            src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
-                            price: item.food_price,
-                            amount: (oldCart[itemId]?.amount || 0) + 1,
-                            togodate: togodate,
-                            togotime: togotime,
-                            shop_id: row.detail.sid,
-                        };
-                        // console.log(updatedItem);
-                        // 更新LocalStorage
-                        localStorage.setItem('order', JSON.stringify({
-                            ...oldCart,
-                            [itemId]: updatedItem,
-                        }));
+        //                 const oldCart = JSON.parse(localStorage.getItem('order')) || {};
+        //                 const itemId = item.food_id;
+        //                 const updatedItem = {
+        //                     itemId: itemId,
+        //                     shop: row.detail.shop,
+        //                     itemName: item.food_title,
+        //                     src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+        //                     price: item.food_price,
+        //                     amount: (oldCart[itemId]?.amount || 0) + 1,
+        //                     togodate: togodate,
+        //                     togotime: togotime,
+        //                     shop_id: row.detail.sid,
+        //                 };
+        //                 // console.log(updatedItem);
+        //                 // 更新LocalStorage
+        //                 localStorage.setItem('order', JSON.stringify({
+        //                     ...oldCart,
+        //                     [itemId]: updatedItem,
+        //                 }));
 
-                    }
-                })
-                return;
+        //             }
+        //         })
+        //         return;
+        //     }
+        // }
+
+        const checkShop = () => {
+            if (Object.keys(JSON.parse(localStorage.getItem('order'))).length === 0) return
+            if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) {
+
+                if (localStorage.getItem('order')) {
+
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '購物車中已有其他餐廳商品',
+                        text: '要清空購物車嗎？',
+                        showCancelButton: true,
+                        confirmButtonText: '確定',
+                        cancelButtonText: '返回',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            localStorage.removeItem('order')
+
+                            const oldCart = JSON.parse(localStorage.getItem('order')) || {};
+                            const itemId = item.food_id;
+                            const updatedItem = {
+                                itemId: itemId,
+                                itemName: item.food_title,
+                                src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+                                price: item.food_price,
+                                amount: (oldCart[itemId]?.amount || 0) + 1,
+                                togodate: togodate,
+                                togotime: togotime,
+                                shop_id: row.detail.sid,
+                            };
+                            // console.log(updatedItem);
+                            // 更新LocalStorage
+                            localStorage.setItem('order', JSON.stringify({
+                                ...oldCart,
+                                [itemId]: updatedItem,
+                            }));
+
+                        }
+                    })
+                    return;
+                }
             }
         }
+        checkShop()
 
         if (!togodate || !togotime) {
             Swal.fire({

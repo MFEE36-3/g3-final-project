@@ -214,9 +214,9 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
             }
             <div>
                 {/* <Link href="/checkout?page=order"> */}
-                <Button className={style.cartsendbutton} onClick={handleSendCart}>
+                <button className={style.cartsendbutton} onClick={handleSendCart}>
                     前往結帳
-                </Button>
+                </button>
                 {/* </Link> */}
             </div>
 

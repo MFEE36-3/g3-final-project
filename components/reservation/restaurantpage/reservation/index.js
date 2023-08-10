@@ -67,24 +67,24 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
       }
 
       const confirmationText = `
-        <div style="display:flex; flex-direction:column;">
+        <div style="display:flex; flex-direction:column; padding:20px 0px 0px 150px;">
           <div style="display:flex;">
-            <p>餐廳：</p><p>${row.detail.shop}</p>
-          </div>
-          <div style="display:flex;">
-            <p>日期：</p><p>${date}</p>
+            <p>餐廳：</p><p style="margin-left:10px;">${row.detail.shop}</p>
           </div>
           <div style="display:flex;">
-            <p>時間：</p> <p>${time}</p>
+            <p>日期：</p><p style="margin-left:10px;">${date}</p>
+          </div>
+          <div style="display:flex;">
+            <p>時間：</p><p style="margin-left:10px;">${time}</p>
           </div>
           <div style="display:flex; ">
-            <p>人數：</p> <p>${person}</p>
+            <p>人數：</p> <p style="margin-left:10px;">${person}</p>
           </div>
           <div style="display:flex; ">
-            <p>座位：</p> <p>${seat}</p>
+            <p>座位：</p> <p style="margin-left:10px;">${seat}</p>
           </div>
           <div style="display:flex; ">
-            <p>備註：</p> <p>${memo}</p>
+            <p>備註：</p> <p style="margin-left:10px;">${memo}</p>
           </div>
         <div>`;
 

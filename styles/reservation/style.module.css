@@ -71,7 +71,7 @@
 .top5img{
   position: relative;
   padding-top: 5px;
-  filter: drop-shadow(0 0 20px #fed003);
+  filter: drop-shadow(0 0 10px #fac000);
   transition: .5s ease-in-out;
 }
 
