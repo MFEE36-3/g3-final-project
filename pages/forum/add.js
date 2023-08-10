@@ -46,6 +46,18 @@ export default function Add() {
       console.error('Error', error);
     }
   };
+  const originErrors = { header: '', content: '' };
+  const [errors, setErrors] = useState(originErrors);
+  const handleblur = (e) => {
+    const newError = { ...originErrors };
+    if (!header) {
+      newError.header = '* 請輸入標題';
+    }
+    if (!content) {
+      newError.content = '* 請輸入敘述';
+    }
+    setErrors(newError);
+  };
   // 文章新增函式
   const handleheader = (e) => {
     console.log('header');
@@ -113,22 +125,29 @@ export default function Add() {
         >
           <div className={styles.btn_text}>點擊選擇看板</div>
         </Button> */}
-        <div>
+        <div className={styles.errorcontainer}>
           <input
             type="text"
             placeholder="請輸入標題"
             value={header}
             className={styles.input1}
             onChange={handleheader}
+            onBlur={handleblur}
           ></input>
         </div>
-        <textarea
-          type="text"
-          placeholder="敘述"
-          value={content}
-          className={styles.input2}
-          onChange={handlecontent}
-        ></textarea>
+        <div className={styles.errorheader}>{errors.header}</div>
+        <div></div>
+        <div>
+          <textarea
+            type="text"
+            placeholder="敘述"
+            value={content}
+            className={styles.input2}
+            onChange={handlecontent}
+            onBlur={handleblur}
+          ></textarea>
+        </div>
+        <div className={styles.errorheader}>{errors.content}</div>
         <div className={styles.end}></div>
       </div>
 

@@ -7,6 +7,12 @@
     height: 640px;
     margin-top: 40px;
 }
+.errorheader{
+color:red;
+}
+.errorcontainer{
+    
+}
 .input[type="file"] {
     position: absolute;
     width: 1px;
@@ -71,7 +77,7 @@
 border: 1px solid gray;
 border-radius: 5px;
 width: 100%;
-height: 70%;
+height: 400px;
 background-color: transparent;
 padding: 10px;
 resize: none;
@@ -80,7 +86,7 @@ resize: none;
     border: 2px solid var(--main-color);
     border-radius: 5px;
     width: 100%;
-    height: 70%;
+    height: 400px;
     background-color: transparent;
     padding: 10px;
     outline: none;
@@ -108,7 +114,16 @@ resize: none;
     width: 30px;
     /* margin-top: 10px; */
 }
-
+.buttonContainer input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
 .end{
     display: flex;
     justify-content: flex-end;
@@ -139,6 +154,6 @@ resize: none;
     width: 75%;
     margin: 0 auto;
     box-sizing: border-box;
-    height: 640px;
+    height: 650px;
 }
 

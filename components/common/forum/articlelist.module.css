@@ -65,7 +65,7 @@
 .icon{
     width: 30px;
     height: 25px;
-    color: red;
+    color: var(--main-color);
     margin-right: 5px;
 }
 .message{
