@@ -15,6 +15,7 @@ import Head from 'next/head';
 
 export default function Detail() {
   const router = useRouter();
+  const [scrollPosition, setScrollPosition] = useState(0);
   const { auth, setAuth } = useContext(AuthContext);
   const [clickHeart, setClickHeart] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -93,8 +94,31 @@ export default function Detail() {
     queryParams.set('forum_orderBy', selectedOrder);
     router.push(`?${queryParams.toString()}`);
   };
+  useEffect(() => {
+    // 記住滾動位置
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll);
 
- 
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleClearFilter = () => {
+    setSearchKeyword(''); // 清除篩選關鍵字
+    setSortOrder('desc'); // 重置排序狀態
+    setCurrentPage(1); // 重置當前頁碼
+
+    // 更新 URL 並清除篩選參數
+    router.replace('/forum');
+
+    // 恢復滾動位置
+    window.scrollTo(0, scrollPosition);
+  };
+
+  
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
@@ -228,10 +252,6 @@ export default function Detail() {
   //   }
   // };
 
-  // ...（之前的程式碼，略去）
-
-  // ...（之前的程式碼，略去）
-
   return (
     <>
       <Head>
@@ -249,12 +269,11 @@ export default function Detail() {
             sentKeyword={sentKeyword}
             sortOrder={sortOrder}
             handleSortOrderChange={handleSortOrderChange}
+            handleClearFilter={handleClearFilter}
           />
           <Hotnew />
           {articles
-            .filter(
-              (value, index) => currentPage < currentPage + 10
-            )
+            .filter((value, index) => currentPage < currentPage + 10)
             .map((article, index) => {
               const {
                 comment_count,

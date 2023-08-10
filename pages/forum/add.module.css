@@ -11,7 +11,7 @@
 color:red;
 }
 .errorcontainer{
-    
+   margin-bottom: 20px;
 }
 .input[type="file"] {
     position: absolute;
@@ -55,22 +55,22 @@ color:red;
 }
 .input1{
     margin-top: 20px;
-    margin-bottom: 20px;
     border: 1px solid gray;
     width: 100%;
     border-radius: 5px;
     background-color: white;
     padding: 10px;
+    margin-bottom: 8px;
 }
 .input1:focus{
     margin-top: 20px;
-    margin-bottom: 20px;
     border: 2px solid var(--main-color);
     width: 100%;
     border-radius: 5px;
     background-color: transparent;
     padding: 10px;
     outline: none;
+    margin-bottom: 8px;
 
 }
 .input2{

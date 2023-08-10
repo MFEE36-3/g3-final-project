@@ -134,8 +134,9 @@ export default function Add() {
             onChange={handleheader}
             onBlur={handleblur}
           ></input>
+          <div className={styles.errorheader}>{errors.header}</div>
         </div>
-        <div className={styles.errorheader}>{errors.header}</div>
+        
         <div></div>
         <div>
           <textarea

@@ -189,27 +189,33 @@ export default function ArticleDetail() {
 
   return (
     <>
-     <Head>
-            <title>食GOEAT! / 美食論壇</title>
-        </Head>
+      <Head>
+        <title>食GOEAT! / 美食論壇</title>
+      </Head>
       <div className={styles.container}>
         <Newnav />
+
         <div className={styles.flex}>
           <div className={styles.avatar}>
             <img
               src={`http://localhost:3002/img/member/${article.user_photo}`}
             />
           </div>
+
           <div className={styles.nickname}>{article.nickname}</div>
         </div>
         <div className={styles.ptext}></div>
         <DetailTitle data={article.header} />
         <TagTime data={article.publishedTime} />
         {article.forum_photo && (
-          <div className="w-75">
+          <div className="w-75  d-flex ">
             <img
               src={`${imgPreview + article.forum_photo}`}
               className="w-75 h-50 object-fit-contain"
+            />
+            <img 
+              src="/buyforme/map/user_icon/bubbleTea.svg"
+              alt="Bubble Tea Icon"
             />
           </div>
         )}
