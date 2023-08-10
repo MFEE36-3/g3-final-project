@@ -16,10 +16,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  transition: all 0.2s ease-in;
 }
 
 .imgArea:hover {
-  transform: scale(1.1);
+  animation: moveUpDown 3s forwards;
+  background-image: url('/member/hamburger.png');
+  cursor: pointer;
+  left: 5px;
 }
 
 @keyframes moveUpDown {
