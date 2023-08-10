@@ -9,8 +9,8 @@ export default function CheckOutItem() {
     const [localStorageItems, setLocalStorageItems] = useState({});
     const handleRemove = (removeItem) => {
       Swal.fire({
-        title: `確定要刪除${removeItem.itemName}`,
-        text: "刪除後需重新將商品加入購物車",
+        title: `<div style="font-family: Mochiy Pop One;">確定要刪除${removeItem.itemName}</div>`,
+        html: '<div style="font-family: Mochiy Pop One;">刪除後需重新將商品加入購物車</div>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

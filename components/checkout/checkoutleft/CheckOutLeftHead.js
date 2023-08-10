@@ -47,8 +47,8 @@ export default function CheckOutLeftHead() {
       </div>
       <div className='d-flex justify-content-between mt-4 mb-2'>
         <div>
-            <h4>您的{handlePage()}商品</h4>
-            <p className='mb-0'>您的購物車有 {showPages(items).length} 項商品</p>
+            <h4  style={{fontFamily:"var(--ff1)"}}>您的{handlePage()}商品</h4>
+            <p className='mb-0'>購物車有 {showPages(items).length} 項商品</p>
         </div>
     </div>
     </div>

@@ -32,19 +32,19 @@ export default function Payment({payment, setPayment}) {
   return (
     <>
         <div className='d-flex align-items-center'>
-        {!payment ? <Cusimg src={Alert.src} style={{width:"8%"}}></Cusimg> : <img src={check.src} style={{width:"8%"}}></img>}
-            <div className={`fs-4 ms-2 ${!payment ? 'text-danger' : 'text-success'}`}>請選擇支付方式</div>
+        {!payment ? <Cusimg src={Alert.src} style={{width:"7%"}}></Cusimg> : <img src={check.src} style={{width:"7%"}}></img>}
+            <div className={`fs-5 ms-2 ${!payment ? 'text-danger' : 'text-success'}`}>請選擇支付方式</div>
         </div>
         <div className='d-flex justify-content-between mt-3 mb-3'>
-            <div className={selectWalletClass} style={{cursor:'pointer'}} onClick={()=>{handlePayment('wallet')}}>
+            <div className={selectWalletClass} style={{cursor:'pointer',width:"20%"}} onClick={()=>{handlePayment('wallet')}}>
                 {payment === 'wallet' &&<HiCheckCircle className='position-absolute top-0 fs-4 text-danger' style={{right:"0"}}/>}
                 <img src={wallet.src} alt='wallet' className='w-100'></img>
             </div>
-            <div className={selectCardClass} style={{cursor:'pointer'}} onClick={()=>{handlePayment('card')}}>
+            <div className={selectCardClass} style={{cursor:'pointer',width:"20%"}} onClick={()=>{handlePayment('card')}}>
                 {payment === 'card' &&<HiCheckCircle className='position-absolute top-0 fs-4 text-danger' style={{right:"0"}}/>}
                 <img src={visa.src} alt='card' className='w-100'></img>
             </div>
-            <div className={selectLinePayClass} style={{cursor:'pointer'}} onClick={()=>{handlePayment('linepay')}}>
+            <div className={selectLinePayClass} style={{cursor:'pointer',width:"20%"}} onClick={()=>{handlePayment('linepay')}}>
                 {payment === 'linepay' &&<HiCheckCircle className='position-absolute top-0 fs-4 text-danger' style={{right:"0"}}/>}
                 <img src={linepay.src} alt='linepay' className='w-50 h-50 position-absolute object-fit-contain'></img>
             </div>  
