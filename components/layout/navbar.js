@@ -130,7 +130,7 @@ export default function Navbar() {
         <FaShoppingCart className={styles.cart} />
       </Link>
 
-      {auth.photo ? (
+      {auth && auth.photo ? (
         <button
           className={styles.member_icon}
           onClick={handleToggle}
