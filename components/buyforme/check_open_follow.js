@@ -1,3 +1,4 @@
+import React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -6,7 +7,26 @@ import dayjs from 'dayjs';
 import Btn from '../common/btn';
 import { useContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import Slide from '@mui/material/Slide';
 
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="right" ref={ref} {...props} />;
+});
+
+const Transition2 = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="left" ref={ref} {...props} />;
+});
+
+const random_user = [
+    { img: 'bubbleTea.svg', title: '匿名珍奶' },
+    { img: 'candyChief.svg', title: '匿名糖果' },
+    { img: 'chip.svg', title: '匿名薯片' },
+    { img: 'chocoCookie.svg', title: '匿名餅乾' },
+    { img: 'sushi.svg', title: '匿名壽司' },
+    { img: 'hamburger.svg', title: '匿名漢堡' }
+];
 
 
 
@@ -58,7 +78,7 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
     return (<>
 
         {open_or_follow === 'follow' ?
-            <Dialog open={open_checklist} onClose={handleChecklistClose} >
+            <Dialog open={open_checklist} onClose={handleChecklistClose} TransitionComponent={Transition} maxWidth='md' sx={{ '& .MuiPaper-root': { width: 800 } }}>
 
                 <DialogTitle className={styles.open_title}>我的跟團</DialogTitle>
                 <DialogContent>
@@ -90,7 +110,7 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
                                                 <td>
                                                     {(v.order_status === 2)
                                                         ? '已完成'
-                                                        : <Btn text='已取餐!' padding='5px 10px' fs='var(--h9)' onClick={() => {
+                                                        : <Btn text='已取餐!' padding='5px 10px' fs='var(--h7)' onClick={() => {
                                                             Swal.fire({
                                                                 title: `即將撥款 NT$${v.order_amount} 給跑腿者`,
                                                                 icon: 'warning',
@@ -136,7 +156,7 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
                 </DialogContent>
             </Dialog >
             : open_or_follow === 'open' ?
-                <Dialog open={open_checklist} onClose={handleChecklistClose} >
+                <Dialog open={open_checklist} onClose={handleChecklistClose} TransitionComponent={Transition2} maxWidth='md' sx={{ '& .MuiPaper-root': { width: 800 } }} >
 
                     <DialogTitle className={styles.open_title}>我的揪團</DialogTitle>
                     <DialogContent>
@@ -164,17 +184,25 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
                                             </tr>
 
                                             {v.orders.map((item, i) => {
+                                                const random_character = random_user[Math.floor(random_user.length * Math.random())];
                                                 return (
                                                     <tr key={item[0] + item[3]} className={styles.detail_tr}>
-                                                        <td>{i + 1}</td>
-                                                        <td>{item[0]}</td>
-                                                        <td className={styles.text_nowrap}>{item[1].map((detail, i) => {
-                                                            return (<div key={detail[0] + i}>{detail.join('*')}</div>)
-                                                        })}</td>
-                                                        <td colSpan="2" className={styles.last_td}>
-                                                            <div>{'電話： ' + item[4]}</div>
-                                                            <div>{'備註： ' + item[2]}</div>
-                                                            <div className={styles.amount}>{'訂單總額： ' + item[3]}</div>
+                                                        <td colSpan={5}>
+                                                            <div className={styles.big_td}>
+                                                                <div className={styles.random_icon} style={{backgroundImage:`url(./buyforme/map/user_icon/` + random_character.img}}></div>
+                                                                <div className={styles.follow_numbers}>跟單序號 {i + 1}</div>
+                                                                <div className={styles.last_td}>
+                                                                    <div>{'暱稱： ' + item[0]}</div>
+                                                                    <div>{'電話： ' + item[4]}</div>
+                                                                    <div>{'備註： ' + item[2]}</div>
+                                                                    <div className={styles.amount}>{'訂單總額： ' + item[3]}</div>
+                                                                </div>
+                                                                <div className={styles.text_nowrap +' ' + styles.align_start}>
+                                                                    {item[1].map((detail, i) => {
+                                                                        return (<div key={detail[0] + i}>{detail.join('*')}</div>)
+                                                                    })}
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 )
