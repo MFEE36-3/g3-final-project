@@ -111,10 +111,26 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
                             '& .MuiPickersCalendarHeader-root': {
                                 padding: '0',
                             },
+                            '& .MuiPickersCalendarHeader-labelContainer': {
+                                fontSize: '32px',
+                                paddingLeft: '34%',
+                                color: '#a8a8a8',
+                                textShadow: '1px 1px 1px black',
+                            },
+                            '& .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPickersCalendarHeader-switchViewIcon': {
+                                display: 'none',
+                            },
                             '& .MuiDayCalendar-header': {
                                 width: '600px',
                                 display: 'flex',
                                 justifyContent: 'space-evenly',
+                                background: '#a8a8a8',
+                                borderRadius: '20px 20px 0px 0px',
+                            },
+                            '& .MuiDayCalendar-weekDayLabel': {
+                                color: 'white',
+                                fontSize: '18px',
+                                fontWeight: 'bold',
                             },
                             '& .MuiDayCalendar-weekContainer': {
                                 width: '600px',
@@ -127,10 +143,14 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
                                 borderRadius: '20%',
                                 border: '1px solid #a8a8a8',
                                 padding: '25px',
-                                margin: '14px'
+                                margin: '12px'
                             },
                             '& .MuiPickersSlideTransition-root.MuiDayCalendar-slideTransition': {
                                 minHeight: '500px',
+                            },
+                            '& .MuiDayCalendar-monthContainer ': {
+                                border: '2px solid #a8a8a8',
+                                borderRadius: '0px 0px 20px 20px',
                             },
                             '& .MuiDayCalendar-weekContainer': {
                                 width: '600px',
