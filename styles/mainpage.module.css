@@ -298,9 +298,9 @@
 .bg_sushi {
     position: absolute;
     bottom: 0;
-    top: 390px;
+    top: 550px;
     left: -150px;
-    transform: scale(0.9);
+    transform: scale(1.2);
 }
 
 .candy_chief {
@@ -1010,8 +1010,10 @@
 
     .bg_sushi {
         position: absolute;
-        bottom: 20px;
-        left: -150px;
+        bottom: auto;
+        top: 390px;
+        left: -170px;
+        transform: scale(0.9);
     }
 
     .candy_chief {
