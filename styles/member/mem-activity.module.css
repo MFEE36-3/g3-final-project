@@ -127,7 +127,7 @@
     transform: translateX(240px) scaleX(1);
     top: 5px;
   }
-  30% {
+  40% {
     transform: translateX(320px) scaleX(1);
     top: -5px;
   }
@@ -190,7 +190,7 @@
     transform: translateX(240px) scaleX(1);
     top: -5px;
   }
-  30% {
+  40% {
     transform: translateX(320px) scaleX(1);
     top: 5px;
   }
