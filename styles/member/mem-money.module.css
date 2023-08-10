@@ -9,7 +9,7 @@
 .imgArea {
   width: 350px;
   height: 300px;
-  background-image: url('/member/cookie.png');
+  background-image: url('/member/hamburger.png');
   background-size: cover;
   overflow: visible;
   background-position: center;
@@ -18,13 +18,8 @@
   justify-content: center;
   position: relative;
   transition: all 0.2s ease-in;
-}
-
-.imgArea:hover {
-  animation: moveUpDown 3s forwards;
-  background-image: url('/member/hamburger.png');
+  animation: moveUpDown 1s infinite;
   cursor: pointer;
-  left: 5px;
 }
 
 @keyframes moveUpDown {

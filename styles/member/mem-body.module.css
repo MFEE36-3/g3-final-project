@@ -130,21 +130,22 @@
 }
 
 .packageBtn {
-  font-family: 'Zen Maru Gothic';
+  font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
   width: 100px;
   height: 60px;
   text-align: center;
-  border-radius: 30px;
+  border-radius: 15px;
   font-size: 16px;
   padding: 2px;
+  /* padding-bottom: 7px; */
   background-color: #ffedcc;
   border: none;
   box-shadow: inset -5px -5px 7px rgb(166, 139, 104);
 }
 
 .packageBtn:hover {
-  /* background-color: rgb(255, 178, 178); */
+  background-color: #fff3de;
   transform: scale(1.1);
   transition: all 0.1s ease-in;
   /* color: #921010; */
