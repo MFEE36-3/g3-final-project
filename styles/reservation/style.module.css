@@ -1192,8 +1192,10 @@
 }
 
 .cardtitle{
-  font-size: var(--h6);
   font-weight: bold;
+  white-space: nowrap; /* 不換行 */
+  overflow: hidden; /* 超過部分隱藏 */
+  text-overflow: ellipsis; 
 }
 
 
