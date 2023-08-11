@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import BlankLayout from '@/components/layout/blank-layout';
-import InputTest from '@/components/common/input-test';
-import BtnTest from '@/components/common/btn-test';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import 'bootstrap/dist/css/bootstrap.min.css';
