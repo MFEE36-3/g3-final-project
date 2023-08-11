@@ -47,10 +47,10 @@ export default function Star() {
     reset();
     },[isReset])
   return (
-    <div className='mt-4 border-bottom border-2 pb-4'>
-        <H4div>評分</H4div>
+    <div className='mt-3 border-bottom border-2 pb-4'>
+        <H4div className='fs-5'>評分</H4div>
         <div className='px-1'>
-            <Nobgbutton className={`d-flex text-warning border-0 fs-4 rounded-4 px-1 mt-4 ${rating === 5 && active}`} onClick={()=>handleRatingChange(5)}>
+            <Nobgbutton className={`d-flex text-warning border-0 fs-4 rounded-4 px-1 mt-2 ${rating === 5 && active}`} onClick={()=>handleRatingChange(5)}>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
@@ -63,7 +63,7 @@ export default function Star() {
                 <AiFillStar></AiFillStar>
                 <AiFillStar></AiFillStar>
                 <AiOutlineStar></AiOutlineStar>
-                <span className='ms-1 text-dark fs-5'>或以上</span>
+                <span className='ms-2 text-dark fs-6 fw-bold'>或以上</span>
             </Nobgbutton>
             <Nobgbutton className={`d-flex mt-3 align-items-center text-warning border-0 fs-4 rounded-4 px-1 ${rating === 3 && active}`} onClick={()=>handleRatingChange(3)}>
                 <AiFillStar></AiFillStar>
@@ -71,7 +71,7 @@ export default function Star() {
                 <AiFillStar></AiFillStar>
                 <AiOutlineStar></AiOutlineStar>
                 <AiOutlineStar></AiOutlineStar>
-                <span className='ms-1 text-dark fs-5'>或以上</span>
+                <span className='ms-2 text-dark fs-6 fw-bold'>或以上</span>
             </Nobgbutton>
             <Nobgbutton className={`d-flex mt-3 align-items-center text-warning border-0 fs-4 rounded-4 px-1 ${rating === 2 && active}`} onClick={()=>handleRatingChange(2)}>
                 <AiFillStar></AiFillStar>
@@ -79,7 +79,7 @@ export default function Star() {
                 <AiOutlineStar></AiOutlineStar>
                 <AiOutlineStar></AiOutlineStar>
                 <AiOutlineStar></AiOutlineStar>
-                <span className='ms-1 text-dark fs-5'>或以上</span>
+                <span className='ms-2 text-dark fs-6 fw-bold'>或以上</span>
             </Nobgbutton>
             <Nobgbutton className={`d-flex mt-3 px-1 align-items-center text-warning border-0 fs-4 rounded-4 ${rating === 1 && active}`} onClick={()=>handleRatingChange(1)}>
                 <AiFillStar></AiFillStar>
@@ -87,7 +87,7 @@ export default function Star() {
                 <AiOutlineStar></AiOutlineStar>
                 <AiOutlineStar></AiOutlineStar>
                 <AiOutlineStar></AiOutlineStar>
-                <span className='ms-1 text-dark fs-5'>或以上</span>
+                <span className='ms-2 text-dark fs-6 fw-bold'>或以上</span>
             </Nobgbutton>
         </div>
     </div>

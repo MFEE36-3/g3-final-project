@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useContext } from 'react'
 import CheckOutContainer from '@/components/checkout/checkoutcontainer/CheckOutContainer'
 import CheckOutPage from '@/components/checkout/checkoutpage/CheckOutPage'
 import CheckOutLeft from '@/components/checkout/checkoutleft/CheckOutLeft'
@@ -7,12 +7,16 @@ import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 import Button from '@mui/material/Button';
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router'
+import AuthContext from '@/context/AuthContext';
+
+
 export const Cart = createContext()
 export default function CheckOutFinal() {
     const [page, setPage] = useState('subscribe')
     const [token, setToken] = useState(false)
     const host = process.env.API_SERVER
     const router = useRouter()
+    const { auth } = useContext(AuthContext)
     const [items, setItems] = useState(
         {
             subscribe: [],
@@ -171,7 +175,7 @@ export default function CheckOutFinal() {
             <Cart.Provider value={{ page, setPage, items, setItems, showPages, memberInfo, memberInfo, host, memberCoupon }}>
                 <div className='overflow-hidden' style={{ fontFamily: "var(--ff1)" }}>
                     <CheckOutContainer>
-                        {JSON.parse(localStorage.getItem('auth')) ?
+                        {localStorage.getItem('auth') ?
                             <>
                                 <CheckOutPage />
                                 <CheckOutLeft />

@@ -16,6 +16,15 @@ const H2div = styled.div`
 const H4div = styled.div`
     font-size:var(--h4)
 `
+const mui_select_style = {
+  '&:hover .MuiOutlinedInput-notchedOutline': {
+      backgroundColor: 'rgba(250,179,179,0.2)',
+      borderColor: '#FAB3B3'
+  },
+  '& fieldset.MuiOutlinedInput-notchedOutline': {
+      borderColor: 'var(--main-color) !important',
+  },
+}
 
 export default function ShopSearchTitle() {
     const {sortby, order, keyword, dispatch, items, isReset, totalpages} = useContext(Host)
@@ -65,12 +74,13 @@ export default function ShopSearchTitle() {
         </>}
         <Box sx={{ minWidth: 120 }} className="me-xl-5 border-3">
         <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label" className='d-flex align-items-center'>排序</InputLabel>
+        <InputLabel id="demo-simple-select-label" className='d-flex align-items-center' sx={{color:'var(--main-color)',fontWeight:900,'&.MuiInputLabel-root.Mui-focused':{color:'var(--main-color)'}}}>排序</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={orders}
           label="sort"
+          sx={mui_select_style}
           onChange={handleChange}
         >
           <MenuItem value={"ctime"}>最新</MenuItem>
