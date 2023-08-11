@@ -246,9 +246,10 @@
   }
 
   .imgArea {
-    height: 200px;
-    width: 90%;
-    margin-bottom: 50px;
+    height: 170px;
+    width: 190px;
+    margin-bottom: 30px;
+    left: 0;
   }
 
   .nowMoney {
@@ -310,13 +311,12 @@
     left: 40px;
     top: 250px;
     width: 300px;
-    height: 130px;
-    font-size: 20px;
+    height: 100px;
+    font-size: 18px;
   }
 
-  .imgArea {
-    width: 200px;
-    margin-bottom: 30px;
-    left: 0;
+  .recordBox {
+    scrollbar-width: thin;
+    padding-right: 0px;
   }
 }

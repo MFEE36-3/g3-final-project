@@ -199,7 +199,9 @@
   }
 
   .title > * {
-    width: 70px;
+    width: 80px;
+    margin-left: 0px;
+    text-align: center;
   }
 
   .row {

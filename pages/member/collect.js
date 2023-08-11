@@ -144,11 +144,11 @@ export default function Index() {
 
             <div className={styles2.area2}>
               <div className={styles2.scrollArea}>
-                <MemBtn text={'收藏貼文'} onClick={() => setOpen('收藏貼文')} />
+                <MemBtn text={'貼文'} onClick={() => setOpen('貼文')} />
 
-                <MemBtn text={'收藏店家'} onClick={() => setOpen('收藏店家')} />
+                <MemBtn text={'店家'} onClick={() => setOpen('店家')} />
               </div>
-              {open === '收藏店家' ? (
+              {open === '店家' ? (
                 <div className={styles2.scroll2}>
                   <MemCollectReocrd2 store={store} page={page} />
                 </div>
