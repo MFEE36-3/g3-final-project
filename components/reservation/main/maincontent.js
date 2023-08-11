@@ -133,7 +133,7 @@ export default function MainContent({ favorite, setFavorite }) {
                 </div>
                 <Card.Body>
                   <Card.Title className={style.cardtitle}>{shop}</Card.Title>
-                  <Card.Text>{location}</Card.Text>
+                  <Card.Text className={style.cardlocation}>{location}</Card.Text>
                   <div className="d-flex align-item-center justify-content-between">
                     <div className='d-flex'>
                       <div className={style.cardbottomicon}>
