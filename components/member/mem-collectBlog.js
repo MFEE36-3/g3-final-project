@@ -12,7 +12,7 @@ export default function MemCollectBlog({ sid, title, time }) {
   return (
     <Link href={'http://localhost:3000/forum/' + sid}>
       <button className={styles.card}>
-        <div>
+        <div className={styles.box1}>
           <Image
             src={'http://localhost:3002/img/member/book.svg'}
             width={35}

@@ -74,3 +74,40 @@
 .little {
   width: 200px;
 }
+
+@media screen and (max-width: 391px) {
+  .main {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    gap: 20px;
+    font-size: 14px;
+    justify-content: center;
+  }
+  .main2 {
+    width: 100%;
+  }
+
+  .img {
+    width: 100px;
+    height: 250px;
+    object-fit: cover;
+    /* position: absolute;
+    left: 50px; */
+  }
+
+  .img > * {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+
+  .left {
+    width: 100px;
+    margin-left: -5px;
+    margin-right: 10px;
+  }
+  .right {
+    width: 100%;
+  }
+}
