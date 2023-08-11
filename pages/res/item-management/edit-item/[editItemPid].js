@@ -122,9 +122,26 @@ const AddNewItem = () => {
   };
   const [errors, setErrors] = useState(originErrors);
 
+  // 判斷食品分類
+  const food_cate = ()=>{
+    let foodCate = 0
+    if (gotData.food_cate === '開胃菜') {
+        foodCate = 1
+    } else if (gotData.food_cate === '主餐') {
+        foodCate = 2
+    } else if (gotData.food_cate === '甜點') {
+        foodCate = 3
+    } else if (gotData.food_cate === '飲料') {
+        foodCate = 4
+    } else if (gotData.food_cate === '湯品') {
+        foodCate = 5
+    }
+    setGotData({...gotData,food_cate:foodCate})
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    // food_cate()
     const newErrors = { ...originErrors };
 
     let isPass = true;
@@ -150,6 +167,8 @@ const AddNewItem = () => {
     }
     setErrors(newErrors);
 
+
+
     if (isPass) {
       Swal.fire({
         title: '你確定要編輯此項商品嗎?',
@@ -171,9 +190,9 @@ const AddNewItem = () => {
             .then((data) => {
               console.log(data);
             });
-          // router.push('/res/add-item-over')
+          router.push('/res/item-management')
         } else if (result.isDenied) {
-          Swal.fire('取消新增', '', 'info');
+          Swal.fire('取消編輯', '', 'info');
         }
       });
     }

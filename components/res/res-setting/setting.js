@@ -740,16 +740,12 @@ export default function resSetting() {
                       <select className="form-select col-3" value={shop.open_time} onChange={(e) => {
                         setShop({ ...shop, open_time: e.target.value })
                       }}>
-
                         <option selected>開始營業時間</option>
                         {Array(24).fill(1).map((v, i) => {
                           return <option key={i} value={`${i}:00`}>{`${i}:00`}</option>
                         })}
-
                       </select>
-
                       <div className="mx-3">:</div>
-
                       <select className="form-select col-3" value={shop.close_time} onChange={(e) => {
                         setShop({ ...shop, close_time: e.target.value })
                       }}>
