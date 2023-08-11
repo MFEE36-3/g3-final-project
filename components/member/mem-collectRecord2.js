@@ -6,12 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Image from 'next/image';
 import { v4 } from 'uuid';
 import styles from './mem-collectRecord.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
-export default function MemCollectReocrd2({ store, page }) {
+export default function MemCollectReocrd2({ store, page, setOpen }) {
   const rowStyle = {
     height: '90px',
   };
@@ -30,6 +32,36 @@ export default function MemCollectReocrd2({ store, page }) {
     fontFamily: 'var(--ff1)',
   };
 
+  const tdStyle0 = {
+    fontSize: '18px',
+    fontWeight: '600',
+    width: '300px',
+    height: '70px',
+    fontFamily: 'var(--ff1)',
+  };
+
+  const router = useRouter();
+
+  const deleteRest = (sid) => {
+    fetch(process.env.API_SERVER + '/member/deleteRest', {
+      method: 'DELETE',
+      body: JSON.stringify({ sid }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(
+        Swal.fire({
+          title: '刪除成功',
+          timer: 1000,
+          icon: 'success',
+          showConfirmButton: false,
+        })
+      )
+      .then(setOpen('店家'))
+      .then(router.push('/member/collect'));
+  };
+
   return store[0] ? (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -44,15 +76,14 @@ export default function MemCollectReocrd2({ store, page }) {
             </TableCell>
 
             <TableCell align="center" sx={ceilStyle}>
-              地址
-            </TableCell>
-
-            <TableCell align="center" sx={ceilStyle}>
               評分
             </TableCell>
 
             <TableCell align="center" sx={ceilStyle}>
               連結
+            </TableCell>
+            <TableCell align="center" sx={ceilStyle}>
+              移除
             </TableCell>
           </TableRow>
         </TableHead>
@@ -68,7 +99,7 @@ export default function MemCollectReocrd2({ store, page }) {
                   align="center"
                   component="th"
                   scope="row"
-                  sx={tdStyle}
+                  sx={tdStyle0}
                 >
                   {row.restaurant_name}
                 </TableCell>
@@ -82,9 +113,7 @@ export default function MemCollectReocrd2({ store, page }) {
                     alt=""
                   />
                 </TableCell>
-                <TableCell align="center" sx={tdStyle}>
-                  {row.restaurant_location}
-                </TableCell>
+
                 <TableCell align="center" sx={tdStyle}>
                   {row.restaurant_rating}
                 </TableCell>
@@ -96,6 +125,12 @@ export default function MemCollectReocrd2({ store, page }) {
                 >
                   GO
                 </Link>
+                <button
+                  className={styles.delete2}
+                  onClick={() => deleteRest(row.favorite_id)}
+                >
+                  <Image src={'/member/delete.svg'} width={45} height={45} />
+                </button>
               </TableRow>
             ))}
         </TableBody>

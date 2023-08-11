@@ -56,3 +56,51 @@
   color: #921010;
   transition: all 0.2s ease;
 }
+
+.delete {
+  border: none;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  background-color: #ffffff;
+  position: relative;
+  left: 58px;
+  top: -7px;
+  margin-left: 20px;
+}
+
+.delete:hover {
+  transform: scale(1.2);
+  transition: all 0.2s ease-in;
+}
+
+.delete2 {
+  border: none;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  background-color: #ffffff;
+  position: relative;
+  left: 182px;
+  top: -5px;
+  margin-left: 20px;
+}
+
+.delete2:hover {
+  transform: scale(1.2);
+  transition: all 0.2s ease-in;
+}
+
+@media screen and (max-width: 391px) {
+  .delete2 {
+    left: 80px;
+  }
+
+  .link2 {
+    left: 10px;
+  }
+}
