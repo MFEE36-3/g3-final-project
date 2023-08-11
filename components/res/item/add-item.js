@@ -38,7 +38,7 @@ export default function AddNewItem() {
   useEffect(() => {
     // 假設 resAuth.id 在登入成功後會設置
     console.log(resAuth.id)
-    if(resAuth.id){
+    if (resAuth.id) {
       console.log(resAuth.id)
       setAddItem({ ...addItem, shop_id: resAuth.id });
     }
@@ -187,7 +187,7 @@ export default function AddNewItem() {
                 <div className={`${styles.uploadImg}`}>
                   <div className="d-flex align-items-center fw-bold fs-5">
                     <div>
-                      <img src={`${imgLink}${getImg}`} className={styles.uploadImg1} />
+                      {getImg !== null ? <img src={`${imgLink}${ getImg }`} className={styles.uploadImg1} /> : ''}
                     </div>
                   </div>
                 </div>

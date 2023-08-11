@@ -60,7 +60,7 @@ export default function OrderManagement() {
 
   // 串四張(加了食物名稱):
   // SELECT `subA`.`open_sid`, `subA`.`order_sid`, `buy_for_me_detail`.`order_food`, `buy_for_me_detail`.`order_quantity`, `buy_for_me_detail`.`order_price`, `buy_for_me_detail`.`order_detail_sid`, `subA`.`target_store`, `subA`.`open_time`, `subA`.`order_instructions`, `food_items_try`.`food_title`, `food_items_try`.`food_id` FROM ( SELECT `open_for_you`.`open_sid`, `open_for_you`.`target_store`, `open_for_you`.`open_time`, `buy_for_me`.`order_sid`, `buy_for_me`.`order_instructions` FROM `open_for_you` JOIN `buy_for_me` ON `open_for_you`.`open_sid` = `buy_for_me`.`open_sid` ) AS `subA` JOIN `buy_for_me_detail` ON `buy_for_me_detail`.`order_sid` = `subA`.`order_sid` JOIN `food_items_try` ON `food_items_try`.`food_id` = `buy_for_me_detail`.`order_food` WHERE `target_store` = 1;
-  console.log('------')
+  // console.log('------')
 
   // 訂單狀態
   const [orderState, setOrderState] = useState('')
@@ -103,7 +103,7 @@ export default function OrderManagement() {
     })
       .then(r => r.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         setGetOrders(data.data3); // 在這裡處理後端回應，設置 getOrders 的新值
         setOrderTimeState(data.data1)
         setGetOrderAmount(data.data2);
@@ -144,13 +144,13 @@ export default function OrderManagement() {
     })
       .then(r => r.json())
       .then(data => {
-        console.log(data)   // array
+        // console.log(data)   // array
 
         const orders = data.orders  // array
         // console.log(groupedOrderItems)
         const sortedOrders = orders.slice().sort((a, b) => b.order_detail[0].sid - a.order_detail[0].sid)
         // setOriginalOrder(sortedOrders)
-        console.log(sortedOrders)
+        // console.log(sortedOrders)
         setTogoOrder(sortedOrders)
         // for(let i = 0; i < sortedOrders.length; i ++){
         //   sortedOrders
@@ -158,7 +158,7 @@ export default function OrderManagement() {
         sortedOrders.forEach((v, i) => {
           v.order_detail[0].status == '已完成' ? v.finished = true : v.finished = false
         })
-        console.log(sortedOrders)
+        // console.log(sortedOrders)
         // setTogoOrder([...sortedOrders])
         setOriginalTogoOrder(sortedOrders)
 
@@ -181,7 +181,7 @@ export default function OrderManagement() {
   // console.log(originalTogoOrder)
   // 訂單狀態
   const stateChange = () => {
-    console.log(originalTogoOrder)
+    // console.log(originalTogoOrder)
     if (orderState == '所有訂單') {
       setTogoOrder(originalTogoOrder)
       setTotalTogoPage(Math.ceil(originalTogoOrder.length / 10))
@@ -235,31 +235,8 @@ export default function OrderManagement() {
   const turnToComplete = (i) => {
     setCompleteOrder(true)
 
-    // if (orderState == '未完成') {
-    //   const stateResult = originalTogoOrder.filter((v, i) => {
-    //     if (v.order_detail[0].status == '未完成') {
-    //       return v
-    //     }
-    //   })
 
-    //   const finishedOrder = [...originalTogoOrder,originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成']
-
-    //   console.log(finishedOrder)
-
-    //   // setTogoOrder([...originalTogoOrder,originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成'])
-
-    //   setTogoOrder(stateResult)
-
-    //   setTotalTogoPage(Math.ceil(stateResult.length / 10))
-
-    //   Swal.fire(
-    //     '已完成該筆訂單!',
-    //     '',
-    //     'success'
-    //   );
-    // }
-
-    console.log(originalTogoOrder)
+    // console.log(originalTogoOrder)
     // setTogoOrder([...originalTogoOrder, originalTogoOrder[i].finished = true])
     setTogoOrder([...originalTogoOrder, originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成'])
     stateChange()
@@ -275,7 +252,7 @@ export default function OrderManagement() {
   const [orderList, setOrderList] = useState(0)
   const handleChange = (event, value) => {
     // 在這裡處理頁碼變化的邏輯
-    console.log(`跳轉到頁碼：${value}`);
+    // console.log(`跳轉到頁碼：${value}`);
     setPage(value)
     setOrderList((value - 1) * 10)
   };
@@ -291,7 +268,7 @@ export default function OrderManagement() {
   const searchKeyword = () => {
     setNoKeyWordMessage('')
     setHintWord('')
-    console.log(getKeyword)
+    // console.log(getKeyword)
     if (getKeyword) {
       const searchResult = originalTogoOrder.filter((v, i) => {
         const arr = v.order_detail.filter((v2) => v2.order_item.includes(getKeyword));
@@ -311,9 +288,9 @@ export default function OrderManagement() {
         })
       } else {
         const searchResult_arr = [];
-        console.log(searchResult_arr)
+        // console.log(searchResult_arr)
         setTogoOrder(searchResult)
-        console.log(Math.ceil((searchResult.length) / 10))
+        // console.log(Math.ceil((searchResult.length) / 10))
         setTotalTogoPage(Math.ceil((searchResult.length) / 10))
 
         // 彈跳關鍵字
@@ -505,7 +482,7 @@ export default function OrderManagement() {
                       </TableRow>
                     }
                     )
-                    })
+                    }
                   </TableBody>
                 </Table>
               </TableContainer>)
