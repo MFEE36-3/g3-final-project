@@ -17,6 +17,7 @@ export default function MemLoginBtn({ change, setChange }) {
     <button className={styles.mainbody} onClick={handleClick}>
       <div
         className={`${styles.ball} ${moveRight ? styles.ball2 : ''}`} // 判斷 moveRight 狀態，套用不同的 CSS 類
+        style={{  backgroundImage: moveRight ? `url(./buyforme/map/user_icon/hamburger.svg)`:`url(./buyforme/map/user_icon/chocoCookie.svg)`}}
       ></div>
     </button>
   );

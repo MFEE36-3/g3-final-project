@@ -36,8 +36,8 @@ function Copyright(props) {
       {...props}
     >
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="/">
+        MFEE36 TEAM3
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -294,19 +294,19 @@ const Login = () => {
                         value={loginInfo.password}
                         onChange={getLoginInfo}
                       />
-                      <FormControlLabel
-                        control={<Checkbox value="remember" color="warning" />}
-                        label="記住我"
-                        className={styles.text}
-                      />
                       <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                         color="warning"
-                        onChange={() => {}}
+                        onChange={() => { }}
                         onSubmit={resHandleSubmit}
+                        style={{
+                          fontSize: '13px',
+                          fontFamily: 'Zen Maru Gothic',
+                          marginTop: 16
+                        }}
                       >
                         登入
                       </Button>
@@ -362,13 +362,7 @@ const Login = () => {
                     >
                       會員登入
                     </Typography>
-                    <button
-                      className={styles.google}
-                      onClick={() => loginGoogle(callbackGoogleLogin)}
-                    >
-                      <GoogleLogo />
-                      Google登入
-                    </button>
+
                     <Box
                       component="form"
                       onSubmit={handleSubmit}
@@ -413,6 +407,13 @@ const Login = () => {
                           登入
                         </div>
                       </Button>
+                      <button
+                        className={styles.google}
+                        onClick={() => loginGoogle(callbackGoogleLogin)}
+                      >
+                        <GoogleLogo />
+                        Google登入
+                      </button>
                       <Grid container>
                         <Grid item xs>
                           <Link

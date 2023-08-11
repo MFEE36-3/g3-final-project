@@ -1,12 +1,12 @@
 .mainbody {
   height: 30px;
   width: 60px;
-  background-color: rgb(209, 209, 209);
+  background-color: var(--sub-color);
   border-radius: 20px;
   margin-bottom: 30px;
   display: flex;
   align-items: center;
-  box-shadow: inset 0px 3px 3px rgb(157, 157, 157);
+  box-shadow: inset 0px 3px 3px rgb(157, 157, 157,0.5);
   border: none;
 }
 
@@ -16,6 +16,9 @@
   width: 35px;
   background-color: #b91c1c;
   border: 3px solid #921010;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 50%;
 }
 
