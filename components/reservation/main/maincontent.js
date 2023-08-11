@@ -136,7 +136,7 @@ export default function MainContent({ favorite, setFavorite }) {
                   <Card.Text className={style.cardlocation}>{location}</Card.Text>
                   <div className="d-flex align-item-center justify-content-between">
                     <div className='d-flex'>
-                      <div className={style.cardbottomicon}>
+                      <div className={style.cardbottomicon} >
                         <FaUtensils className={style.buttonicon} />
                         {res_cate}
                       </div>
@@ -144,7 +144,7 @@ export default function MainContent({ favorite, setFavorite }) {
                         <AiFillStar
                           className="fs-4 h-100 text-warning"
                         />
-                        <div className="d-flex align-item-center fs-5">
+                        <div className="d-flex align-item-center fs-5 fw-bold ms-1">
                           {rating}
                         </div>
                       </div>
