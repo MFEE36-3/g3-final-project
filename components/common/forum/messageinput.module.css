@@ -49,4 +49,13 @@
     font-size: 25px;
     color: var(--main-color);
   }
-  
+  @media screen and (max-width:767px) {
+    .inputContainer {
+      position: relative;
+      width: 100%;
+      display: flex;
+      margin-top: 20px;
+      /* justify-content: space-between; */
+      /* align-items: center; */
+    }
+  }

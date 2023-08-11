@@ -199,34 +199,36 @@ export default function ArticleDetail() {
               src={`http://localhost:3002/img/member/${article.user_photo}`}
             />
           </div>
-
           <div className={styles.nickname}>{article.nickname}</div>
         </div>
         <div className={styles.ptext}></div>
         <DetailTitle data={article.header} />
         <TagTime data={article.publishedTime} />
+        <div className={styles.left}>
         {article.forum_photo && (
           <div className={styles.imgcontainer}>
             <img
               src={`${imgPreview + article.forum_photo}`}
               className={styles.img}
             />
-            <div className={styles.pcontainer}>
-              <DetailP data={article.forum_content} key={article.forum_sid} />
-            </div>
           </div>
         )}
-        {localStorage.getItem('auth') ?
+        <div className={styles.pcontainer}>
+          <DetailP data={article.forum_content} key={article.forum_sid} />
+        </div>
+        </div>
+        {auth.account ? (
           <MessageInput
             handleAddContent={handleAddContent}
             addMessage={addMessage}
             handlemessagepost={handlemessagepost}
             userPhoto={userPhoto}
             sendMessage={sendMessage}
-          // showLoginAlert={showLoginAlert}
+            // showLoginAlert={showLoginAlert}
           />
-          : ''
-        }
+        ) : (
+          ''
+        )}
         <Message messages={messages} />
       </div>
     </>
