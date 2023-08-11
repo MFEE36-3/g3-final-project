@@ -44,7 +44,11 @@ export default function Detail() {
 
     const usp = new URLSearchParams(router.query);
 
-    fetch(`http://localhost:3002/forum/message?${usp.toString()}`)
+    fetch(`http://localhost:3002/forum/message?${usp.toString()}`, {
+      method: 'POST',
+      body: JSON.stringify({ 'sid': localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')).sid : 0 }),
+      headers: { 'Content-Type': 'application/json' },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data.article);
@@ -118,7 +122,7 @@ export default function Detail() {
     window.scrollTo(0, scrollPosition);
   };
 
-  
+
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
@@ -308,7 +312,7 @@ export default function Detail() {
                   is_favorite={is_favorite}
                   liked_by_user_id={liked_by_user_id}
                   clickHeartHandler={clickHeartHandler} // 將按讚事件處理函數傳遞給子元件
-                  // clickCollectHandler={clickCollectHandler} // 將收藏事件處理函數傳遞給子元件
+                // clickCollectHandler={clickCollectHandler} // 將收藏事件處理函數傳遞給子元件
                 />
               );
             })}

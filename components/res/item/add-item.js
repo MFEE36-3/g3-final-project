@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import ResAuthContext from '@/context/ResAuthContext';
 import { useContext } from 'react';
 import Head from 'next/head'
-import Head from 'next/head'
+// import Head from 'next/head'
 
 export default function AddNewItem() {
   const router = useRouter();

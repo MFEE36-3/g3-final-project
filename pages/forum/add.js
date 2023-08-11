@@ -18,7 +18,10 @@ export default function Add() {
   const [content, setContent] = useState('');
   const [img, setImg] = useState('');
   const [showImg, setShowImg] = useState('');
+  const [isupload, setIsupload] = useState(false);
+
   const imgUpload = async (e) => {
+    if (e.target.value) setIsupload(true)
     const file = e.target.files[0];
     // const fileField = document.querySelector('input[type="file"]');
     setImg(URL.createObjectURL(e.target.files[0]));
@@ -71,8 +74,9 @@ export default function Add() {
     Swal.fire({
       icon: 'success',
       title: '新增文章成功！',
-    });
-    console.log('yes');
+      showConfirmButton: false,
+      timer: 1500
+    }).then(router.push('/forum'));;
     e.preventDefault();
 
     // 判断用户是否上傳了圖片
@@ -136,7 +140,7 @@ export default function Add() {
           ></input>
           <div className={styles.errorheader}>{errors.header}</div>
         </div>
-        
+
         <div></div>
         <div>
           <textarea
@@ -167,6 +171,8 @@ export default function Add() {
             <FaPhotoVideo className={styles.icon} /> 請選擇照片
           </label>
           <input id="file-upload" type="file" onChange={imgUpload} />
+          {isupload ? <span style={{ marginLeft: 10, color: 'var(--main-color)', fontWeight: 600 }}>已上傳照片</span> : ''}
+
         </div>
 
         <div>

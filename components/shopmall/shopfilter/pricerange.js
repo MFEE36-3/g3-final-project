@@ -75,12 +75,12 @@ export default function PriceRange() {
     <div className='border-bottom border-2 mt-4'>
         <H4div>價格範圍</H4div>
         <div className='d-flex position-relative justify-content-evenly mt-4 align-items-center'>
-            <Input18px type='text' className='px-1 py-1' placeholder='$最小值' value={minPrice} onChange={handleMinInput}></Input18px>
+            <Input18px type='text' className='py-1' placeholder='$最小值' value={minPrice} onChange={handleMinInput}></Input18px>
             <Line className='border-bottom  border-2 border-dark-subtle h-25'></Line>
-            <Input18px type='text' className='px-1 py-1' placeholder='$最大值' value={maxPrice} onChange={handleMaxInput}></Input18px>
+            <Input18px type='text' className='py-1' placeholder='$最大值' value={maxPrice} onChange={handleMaxInput}></Input18px>
         </div>
         {showError &&<H4div className='text-danger d-flex justify-content-center mt-3'>請輸入有效價格範圍</H4div>}
-        <Button24px className='w-100 mt-5 mb-4  border-0 bg-danger text-light rounded-2' onClick={handlePriceChange}>套用</Button24px>
+        <Button24px className='w-100 mt-5 mb-4  border-0 text-light rounded-2' style={{backgroundColor:'var(--main-color)'}} onClick={handlePriceChange}>套用</Button24px>
     </div>
   )
 }

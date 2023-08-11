@@ -33,7 +33,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
     const handleChange = (event) => {
         setCouponId(event.target.value);
     };
-    const totalPrice = showPages(items).length > 0 ? `${pagePrice() + (page === 'order' ? 0 : memberInfo.level === 2 ? 0 : showPages(items).length > 0 ? fee : 0) - discount}` : 0
+    const totalPrice = showPages(items).length > 0 ? `${pagePrice() + (page === 'order'  || page === 'subscribe'? 0 : memberInfo.level === 2 ? 0 : showPages(items).length > 0 ? fee : 0) - discount}` : 0
     const coupon = 
     <Box sx={{ minWidth: 200, textAlign: "center" }}>
         <FormControl fullWidth >

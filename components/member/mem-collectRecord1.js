@@ -111,7 +111,7 @@ export default function MemCollectReocrd1({ forum, page }) {
       </Table>
     </TableContainer>
   ) : (
-    <Link href={'http://localhost:3000/reservation'} className={styles.default}>
+    <Link href={'http://localhost:3000/forum'} className={styles.default}>
       尚未收藏貼文，立即前往論壇
     </Link>
   );
