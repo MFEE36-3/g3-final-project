@@ -173,22 +173,22 @@ export default function CheckOutFinal() {
     return (
         <>
             <Cart.Provider value={{ page, setPage, items, setItems, showPages, memberInfo, memberInfo, host, memberCoupon }}>
-                <div className='overflow-hidden' style={{ fontFamily: "var(--ff1)" }}>
-                    <CheckOutContainer>
-                        {localStorage.getItem('auth') ?
-                            <>
-                                <CheckOutPage />
-                                <CheckOutLeft />
-                                <CheckOutRight />
-                            </> :
-                            <div className='d-flex flex-column justify-content-center align-items-center w-100 fs-1'>
-                                <img src={chocoCookie.src}></img>
-                                <div style={{ fontFamily: "Zen Maru Gothic" }}>請先登入會員</div>
-                                <Button variant="contained" className='mt-5 fs-2 bg-danger' onClick={() => router.push("/login")}>前往登入</Button>
-                            </div>
-                        }
-                    </CheckOutContainer> :
-                </div>
+                {auth && auth.sid ?
+                    <div className='overflow-hidden' style={{ fontFamily: "var(--ff1)" }}>
+                        <CheckOutContainer>
+                            <CheckOutPage />
+                            <CheckOutLeft />
+                            <CheckOutRight />
+                             {/* <div className='d-flex flex-column justify-content-center align-items-center w-100 fs-1'>
+                                 <img src={chocoCookie.src}></img>
+                                 <div style={{ fontFamily: "Zen Maru Gothic" }}>請先登入會員</div>
+                                 <Button variant="contained" className='mt-5 fs-2 bg-danger' onClick={() => router.push("/login")}>前往登入</Button>
+                             </div> */}
+
+
+                        </CheckOutContainer> :
+                    </div>
+                    : ''}
             </Cart.Provider>
         </>
     )
