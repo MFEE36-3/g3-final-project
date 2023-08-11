@@ -9,6 +9,11 @@
     font-family: var(--ff2);
     font-size: var(--h5);
 }
+.imgcontainer{
+     object-fit:contain;
+     width: 100%;
+     display: flex;
+}
 .avatar{
     background-color: red;
     width: 32px;
@@ -30,20 +35,34 @@
     margin-top: 10px;
 }
 .img{
-    width: 50%;
-    height:50%;
+    width: 600px;
+    height:600px;
+    margin-bottom: 20px;
 }
 .container{
     width: 75%;
     margin: 0 auto;
+}
+.pcontainer{
+    width: 300px;
+
 }
 @media screen and (max-width:767px) {
     .container{
         width: 100%;
     }
     .img{
-        width: 100%;
-        height:50%;
+        width: 390px;
+        height:300px;
     }
+    .imgcontainer{
+        object-fit:contain;
+        
+        display: block;
+   }
+   .pcontainer{
+    
+
+}
     
 }
