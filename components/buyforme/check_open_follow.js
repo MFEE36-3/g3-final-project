@@ -30,7 +30,7 @@ const random_user = [
 
 
 
-export default function My_Open_Follow({ open_checklist, handleChecklistClose, open_or_follow }) {
+export default function My_Open_Follow({ open_checklist, handleChecklistClose, open_or_follow, getLatlng }) {
 
     const [data, setData] = useState([]);
     const [follower, setFollower] = useState([]);
@@ -99,7 +99,7 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
                                         return (
                                             <tr key={v.open_sid + v.meet_place + Date.now()}>
                                                 <td className={styles.text_nowrap + ' ' + (v.nickname.length > 6 ? styles.small_font : '')} >{v.nickname}</td>
-                                                <td className={v.meet_place.length > 5 ? styles.small_font : ''}>{v.meet_place}</td>
+                                                <td className={v.meet_place.length > 5 ? styles.small_font : ''} onClick={() => getLatlng(v.meet_place)}>{v.meet_place}</td>
                                                 <td>{dayjs(v.meet_time).format('MM-DD HH:mm')}</td>
                                                 <td>{v.foods.map((food, i) => {
                                                     return (<>
