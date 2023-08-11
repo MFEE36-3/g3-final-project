@@ -189,6 +189,12 @@
   border-radius: 10px;
 }
 
+.shoppingcarticon{
+  font-size: 60px;
+  margin-top: 15px;
+  color:var(--main-color);
+}
+
 /* 選取日期時間 */
 .timerow{
   width: 100%;

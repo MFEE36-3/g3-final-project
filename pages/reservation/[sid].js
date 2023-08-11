@@ -10,6 +10,7 @@ import Image from 'next/image';
 import ShoppingBag from '@/public/reservation/shoppingbag.svg'
 import Badge from '@mui/material/Badge';
 import Head from 'next/head';
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export default function RestaurantPage() {
 
@@ -93,8 +94,25 @@ export default function RestaurantPage() {
                     </div>
                 </div>
                 <div className={style.carticon}>
-                    <Badge badgeContent={shopcount} color="primary">
-                        <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
+                    <Badge anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                    }}
+                        color="error"
+                        badgeContent={shopcount}
+                        sx={{
+                            '& .MuiBadge-badge': {
+                                fontSize: '24px', // 修改文字大小
+                                backgroundColor: '#911010', // 修改背景颜色
+                                color: 'white', // 修改文字颜色
+                                borderRadius: '50%', // 修改背景圆形大小
+                                width: '40px', // 修改宽度
+                                height: '40px', // 修改高度
+                            },
+                        }}
+                    >
+                        <AiOutlineShoppingCart className={style.shoppingcarticon} onClick={handleShow} />
+                        {/* <Image src={ShoppingBag} variant="primary" onClick={handleShow} /> */}
                     </Badge>
                 </div>
                 <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
