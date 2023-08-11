@@ -210,7 +210,9 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
                             )
                         })
                     }
-                    <div className={style.totalprice}>總金額: ${getTotalAmount()}</div>
+                    <div className={style.totalprice}>總金額： 
+                    <div style={{color:'var(--main-color)'}}>${getTotalAmount()}</div>
+                    </div>
                 </div>
                 :
                 <div className={style.cartemptydiv}>
@@ -221,7 +223,9 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
 
             {products.length > 0 ?
                 <div className={style.togotime}>
-                    <BsFillCalendar3WeekFill className='me-1' /> 取餐時間 {togodate} {togotime}</div>
+                    <BsFillCalendar3WeekFill className='me-1' /> 取餐時間 
+                    <div className='ms-3'>{togodate} {togotime}</div>
+                </div>
                 : ''
             }
             <div>

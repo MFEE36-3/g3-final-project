@@ -183,7 +183,7 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
           <div className='d-flex justify-content-center'>
             <p className={style.subtitle}>請選擇<span style={{ color: '#911010' }}>座位</span></p>
           </div>
-          <div className='d-flex'>
+          <div className='d-flex align-items-center fw-bold text-secondary' style={{margin:0}}>
             <GoDotFill className={style.disabledicon} />已訂位或用餐人數不符
           </div>
           <div className='d-flex justify-content-center'>

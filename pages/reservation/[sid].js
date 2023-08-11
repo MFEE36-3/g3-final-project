@@ -102,12 +102,12 @@ export default function RestaurantPage() {
                         badgeContent={shopcount}
                         sx={{
                             '& .MuiBadge-badge': {
-                                fontSize: '24px', // 修改文字大小
+                                fontSize: '18px', // 修改文字大小
                                 backgroundColor: '#911010', // 修改背景颜色
                                 color: 'white', // 修改文字颜色
                                 borderRadius: '50%', // 修改背景圆形大小
-                                width: '40px', // 修改宽度
-                                height: '40px', // 修改高度
+                                width: '30px', // 修改宽度
+                                height: '30px', // 修改高度
                             },
                         }}
                     >
@@ -117,7 +117,7 @@ export default function RestaurantPage() {
                 </div>
                 <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title><div className={style.carttitle}>--您的購物車--</div></Offcanvas.Title>
+                        <Offcanvas.Title><div className={style.carttitle}>-- 您的購物車 --</div></Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <ShoppingCart row={row} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}

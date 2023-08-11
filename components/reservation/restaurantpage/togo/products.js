@@ -278,7 +278,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                                         <div className={style.togocardtext}>查看餐點</div>
                                     </div>
                                     <div className='px-1 py-2'>
-                                        <Card.Title>{v.food_title}</Card.Title>
+                                        <Card.Title><span style={{ fontWeight: 600 }}>{v.food_title}</span></Card.Title>
                                         <Card.Text>${v.food_price}</Card.Text>
                                         <div className={style.additembutton}>
                                             <Button
@@ -286,10 +286,12 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                                                     width: '100%',
                                                     fontSize: '12px',
                                                     background: '#911010',
+                                                    lineHeight: '20px',
                                                     borderRadius: 20,
                                                     border: 0,
                                                     color: 'white',
                                                     padding: '5px',
+                                                    fontWeight: 900,
                                                 }}
                                                 onClick={() => handleAddToCart(v)}
                                             >
