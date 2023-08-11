@@ -45,15 +45,24 @@
 }
 .pcontainer{
     width: 300px;
-    
+
 }
 @media screen and (max-width:767px) {
     .container{
         width: 100%;
     }
     .img{
-        width: 100%;
-        height:50%;
+        width: 390px;
+        height:300px;
     }
+    .imgcontainer{
+        object-fit:contain;
+        
+        display: block;
+   }
+   .pcontainer{
+    
+
+}
     
 }

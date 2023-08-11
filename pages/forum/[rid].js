@@ -214,12 +214,10 @@ export default function ArticleDetail() {
               className={styles.img}
             />
             <div className={styles.pcontainer}>
-             <DetailP data={article.forum_content} key={article.forum_sid} />
-             </div>
+              <DetailP data={article.forum_content} key={article.forum_sid} />
+            </div>
           </div>
         )}
-
-       
 
         <MessageInput
           handleAddContent={handleAddContent}
