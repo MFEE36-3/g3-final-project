@@ -164,14 +164,11 @@ export default function OrderManagement() {
 
         const dataLength = data.orders.length
         const totalPages = Math.ceil(dataLength / 10)
-
         setOrderAmount(data.length)
         setTotalTogoPage(totalPages)
       })
   }
-  // console.log(orderAmount)
-  // console.log(originalTogoOrder)
-  // console.log(togoOrder)
+
 
   useEffect(() => {
     if (resAuth.account) {
@@ -186,7 +183,7 @@ export default function OrderManagement() {
   const stateChange = () => {
     console.log(originalTogoOrder)
     if (orderState == '所有訂單') {
-      setTogoOrder(togoOrder)
+      setTogoOrder(originalTogoOrder)
       setTotalTogoPage(Math.ceil(originalTogoOrder.length / 10))
     }
     if (orderState == '未完成') {
@@ -238,10 +235,34 @@ export default function OrderManagement() {
   const turnToComplete = (i) => {
     setCompleteOrder(true)
 
+    // if (orderState == '未完成') {
+    //   const stateResult = originalTogoOrder.filter((v, i) => {
+    //     if (v.order_detail[0].status == '未完成') {
+    //       return v
+    //     }
+    //   })
+
+    //   const finishedOrder = [...originalTogoOrder,originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成']
+
+    //   console.log(finishedOrder)
+
+    //   // setTogoOrder([...originalTogoOrder,originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成'])
+
+    //   setTogoOrder(stateResult)
+
+    //   setTotalTogoPage(Math.ceil(stateResult.length / 10))
+
+    //   Swal.fire(
+    //     '已完成該筆訂單!',
+    //     '',
+    //     'success'
+    //   );
+    // }
+
     console.log(originalTogoOrder)
     // setTogoOrder([...originalTogoOrder, originalTogoOrder[i].finished = true])
-    setTogoOrder([...originalTogoOrder,originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成'])
-    // stateChange()
+    setTogoOrder([...originalTogoOrder, originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成'])
+    stateChange()
     Swal.fire(
       '已完成該筆訂單!',
       '',
@@ -264,27 +285,42 @@ export default function OrderManagement() {
   // 如果沒有搜到的話
   const [noKeyWordMessage, setNoKeyWordMessage] = useState('')
 
+  // 搜尋到的彈跳文字
+  const [hintWord,setHintWord] = useState('')
+
   const searchKeyword = () => {
     setNoKeyWordMessage('')
+    setHintWord('')
+    console.log(getKeyword)
     if (getKeyword) {
-      const searchResult = togoOrder.filter((v, i) => {
-        const arr = v.filter((v2, i2) => v2.order_item.includes(getKeyword));
-        if (arr.length !== 0) return v;
-      })
-      // console.log(searchResult)
-      if (searchResult.length = 0) {    // 沒有這筆訂單
-        setNoKeyWordMessage('沒有這項訂單!')
+      const searchResult = originalTogoOrder.filter((v, i) => {
+        const arr = v.order_detail.filter((v2) => v2.order_item.includes(getKeyword));
+        return arr.length !== 0;
+        })
+      //console.log(originalTogoOrder)
+      if (searchResult.length === 0) {        // 沒有這筆訂單
+        // setNoKeyWordMessage('沒有這項訂單!')
         setTogoOrder(originalTogoOrder)
+        setHintWord('沒有這項訂單!')
+        setTotalTogoPage(Math.ceil((originalTogoOrder.length) / 10))
       } else {
+        const searchResult_arr = [];
+        console.log(searchResult_arr)
         setTogoOrder(searchResult)
-        // console.log(togoOrder)
+        console.log(Math.ceil((searchResult.length) / 10))
+        setTotalTogoPage(Math.ceil((searchResult.length) / 10))
+
+        // 彈跳關鍵字
+        setHintWord(`共有:${searchResult.length}筆資料符合搜尋結果`)
       }
     } else {
       setTogoOrder(originalTogoOrder)
+      setTotalTogoPage(Math.ceil((originalTogoOrder.length) / 10))
     }
 
   }
 
+  // 以下為樣式
   const rowStyle = {
     height: '90px',
   };
@@ -387,6 +423,7 @@ export default function OrderManagement() {
               }} />
               <button className={`${muistyles.btnright}`} onClick={searchKeyword}>搜尋</button>
             </div>
+            <div className='fw-bold'>{hintWord}</div>
           </div>
         </div>
         <div className='mt-3'>
