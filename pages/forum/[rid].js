@@ -208,19 +208,18 @@ export default function ArticleDetail() {
         <DetailTitle data={article.header} />
         <TagTime data={article.publishedTime} />
         {article.forum_photo && (
-          <div className="w-75  d-flex ">
+          <div className={styles.imgcontainer}>
             <img
               src={`${imgPreview + article.forum_photo}`}
-              className="w-75 h-50 object-fit-contain"
+              className={styles.img}
             />
-            <img 
-              src="/buyforme/map/user_icon/bubbleTea.svg"
-              alt="Bubble Tea Icon"
-            />
+            <div className={styles.pcontainer}>
+             <DetailP data={article.forum_content} key={article.forum_sid} />
+             </div>
           </div>
         )}
 
-        <DetailP data={article.forum_content} key={article.forum_sid} />
+       
 
         <MessageInput
           handleAddContent={handleAddContent}
