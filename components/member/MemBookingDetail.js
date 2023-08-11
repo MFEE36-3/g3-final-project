@@ -106,7 +106,7 @@ export default function MemBookingDetail({ openDetail, data, setShowDetail }) {
             </div>
           </div>
           <div>{'人數 : ' + data.booking_number}人</div>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <div>{'評價 : '} </div>
             <div>
               {star1 ? (
@@ -219,9 +219,10 @@ export default function MemBookingDetail({ openDetail, data, setShowDetail }) {
       <div className={styles.main2}>
         <MemBtn onClick={openDetail} text={'取消'} padding={'3px 5px'}></MemBtn>
         <MemBtn
-          text={'完成訂單'}
-          padding={'3px 15px'}
+          text={'完成'}
+          padding={'3px 5px'}
           onClick={() => finishBooking(data?.booking_id)}
+          className={styles.btn2}
         ></MemBtn>
       </div>
     </div>

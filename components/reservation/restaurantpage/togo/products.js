@@ -29,7 +29,7 @@ const stylemodal = {
 };
 
 
-export default function Products({ row, category, shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime }) {
+export default function Products({ row, category, shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime, item, setItem }) {
 
     const [itemdeatil, setItemdeatil] = useState(null);
     const [open, setOpen] = useState(false);
@@ -83,62 +83,110 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
             return;
         }
 
-        // const nowcart = Object.entries(pastcart).map(item => item.pop());
-        // console.log(Object.values(nowcart))
-        // console.log(shopId)
-
-        if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) {
-
-            if (localStorage.getItem('order')) {
-
-                Swal.fire({
-                    icon: 'warning',
-                    title: '購物車中已有其他餐廳商品',
-                    text: '要清空購物車嗎？',
-                    showCancelButton: true,
-                    confirmButtonText: '確定',
-                    cancelButtonText: '返回',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        localStorage.removeItem('order')
-
-                        const oldCart = JSON.parse(localStorage.getItem('order')) || {};
-                        const itemId = item.food_id;
-                        const updatedItem = {
-                            itemId: itemId,
-                            shop: row.detail.shop,
-                            itemName: item.food_title,
-                            src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
-                            price: item.food_price,
-                            amount: (oldCart[itemId]?.amount || 0) + 1,
-                            togodate: togodate,
-                            togotime: togotime,
-                            shop_id: row.detail.sid,
-                        };
-                        // console.log(updatedItem);
-                        // 更新LocalStorage
-                        localStorage.setItem('order', JSON.stringify({
-                            ...oldCart,
-                            [itemId]: updatedItem,
-                        }));
-
-                    }
-                })
-                return;
-            }
-        }
-
         if (!togodate || !togotime) {
             Swal.fire({
                 icon: 'warning',
-                // title: '請先選擇訂餐日期及時間',
                 text: '請先選擇訂餐日期及時間',
                 confirmButtonText: '確定',
             })
             return;
         }
 
+        // if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) {
+
+        //     if (localStorage.getItem('order')) {
+
+        //         Swal.fire({
+        //             icon: 'warning',
+        //             title: '購物車中已有其他餐廳商品',
+        //             text: '要清空購物車嗎？',
+        //             showCancelButton: true,
+        //             confirmButtonText: '確定',
+        //             cancelButtonText: '返回',
+        //         }).then((result) => {
+        //             if (result.isConfirmed) {
+        //                 localStorage.removeItem('order')
+
+        //                 const oldCart = JSON.parse(localStorage.getItem('order')) || {};
+        //                 const itemId = item.food_id;
+        //                 const updatedItem = {
+        //                     itemId: itemId,
+        //                     shop: row.detail.shop,
+        //                     itemName: item.food_title,
+        //                     src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+        //                     price: item.food_price,
+        //                     amount: (oldCart[itemId]?.amount || 0) + 1,
+        //                     togodate: togodate,
+        //                     togotime: togotime,
+        //                     shop_id: row.detail.sid,
+        //                 };
+        //                 // console.log(updatedItem);
+        //                 // 更新LocalStorage
+        //                 localStorage.setItem('order', JSON.stringify({
+        //                     ...oldCart,
+        //                     [itemId]: updatedItem,
+        //                 }));
+
+        //             }
+        //         })
+        //         return;
+        //     }
+        // }
+
+
+        if (localStorage.getItem('order')) {
+            if (Object.keys(JSON.parse(localStorage.getItem('order'))).length === 0) return
+
+            if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) {
+
+                if (localStorage.getItem('order')) {
+
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '購物車中已有其他餐廳商品',
+                        text: '要清空購物車嗎？',
+                        showCancelButton: true,
+                        confirmButtonText: '確定',
+                        cancelButtonText: '返回',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            localStorage.removeItem('order')
+
+                            const oldCart = JSON.parse(localStorage.getItem('order')) || {};
+                            const itemId = item.food_id;
+                            const updatedItem = {
+                                itemId: itemId,
+                                shop: row.detail.shop,
+                                itemName: item.food_title,
+                                src: `${process.env.API_SERVER}/img/res-img/${item.food_img}`,
+                                price: item.food_price,
+                                amount: (oldCart[itemId]?.amount || 0) + 1,
+                                togodate: togodate,
+                                togotime: togotime,
+                                shop_id: row.detail.sid,
+                            };
+                            // 更新LocalStorage
+                            localStorage.setItem('order', JSON.stringify({
+                                ...oldCart,
+                                [itemId]: updatedItem,
+                            }));
+                        }
+                    })
+                    return;
+                }
+            }
+        }
+
+        // if (localStorage.getItem('order')) {
+
+        //     if (Object.keys(JSON.parse(!localStorage.getItem('order'))).length !== 0) {
+
+        //         if (localStorage.getItem('order') && Object.values(JSON.parse(localStorage.getItem('order')))[0].shop_id !== shopId) return
+        //     }
+        // }
+
         // 檢查購物車中是否已有該商品
+
         const oldCart = JSON.parse(localStorage.getItem('order')) || {};
         const itemId = item.food_id;
         const updatedItem = {
@@ -158,6 +206,10 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
             ...oldCart,
             [itemId]: updatedItem,
         }));
+
+        setItem({ ...item, updatedItem })
+
+
 
         //顯示商品增加效果
         setShowAddText(prevShowAddText => ({
@@ -226,7 +278,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                                         <div className={style.togocardtext}>查看餐點</div>
                                     </div>
                                     <div className='px-1 py-2'>
-                                        <Card.Title>{v.food_title}</Card.Title>
+                                        <Card.Title><span style={{ fontWeight: 600 }}>{v.food_title}</span></Card.Title>
                                         <Card.Text>${v.food_price}</Card.Text>
                                         <div className={style.additembutton}>
                                             <Button
@@ -234,10 +286,12 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                                                     width: '100%',
                                                     fontSize: '12px',
                                                     background: '#911010',
+                                                    lineHeight: '20px',
                                                     borderRadius: 20,
                                                     border: 0,
                                                     color: 'white',
                                                     padding: '5px',
+                                                    fontWeight: 900,
                                                 }}
                                                 onClick={() => handleAddToCart(v)}
                                             >

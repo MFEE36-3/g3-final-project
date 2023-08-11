@@ -118,7 +118,7 @@ export default function Index() {
           <div className={styles.rightArea}>
             <MemAllTitle title={'我的貼文'} />
             <div className={styles2.area1}>
-              {MyList ? (
+              {MyList[0] ? (
                 <div className={styles2.scroll}>
                   {MyList.map((v) => {
                     return (
@@ -144,11 +144,11 @@ export default function Index() {
 
             <div className={styles2.area2}>
               <div className={styles2.scrollArea}>
-                <MemBtn text={'收藏貼文'} onClick={() => setOpen('收藏貼文')} />
+                <MemBtn text={'貼文'} onClick={() => setOpen('貼文')} />
 
-                <MemBtn text={'收藏店家'} onClick={() => setOpen('收藏店家')} />
+                <MemBtn text={'店家'} onClick={() => setOpen('店家')} />
               </div>
-              {open === '收藏店家' ? (
+              {open === '店家' ? (
                 <div className={styles2.scroll2}>
                   <MemCollectReocrd2 store={store} page={page} />
                 </div>
@@ -159,7 +159,7 @@ export default function Index() {
               )}
             </div>
             <div className={styles2.btnArea}>
-              {open === '收藏店家'
+              {open === '店家'
                 ? Array.from({ length: Math.ceil(store.length / 3) }).map(
                     (_, i) => (
                       <button

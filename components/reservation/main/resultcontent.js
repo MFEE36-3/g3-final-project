@@ -16,6 +16,8 @@ import Pagination from '@mui/material/Pagination';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Swal from 'sweetalert2';
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
+import Image from 'next/image';
+import filled_walkbag_middle from '@/public/main_page/filled_walkbag_middle.svg';
 
 export default function ResultContent({ favorite, setFavorite }) {
 
@@ -120,9 +122,8 @@ export default function ResultContent({ favorite, setFavorite }) {
         const newFav = data.rows.map(v => v.shop_id);
         setFavorite(prev => newFav)
       })
-
-
   }
+
 
   const [currentPage, setCurrentPage] = useState();
 
@@ -166,91 +167,102 @@ export default function ResultContent({ favorite, setFavorite }) {
         符合餐廳
       </div>
 
-      <div className={style.paginationbar}>
-        <div>
-          <Pagination
-            count={data.totalPages}
-            onChange={handlePageChange}
-          />
-        </div>
-        <div className={style.sortdiv}>
-          <ThemeProvider theme={theme}>
-            <Box>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">--評分排序--</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={sortrating}
-                  label="city"
-                  onChange={handleSort}
-                  color="primary"
-                >
-                  <MenuItem value={'desc'}>高到低</MenuItem>
-                  <MenuItem value={'asc'}>低到高</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </ThemeProvider>
-        </div>
-      </div>
+      {data.rows.length > 0 ?
+        <>
+          {/* 分頁&排序 功能 */}
+          <div className={style.paginationbar}>
+            <div>
+              <Pagination
+                count={data.totalPages}
+                onChange={handlePageChange}
+              />
+            </div>
+            <div className={style.sortdiv}>
+              <ThemeProvider theme={theme}>
+                <Box>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">--評分排序--</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={sortrating}
+                      label="city"
+                      onChange={handleSort}
+                      color="primary"
+                    >
+                      <MenuItem value={'desc'}>高到低</MenuItem>
+                      <MenuItem value={'asc'}>低到高</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </ThemeProvider>
+            </div>
+          </div>
 
-      <div className={style.main}>
-        <div className={style.maincontent}>
-          {data.rows.map((v) => {
-            const { sid, photo, shop, res_cate, rating, location } = v;
-            return (
-              <Card
-                className={`${style.card}`}
-                key={sid}
-              >
-                <div className={style.carddiv}>
-                  <Link href={"/reservation/" + sid}>
-                    <Card.Img
-                      variant="top"
-                      src={`${process.env.API_SERVER}/img/shops/${photo}`}
-                      className={`${style.cardimg}`}
-                    />
-                    <div className={style.cardtext}>查看餐廳</div>
-                  </Link>
-                </div>
-                <Card.Body>
-                  <Card.Title className={style.cardtitle}>{shop}</Card.Title>
-                  <Card.Text>{location}</Card.Text>
-
-
-                  <div className="d-flex align-item-center justify-content-between">
-
-                    <div className='d-flex'>
-                      <div className={style.cardbottomicon}>
-                        <FaUtensils className={style.buttonicon} />
-                        {res_cate}
-                      </div>
-                      <div className="d-flex align-item-center ms-1">
-                        <AiFillStar
-                          className="fs-4 h-100 text-warning"
+          {/* 查詢結果餐廳 */}
+          <div className={style.main}>
+            <div className={style.maincontent}>
+              {data.rows.map((v) => {
+                const { sid, photo, shop, res_cate, rating, location } = v;
+                return (
+                  <Card
+                    className={`${style.card}`}
+                    key={sid}
+                  >
+                    <div className={style.carddiv}>
+                      <Link href={"/reservation/" + sid}>
+                        <Card.Img
+                          variant="top"
+                          src={`${process.env.API_SERVER}/img/shops/${photo}`}
+                          className={`${style.cardimg}`}
                         />
-                        <div className="d-flex align-item-center fs-5">
-                          {rating}
+                        <div className={style.cardtext}>查看餐廳</div>
+                      </Link>
+                    </div>
+                    <Card.Body>
+                      <Card.Title className={style.cardtitle}>{shop}</Card.Title>
+                      <Card.Text>{location}</Card.Text>
+
+
+                      <div className="d-flex align-item-center justify-content-between">
+
+                        <div className='d-flex'>
+                          <div className={style.cardbottomicon}>
+                            <FaUtensils className={style.buttonicon} />
+                            {res_cate}
+                          </div>
+                          <div className="d-flex align-item-center ms-1">
+                            <AiFillStar
+                              className="fs-4 h-100 text-warning"
+                            />
+                            <div className="d-flex align-item-center fs-5">
+                              {rating}
+                            </div>
+                          </div>
                         </div>
+
+                        <div className="d-flex align-item-center" onClick={() => handleFavorite(sid)}>
+                          {favorite.includes(sid) ?
+                            <FaHeart className={`${style.cardheart} fs-4 h-100`} /> :
+                            <FaRegHeart className={`${style.cardheart} fs-4 h-100`} />
+                          }
+                        </div>
+
                       </div>
-                    </div>
-
-                    <div className="d-flex align-item-center" onClick={() => handleFavorite(sid)}>
-                      {favorite.includes(sid) ?
-                        <FaHeart className={`${style.cardheart} fs-4 h-100`} /> :
-                        <FaRegHeart className={`${style.cardheart} fs-4 h-100`} />
-                      }
-                    </div>
-
-                  </div>
-                </Card.Body>
-              </Card>
-            );
-          })}
+                    </Card.Body>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        </>
+        :
+        <div className={style.noitemdiv}>
+          <Image src={filled_walkbag_middle} className={style.noitemimg} alt='filled_walkbag_middle' />
+          <p className={style.noitemtext}>沒有符合的餐廳！</p>
         </div>
-      </div>
 
+      }
     </>
   );
 }

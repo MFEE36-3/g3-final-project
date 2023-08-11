@@ -11,6 +11,7 @@
 
 .leftdiv{
   width: 16%;
+  font-family: var(--ff1);
 }
 
 .rightdiv{
@@ -28,6 +29,7 @@
   font-family: var(--ff3);
   color: black;
   font-size: var(--h4);
+  font-weight: 900;
 }
 
 .info{
@@ -71,7 +73,7 @@
 .top5img{
   position: relative;
   padding-top: 5px;
-  filter: drop-shadow(0 0 20px #fed003);
+  filter: drop-shadow(0 0 10px #fac000);
   transition: .5s ease-in-out;
 }
 
@@ -118,6 +120,7 @@
   display: flex;
   justify-content: center;
   align-items:flex-end;
+  font-weight: 600;
   margin: 0;
 }
 
@@ -189,6 +192,12 @@
   border-radius: 10px;
 }
 
+.shoppingcarticon{
+  font-size: 60px;
+  margin-top: 15px;
+  color:var(--main-color);
+}
+
 /* 選取日期時間 */
 .timerow{
   width: 100%;
@@ -218,13 +227,16 @@
 
 /* 餐廳頁-餐廳名稱 */
 .restauranttitle {
-  font-family: var(--ff1);
+  /* font-family: var(--ff1); */
+  text-shadow: 0 0 1px black;
   font-size: var(--h3);
+  font-weight: 900;
 }
 
 .restaurantsubtitle{
   font-size: var(--h5);
   color: var(--main-color);
+  font-weight: 600;
 }
 
 /* 餐廳頁-詳細資訊 */
@@ -272,6 +284,7 @@
     height: 80px;
     margin-bottom: 0;
     margin: 0 15px;
+    padding: 5px;
 }
 
 .categorydivactive{
@@ -285,10 +298,12 @@
   color: white;
   margin-bottom: 0;
   margin: 0 15px;
+  padding: 5px;
 }
 
 .categoryfont{
-  font-size: var(--h6);
+  font-size: var(--h7);
+  font-weight: 600;
 }
 
 .togomain{
@@ -346,6 +361,7 @@
   border: 0px;
   color: white;
   padding: 5px 10px;
+  font-weight: 600;
 }
 
 .cardtext{
@@ -394,7 +410,7 @@
 }
 
 .additem {
-  display: none;
+  opacity: 0;
   position: absolute;
   top:-20px;
   right:10px;
@@ -406,9 +422,27 @@
 }
 
 .showplus {
-  display: block;
-  transform: translateY(-30px);
+  animation: .5s showplus ease-in-out;
+  animation-fill-mode: forwards;
 }
+
+@keyframes showplus {
+  0%{
+    opacity: .5;
+    transform: translateY(-10px);
+  }
+  60%{
+    opacity: 1;
+    transform: translateY(-30px);
+  }
+  100%{
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+}
+
+
 
 .cardheart{
   color: #911010;
@@ -470,6 +504,7 @@
 
 .carttitle{
   font-size: var(--h4);
+  font-weight: 600;
 }
 
 .shoptitle{
@@ -609,13 +644,15 @@
   background-color: var(--main-color);
   border-radius: 20px;
   border: 0;
-  color: 'white';
-  padding: '5px';  
+  color: white;
+  font-weight: 900;
+  line-height: 36px;
  }
 
  .cartsendbutton:hover{
   background-color:var(--sub-color);
   color: var(--main-color);
+  font-weight: 900;
  }
 
  .noitemdiv{
@@ -678,6 +715,9 @@
   border-radius: 20px;
   border: 0px;
   margin: 5px 0px;
+  font-family: var(--ff3);
+  font-weight: 900;
+  /* text-shadow: 0 0 1px black; */
 }
 
 .buttonon {
@@ -697,6 +737,7 @@
   align-items: center;
   color: var(--main-color);
   font-size: var(--h6);
+  font-weight: 900;
 }
 
 .toggleactive1 {
@@ -710,6 +751,7 @@
   font-size: var(--h6);
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
+  font-weight: 900;
 }
 
 .toggleactive2 {
@@ -723,6 +765,7 @@
   font-size: var(--h6);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+  font-weight: 900;
 }
 
 .togglediv {
@@ -1168,8 +1211,10 @@
 }
 
 .cardtitle{
-  font-size: var(--h6);
   font-weight: bold;
+  white-space: nowrap; /* 不換行 */
+  overflow: hidden; /* 超過部分隱藏 */
+  text-overflow: ellipsis; 
 }
 
 

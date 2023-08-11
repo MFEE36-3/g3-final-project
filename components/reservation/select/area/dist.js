@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useRouter } from 'next/router';
+import { StyledEngineProvider } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
@@ -106,50 +107,79 @@ export default function Dist({ keyword, setKeyword, ddata, setDdata }) {
 
   return (
     <div>
-      <FormControl sx={{ width: '100%' }} color="primary">
+      <StyledEngineProvider injectFirst>
+        <FormControl sx={{
+          width: '100%',
+          '&.MuiFormControl-root': {
+            '&.Mui-focused': {
+              borderColor: '#911010',
+            },
+          },
+        }} color="primary">
+          <InputLabel
+            id="demo-multiple-chip-label"
+            color="primary"
+            sx={{
+              '&.MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
+                color: '#911010 !important',
+              },
+              '&.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.Mui-focused:focus': {
+                color: '#911010 !important',
+                border: '1px solid #911010',
+              },
+              '&.MuiSelect-root:focus': {
+                color: '#911010 !important',
+                border: '1px solid #911010',
+              },
+            }}>
+            --請選擇區域--
+          </InputLabel>
 
-        <InputLabel id="demo-multiple-chip-label" color="primary"
-          sx={{ '&.MuiFormLabel-root.MuiInputLabel-root.Mui-focused': { color: '#911010' } }}>
-          --請選擇區域--
-        </InputLabel>
+
+          <Select
+            sx={{
+              '&.MuiSelect-root': {
+                '&:focus': {
+                  backgroundColor: 'rgba(145, 16, 16, 0.04)',
+                },
+              },
+            }}
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            disabled={keyword.city ? false : true}
+            multiple
+            value={keyword.dist}
+            onChange={handleChange}
+            color="primary"
+            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+            renderValue={(selected) => (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                {selected.map((value) => (
+                  <Chip key={value} label={value} />
+                ))}
+              </Box>
+            )}
+            MenuProps={MenuProps}
+          >
 
 
-        <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
-          disabled={keyword.city ? false : true}
-          multiple
-          value={keyword.dist}
-          onChange={handleChange}
-          color="primary"
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
+            {ddata.map((v) => {
+              const { area_sid, city_id, area_id, areaname } = v;
+              return (
+                <MenuItem
+                  key={area_sid}
+                  value={areaname}
+                  style={getStyles(areaname, dist, theme)}
+                >
+                  {areaname}
+                </MenuItem>)
+            }
+            )}
 
+          </Select>
 
-          {ddata.map((v) => {
-            const { area_sid, city_id, area_id, areaname } = v;
-            return (
-              <MenuItem
-                key={area_sid}
-                value={areaname}
-                style={getStyles(areaname, dist, theme)}
-              >
-                {areaname}
-              </MenuItem>)
-          }
-          )}
-
-        </Select>
-
-      </FormControl>
+        </FormControl>
+      </StyledEngineProvider>
     </div>
   );
 }

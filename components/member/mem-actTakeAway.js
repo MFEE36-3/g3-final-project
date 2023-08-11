@@ -113,7 +113,7 @@ export default function MemActTakeAway() {
           </div>
         </div>
       ) : (
-        <div className={styles.default}>您目前沒有任何訂單</div>
+        <div className={styles.default}>您目前沒有任何外帶餐點</div>
       )}
     </div>
   );

@@ -20,7 +20,7 @@ export default function MemMoneyReocrdTable({ rows, page }) {
     fontFamily: 'var(--ff1)',
     fontSize: '20px',
     position: 'relative',
-    left: '80px',
+    left: '0px',
   };
 
   const tdStyle = {
@@ -30,7 +30,7 @@ export default function MemMoneyReocrdTable({ rows, page }) {
     fontFamily: 'var(--ff1)',
     width: '200px',
     position: 'relative',
-    left: '80px',
+    left: '0px',
   };
 
   return (

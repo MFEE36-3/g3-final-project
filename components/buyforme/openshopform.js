@@ -14,6 +14,7 @@ import AuthContext from '@/context/AuthContext';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 
@@ -22,6 +23,14 @@ import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 function valuetext(value) {
     return value;
 }
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#911010',
+        },
+    },
+});
 
 const mui_style = {
     '&:hover fieldset': {
@@ -211,45 +220,46 @@ export default function OpenShopForm({ openForm, handleopenFormClose, opentarget
                             <div>開團店家：</div>
                             <div className={v.shop.length > 10 ? styles.shopname_small : styles.shopname}>{v.shop}</div>
                         </div>
-
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <div className={styles.labels}>
-                                <DatePicker
-                                    value={dayjs(opensheet.meet_date)}
-                                    onChange={changeDate}
-                                    minDate={dayjs(Date.now())}
-                                    fullWidth
-                                    label='取餐日期'
-                                    sx={mui_style}
-                                />
-                            </div>
-                            <div className={styles.labels}>
-                                <TimePicker
-                                    className='marginout'
-                                    sx={mui_time_style}
-                                    label='取餐時間'
-                                    value={dayjs('2023-08-16' + opensheet.meet_hour)}  //因為單純時間不是合法的時間格式 要加前綴
-                                    onChange={changeHour}
-                                //ampm={false}    //不要12小時制
-                                />
-                            </div>
-                            <div className={styles.labels}>
-                                跑腿費：
-                                <div className={styles.silder}>
-                                    <Slider
-                                        aria-label="Always visible"
-                                        value={opensheet.tip}
-                                        max={50}
-                                        getAriaValueText={valuetext}
-                                        step={5}
-                                        marks={marks}
-                                        valueLabelDisplay="on"
-                                        onChange={(e) => changeTip(e.target.value)}
-                                        sx={slider_style}
+                        <ThemeProvider theme={theme}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <div className={styles.labels}>
+                                    <DatePicker
+                                        value={dayjs(opensheet.meet_date)}
+                                        onChange={changeDate}
+                                        minDate={dayjs(Date.now())}
+                                        fullWidth
+                                        label='取餐日期'
+                                        sx={mui_style}
                                     />
                                 </div>
-                            </div>
-                        </LocalizationProvider>
+                                <div className={styles.labels}>
+                                    <TimePicker
+                                        className='marginout'
+                                        sx={mui_time_style}
+                                        label='取餐時間'
+                                        value={dayjs('2023-08-16' + opensheet.meet_hour)}  //因為單純時間不是合法的時間格式 要加前綴
+                                        onChange={changeHour}
+                                    //ampm={false}    //不要12小時制
+                                    />
+                                </div>
+                                <div className={styles.labels}>
+                                    跑腿費：
+                                    <div className={styles.silder}>
+                                        <Slider
+                                            aria-label="Always visible"
+                                            value={opensheet.tip}
+                                            max={50}
+                                            getAriaValueText={valuetext}
+                                            step={5}
+                                            marks={marks}
+                                            valueLabelDisplay="on"
+                                            onChange={(e) => changeTip(e.target.value)}
+                                            sx={slider_style}
+                                        />
+                                    </div>
+                                </div>
+                            </LocalizationProvider>
+                        </ThemeProvider>
 
                         <div className={styles.labels}>
                             <TextField fullWidth sx={mui_style} label='面交地點' placeholder='你要送到哪' required onChange={(e) => changePlace(e.target.value)} />

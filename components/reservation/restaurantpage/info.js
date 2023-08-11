@@ -66,11 +66,12 @@ export default function Info({ row }) {
                         <Button
                             style={{
                                 fontSize: '14px',
+                                fontWeight: 600,
                                 background: '#911010',
                                 borderRadius: 20,
                                 border: 0,
                                 color: 'white',
-                                padding: '5px',
+                                padding: '5px 10px',
 
                             }}
                         >

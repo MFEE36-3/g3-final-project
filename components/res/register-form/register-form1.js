@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import BlankLayout from '@/components/layout/blank-layout';
-import InputTest from '@/components/common/input-test';
-import BtnTest from '@/components/common/btn-test';
 import Btn from '@/components/common/btn';
 import Input from '@/components/common/input';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,6 +9,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import muistyles from '@/components/res/item/add-item.module.css';
 import Head from 'next/head'
+import { FaPhotoVideo } from 'react-icons/fa';
 
 export default function RegisterForm() {
   const router = useRouter()
@@ -559,7 +558,7 @@ export default function RegisterForm() {
                 />
 
               </div>
-
+              <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.avg_consumption}</div>
               <div className='res_cate mx-5 d-flex justify-content-start align-items-center mt-3'>
 
                 <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳分類:</div>
@@ -596,19 +595,25 @@ export default function RegisterForm() {
                         <img src={`${imgPreview + showImg}`} style={{ height: '300px', width: '300px', overflow: 'static' }} alt="" />
 
                       </div>)}
-                    <div className="mt-3">
+                    <div className={styles.upload}>
+                      <label htmlFor="file-upload" className="custom-file-upload mt-3">
+                        <FaPhotoVideo className={styles.icon} /> 請選擇照片
+                      </label>
+                      <input id="file-upload" type="file" onChange={previewImg} />
+                    </div>
+                    {/* <div className="mt-3">
                       <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
 
-                    </div>
+                    </div> */}
                   </div>
 
                   {/* https://github.com/mfee-react/example-projects/tree/main/%E5%9C%96%E6%AA%94%E4%B8%8A%E5%82%B3%E8%88%87%E9%A0%90%E8%A6%BD */}
 
                 </div>
               </div>
-
-              <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.avg_consumption}</div>
-
+              {/* <div className="mt-3">
+                <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
+              </div> */}
               <div className='address mx-5 fw-bold mt-3'>請輸入完整地址:</div>
               <div className={`d-flex justify-content-between mt-1 col-xxl-3 col-sm-6 mx-5 ${styles.addressDisplay}`}
               // style={``}

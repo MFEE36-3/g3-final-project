@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import ResAuthContext from '@/context/ResAuthContext';
 import { useContext } from 'react';
 import Head from 'next/head'
-import Head from 'next/head'
+// import Head from 'next/head'
 
 export default function AddNewItem() {
   const router = useRouter();
@@ -37,7 +37,19 @@ export default function AddNewItem() {
   // 在登入成功後設置 resAuth.id
   useEffect(() => {
     // 假設 resAuth.id 在登入成功後會設置
-    setAddItem({ ...addItem, shop_id: resAuth.id });
+    console.log(resAuth.id)
+    if (resAuth.id) {
+      console.log(resAuth.id)
+      setAddItem({ ...addItem, shop_id: resAuth.id });
+    }
+
+    // setAddItem({ ...addItem, shop_id: resAuth.id });
+    // const res_auth = localStorage.getItem('res-auth')
+    // const resData = JSON.parse(res_auth)
+    // console.log(resData)
+    // setAddItem({ ...addItem, shop_id: resData.id });
+    // setAddItem({ ...addItem, shop_id: resAuth.id });
+
   }, [resAuth.id]);
 
   const [getImg, setGetImg] = useState(null);
@@ -87,6 +99,8 @@ export default function AddNewItem() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // setAddItem({ ...addItem, shop_id: resAuth.id });
+
     const newErrors = { ...originErrors };
 
     let isPass = true;
@@ -124,7 +138,7 @@ export default function AddNewItem() {
           Swal.fire('新增成功!', '', 'success');
           fetch('http://localhost:3002/res/add-item', {
             method: 'POST',
-            body: JSON.stringify(addItem),
+            body: JSON.stringify({ ...addItem, shop_id: resAuth.id }),
             headers: {
               'Content-Type': 'application/json',
             },
@@ -173,7 +187,7 @@ export default function AddNewItem() {
                 <div className={`${styles.uploadImg}`}>
                   <div className="d-flex align-items-center fw-bold fs-5">
                     <div>
-                      <img src={`${imgLink}${getImg}`} className={styles.uploadImg1} />
+                      {getImg !== null ? <img src={`${imgLink}${ getImg }`} className={styles.uploadImg1} /> : ''}
                     </div>
                   </div>
                 </div>

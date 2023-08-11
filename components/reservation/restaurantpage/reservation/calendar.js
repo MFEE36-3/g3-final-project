@@ -54,7 +54,7 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
     };
 
     return (
-        <div style={{ width: "100%", display: "flex", justifyContent: "center", minHeight: '500px' }}>
+        <div style={{ width: "100%", display: "flex", justifyContent: "center"}}>
             <ThemeProvider theme={theme}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateCalendar
@@ -105,19 +105,40 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
 
                         sx={{
                             '&.MuiDateCalendar-root': {
-                                width: '600px',
-                                minHeight: '500px'
+                                width: '500px',
+                                minHeight: '480px',
+                                maxHeight: '505px'
                             },
                             '& .MuiPickersCalendarHeader-root': {
                                 padding: '0',
                             },
+                            '& .MuiPickersCalendarHeader-labelContainer': {
+                                fontSize: '32px',
+                                paddingLeft: '15%',
+                                paddingBottom:'15px',
+                                margin:'0 auto',
+                                color: 'var(--main-color)',
+                                fontFamily:'var(--ff1)'
+                                // textShadow: '1px 1px 1px black',
+                            },
+                            '& .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPickersCalendarHeader-switchViewIcon': {
+                                display: 'none',
+                            },
                             '& .MuiDayCalendar-header': {
-                                width: '600px',
+                                width: '500px',
                                 display: 'flex',
                                 justifyContent: 'space-evenly',
+                                background: 'var(--main-color)',
+                                borderRadius: '5px 5px 0px 0px',
+                            },
+                            '& .MuiDayCalendar-weekDayLabel': {
+                                color: 'white',
+                                fontSize: '18px',
+                                fontWeight: 'bold',
+                                margin: '10px -13px'
                             },
                             '& .MuiDayCalendar-weekContainer': {
-                                width: '600px',
+                                width: '500px',
                                 display: 'flex',
                                 justifyContent: 'space-between',
                             },
@@ -126,14 +147,19 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
                                 fontSize: '20px',
                                 borderRadius: '20%',
                                 border: '1px solid #a8a8a8',
-                                padding: '25px',
-                                margin: '14px'
+                                padding: '22px',
+                                margin: '8px 9px'
                             },
                             '& .MuiPickersSlideTransition-root.MuiDayCalendar-slideTransition': {
                                 minHeight: '500px',
                             },
+                            '& .MuiDayCalendar-monthContainer ': {
+                                border: '2px solid #a8a8a8',
+                                borderTop: 'none',
+                                borderRadius: '0px 0px 5px 5px',
+                            },
                             '& .MuiDayCalendar-weekContainer': {
-                                width: '600px',
+                                width: '500px',
                                 display: 'flex',
                                 justifyContent: 'center',
                             },

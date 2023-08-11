@@ -130,24 +130,38 @@
 }
 
 .packageBtn {
-  font-family: 'Zen Maru Gothic';
+  font-family: 'Courier New', Courier, monospace;
   font-weight: bolder;
   width: 100px;
   height: 60px;
   text-align: center;
-  border-radius: 30px;
+  border-radius: 15px;
   font-size: 16px;
   padding: 2px;
+  /* padding-bottom: 7px; */
   background-color: #ffedcc;
   border: none;
   box-shadow: inset -5px -5px 7px rgb(166, 139, 104);
 }
 
 .packageBtn:hover {
-  /* background-color: rgb(255, 178, 178); */
+  background-color: #fff3de;
   transform: scale(1.1);
   transition: all 0.1s ease-in;
   /* color: #921010; */
+}
+
+.default {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  border: #911010 2px solid;
+  border-radius: 20px;
+  background-color: #fff;
+  margin-top: 5px;
 }
 
 /*輪播牆會用到的*/
@@ -226,8 +240,8 @@
   }
 
   .package {
-    width: 100%;
-    height: 180px;
+    width: 300px;
+    height: 170px;
     margin-top: 20px;
     padding: 15px;
   }
@@ -235,11 +249,14 @@
   .flex2 {
     font-size: 12px;
     height: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 
   .packageMoney {
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 15px;
   }
 
@@ -250,9 +267,12 @@
   }
 
   .packageBtn {
-    width: 50px;
-    height: 30px;
-    font-size: 10px;
+    width: 60px;
+    height: 40px;
+    font-size: 12px;
+    position: relative;
+    left: 15px;
+    top: 30px;
   }
 
   .imgRWD1 {

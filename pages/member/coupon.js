@@ -109,7 +109,7 @@ export default function Index() {
               <MemAllTitle title={'已使用 /已過期'} />
 
               <div className={styles2.area2}>
-                {mycoupon ? (
+                {record[0] ? (
                   <div className={styles2.recordBox}>
                     <MemCouponRecord record={record} page={page} />
                   </div>

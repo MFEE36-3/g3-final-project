@@ -1,18 +1,17 @@
 import Card from 'react-bootstrap/Card';
-// import cards from '@/data/reservation/cards.json';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { FaUtensils } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
 import Link from "next/link";
 import style from '@/styles/reservation/style.module.css'
 import { useState, useEffect, useContext } from 'react';
-// import { auth } from '@/pages/reservation/index'
-import { RouteRounded } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 export default function MainContent({ favorite, setFavorite }) {
-  // const { token } = useContext(auth)
+
+  const router = useRouter();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -134,10 +133,10 @@ export default function MainContent({ favorite, setFavorite }) {
                 </div>
                 <Card.Body>
                   <Card.Title className={style.cardtitle}>{shop}</Card.Title>
-                  <Card.Text>{location}</Card.Text>
+                  <Card.Text className={style.cardlocation}>{location}</Card.Text>
                   <div className="d-flex align-item-center justify-content-between">
                     <div className='d-flex'>
-                      <div className={style.cardbottomicon}>
+                      <div className={style.cardbottomicon} >
                         <FaUtensils className={style.buttonicon} />
                         {res_cate}
                       </div>
@@ -145,7 +144,7 @@ export default function MainContent({ favorite, setFavorite }) {
                         <AiFillStar
                           className="fs-4 h-100 text-warning"
                         />
-                        <div className="d-flex align-item-center fs-5">
+                        <div className="d-flex align-item-center fs-5 fw-bold ms-1">
                           {rating}
                         </div>
                       </div>
