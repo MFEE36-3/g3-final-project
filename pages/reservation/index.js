@@ -115,7 +115,7 @@ export default function Reservation() {
   return (
     <>
       <Head>
-        <title>食GOEAT! / 訂位/外帶</title>
+        <title>食GOEAT! / 訂位外帶</title>
       </Head>
       <div className={style.body}>
         <TopDiv keyword={keyword} setKeyword={setKeyword} />

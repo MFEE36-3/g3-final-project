@@ -8,7 +8,9 @@ import ShoppingCart from '@/components/reservation/restaurantpage/shoppingcart';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Image from 'next/image';
 import ShoppingBag from '@/public/reservation/shoppingbag.svg'
+import Badge from '@mui/material/Badge';
 import Head from 'next/head';
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export default function RestaurantPage() {
 
@@ -22,22 +24,16 @@ export default function RestaurantPage() {
     const [shoppingCart, setShoppingCart] = useState([]);
     const [togodate, setTogodate] = useState();
     const [togotime, setTogotime] = useState();
-
+    const [shopcount, setShopCount] = useState(0);
+    const [item, setItem] = useState({})
     const [show, setShow] = useState(false);
     // const localdatetime = JSON.parse(localStorage.getItem('order')) || {};
 
     //購物車Offcanvas
     const handleClose = () => setShow(false);
+
     const handleShow = () => {
         setShow(true);
-        // const nowdatetime = Object.entries(localdatetime).map(item => item.pop());
-        // console.log(nowdatetime);
-        // console.log(Object.values(nowdatetime)[0]?.togodate);
-        // if (Object.values(nowdatetime).length > 0) {
-        //     setTogodate(Object.values(nowdatetime)[0]?.togodate);
-        //     setTogodate(Object.values(nowdatetime)[0]?.togotime);
-        // }
-
     }
 
     useEffect(() => {
@@ -57,11 +53,29 @@ export default function RestaurantPage() {
         };
     }, [router.query]);
 
+    //第一次取得localStorage的品項數量
+    useEffect(() => {
+        if (!localStorage.getItem('order')) return;
+        const items = JSON.parse(localStorage.getItem('order'))
+        const count = Object.keys(items).length;
+        // console.log(count)
+        setShopCount(count);
+    }, [])
+
+    useEffect(() => {
+        if (!localStorage.getItem('order')) return;
+        const items = JSON.parse(localStorage.getItem('order'))
+        const count = Object.keys(items).length;
+        // console.log(count)
+        setShopCount(count);
+    }, [item])
+
     return (
         <>
             <Head>
-                <title>食GOEAT! / 訂位/外帶</title>
+                <title>食GOEAT! / 訂位外帶</title>
             </Head>
+
             <div className={style.body}>
                 <Rcarousel row={row} />
                 <div className="container">
@@ -74,13 +88,32 @@ export default function RestaurantPage() {
                             <ReservationPage row={row} date={date} setDate={setDate} time={time} setTime={setTime}
                                 person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo}
                                 shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} togodate={togodate} setTogodate={setTogodate}
-                                togotime={togotime} setTogotime={setTogotime}
+                                togotime={togotime} setTogotime={setTogotime} item={item} setItem={setItem}
                             />
                         </div>
                     </div>
                 </div>
                 <div className={style.carticon}>
-                    <Image src={ShoppingBag} variant="primary" onClick={handleShow} />
+                    <Badge anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                    }}
+                        color="error"
+                        badgeContent={shopcount}
+                        sx={{
+                            '& .MuiBadge-badge': {
+                                fontSize: '24px', // 修改文字大小
+                                backgroundColor: '#911010', // 修改背景颜色
+                                color: 'white', // 修改文字颜色
+                                borderRadius: '50%', // 修改背景圆形大小
+                                width: '40px', // 修改宽度
+                                height: '40px', // 修改高度
+                            },
+                        }}
+                    >
+                        <AiOutlineShoppingCart className={style.shoppingcarticon} onClick={handleShow} />
+                        {/* <Image src={ShoppingBag} variant="primary" onClick={handleShow} /> */}
+                    </Badge>
                 </div>
                 <Offcanvas show={show} onHide={handleClose} placement={'end'} className={style.cartbody}>
                     <Offcanvas.Header closeButton>
@@ -88,7 +121,9 @@ export default function RestaurantPage() {
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <ShoppingCart row={row} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}
-                            togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} />
+                            togodate={togodate} setTogodate={setTogodate} togotime={togotime} setTogotime={setTogotime} shopcount={shopcount}
+                            setShopCount={setShopCount}
+                        />
                     </Offcanvas.Body>
                 </Offcanvas>
             </div>
