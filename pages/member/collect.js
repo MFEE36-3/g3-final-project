@@ -159,7 +159,7 @@ export default function Index() {
               )}
             </div>
             <div className={styles2.btnArea}>
-              {open === '收藏店家'
+              {open === '店家'
                 ? Array.from({ length: Math.ceil(store.length / 3) }).map(
                     (_, i) => (
                       <button

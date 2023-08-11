@@ -66,6 +66,8 @@ export default function MemCollectReocrd1({ forum, page }) {
             <TableCell align="center" sx={ceilStyle}>
               連結
             </TableCell>
+
+            <TableCell align="center" sx={ceilStyle}></TableCell>
           </TableRow>
         </TableHead>
         {forum[0] ? (
@@ -98,6 +100,7 @@ export default function MemCollectReocrd1({ forum, page }) {
                     >
                       GO
                     </Link>
+                    {/* <button className={styles.delete}>取消收藏</button> */}
                   </TableRow>
                 );
               })}
