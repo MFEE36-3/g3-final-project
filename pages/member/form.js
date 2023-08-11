@@ -27,9 +27,17 @@ export default function MemForm() {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(inputValue)) {
       setAccount('※格式錯誤');
-    } else {
-      setAccount('');
     }
+    const inputData = {
+      account: inputValue,
+    };
+    fetch(process.env.API_SERVER + '/member/checkAccount', {
+      method: 'POST',
+      body: JSON.stringify(inputData),
+      headers: { 'Content-Type': 'application/json' },
+    }).then((res) => console.log(res.json()));
+
+    // .then(setAccount(''));
   };
 
   const checkPassword = (e) => {
