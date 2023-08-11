@@ -7,11 +7,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Swal from 'sweetalert2'
 import 'animate.css';
+import Image from 'next/image';
 import Modal from '@mui/material/Modal';
 import useLocalStorage from "@/components/hooks/useLocalStorage";
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 import {  AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { useRouter } from 'next/router';
+import filled_walkbag_middle from '@/public/main_page/filled_walkbag_middle.svg';
 
 const style = {
   position: 'absolute',
@@ -227,7 +229,14 @@ export default function ShopCard() {
   return (
     <>
     <div >
-        <ShopCardContainer className='justify-content-evenly pe-xl-5'>
+        <ShopCardContainer className='justify-content-evenly pe-xl-5 position-relative'>
+          {items.length === 0 && <>
+            <div className="position-absolute d-flex flex-column justify-content-center align-items-center" style={{top:"50%", left:"32%"}}>
+              <Image src={filled_walkbag_middle} className="" 
+              alt='filled_walkbag_middle' />
+              <p className="fs-2 mt-4 ms-5">無此分類商品！</p>
+            </div>
+          </>}
           {itemCardsMap}
           {selectedItem && <Modal
             open={open}
