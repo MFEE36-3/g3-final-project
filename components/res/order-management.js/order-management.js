@@ -303,6 +303,12 @@ export default function OrderManagement() {
         setTogoOrder(originalTogoOrder)
         setHintWord('沒有這項訂單!')
         setTotalTogoPage(Math.ceil((originalTogoOrder.length) / 10))
+        Swal.fire({
+          icon: 'error',
+          title: '沒有這項商品!',
+          text: '請試著搜尋其它關鍵字',
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
       } else {
         const searchResult_arr = [];
         console.log(searchResult_arr)

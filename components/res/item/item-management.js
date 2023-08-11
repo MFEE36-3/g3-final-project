@@ -270,7 +270,7 @@ export default function Management() {
       router.push({
         pathname: router.pathname,
         query: query
-      }), undefined, { scroll: false }
+      }), undefined, { scroll: true }
     }
   };
 
@@ -303,7 +303,6 @@ export default function Management() {
   }
 
   const showFoodItems = () => {
-
 
     return (
       <>
@@ -352,7 +351,7 @@ export default function Management() {
                   </button>
                 </Link>
               </TableCell>
-              <TableCell align="center" sx={tdStyle}>
+              {/* <TableCell align="center" sx={tdStyle}>
                 <button
                   type="button"
                   className={`me-3 btn btn-primary ${muistyles.btnright}`}
@@ -360,7 +359,7 @@ export default function Management() {
                 >
                   <ImBoxRemove />
                 </button>
-              </TableCell>
+              </TableCell> */}
               <TableCell align="center" sx={tdStyle}>
                 <button
                   type="button"
@@ -522,9 +521,9 @@ export default function Management() {
                       <TableCell align="center" sx={ceilStyle}>
                         編輯
                       </TableCell>
-                      <TableCell align="center" sx={ceilStyle}>
+                      {/* <TableCell align="center" sx={ceilStyle}>
                         下架
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell align="center" sx={ceilStyle}>
                         刪除
                       </TableCell>
@@ -533,130 +532,6 @@ export default function Management() {
                   {showFoodItems()}
                 </Table>
               </TableContainer>
-              {/* <table
-                className={`table mt-3 table-borderless rounded-5 border-black table-warning table-striped ${styles.itemTable}`}
-              >
-                <thead>
-                  <tr>
-                    <th scope="col" className="text-center">
-                      商品圖片
-                    </th>
-                    <th scope="col" className="text-center">
-                      商品名稱
-                    </th>
-                    <th scope="col" className="text-center">
-                      商品敘述
-                    </th>
-                    <th scope="col" className="text-center">
-                      價格
-                    </th>
-                    <th scope="col" className="text-center">
-                      商品建立時間:
-                    </th>
-                    <th scope="col" className="text-center">
-                      編輯
-                    </th>
-                    <th scope="col" className="text-center">
-                      下架
-                    </th>
-                    <th scope="col" className="text-center">
-                      刪除
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {showFoodItems()}
-                  {foodItem.rows && foodItem.rows.length > 0 ? foodItem.rows.map((v, i) => {
-                    return (
-                      <tr className={``} style={{ background: 'gray' }} key={i}>
-                        <td className={`text-center ${styles.imgSize}`}>
-                          <img
-                            src={`${imgLink}${v.food_img}`}
-                            className={`${styles.imgSize}`}
-                          ></img>
-                        </td>
-                        <td className={`text-center`}>{v.food_title}</td>
-                        <td
-                          className={`text-center`}
-                          style={{
-                            width: '100px',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                          }}
-                        >
-                          {v.food_des}
-                        </td>
-                        <td className="text-center">{v.food_price}</td>
-                        <td className={`text-center`}>{v.create_time}</td>
-
-                        <td className={`text-center`}>
-                          <Link
-                            href={`/res/item-management/edit-item/${v.food_id}`}
-                          >
-                            <button
-                              type="button"
-                              className="me-3 btn btn-primary"
-                              onClick={(e) => {
-                                router.push(
-                                  `/res/item-management/edit-item/${v.food_id}`
-                                );
-                              }}
-                            >
-                              <AiTwotoneEdit />
-                            </button>
-                          </Link>
-                        </td>
-
-                        <td className={`text-center`}>
-                          {' '}
-                          <button
-                            type="button"
-                            className="me-3 btn btn-primary"
-                            onClick={(e) => { }}
-                          >
-                            <ImBoxRemove />
-                          </button>
-                        </td>
-                        <td className="text-center">
-                          <button
-                            type="button"
-                            className="me-3 btn btn-primary"
-                            onClick={() => {
-                              Swal.fire({
-                                title: '您確定要刪除此項商品嗎?',
-                                showDenyButton: true,
-                                showCancelButton: false,
-                                confirmButtonText: '確定刪除',
-                                denyButtonText: `取消刪除`,
-                              }).then((result) => {
-                                if (result.isConfirmed) {
-                                  Swal.fire('刪除成功!', '', 'success');
-                                  fetch(
-                                    `http://localhost:3002/res/item-management/deleteItem/${v.food_id}`,
-                                    { method: 'DELETE' }
-                                  )
-                                    .then((r) => r.json())
-                                    .then((data) => {
-                                      console.log(data);
-                                      location.reload();
-                                    });
-
-                                  // router.push(`/res/item-management/delete-item/${v.food_id}`)
-                                } else if (result.isDenied) {
-                                  Swal.fire('取消刪除', '', 'info');
-                                }
-                              });
-                            }}
-                          >
-                            <AiTwotoneDelete />
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  }):''}
-                </tbody>
-              </table> */}
             </div>
           </div>
         </div>
