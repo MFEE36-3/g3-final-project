@@ -18,9 +18,9 @@
   justify-content: center;
   position: relative;
   transition: all 0.2s ease-in;
-  /* animation: moveUpDown 1s infinite; */
   cursor: pointer;
   left: 48px;
+  animation: moveUpDown 1.2s ease-in;
 }
 
 .imgArea:hover {
