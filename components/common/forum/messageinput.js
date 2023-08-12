@@ -6,7 +6,6 @@ import AuthContext from '@/context/AuthContext';
 export default function MessageInput({
   sendMessage,
   userPhoto,
-  handlemessagepost,
   addMessage,
   handleAddContent,
   showLoginAlert,

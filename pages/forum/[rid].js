@@ -17,7 +17,8 @@ export default function ArticleDetail() {
   const [article, setArticle] = useState([]);
   const [messages, setMessages] = useState([]);
   const imgPreview = `http://localhost:3002/img/forum/`;
-
+  const [forum, setforum] = useState([]);
+  console.log(forum);
   useEffect(() => {
     console.log(query);
     const { rid } = query;
@@ -31,7 +32,11 @@ export default function ArticleDetail() {
           const { forum_data, messageData } = data;
           setArticle(data);
           setMessages(messageData);
+          console.log(messageData);
           console.log(forum_data);
+          if (forum_data[0].forum_sid) {
+            setforum(forum_data);
+          }
 
           console.log(messageData);
 
@@ -47,7 +52,7 @@ export default function ArticleDetail() {
         });
     }
   }, [query]);
-
+  console.log(message);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('送出訊息:', message);
@@ -117,34 +122,37 @@ export default function ArticleDetail() {
   //   console.log('content');
   //   setComment_Content(e.target.value);
   // };
-  const handlemessagepost = async (e) => {
-    console.log('yes');
-    e.preventDefault();
-    const postData = {
-      comment_content: comment_content,
-      user_id: null,
-    };
-    try {
-      const response = await fetch('http://localhost:3002/forum/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postData),
-      });
-
-      const data = await response.json();
-      if (data.success) {
-        // 文章新增成功，你可以在這裡做任何你想要的處理
-        //console.log('留言新增成功');
-        // 清空輸入欄位
-        setComment_Content('');
-        router.push('/forum');
-      }
-    } catch (error) {
-      console.error('發生錯誤:', error);
-    }
-  };
+  // const handlemessagepost = async (e) => {
+  //   console.log('yes');
+  //   e.preventDefault();
+  //   const postData = {
+  //     comment_content: comment_content,
+  //     user_id: null,
+  //     // forum_data: forum[0].forum_sid,
+  //     forum_sid: '',
+  //   };
+  //   try {
+  //     const response = await fetch('http://localhost:3002/forum/add', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ ...postData, forum_sid: forum[0].forum_sid }),
+  //     })
+  //       .then((r) => r.json())
+  //       .then((data) => console.log(data));
+  //     const data = await response.json();
+  //     if (data.success) {
+  //       // 文章新增成功，你可以在這裡做任何你想要的處理
+  //       //console.log('留言新增成功');
+  //       // 清空輸入欄位
+  //       setComment_Content('');
+  //       router.push('/forum');
+  //     }
+  //   } catch (error) {
+  //     console.error('發生錯誤:', error);
+  //   }
+  // };
 
   const addMessage = (e) => {
     e.preventDefault();
@@ -156,7 +164,7 @@ export default function ArticleDetail() {
     });
     fetch(process.env.API_SERVER + '/forum/addmessage', {
       method: 'POST',
-      body: JSON.stringify(sendMessage),
+      body: JSON.stringify({ ...sendMessage, forum_sid: forum[0].forum_sid }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -205,26 +213,26 @@ export default function ArticleDetail() {
         <DetailTitle data={article.header} />
         <TagTime data={article.publishedTime} />
         <div className={styles.left}>
-        {article.forum_photo && (
-          <div className={styles.imgcontainer}>
-            <img
-              src={`${imgPreview + article.forum_photo}`}
-              className={styles.img}
-            />
+          {article.forum_photo && (
+            <div className={styles.imgcontainer}>
+              <img
+                src={`${imgPreview + article.forum_photo}`}
+                className={styles.img}
+              />
+            </div>
+          )}
+          <div className={styles.pcontainer}>
+            <DetailP data={article.forum_content} key={article.forum_sid} />
           </div>
-        )}
-        <div className={styles.pcontainer}>
-          <DetailP data={article.forum_content} key={article.forum_sid} />
-        </div>
         </div>
         {auth.account ? (
           <MessageInput
             handleAddContent={handleAddContent}
             addMessage={addMessage}
-            handlemessagepost={handlemessagepost}
+            // handlemessagepost={handlemessagepost}
             userPhoto={userPhoto}
             sendMessage={sendMessage}
-            // showLoginAlert={showLoginAlert}
+        
           />
         ) : (
           ''
