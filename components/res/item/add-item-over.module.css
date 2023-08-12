@@ -1,5 +1,20 @@
 .background {
-    background-color: #FFE2E2;
+    /* background-color: #FFE2E2; */
     /* width: 600px; */
     height: 400px;
+    /* border-radius: 5px;
+    border: 3px solid var(--main-color); */
+}
+
+.btn_right {
+    background-color: var(--main-color);
+    border: none;
+    font-family: var(--ff2);
+    padding: 15px 25px;
+    border-radius: 30px;
+    line-height: 10px;
+}
+
+.btn_right:hover {
+    background-color: var(--sub-color);
 }

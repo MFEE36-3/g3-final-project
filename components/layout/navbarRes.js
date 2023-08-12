@@ -26,7 +26,7 @@ export default function Navbar() {
   //     console.log(e.target.classList);
   // }
 
-  const router_title = '';
+  const [router_title, setRouter_title] = useState('');
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -60,6 +60,9 @@ export default function Navbar() {
   }, [resAuth]);
 
   //下面寫if判斷路由關鍵字 如果有符合就把router_title設成那個
+  useEffect(() => {
+    setRouter_title(router.asPath);
+  }, [router.asPath]);
 
   return (
     <>
@@ -77,7 +80,7 @@ export default function Navbar() {
           priority
         ></Image>
       </div>
-      <Link href="#">
+      <Link href="/">
         <Image
           src={littletitle}
           className={styles.little_title}
@@ -128,7 +131,7 @@ export default function Navbar() {
         </button>
       )}
 
-      <Image
+      {/* <Image
         src={hand}
         className={styles.hand_left}
         alt="hand"
@@ -139,7 +142,7 @@ export default function Navbar() {
         className={styles.hand_right}
         alt="hand"
         priority
-      ></Image>
+      ></Image> */}
 
       {/* 下面做sticky-navbar */}
 
@@ -153,11 +156,11 @@ export default function Navbar() {
         <div className={styles.btn_right_container}>
           <Link
             href="/res/res-order-management"
-            className={`${styles.btn_outer_link} ${styles.btn_hamburger}`}
+            className={`${styles.btn_outer_link}`}
           >
             <button
               className={
-                router_title === 'buyforme'
+                router_title.includes('/res-order-management')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }
@@ -168,7 +171,7 @@ export default function Navbar() {
                 alt="hamburger"
                 priority
               ></Image>
-              <p className={styles.btn_text}>所有訂單</p>
+              <p className={styles.btn_text}>訂單管理</p>
             </button>
           </Link>
           <Link 
@@ -176,7 +179,7 @@ export default function Navbar() {
           className={styles.btn_outer_link}>
             <button
               className={
-                router_title === 'reservation-togo'
+                router_title.includes('/item-management')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }
@@ -187,7 +190,7 @@ export default function Navbar() {
                 alt="candychief"
                 priority
               ></Image>
-              <p className={styles.btn_text}>編輯商品</p>
+              <p className={styles.btn_text}>商品管理</p>
             </button>
           </Link>
           {/* <Link href="/res/statistic" className={styles.btn_outer_link}>
@@ -210,7 +213,7 @@ export default function Navbar() {
           <Link href="/res/res-setting" className={styles.btn_outer_link}>
             <button
               className={
-                router_title === 'forum'
+                router_title.includes('/res-setting')
                   ? `${styles.navbtn_active} btn`
                   : `${styles.navbtn} btn`
               }
