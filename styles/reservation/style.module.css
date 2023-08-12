@@ -370,6 +370,12 @@ margin-bottom: 100px;
   text-overflow: ellipsis; 
 }
 
+.cardlocation{
+  white-space: nowrap; /* 不換行 */
+  overflow: hidden; /* 超過部分隱藏 */
+  text-overflow: ellipsis; 
+}
+
 .cardbottomicon{
   font-size: var(--h8);
   background: var(--main-color);
@@ -1220,6 +1226,10 @@ margin-bottom: 100px;
   border-radius: 15px 15px 0px 0px;
   position: relative;
   overflow: hidden;
+}
+
+.cardbody{
+  padding: 8px;
 }
 
 .cardimg{

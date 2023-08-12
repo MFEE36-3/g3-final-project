@@ -221,7 +221,7 @@ export default function ResultContent({ favorite, setFavorite }) {
                     </div>
                     <Card.Body>
                       <Card.Title className={style.cardtitle}>{shop}</Card.Title>
-                      <Card.Text>{location}</Card.Text>
+                      <Card.Text className={style.cardlocation}>{location}</Card.Text>
 
 
                       <div className="d-flex align-item-center justify-content-between">
