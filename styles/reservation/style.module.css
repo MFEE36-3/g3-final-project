@@ -4,6 +4,9 @@
   /* box-sizing: border-box; */
   position: relative;
 }
+.sidmb{
+margin-bottom: 100px;
+}
 
 .dflex {
   display: flex;
@@ -110,6 +113,7 @@
   height: 40px;
   margin: 0px 5px;
   color: var(--main-color);
+  cursor: pointer;
 }
 
 .top5button:hover{
@@ -198,6 +202,12 @@
   color:var(--main-color);
 }
 
+.togglebuttongroup{
+  display: flex;
+  justify-content: center;
+  margin: 24px;
+}
+
 /* 選取日期時間 */
 .timerow{
   width: 100%;
@@ -223,6 +233,12 @@
 
 .timetext{
   text-align: center;
+}
+
+.interiotdiv{
+  width: 836px;
+  height: 424px;
+  position: relative;
 }
 
 /* 餐廳頁-餐廳名稱 */
@@ -1027,7 +1043,7 @@
 
 /* ----------------------RWD---------------------- */
 
-@media screen and (max-width: 391px) {
+@media screen and (max-width: 390px) {
   /* .topdiv{
     position: relative;
   } */
@@ -1259,13 +1275,345 @@
   color: #911010;
 }
 
+/* 餐廳頁面------------------ */
+
+.rwdrow{
+  flex-direction: column;
+}
+
+.infodiv{
+  width: 100%;
+}
+
+.reservationdiv{
+  width: 100%;
+}
+
+.info{
+  padding-top: 70px;
+}
+
+.infodetail{
+  display: flex;
+  padding: 5px 0px;
+  align-items: center;
+  text-align: center;
+}
+
+.iconstyle{
+  font-size: var(--h5);
+  margin-right: 10px;
+  color: #a8a8a8;
+}
+
+.buttonicon{
+  margin-right: 5px;
+}
+
+.openstyle{
+  color: rgb(56, 201, 56);
+}
+
+.closestyle{
+  color: red;
+}
+
+.map{
+  display: none;
+}
+
+.shoppingcarticon{
+  font-size: 60px;
+  margin-top: 15px;
+  color:var(--main-color);
+}
+
+.togglebuttongroup{
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+}
+
+.togglediv {
+  width: 370px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  border: 2px solid var(--main-color);
+}
+
+/* 選取日期時間 */
+.timerow{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.timeblock{
+  padding: 3px 5px;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.timeblockactive{
+  padding: 3px 5px;
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 10px;
+  border: none;
+}
+
+.timetext{
+  text-align: center;
+  font-size: 12px;
+}
 
 
+/* 餐廳頁-餐廳名稱 */
+.restauranttitle {
+  text-shadow: 0 0 1px black;
+  font-size: var(--h4);
+  font-weight: 800;
+  margin-bottom: 0px;
+}
+
+.restaurantsubtitle{
+  font-size: var(--h5);
+  color: var(--main-color);
+  font-weight:500;
+}
+
+/* 餐廳頁-詳細資訊 */
+.restaurantdetail {
+  font-size: var(--h6);
+}
+
+/* 餐廳頁-資訊對齊用寬度 */
+.detailwidth{
+  width: 75px;
+}
+
+/* 餐廳頁-div間隔 */
+.divmb{
+  margin: 15px 0px;
+}
+
+/* 餐廳頁-人數欄寬＋間隔 */
+.selectperson{
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.interiotdiv{
+  width: 370px;
+  height: 188px;
+  background-size : cover;
+  background-repeat: no-repeat;
+  /* background-position: center; */
+  transform: scale(0.4);
+}
+
+.interiorscale{
+  transform: scale(0.4);
+}
+
+/* 副標題 */
+.subtitle{ 
+  font-family: var(--ff3);
+  color: black;
+  font-size: var(--h4);
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+/* 購物車ShoppingCart */
+
+.cartbody{
+  background-image: url('/background/kodawari_bg_cut.jpg');
+}
+
+.carticon{
+  position: absolute;
+  right: 20px;
+  top: 900px;
+  display: none;
+}
+
+.carttitle{
+  font-size: var(--h4);
+  font-weight: 600;
+}
+
+.shoptitle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--h4);
+  color: var(--main-color);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.shoptitleicon{
+  margin-right: 10px;
+}
+
+.shoppingcartdiv{
+  display: flex;
+  font-size: var(--h6);
+  margin: 5px 0px;
+}
+
+.shoppingcartbody1{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.shoppingcartbody2{
+  display: flex;
+  width: 100%;
+  font-size: var(--h5);
+  font-weight: bold;
+  padding: 0px 20px;
+  justify-content: space-between;
+}
+
+.shoppingcartbody3{
+  display: flex;
+}
+
+.cartimage{
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+}
+
+.trashicon{
+  font-size: 24px;
+  cursor: pointer;
+  color: #a8a8a8;
+}
+
+.trashicon:hover{
+  font-size: 24px;
+  color: #911010;
+}
+
+.cartemptydiv{
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cartemptyicon{
+  color: #a8a8a8;
+  font-size: 100px;
+}
+
+.cartemptytext{
+  color: #a8a8a8;
+  font-size: var(--h5);
+}
 
 
+.cartbutton{
+  width: 40px;
+  height:40px;
+  background-color: white;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: var(--main-color);
+  font-weight:bold;
+  border: 3px solid var(--main-color);
+ 
+}
 
+.cartbutton:hover{
+  color: var(--sub-color);
+  border: 3px solid var(--sub-color);
+}
 
+.cartcount{
+  width: 40px;
+  height:40px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 10px;
+  border: 2px solid #d9d9d9;
+}
 
+.cartprice{
+  line-height: 40px;
+}
+
+.hrcolor{
+  border-color:black;
+  border-width: 2px;
+}
+
+.totalprice{
+  display: flex;
+  justify-content: flex-end;
+  font-size: var(--h5);
+  font-weight: bold;
+  margin: 10px 20px;
+}
+
+.togotime{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: var(--h5);
+  font-weight: bold;
+  color: var(--main-color);
+  margin: 10px 0px;
+}
+
+.cartsendbutton{
+  width:100%;
+  font-size: var(--h6);
+  background-color: var(--main-color);
+  border-radius: 20px;
+  border: 0;
+  color: white;
+  font-weight: 900;
+  line-height: 36px;
+ }
+
+ .cartsendbutton:hover{
+  background-color:var(--sub-color);
+  color: var(--main-color);
+  font-weight: 900;
+ }
+
+ .noitemdiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+
+ .noitemimg{
+  height: 300px;
+  width: 300px;
+  margin-top: 50px;
+ }
+
+  .noitemtext{
+    font-size: var(--h3);
+    color:var(--sub-color);
+    margin-top: 20px;
+  }
 
 
 
