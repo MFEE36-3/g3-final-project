@@ -152,7 +152,8 @@
     font-family: var(--ff1);
     font-size: var(--h3);
     border-bottom: 2px solid var(--main-color);
-    padding-bottom: 10px;
+    padding-bottom: 3px;
+    padding-top: 3px;
 }
 
 .btn_right {

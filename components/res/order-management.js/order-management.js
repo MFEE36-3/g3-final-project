@@ -18,40 +18,6 @@ import DateTime from '@/components/reservation/restaurantpage/reservation/dateti
 import Head from 'next/head'
 import Image from 'next/image';
 import hamburger from '@/public/buyforme/map/user_icon/hamburger.svg'
-const mui_style = {
-  '&:hover fieldset': {
-    backgroundColor: 'rgba(250,179,179,0.2)',
-    borderColor: '#FAB3B3'
-  },
-  '& .MuiInputLabel-root': {
-    fontSize: 'var(--h6)',
-    fontWeight: 900,
-    fontFamily: 'var(--ff1)'
-  },
-  '& .MuiSvgIcon-root': {
-    color: 'var(--sub-color)'
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: 'var(--sub-color)',
-    },
-    '&:hover fieldset': {
-      borderColor: 'var(--sub-color)',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: 'var(--sub-color)',
-    },
-    fontSize: 'var(--h6)',
-    fontWeight: 600,
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: 'var(--sub-color)'
-  },
-  '& label.Mui-focused,label': {
-    color: 'var(--main-color)',
-  },
-  width: '75%',
-}
 
 export default function OrderManagement() {
 
@@ -363,74 +329,71 @@ export default function OrderManagement() {
       <Head>
         <title>食GOEAT! / 商家中心</title>
       </Head>
-      <div className={`container container-sm-fluid p-4 pb-5 mt-3 ${styles.tableBackGround}`}>
+      <div className={`container container-sm-fluid pt-3 px-4 pb-5 mt-4 ${styles.tableBackGround}`}>
         <h2 className={styles.res_title}>訂單管理</h2>
-        <div className="d-flex justify-content-between">
-          <div className="justify-content-between me-3">
-            <div className='mt-3 ms-3 fw-bold fs-4 mb-3 d-flex align-items-center'>
-              <Image src={hamburger} width={80} />
-              <div className='ms-3'>
-                歡迎回來，{resAuth.shop}
-              </div>
-            </div>
-
-            <div className='d-flex'>
-
-              <select className={'p-2 my-3 ms-3 ' + styles.select_cate} value={orderCategory} onChange={(e) => {
-                setOrderCategory(e.target.value)
-              }}>
-                {orderCategoryOptions.map((v, i) => {
-                  return <option key={i} value={v}>{v}</option>
-                })}
-              </select>
-
-              {orderCategory == '揪團' ? '' : <select className={'p-2 my-3 ' + styles.select_cate} value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
-                <option selected value={``}>---訂單狀態----</option>
-                {orderStateOptions.map((v, i) => {
-                  return <option key={i} value={v}>{v}</option>
-                })}
-              </select>}
-            </div>
-            {orderCategory == '揪團' ?
-              <Pagination
-                count={totalShopPage}
-                onChange={handleChange}
-                sx={{
-                  '& .MuiPaginationItem-root': {
-                    fontSize: 20,
-                  },
-                  '& .Mui-selected': {
-                    fontSize: 25,
-                  },
-                  '& .MuiPaginationItem-page': {
-                    minWidth: '40px',
-                    padding: '7px',
-                  },
-                }}
-              />
-              :
-              <Pagination
-                count={totalTogoPage}
-                // page={totalTogoPage}
-                // onChange={handlePageChange}
-                onChange={handleChange}
-                sx={{
-                  '& .MuiPaginationItem-root': {
-                    fontSize: 20,
-                  },
-                  '& .Mui-selected': {
-                    fontSize: 25,
-                  },
-                  '& .MuiPaginationItem-page': {
-                    minWidth: '40px',
-                    padding: '7px',
-                  },
-                }}
-              />
-            }
-
+        <div className='mt-3 ms-3 fw-bold fs-4 mb-3 d-flex align-items-center'>
+          <Image src={hamburger} width={80} />
+          <div className='ms-3'>
+            歡迎回來，{resAuth.shop}
           </div>
-          <div className='mt-auto'>
+        </div>
+        <div className="d-flex justify-content-between align-items-center">
+
+          <div className='d-flex'>
+
+            <select className={'p-2 my-3 ms-3 ' + styles.select_cate} value={orderCategory} onChange={(e) => {
+              setOrderCategory(e.target.value)
+            }}>
+              {orderCategoryOptions.map((v, i) => {
+                return <option key={i} value={v}>{v}</option>
+              })}
+            </select>
+
+            {orderCategory == '揪團' ? '' : <select className={'p-2 my-3 ' + styles.select_cate} value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
+              <option selected value={``}>---訂單狀態----</option>
+              {orderStateOptions.map((v, i) => {
+                return <option key={i} value={v}>{v}</option>
+              })}
+            </select>}
+          </div>
+          {orderCategory == '揪團' ?
+            <Pagination
+              count={totalShopPage}
+              onChange={handleChange}
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  fontSize: 20,
+                },
+                '& .Mui-selected': {
+                  fontSize: 25,
+                },
+                '& .MuiPaginationItem-page': {
+                  minWidth: '40px',
+                  padding: '7px',
+                },
+              }}
+            />
+            :
+            <Pagination
+              count={totalTogoPage}
+              // page={totalTogoPage}
+              // onChange={handlePageChange}
+              onChange={handleChange}
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  fontSize: 20,
+                },
+                '& .Mui-selected': {
+                  fontSize: 25,
+                },
+                '& .MuiPaginationItem-page': {
+                  minWidth: '40px',
+                  padding: '7px',
+                },
+              }}
+            />
+          }
+          <div className=''>
             {/* <div className='d-flex justify-content-end me-3 mb-3'>
               <Btn text="所有訂單" padding='10px 20px' />
             </div> */}
@@ -447,14 +410,15 @@ export default function OrderManagement() {
                   // }))
                 }} />
               </div>
-              <Btn text='搜尋' padding='10px 20px' className={`${muistyles.btnright}`} onClick={searchKeyword}></Btn>
+              <Btn text='搜尋' padding='10px 20px' onClick={searchKeyword}></Btn>
             </div>
           </div>
         </div>
+
         <div className='mt-3'>
           {orderCategory == '揪團' ?
             (
-              <TableContainer component={Paper}>
+              <TableContainer sx={{ borderRadius: 2, border: '2px solid var(--main-color)' }} >
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow sx={rowStyle}>
@@ -531,7 +495,7 @@ export default function OrderManagement() {
 
             :
 
-            (<TableContainer component={Paper}>
+            (<TableContainer sx={{ borderRadius: 2, border: '2px solid var(--main-color)' }}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow sx={rowStyle}>

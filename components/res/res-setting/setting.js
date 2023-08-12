@@ -426,7 +426,7 @@ export default function resSetting() {
         <div className='row'>
           <form className={`${styles.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-3 px-4`}
           >
-            <div className={`d-flex justify-content-center mt-3 ` + styles.res_title} >商家設定</div>
+            <div className={`d-flex justify-content-center mt-2 ` + styles.res_title} >商家設定</div>
 
             <div className="col-xxl-mx-5">
 
