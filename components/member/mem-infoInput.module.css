@@ -53,6 +53,7 @@
   border-radius: 15px;
   font-size: 20px;
   font-weight: 900;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 @media screen and (max-width: 391px) {

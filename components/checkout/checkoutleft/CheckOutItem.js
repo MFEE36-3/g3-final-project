@@ -9,8 +9,8 @@ export default function CheckOutItem() {
     const [localStorageItems, setLocalStorageItems] = useState({});
     const handleRemove = (removeItem) => {
       Swal.fire({
-        title: `確定要刪除${removeItem.itemName}`,
-        text: "刪除後需重新將商品加入購物車",
+        title: `<div style="font-family: Mochiy Pop One;">確定要刪除${removeItem.itemName}</div>`,
+        html: '<div style="font-family: Mochiy Pop One;">刪除後需重新將商品加入購物車</div>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -47,8 +47,8 @@ export default function CheckOutItem() {
           <div className='d-flex align-items-center ms-3 w-100 justify-content-between'>
             <div className='w-25 me-5' style={{fontSize:"18px"}}>{shortItemName}</div>
             <div className='d-flex align-items-center justify-content-between' style={{width:"70%"}}>
-              <div style={{fontSize:"20px"}} className='w-25'>{`$${item.price}`}</div>
-              <CheckOutCounter itemId={item.itemId} item={item} amount={item.amount}/>
+              <div style={{fontSize:"20px"}} className='w-25'>{page === 'subscribe' ? <div></div> : `$${item.price}`}</div>
+              {page === 'subscribe' ? <div></div>: <CheckOutCounter itemId={item.itemId} item={item} amount={item.amount}/>}
               <div className='me-5 text-danger fs-4' style={{width:"5%"}}>{`$${item.price*item.amount}`}</div>
               <HiOutlineTrash className='me-3 fs-1' style={{cursor:"pointer"}} onClick={() => handleRemove(item)}/>
             </div>

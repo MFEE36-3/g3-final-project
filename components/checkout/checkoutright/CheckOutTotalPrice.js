@@ -10,11 +10,11 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 const Fs23pxSpan = styled.span`
-font-size:23px;
+font-size:18px;
 `
 Fs23pxSpan.defaultProps = {
     style: {
-      fontSize: '23px',
+      fontSize: '18px',
     },
   };
 export default function CheckOutTotalPrice({payment, orderInfo}) {
@@ -37,22 +37,23 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
     const coupon = 
     <Box sx={{ minWidth: 200, textAlign: "center" }}>
         <FormControl fullWidth >
-            <InputLabel id="demo-simple-select-label">請選擇</InputLabel>
+            <InputLabel id="demo-simple-select-label"  style={{fontFamily:"var(--ff1)"}}>請選擇</InputLabel>
             <Select
-            className='d-flex justify-content-end fs-5 '
+            className='d-flex justify-content-end '
+            style={{fontSize:"18px"}}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={page === 'subscribe' ? 0 :couponId}
             label="折價"
             readOnly={page === 'subscribe'}
             onChange={handleChange}
-            sx={{textAlign:"center",display:'flex',alignItems:"center"}}
+            sx={{textAlign:"center",display:'flex',alignItems:"center",fontFamily:"var(--ff1)"}}
             >
-            <MenuItem value={0} className='d-flex justify-content-center' >
+            <MenuItem value={0} className='d-flex justify-content-center' style={{fontFamily:"var(--ff1)"}}>
                 {page === 'subscribe' ? '該商品無法使用優惠卷' : "不使用優惠卷"}
             </MenuItem>
             {page !== 'subscribe' && memberCoupon.filter(coupon => coupon.coupon_status_sid === 1).map(c => 
-                <MenuItem value={c.get_coupon_sid} className='d-flex justify-content-between' key={c.get_coupon_sid}>
+                <MenuItem value={c.get_coupon_sid} className='d-flex justify-content-between' key={c.get_coupon_sid}  style={{fontFamily:"var(--ff1)"}}>
                     {c.coupon_title}
                     <span className='ms-3 text-danger'>${c.coupon_discount}</span>
                 </MenuItem>
@@ -65,7 +66,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: '錢包餘額不足!',
+            html: '<div style="font-family: Mochiy Pop One;">錢包餘額不足!</div>',
           })
     }
     useEffect(() => {
@@ -85,8 +86,8 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
         let timerInterval
         return (
             Swal.fire({
-                title: '交易進行中!',
-                html: '請耐心等候',
+                title: '<div style="font-family: Mochiy Pop One;">交易進行中</div>',
+                html: '<div style="font-family: Mochiy Pop One;">請耐心等候!</div>',
                 timer: 6000,
                 timerProgressBar: true,
                 allowOutsideClick: false,
@@ -115,7 +116,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
             return (Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: '請選擇支付方式!',
+                html: '<div style="font-family: Mochiy Pop One;">請選擇支付方式!</div>',
               }))
         }
         if(memberInfo.wallet < totalPrice && payment === 'wallet') setWalletError(true)
@@ -127,7 +128,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                 url = `${host}/ecshop/checkout`
                 break
             case 'buy' :
-                url = ``
+                url = `${host}/buyforme/checkout_buyforme`
                 break
             case 'order' :
                 url = `${host}/ecshop/checkout/food`
@@ -154,6 +155,10 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
         const subscribeOrderData = {
             sid : showPages(items).map(item=>item.itemID)
         }
+        const buyOrderData = {
+            order_sid: showPages(items).map(item => item.order_sid)
+        }
+        
         const takeoutOrderData = {         
             shop_id: showPages(items).map(item => item.shop_id).shift(),
             amount: showPages(items).map(item => Number(item.price) * Number(item.amount)).reduce((c, v) => c + v), 
@@ -178,7 +183,7 @@ export default function CheckOutTotalPrice({payment, orderInfo}) {
                 orderData = subscribeOrderData
                 break
             case 'buy' :
-                orderData = {}
+                orderData = buyOrderData
                 break
             case 'order' :
                 orderData = takeoutOrderData

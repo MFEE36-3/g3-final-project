@@ -51,7 +51,7 @@ export default function AddCash() {
             return (Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: '請選擇支付方式!',
+                html: '<div style="font-family: Mochiy Pop One;">請選擇支付方式!</div>',
               }))
             
         }
@@ -94,13 +94,13 @@ export default function AddCash() {
             <div className=' ms-5 fs-4 text-secondary' style={{fontFamily:"Zen Maru Gothic", width:"20%"}} >錢包餘額 :</div>
             <div className='d-flex align-items-center'>
                 <Money1 src={Money.src} style={{width:"40%"}}/>
-                <div className='text-danger fs-3'> {memberInfo.wallet}</div>
+                <div className='text-danger fs-3' style={{fontFamily:"var(--ff2)"}}> {memberInfo.wallet}</div>
             </div>
         </div>
     </div>)
   return (
-    <div className='overflow-hidden d-flex align-items-center justify-content-center' style={{ height: '100vh'}}>
-        <div className='border border-2 border-secondary-subtle p-4 container rounded-5' style={{ height: '75vh', width: '50vw' }}>
+    <div className='d-flex align-items-center justify-content-center h-100'>
+        <div className='border border-2 border-secondary-subtle p-4 container rounded-5 mt-5' style={{width: '50vw' }}>
             <div className='d-flex justify-content-center fs-2 mb-3 text-success' style={{fontFamily:"Zen Maru Gothic"}}>會員錢包儲値</div>
             {member}
             <PaymentForCash payment={payment} setPayment={setPayment}/>

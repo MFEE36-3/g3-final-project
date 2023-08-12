@@ -105,12 +105,11 @@ export default function Index() {
                 </div>
               </div>
 
-              <div className={styles2.imgArea}>
-                <div className={styles2.imgText}>
-                  {auth.level === 1
-                    ? '歡迎加入食goEat會員享更多優惠'
-                    : '您的尊榮會員還有 ' + remainingDays + ' 天到期'}
-                </div>
+              <div className={styles2.imgArea}></div>
+              <div className={styles2.imgText}>
+                {auth.level === 1
+                  ? '歡迎加入食goEat會員享更多優惠'
+                  : '您的尊榮會員還有 ' + remainingDays + ' 天到期'}
               </div>
             </div>
             <div className={styles2.levelArea}>
@@ -124,13 +123,17 @@ export default function Index() {
               </div>
             </div>
             <div className={styles2.recordArea}>
-              <MemAllTitle title={'錢包紀錄'} />
+              <MemAllTitle title={'交易紀錄'} />
 
-              <div className={styles2.area3}>
-                <div className={styles2.recordBox}>
-                  <MemMoneyReocrdTable rows={rows} page={page} />
+              {rows[0] ? (
+                <div className={styles2.area3}>
+                  <div className={styles2.recordBox}>
+                    <MemMoneyReocrdTable rows={rows} page={page} />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className={styles.default}>您目前沒有交易紀錄</div>
+              )}
               <div className={styles2.btnArea}>
                 {Array.from({ length: Math.ceil(rows.length / 5) }).map(
                   (_, i) => (

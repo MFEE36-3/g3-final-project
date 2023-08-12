@@ -7,23 +7,38 @@
 }
 
 .imgArea {
-  width: 350px;
+  width: 330px;
   height: 300px;
-  background-image: url('/member/cookie.png');
+  background-image: url('/member/hamburger.png');
   background-size: cover;
   overflow: visible;
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  transition: all 0.2s ease-in;
+  /* animation: moveUpDown 1s infinite; */
+  cursor: pointer;
+  left: 50px;
+}
+
+.imgArea:hover {
+  animation: moveUpDown 1s infinite;
 }
 
 @keyframes moveUpDown {
   0% {
     transform: translateY(0);
   }
+  25% {
+    transform: translateY(-30px);
+  }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(0px);
+  }
+  75% {
+    transform: translateY(-30px);
   }
   100% {
     transform: translateY(0);
@@ -46,7 +61,10 @@
   left: 1050px;
   font-size: 24px;
   font-weight: 800;
-  animation: moveUpDown 2s infinite;
+}
+
+.imgText:hover {
+  animation: moveUpDown 1.5s infinite;
 }
 
 .area1 {

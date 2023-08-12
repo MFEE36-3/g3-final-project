@@ -34,9 +34,9 @@ export default function CheckOutCounter({itemId, amount}) {
         <span onClick={()=>{
             minus(i)
             }}
-        className='fs-2 me-1' style={{ cursor: 'pointer' }}>-</span>
+        className=' d-flex align-items-center' style={{ cursor: 'pointer' , fontSize:"16px"}}>一</span>
         <Cusinput type='text' value={amount} className='mx-2 w-50 border-0 text-center fs-4 rounded-2 text-' onChange={()=>{}} readOnly></Cusinput>
-        <span onClick={()=>(plus(i))} className='fs-3 ms-1' style={{ cursor: 'pointer' }}>+</span>
+        <span onClick={()=>(plus(i))} className='fs-5 ms-1' style={{ cursor: 'pointer' }}>+</span>
     </div>
   )
 }

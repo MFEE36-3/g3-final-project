@@ -128,7 +128,7 @@ export default function MemForm() {
     e.preventDefault();
 
     const fd = new FormData(formRef.current);
-    // console.log(fd);
+    // fd.append('photo', file);
     fetch(process.env.API_SERVER + '/member/add', {
       method: 'POST',
       body: fd,
@@ -145,8 +145,8 @@ export default function MemForm() {
       )
       .then(
         setTimeout(() => {
-          router.push('/login');
-        }, 2000)
+          router.push('/');
+        }, 1000)
       );
   };
 
@@ -278,7 +278,13 @@ export default function MemForm() {
               <div>
                 {file ? (
                   <div className={styles2.img}>
-                    <Image src={file} width={300} height={300} alt="" />
+                    <Image
+                      src={file}
+                      width={300}
+                      height={300}
+                      alt=""
+                      style={{ objectFit: 'cover' }}
+                    />
                   </div>
                 ) : (
                   <div></div>

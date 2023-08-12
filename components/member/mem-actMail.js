@@ -134,7 +134,7 @@ export default function MemActMail() {
           </div>
         </div>
       ) : (
-        <div className={styles.default}>您目前沒有任何訂單</div>
+        <div className={styles.default}>您目前沒有任何商城訂單</div>
       )}
     </div>
   );

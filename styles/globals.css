@@ -1,6 +1,6 @@
 :root {
   --main-color: #911010;
-  --sub-color: #FAB3B3;
+  --sub-color: #fab3b3;
   --h1: 72px;
   --h2: 48px;
   --h3: 32px;
@@ -64,8 +64,6 @@ main {
   /* box-shadow: inset 2px 2px 5px rgba(255, 255, 255,0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.4); */
 }
 
-
-
 @font-face {
   font-family: 'Zen Maru Gothic';
   /* 使用正確的字型名稱 */
@@ -121,8 +119,6 @@ a:active {
   color: inherit;
   /* 使用父元素的文字顏色 */
 }
-
-
 
 .gm-style-iw {
   border: 2px solid var(--main-color);

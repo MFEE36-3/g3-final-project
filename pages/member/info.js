@@ -70,8 +70,8 @@ export default function Info() {
     { tag: '手機', title: 'mobile', content: mobile, change: '修改' },
     { tag: '地址', title: 'address', content: address, change: '修改' },
     { tag: '錢包', title: 'wallet', content: wallet },
-    { tag: '會員等級', title: 'level', content: lev },
-    { tag: '會員生日', title: 'birthday', content: birth },
+    { tag: '等級', title: 'level', content: lev },
+    { tag: '生日', title: 'birthday', content: birth },
     { tag: '加入時間', title: 'creat_at', content: creat },
   ];
 

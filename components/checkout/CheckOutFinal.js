@@ -160,7 +160,7 @@ export default function CheckOutFinal(){
     return (
     <>  
         <Cart.Provider value={{page, setPage, items, setItems, showPages, memberInfo, memberInfo, host, memberCoupon}}> 
-        <div className='overflow-hidden'>      
+        <div className='overflow-hidden' style={{fontFamily:"var(--ff1)"}}>      
             <CheckOutContainer>
                 {token ? 
                 <>
