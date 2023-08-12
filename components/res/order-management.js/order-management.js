@@ -16,6 +16,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DateTime from '@/components/reservation/restaurantpage/reservation/datetime';
 import Head from 'next/head'
+import Image from 'next/image';
+import hamburger from '@/public/buyforme/map/user_icon/hamburger.svg'
 const mui_style = {
   '&:hover fieldset': {
     backgroundColor: 'rgba(250,179,179,0.2)',
@@ -263,7 +265,7 @@ export default function OrderManagement() {
   const [noKeyWordMessage, setNoKeyWordMessage] = useState('')
 
   // 搜尋到的彈跳文字
-  const [hintWord,setHintWord] = useState('')
+  const [hintWord, setHintWord] = useState('')
 
   const searchKeyword = () => {
     setNoKeyWordMessage('')
@@ -273,7 +275,7 @@ export default function OrderManagement() {
       const searchResult = originalTogoOrder.filter((v, i) => {
         const arr = v.order_detail.filter((v2) => v2.order_item.includes(getKeyword));
         return arr.length !== 0;
-        })
+      })
       //console.log(originalTogoOrder)
       if (searchResult.length === 0) {        // 沒有這筆訂單
         // setNoKeyWordMessage('沒有這項訂單!')
@@ -321,18 +323,74 @@ export default function OrderManagement() {
     fontFamily: 'var(--ff1)',
   };
 
+  const mui_style = {
+    '&:hover fieldset': {
+      backgroundColor: 'rgba(250,179,179,0.2)',
+      borderColor: '#FAB3B3'
+    },
+    '& .MuiInputLabel-root': {
+      fontSize: 'var(--h6)',
+      fontWeight: 900,
+      fontFamily: 'var(--ff1)'
+    },
+    '& .MuiSvgIcon-root': {
+      color: 'var(--sub-color)'
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'var(--sub-color)',
+      },
+      '&:hover fieldset': {
+        borderColor: 'var(--sub-color)',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'var(--sub-color)',
+      },
+      fontSize: 'var(--h6)',
+      fontWeight: 600,
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'var(--sub-color)'
+    },
+    '& label.Mui-focused,label': {
+      color: 'var(--main-color)',
+    },
+    width: '75%',
+  }
+
   return (
     <>
       <Head>
         <title>食GOEAT! / 商家中心</title>
       </Head>
-      <div className={`container container-sm-fluid ${styles.tableBackGround} bg-subtle p-4 border border-black rounded-4 mt-3`}>
-        <h2 className='fw-bold'>訂單管理</h2>
-        <hr />
+      <div className={`container container-sm-fluid p-4 pb-5 mt-3 ${styles.tableBackGround}`}>
+        <h2 className={styles.res_title}>訂單管理</h2>
         <div className="d-flex justify-content-between">
           <div className="justify-content-between me-3">
-            <Btn text="所有訂單" className="me-3" />
-            <div className='mt-3 ms-3 fw-bold fs-4'>歡迎回來，{resAuth.shop}</div>
+            <div className='mt-3 ms-3 fw-bold fs-4 mb-3 d-flex align-items-center'>
+              <Image src={hamburger} width={80} />
+              <div className='ms-3'>
+                歡迎回來，{resAuth.shop}
+              </div>
+            </div>
+
+            <div className='d-flex'>
+
+              <select className={'p-2 my-3 ms-3 ' + styles.select_cate} value={orderCategory} onChange={(e) => {
+                setOrderCategory(e.target.value)
+              }}>
+                {orderCategoryOptions.map((v, i) => {
+                  return <option key={i} value={v}>{v}</option>
+                })}
+              </select>
+
+              {orderCategory == '揪團' ? '' : <select className={'p-2 my-3 ' + styles.select_cate} value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
+                <option selected value={``}>---訂單狀態----</option>
+                {orderStateOptions.map((v, i) => {
+                  return <option key={i} value={v}>{v}</option>
+                })}
+              </select>}
+            </div>
             {orderCategory == '揪團' ?
               <Pagination
                 count={totalShopPage}
@@ -371,31 +429,14 @@ export default function OrderManagement() {
               />
             }
 
-
-
-            <div className='d-flex justify-content-between'>
-
-
-              <select className='form-select mt-3 ms-3' value={orderCategory} onChange={(e) => {
-                setOrderCategory(e.target.value)
-              }}>
-                {orderCategoryOptions.map((v, i) => {
-                  return <option key={i} value={v}>{v}</option>
-                })}
-              </select>
-
-              {orderCategory == '揪團' ? '' : <select className="form-select mt-3 ms-3" value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
-                <option selected value={``}>---訂單狀態----</option>
-                {orderStateOptions.map((v, i) => {
-                  return <option key={i} value={v}>{v}</option>
-                })}
-              </select>}
-            </div>
           </div>
-
-          <div>
+          <div className='mt-auto'>
+            {/* <div className='d-flex justify-content-end me-3 mb-3'>
+              <Btn text="所有訂單" padding='10px 20px' />
+            </div> */}
+            <div className='fw-bold mb-2'>{hintWord}</div>
             <div>
-              <Input placeholder="請輸入搜尋關鍵字" label="請輸入搜尋關鍵字" onChange={(e) => {
+              <Input placeholder="請輸入搜尋關鍵字" label="請輸入搜尋關鍵字" sx={mui_style} onChange={(e) => {
 
                 setGetKeyword(e.target.value)
 
@@ -406,7 +447,6 @@ export default function OrderManagement() {
               }} />
               <button className={`${muistyles.btnright}`} onClick={searchKeyword}>搜尋</button>
             </div>
-            <div className='fw-bold'>{hintWord}</div>
           </div>
         </div>
         <div className='mt-3'>
@@ -424,7 +464,7 @@ export default function OrderManagement() {
                       </TableCell>
                       <TableCell align="center" sx={ceilStyle} className='me-3'>
                         訂單內容
-                        <button type='button' className={`btn btn-warning ms-3 ${muistyles.btnright}`} style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
+                        <button type='button' className={`btn btn-danger ms-3 ${styles.btn_right}`} style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
                       </TableCell>
                       <TableCell align="center" sx={ceilStyle}>
                         總金額
@@ -597,7 +637,6 @@ export default function OrderManagement() {
             </TableContainer>)
           }
         </div>
-        <hr />
       </div>
     </>
   );
