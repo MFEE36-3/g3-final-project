@@ -785,7 +785,7 @@ export default function resSetting() {
                             onChange={handleOpenDays}
                           />
                           <span className={styles.geekmark}></span>
-                          <span>{v}</span>
+                          <span className='fw-bold'>{v}</span>
                         </label>
                       })}
 

@@ -112,6 +112,7 @@
 
 .info_outer input:focus {
     outline: 4px solid var(--sub-color);
+    box-shadow: none;
 }
 
 .titleWord {
@@ -211,6 +212,7 @@
 .des_textarea:focus {
     outline: 4px solid var(--sub-color);
     border: 1px solid var(--main-color);
+    box-shadow: none;
 }
 
 .select_city {
@@ -229,7 +231,7 @@
     align-items: center;
 }
 
-.openDays:hover{
+.openDays:hover {
     cursor: pointer;
 }
 
