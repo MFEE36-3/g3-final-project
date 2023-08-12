@@ -1,15 +1,17 @@
 .uploadImg {
-    background-color:white;
-    width: 300px;
-    height: 300px;
+    background-color: white;
+    width: 100%;
+    height: 400px;
     border: 1px solid var(--main-color);
     display: flex;
     align-content: center;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+    object-fit: cover;
 }
-.btn{
+
+.btn {
     border: 0;
     background-color: var(--main-color);
     color: white;
@@ -17,27 +19,32 @@
     padding: 8px;
     font-size: var(--h7);
 }
-.passwordbtn{
-        border: 0;
-        background-color: var(--main-color);
-        color: white;
-        border-radius: 10px;
-        padding: 8px;
-        font-size: var(--h8);
+
+.passwordbtn {
+    border: 0;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 10px;
+    padding: 8px;
+    font-size: var(--h8);
 }
-.line{
-    color:var(--main-color)
+
+.line {
+    color: var(--main-color)
 }
-.box{
+
+.box {
     width: 150px;
     background-color: var(--main-color);
-    color:white;
-    font-size: var(--h6); 
+    color: white;
+    font-size: var(--h6);
 }
-.verifyinput{
+
+.verifyinput {
     width: 90%;
 }
-.verifybtn{
+
+.verifybtn {
     background-color: var(--main-color);
     color: white;
     border-radius: 10px;
@@ -45,28 +52,31 @@
     width: 40%;
     margin-top: 8px;
 }
+
 .verifybtn:active {
     background-color: gray;
 }
 
-.input{
+.input {
     border: 1px solid gray;
     width: 100%;
     height: 50px;
     background-color: #fff;
     padding: 8px;
-    color:black;
+    color: black;
     box-shadow: none;
 }
 
-.tableinput:focus{
+.tableinput:focus {
     border: 1px solid var(--main-color);
 }
-.input:focus{
+
+.input:focus {
     border: 1px solid var(--main-color);
 }
-.input::placeholder{
-    color:rgba(0, 0, 0, 0.266);
+
+.input::placeholder {
+    color: rgba(0, 0, 0, 0.266);
 }
 
 .upload input[type="file"] {
@@ -76,18 +86,21 @@
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0,0,0,0);
+    clip: rect(0, 0, 0, 0);
     border: 0;
-  }
-
-.backGroundColor{
-    background-color:white ;
-    border: 2px solid var(--main-color);
 }
-.title{
+
+.backGroundColor {
+    background-color: white;
+    border: 3px solid var(--main-color) !important;
+    padding-bottom: 10px;
+}
+
+.title {
     font-family: var(--ff1);
 }
-.cancel{
+
+.cancel {
     border: 0;
     width: 100px;
     border-radius: 8px;
@@ -95,7 +108,8 @@
     margin-bottom: 20px;
     height: 45px;
 }
-.add{
+
+.add {
     border: 0;
     width: 100px;
     border-radius: 8px;
@@ -106,7 +120,140 @@
     margin-right: 10px;
 }
 
-@media (max-width:400px){
+.res_title {
+    color: var(--main-color);
+    font-family: var(--ff1);
+    font-size: var(--h3);
+    border-bottom: 2px solid var(--main-color);
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+
+.btn_right {
+    background-color: var(--main-color);
+    border: none;
+    font-family: var(--ff2);
+    padding: 15px 20px;
+    border-radius: 30px;
+}
+
+.btn_right:hover {
+    background-color: rgb(184, 13, 13);
+}
+
+.btn_cancel {
+    background-color: var(--sub-color);
+    border: none;
+    font-family: var(--ff2);
+    padding: 15px 20px;
+    border-radius: 25px;
+}
+
+.btn_cancel:hover {
+    background-color: rgba(254, 95, 95, 0.8);
+}
+
+.info_outer input {
+    border: 1px solid var(--main-color) !important;
+}
+
+.info_outer input:focus {
+    outline: 4px solid var(--sub-color);
+    box-shadow: none;
+}
+
+.hide_pass {
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+}
+
+.hide_pass:hover {
+    background-color: var(--sub-color);
+}
+
+.select_cate {
+    margin-left: 16px;
+    border-color: var(--main-color);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.select_cate:focus {
+    outline: 4px solid var(--sub-color);
+}
+
+.labels {
+    font-family: var(--ff1);
+    margin: 0;
+}
+
+.select_city {
+    border-color: var(--main-color);
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: none;
+}
+
+.select_city:focus {
+    outline: 4px solid var(--sub-color);
+}
+
+.des_textarea {
+    border: 1px solid var(--main-color);
+}
+
+.des_textarea:focus {
+    outline: 4px solid var(--sub-color);
+    border: 1px solid var(--main-color);
+    box-shadow: none;
+}
+
+.openTimes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.openDays:hover {
+    cursor: pointer;
+}
+
+.openDays input[type=checkbox] {
+    visibility: hidden !important;
+}
+
+.geekmark {
+    position: absolute;
+    border-radius: 50%;
+    margin-left: -24px;
+    margin-top: 2px;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(254, 95, 95, 0.2);
+}
+
+/* Specify the background color to be
+        shown when checkbox is checked */
+.openDays input:checked~.geekmark {
+    background-color: var(--main-color);
+}
+
+/* Checkmark to be shown in checkbox */
+/* It is not be shown when not checked */
+.geekmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Display checkmark when checked */
+.openDays input:checked~.geekmark:after {
+    display: block;
+}
+
+@media (max-width:400px) {
     .addressDisplay {
         /* display: flex; */
         flex-direction: column;

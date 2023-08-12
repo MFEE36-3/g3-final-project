@@ -11,6 +11,7 @@ import muistyles from '@/components/res/item/add-item.module.css';
 import Head from 'next/head'
 import { FaPhotoVideo } from 'react-icons/fa';
 
+
 export default function RegisterForm() {
   const router = useRouter()
 
@@ -416,13 +417,12 @@ export default function RegisterForm() {
       </style>
       <div className="container container-sm-fluid mt-3">
         <div className='row'>
-          <form className={`${styles.backGroundColor} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-3`}
+          <form className={`${styles.backGroundColor} ${styles.info_outer} col-xxl-8 container-fluid col-sm-12 border border-black rounded-4 border-3`}
           // onSubmit={handleSubmit}
           >
-            <h1 className="d-flex justify-content-center fw-bold mt-3">商家註冊</h1>
-            <hr />
+            <h1 className={"d-flex justify-content-center fw-bold mt-3 pb-2 mx-2 " + styles.res_title}>商家註冊</h1>
 
-            <div className="col-xxl-mx-5">
+            <div className="col-xxl-mx-5 mt-4">
 
               <div className='name mx-5 d-flex justify-content-start align-items-center'>
                 <div htmlFor="shop_name" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>店名:</div>
@@ -486,7 +486,7 @@ export default function RegisterForm() {
                     value={shop.password}
                     onChange={handleChange}
                   />
-                  <button type='button' className={`btn btn-warning btn-outline-secondary ${muistyles.btnright}`} style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
+                  <button type='button' className={`btn  ${muistyles.btnright} ${styles.hide_pass}`} style={{ fontSize: '12px' }} onClick={toggleShowPassword}>{showPassword ? '隱藏密碼' : '顯示密碼'}</button>
                 </div>
 
               </div>
@@ -532,7 +532,7 @@ export default function RegisterForm() {
 
                 <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>餐廳敘述:</div>
                 <textarea
-                  className="form-control border-black"
+                  className={"form-control " + styles.des_textarea}
                   id="description"
                   placeholder="請簡單介紹您的餐廳!"
                   name='description'
@@ -561,12 +561,12 @@ export default function RegisterForm() {
               <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.avg_consumption}</div>
               <div className='res_cate mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳分類:</div>
+                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳分類:</div>
                 <select value={resCate} onChange={(e) => {
                   setResCate(e.target.value)
                   setShop({ ...shop, res_cate: e.target.value })
                 }}
-                  className='form-select'
+                  className={'form-select ' + styles.select_cate}
                 >
                   <option value={``}>---請選擇餐廳分類---</option>
                   {res_cateOptions.map((v, i) => {
@@ -576,23 +576,23 @@ export default function RegisterForm() {
 
               </div>
 
-              <div className="photo d-flex justify-content-start mt-3 mx-5">
-                <div className="d-flex flex-row align-items-center">
+              <div className=" d-flex justify-content-start mt-3 mx-5 w-100">
+                <div className="d-flex flex-row align-items-center w-100">
                   <div htmlFor="res_photo" className="form-label mb-3">
 
                   </div>
 
-                  <div className='d-flex flex-column mb-3'>
-                    {showImg == false ? (<div htmlFor="res_photo" className={`${styles.uploadImg} me-3`}>
+                  <div className='d-flex flex-column ' style={{ width: '90%' }}>
+                    {showImg == false ? (<div htmlFor="res_photo" className={`${styles.uploadImg} me-3 `}>
                       商家圖片:
                     </div>) : (
                       <div
                         htmlFor="res_photo"
-                        className={`${styles.uploadImg} me-3`}
+                        className={``}
                         name='photo'
                         onChange={handleChange}>
 
-                        <img src={`${imgPreview + showImg}`} style={{ height: '300px', width: '300px', overflow: 'static' }} alt="" />
+                        <img src={`${imgPreview + showImg}`} className={styles.uploadImg} alt="" />
 
                       </div>)}
                     <div className={styles.upload}>
@@ -614,25 +614,24 @@ export default function RegisterForm() {
               {/* <div className="mt-3">
                 <input type="file" name='preImg' accept="image/jpeg" onChange={previewImg}></input>
               </div> */}
-              <div className='address mx-5 fw-bold mt-3'>請輸入完整地址:</div>
-              <div className={`d-flex justify-content-between mt-1 col-xxl-3 col-sm-6 mx-5 ${styles.addressDisplay}`}
+              <div className={'address mx-5 fw-bold mt-4 mb-2 ' + styles.labels}>請輸入完整地址</div>
+              <div className={`d-flex justify-content-between mt-1 col-7 col-sm-3 mx-5 ${styles.addressDisplay}`}
               // style={``}
               >
 
-                <select name='city' value={city} onChange={areas} className='me-1 form-select col-3'>
+                <select name='city' value={city} onChange={areas} className={'me-1 form-select col-3 ' + styles.select_city}>
                   <option value=''>---請選擇城市---</option>
                   {cityOptions.map((v, i) => {
                     return <option key={i} value={v}>{v}</option>
                   })}
                 </select>
-                <div className={`d-flex align-items-center me-1  
-                                    ${styles.hideDash}`}>-</div>
+                <div className={`d-flex align-items-center mx-1 me-2 ${styles.hideDash}`}>-</div>
 
                 <select name='area' value={pickArea} onChange={(e) => {
                   setPickArea(e.target.value)
                   setShop({ ...shop, area: e.target.value })
                 }}
-                  className='form-select col-3'
+                  className={'me-1 form-select col-3 ' + styles.select_city}
                 >
 
                   <option value=''>---請選擇鄉鎮---</option>
@@ -669,21 +668,21 @@ export default function RegisterForm() {
                     />
                   </div>
 
-                  <div id="shop" className="form-text">
+                  {/* <div id="shop" className="form-text">
                     請填入完整地址
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
               <div className='error pe-5 mx-5 fs-5 fw-bold d-flex justify-content-start'>{errors.fulladdress}</div>
 
               <div className="open_time d-flex flex-column mb-3 mt-3 mx-5">
-                <div id="open_time" className="form-text fw-bold">
+                <div id="open_time" className={'mt-3 mb-2 ' + styles.labels}>
                   請選擇營業時間
                 </div>
                 <div className={`col-3`}>
                   <div className={`d-flex flex-row ${styles.openTimes}`}>
-                    <select className="form-select col-3" value={shop.open_time} onChange={(e) => {
+                    <select className={"form-select col-3 " + styles.select_city} value={shop.open_time} onChange={(e) => {
                       setShop({ ...shop, open_time: e.target.value })
                     }}>
 
@@ -694,9 +693,9 @@ export default function RegisterForm() {
 
                     </select>
 
-                    <div className="mx-3">:</div>
+                    <div className="mx-1">~</div>
 
-                    <select className="form-select col-3" value={shop.close_time} onChange={(e) => {
+                    <select className={"form-select col-3 " + styles.select_city} value={shop.close_time} onChange={(e) => {
                       setShop({ ...shop, close_time: e.target.value })
                     }}>
 
@@ -715,20 +714,23 @@ export default function RegisterForm() {
 
               <div className="d-flex justify-content-between mt-3 mx-5">
                 <div className=''>
-                  <div id="open_time" className="form-text fw-bold">
-                    請選擇營業日期:
+                  <div id="open_time" className={'mb-2 ' + styles.labels}>
+                    請選擇營業日期
                   </div>
 
                   <div className="d-flex justify-content-between mt-2">
                     {openDayOptions.map((v, i) => {
-                      return <label key={i} className={`me-4 ${styles.openDays}`} >
+                      return <label key={i} className={`me-4 ${styles.openDays}`}>
                         <input
-                          className=''
+                          className={'me-2 ' + styles.custom_checkbox}
                           type='checkbox'
                           value={v}
                           checked={shop.open_days.includes(v)}
+                          // checked={shop.open_days[i] == 1 ? true : false}
                           onChange={handleOpenDays}
-                        />{v}
+                        />
+                        <span className={styles.geekmark}></span>
+                        <span className='fw-bold'>{v}</span>
                       </label>
                     })}
 
@@ -738,7 +740,7 @@ export default function RegisterForm() {
               </div>
 
               <div className="seats col-5 mx-5">
-                <div className="mt-3 fw-bold">如欲開放訂位功能，請勾選並填寫桌型:</div>
+                <div className={"mt-4 " + styles.labels}>如欲開放訂位功能，請勾選並填寫桌型</div>
 
                 <div className={`d-flex flex-row my-3 ${styles.openDays}`}>
 
@@ -767,7 +769,7 @@ export default function RegisterForm() {
 
                 {switchTable == 'normal' ?
                   <div className='normal'>
-                    <div className='fw-bold'>一般桌型:</div>
+                    <div className='fw-bold mb-2'>一般桌型：</div>
                     <input
                       type="text"
                       className="form-control border-black"
@@ -782,11 +784,11 @@ export default function RegisterForm() {
                   <div className="advance mt-3" id='advanceTable'>
 
 
-                    <div className=" d-flex align-items-center justify-content-between">
-                      <div className='fw-bold'>兩人桌:</div>
+                    <div className="d-flex align-items-center ">
+                      <div className='fw-bold'>兩人桌：</div>
                       <input
                         type="text"
-                        className="form-control border-black"
+                        className="ms-3 my-2 p-2 border rounded"
                         id="shop_tables"
                         placeholder="請填入桌數"
                         name='seat2'
@@ -795,11 +797,11 @@ export default function RegisterForm() {
                         onBlur={calculatTotalSeats}
                       />
                     </div>
-                    <div className=" d-flex align-items-center justify-content-between">
-                      <div className='fw-bold'>四人桌:</div>
+                    <div className=" d-flex align-items-center">
+                      <div className='fw-bold'>四人桌：</div>
                       <input
                         type="text"
-                        className="form-control border-black"
+                        className="ms-3 my-2 p-2 border rounded"
                         id="shop_tables"
                         placeholder="請填入桌數"
                         name='seat4'
@@ -808,11 +810,11 @@ export default function RegisterForm() {
                         onBlur={calculatTotalSeats}
                       />
                     </div>
-                    <div className=" d-flex align-items-center justify-content-between">
-                      <div className='fw-bold'>六人桌:</div>
+                    <div className=" d-flex align-items-center">
+                      <div className='fw-bold'>六人桌：</div>
                       <input
                         type="text"
-                        className="form-control border-black"
+                        className="ms-3 my-2 p-2 border rounded"
                         id="shop_tables"
                         placeholder="請填入桌數"
                         name='seat6'
@@ -821,11 +823,11 @@ export default function RegisterForm() {
                         onBlur={calculatTotalSeats}
                       />
                     </div>
-                    <div className=" d-flex align-items-center justify-content-between">
-                      <div className='fw-bold'>八人桌:</div>
+                    <div className=" d-flex align-items-center">
+                      <div className='fw-bold'>八人桌：</div>
                       <input
                         type="text"
-                        className="form-control border-black"
+                        className="ms-3 my-2 p-2 border rounded"
                         id="shop_tables"
                         placeholder="請填入桌數"
                         name='seat8'
@@ -836,7 +838,7 @@ export default function RegisterForm() {
                     </div>
                   </div>
                 }
-                <div className='mt-2'>您的餐廳共有:{shop.table_number}個位子</div>
+                <div className={'mt-2 fw-bold '+styles.labels}>您的餐廳共有：<span className='mx-2' style={{ color: 'var(--main-color)' }}>{shop.table_number}</span>個位子</div>
 
               </div>
 
@@ -869,14 +871,13 @@ export default function RegisterForm() {
               >{showMessage}
               </div>
               <div className='error me-5 ms-5 pe-5 fs-5 fw-bold d-flex justify-content-start'>{errors.verifyEmail}</div>
-              <hr />
 
-              <div className='d-flex justify-content-center'>
-                <button type="submit" className={`btn my-3 mx-3 ${muistyles.btnright}`} onSubmit={handleSubmit} onClick={handleSubmit}>
+              <div className='d-flex justify-content-center mt-3'>
+                <button type="submit" className={`btn text-light my-3 mx-3 ${styles.btn_right}`} onSubmit={handleSubmit} onClick={handleSubmit}>
                   確認送出
                 </button>
 
-                <button type="reset" className="btn btn-danger my-3 mx-3">
+                <button type="reset" className={`btn text-light my-3 mx-3 ${styles.btn_cancel}`}>
                   取消填寫
                 </button>
               </div>

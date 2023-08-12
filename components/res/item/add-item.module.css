@@ -117,3 +117,16 @@
     outline: 4px solid var(--sub-color);
     box-shadow: none;
 }
+
+.btn_right {
+    background-color: var(--main-color);
+    border: none;
+    font-family: var(--ff2);
+    padding: 15px 25px;
+    border-radius: 30px;
+    line-height: 10px;
+}
+
+.btn_right:hover {
+    background-color: var(--sub-color);
+}
