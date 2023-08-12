@@ -2,12 +2,14 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
-import { styled } from '@mui/system';
+// import { styled } from '@mui/system';
+import styled from '@emotion/styled';
 import { BiSearch } from 'react-icons/bi';
 import { useRouter } from 'next/router';
 import { css, keyframes } from '@emotion/react';
 import { Host } from '@/components/shopmall/shopmallfinal';
 import { debounce } from 'lodash';
+import { PiFunnelLight } from 'react-icons/pi'
 const scaleAnimation = keyframes`
   0% {
     transform: scale(1);
@@ -60,12 +62,20 @@ const CustomTextField = styled(TextField)({
 
   },
 });
-
+const RWDdiv = styled.div`
+  display:none;
+  @media (max-width: 576px) {
+    display: block
+  }
+`
 export default function SearchBar() {
-  const { host, dispatch, setSelectedCategory, categories } = React.useContext(Host);
+  const { host, dispatch, setSelectedCategory, categories, RWD, setRWD } = React.useContext(Host);
   const [currKey, setCurrKey] = React.useState("");
   const [commandItems, setCommandItems] = React.useState([])
   const router = useRouter();
+  const handleRWD = () => {
+    setRWD(!RWD)
+  }
   const handleSearch = () => {
     const keywordValue = currKey ? currKey.trim() : '';
     if (keywordValue === "") {
@@ -111,6 +121,9 @@ export default function SearchBar() {
   };
   return (
     <div className=' mx-0 d-flex pe-0 pt-2 justify-content-center align-items-center my-xl-4'>
+      <RWDdiv>
+        <PiFunnelLight className='fs-1 me-2' onClick={()=>handleRWD()}/>
+      </RWDdiv>
       <Stack spacing={2} className='w-75'>
         <Autocomplete
           id="free-solo-demo"
@@ -133,7 +146,7 @@ export default function SearchBar() {
           )}
         />
       </Stack>
-      <StyledBiSearch className='fs-1 ms-3 ' onClick={handleSearch} />
+      <StyledBiSearch className='fs-1 ms-2 ' onClick={handleSearch} />
     </div>
   );
 }

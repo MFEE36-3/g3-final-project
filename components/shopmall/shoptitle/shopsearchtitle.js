@@ -8,9 +8,9 @@ import Select from '@mui/material/Select';
 import { Host } from '@/components/shopmall/shopmallfinal'
 import { useRouter } from 'next/router';
 const H2div = styled.div`
-    font-size:var(--h2);
+    font-size:36px;
     @media (max-width: 576px) {
-    font-size:25px
+    font-size:20px
   }
 `
 const H4div = styled.div`
@@ -66,8 +66,8 @@ export default function ShopSearchTitle() {
   },[isReset])
   return (
     <div className=''>
-        <H2div className='text-danger'>{keyword}</H2div>
         <div className='mt-3 w-100 mb-xl-4 d-flex justify-content-between align-items-center'>
+        <H2div className='ms-xl-4 ms-2' style={{color:"var(--main-color)"}}>{keyword}</H2div>
         {keyword && <div></div>}
         {!keyword && <>
         <div></div>
