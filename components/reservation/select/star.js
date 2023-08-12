@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 import { FaArrowUp } from 'react-icons/fa'
-import { Host } from '@/components/shopmall/shopmallfinal'
+import style from '@/styles/reservation/style.module.css'
 
 const Nobgbutton = styled.button`background:none`
 
@@ -72,7 +72,7 @@ export default function Star({ keyword, setKeyword }) {
 
     return (
         <div className='w-100 mt-4 pb-4'>
-            <p>評分</p>
+            <p className={style.selecttitle}>評分</p>
             <hr />
             <div className='px-1'>
                 <Nobgbutton className={`d-flex text-warning border-0 fs-4 rounded-4  px-1 mt-4 ${rating === 5 && active}`}>

@@ -219,7 +219,7 @@ export default function ResultContent({ favorite, setFavorite }) {
                         <div className={style.cardtext}>查看餐廳</div>
                       </Link>
                     </div>
-                    <Card.Body>
+                    <Card.Body className={style.cardbody}>
                       <Card.Title className={style.cardtitle}>{shop}</Card.Title>
                       <Card.Text className={style.cardlocation}>{location}</Card.Text>
 
@@ -235,7 +235,7 @@ export default function ResultContent({ favorite, setFavorite }) {
                             <AiFillStar
                               className="fs-4 h-100 text-warning"
                             />
-                            <div className="d-flex align-item-center fs-5">
+                            <div className="d-flex align-item-center fs-5 fw-bold ms-1">
                               {rating}
                             </div>
                           </div>

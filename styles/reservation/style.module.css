@@ -35,6 +35,10 @@ margin-bottom: 100px;
   font-weight: 900;
 }
 
+.selecttitle{
+  font-size: var(--h5);
+}
+
 .info{
   padding-top: 50px;
 }
@@ -484,6 +488,20 @@ margin-bottom: 100px;
 
 .sortdiv{
   width: 10%;
+}
+
+/* Modal */
+
+.modalimg{
+  height: 100%;
+  width: 58%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.modalword{
+  height: 100%;
+  width: 40%;
 }
 
 .modaltitle{
@@ -1617,7 +1635,47 @@ font-weight: 600;
   /* grid-template-rows: repeat(7, 1fr); */
 }
 
+.modaldiv{
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+}
 
+.modalimg{
+  height: 60%;
+  width: 58%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.modalword{
+  height: 100%;
+  width: 40%;
+}
+
+.modaltitle{
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  font-size: var(--h6);
+  margin-top: 10px;
+}
+
+.modaltext{
+  height: 40%;
+  display: flex;
+  font-size: var(--h8);
+  margin-top: 10px;
+}
+
+.modalprice{
+  height: 20%;
+  display: flex;
+  font-size: var(--h7);
+  margin-top: 10px;
+  color: var(--main-color);
+}
 
 
 
@@ -1650,8 +1708,7 @@ font-weight: 600;
 .carticon{
   position: absolute;
   right: 20px;
-  top: 900px;
-  display: none;
+  top: 300px;
 }
 
 .carttitle{
