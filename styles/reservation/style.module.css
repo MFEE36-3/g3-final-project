@@ -1408,18 +1408,118 @@ margin-bottom: 100px;
   margin-bottom: 10px;
 }
 
+/* 餐廳座位圖 */
+
 .interiotdiv{
   width: 370px;
   height: 188px;
   background-size : cover;
   background-repeat: no-repeat;
+  position: relative;
   /* background-position: center; */
-  transform: scale(0.4);
+  /* transform: scale(0.4); */
 }
 
 .interiorscale{
-  transform: scale(0.4);
+  transform: scale(0.5);
 }
+
+.svg6{
+  position: absolute;
+  top: -20px;
+  left: -20px;
+} 
+
+.svg8{
+  position: absolute; 
+  top: -25px; 
+  right: -15px;
+}
+
+.svg8s{
+  position: absolute;
+  bottom: -20px; 
+  right: -25px;
+}
+
+.svg41{
+  position: absolute; 
+    top: 100px;
+    left: 70px;
+}
+
+.svg42{
+  position: absolute; 
+    top: 100px;
+    left: 130px;
+}
+
+.svg43{
+  position: absolute; 
+    top: 20px;
+    left: 215px;
+}
+
+.svg4s1{
+  position: absolute; 
+    top: 15px;
+    left: 40px;
+}
+
+.svg4s2{
+  position: absolute; 
+    top: 15px;
+    left: 90px;
+}
+
+.svg21{
+  position: absolute; 
+    top: -15px;
+    left: 75px;
+}
+
+.svg22{
+  position: absolute; 
+    top: -15px;
+    left: 100px;
+}
+
+.svg23{
+  position: absolute; 
+    top: -15px;
+    left: 125px;
+}
+
+.svg24{
+  position: absolute; 
+    top: -15px;
+    left: 150px;
+}
+
+.svg2s1{
+  position: absolute; 
+  bottom: 0px;
+  left: 30px;
+}
+
+.svg2s2{
+  position: absolute; 
+  bottom: 0px;
+  left: 90px;
+}
+
+.svg2s3 {
+  position: absolute; 
+  bottom: 0px;
+    left: 150px;
+}
+
+
+
+
+
+
+
 
 /* 副標題 */
 .subtitle{ 
