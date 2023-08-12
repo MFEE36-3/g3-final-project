@@ -50,7 +50,7 @@ const mui_style = {
   '& label.Mui-focused,label': {
     color: 'var(--main-color)',
   },
-  width: '100%',
+  width: '75%',
 }
 
 export default function OrderManagement() {
@@ -355,7 +355,7 @@ export default function OrderManagement() {
     '& label.Mui-focused,label': {
       color: 'var(--main-color)',
     },
-    width: '75%',
+    width: '95%',
   }
 
   return (
@@ -435,17 +435,19 @@ export default function OrderManagement() {
               <Btn text="所有訂單" padding='10px 20px' />
             </div> */}
             <div className='fw-bold mb-2'>{hintWord}</div>
-            <div>
-              <Input placeholder="請輸入搜尋關鍵字" label="請輸入搜尋關鍵字" sx={mui_style} onChange={(e) => {
+            <div className='d-flex'>
+              <div>
+                <Input placeholder="請輸入搜尋關鍵字" label="請輸入搜尋關鍵字" sx={mui_style} onChange={(e) => {
 
-                setGetKeyword(e.target.value)
+                  setGetKeyword(e.target.value)
 
-                // console.log(togoOrder.filter((v, i) => {
-                //   const arr = v.filter((v2, i2) => v2.order_item.includes(e.target.value));
-                //   if (arr.length !== 0) return v;
-                // }))
-              }} />
-              <button className={`${muistyles.btnright}`} onClick={searchKeyword}>搜尋</button>
+                  // console.log(togoOrder.filter((v, i) => {
+                  //   const arr = v.filter((v2, i2) => v2.order_item.includes(e.target.value));
+                  //   if (arr.length !== 0) return v;
+                  // }))
+                }} />
+              </div>
+              <Btn text='搜尋' padding='10px 20px' className={`${muistyles.btnright}`} onClick={searchKeyword}></Btn>
             </div>
           </div>
         </div>
@@ -611,7 +613,7 @@ export default function OrderManagement() {
                       <TableCell align="center" sx={tdStyle}>
                         {/* {v[0].create_at} */}
                         {v.order_detail[0].create_at}
-                      </TableCell>`
+                      </TableCell>
                       <TableCell align="center" sx={tdStyle}>
                         {v.finished ?
                           <div>訂單已完成!</div>
