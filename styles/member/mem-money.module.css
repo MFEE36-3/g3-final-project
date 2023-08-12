@@ -20,7 +20,7 @@
   transition: all 0.2s ease-in;
   /* animation: moveUpDown 1s infinite; */
   cursor: pointer;
-  left: 50px;
+  left: 48px;
 }
 
 .imgArea:hover {
@@ -46,8 +46,8 @@
 }
 
 .imgText {
-  width: 450px;
-  height: 150px;
+  width: 350px;
+  height: 120px;
   border-radius: 50%;
   border: 2px solid black;
   background-color: #f7e6c6;
@@ -57,14 +57,27 @@
   background-position: center;
   padding: 5px;
   position: absolute;
-  top: 220px;
-  left: 1050px;
-  font-size: 24px;
+  top: 240px;
+  left: 1035px;
+  font-size: 20px;
   font-weight: 800;
+  animation: opacityAndMoveAnimation 3s infinite;
 }
 
-.imgText:hover {
+/* .imgText:hover {
   animation: moveUpDown 1.5s infinite;
+} */
+
+@keyframes opacityAndMoveAnimation {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(20px);
+  }
 }
 
 .area1 {
