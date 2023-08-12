@@ -1514,6 +1514,107 @@ margin-bottom: 100px;
     left: 150px;
 }
 
+/* memo欄位 */
+.memostyle{
+  width: 70%;
+  resize: none;
+  border:none;
+  border-radius: 10px;
+  background-color: #d9d9d9;
+  opacity: 0.6;
+  outline: none;
+  padding: 5px 10px;
+  font-size: var(--h6);
+}
+
+/* 送出訂位區塊 */
+.submitdiv{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+}
+
+.submitbutton {
+  width: 30%;
+  height: 100%;
+  border: none;
+  border-radius: 20px;
+  background-color: #911010;
+  color: white;
+}
+
+
+/* 外帶頁-nav */
+
+.togoindex{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.categorynav{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-size: var(--h4);
+    color: var(--main-color);
+}
+
+.categorydiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+  margin:0px;
+  padding: 2px;
+}
+
+.categorydivactive{
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 90%;
+height: 100%;
+background-color: var(--main-color);
+border-radius: 15px;
+color: white;
+margin:0px;
+padding: 2px;
+}
+
+.categoryfont{
+font-size: 10px;
+font-weight: 600;
+}
+
+/* togo卡片區 */
+.togomain{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+.togocontent{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 45% 45%;
+  justify-content: space-evenly;
+  /* grid-template-rows: repeat(7, 1fr); */
+}
+
+
+
+
+
+
+
+
+
 
 
 
