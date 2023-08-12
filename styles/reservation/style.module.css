@@ -1015,6 +1015,7 @@ margin-bottom: 100px;
   outline: none;
 }
 
+/* 篩選器rwd */
 .rwdselected{
   display: none;
 }
@@ -1068,26 +1069,23 @@ margin-bottom: 100px;
 /* ----------------------RWD---------------------- */
 
 @media screen and (max-width: 390px) {
-  /* .topdiv{
-    position: relative;
-  } */
-  .carousel{
-    /* position: relative;
+  .topdiv{
     width: 100%;
-    margin-top: 30px;
-    height: 20vh; */
+  }
+  .carousel{
     display: none;
+    margin: 0px;
   }
 
-  .carouselitem{
-    object-fit: cover; 
-    overflow: hidden;
+  .rwdsearchdiv{
+    width: 100%;
   }
+
   .searchbar {
     position: relative;
     display: flex;
     align-items: center;
-    width: 70%;
+    width: 60%;
     height: 50px;
     margin-top: 100px;
     background-color: white;
@@ -1101,6 +1099,11 @@ margin-bottom: 100px;
     border: none;
     outline: none;
   }
+
+  /* 篩選器rwd */
+  .rwdselected{
+  display: block;
+}
   .rwdselected{
     display: block;
     position: relative;
