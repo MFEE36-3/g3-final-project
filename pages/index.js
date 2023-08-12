@@ -381,9 +381,9 @@ const Home = () => {
                   (value, index) =>
                     randomvalue <= index && index < randomvalue + 5
                 )
-                .map((v) => {
+                .map((v,i) => {
                   return (
-                    <div className={styles.commodity_card_back}>
+                    <div className={styles.commodity_card_back} key={v.commodity_price + ' ' + i + ' ' + Date.now()}>
                       <div className={styles.commodity_card}>
                         <div
                           className={styles.card_img_box}

@@ -66,6 +66,8 @@ export default function MemCollectReocrd1({ forum, page }) {
             <TableCell align="center" sx={ceilStyle}>
               連結
             </TableCell>
+
+            <TableCell align="center" sx={ceilStyle}></TableCell>
           </TableRow>
         </TableHead>
         {forum[0] ? (
@@ -98,6 +100,7 @@ export default function MemCollectReocrd1({ forum, page }) {
                     >
                       GO
                     </Link>
+                    {/* <button className={styles.delete}>取消收藏</button> */}
                   </TableRow>
                 );
               })}
@@ -108,7 +111,7 @@ export default function MemCollectReocrd1({ forum, page }) {
       </Table>
     </TableContainer>
   ) : (
-    <Link href={'http://localhost:3000/reservation'} className={styles.default}>
+    <Link href={'http://localhost:3000/forum'} className={styles.default}>
       尚未收藏貼文，立即前往論壇
     </Link>
   );

@@ -27,20 +27,21 @@ export default function CheckOutMember() {
   const { memberInfo } = useContext(Cart)
   return (
     <div className='d-flex mt-3 mb-2 align-items-center justify-content-between position-relative' >
-    <StyledLink href={'http://localhost:3000/topup'} className='position-absolute fs-5 text-primary' style={{bottom:"0",right:"-2%",fontFamily:"var(--ff2)"}}>前往儲値</StyledLink>
+      <StyledLink href={'http://localhost:3000/topup'} className='position-absolute fs-5 text-primary' style={{ bottom: "0", right: "-2%", fontFamily: "var(--ff2)" }}>前往儲値</StyledLink>
       <div className='d-flex align-items-center w-75'>
-        <img src={`${process.env.API_SERVER}/img/member/${memberInfo.photo}`} alt={memberInfo.nickname} className=' rounded-circle h-100' style={{width:"40%"}}></img>
-      <div className='fs-4 ms-2'>{memberInfo.nickname}</div>
+        <div style={{ backgroundImage: `url(${process.env.API_SERVER}/img/member/${memberInfo.photo})`, width: 100, height: 100, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', borderRadius: '50%', backgroundPosition: 'center' }}>
+        </div>
+        <div className='fs-4 ms-2'>{memberInfo.nickname}</div>
       </div>
       <div className='d-flex w-50 align-items-center'>
-        <div className=' w-50 fs-4 text-secondary' style={{fontFamily:"var(--ff2)"}}>餘額:</div>
+        <div className=' w-50 fs-4 text-secondary' style={{ fontFamily: "var(--ff2)" }}>餘額:</div>
         <div className='d-flex align-items-center'>
-          <Money1 src={Money.src} style={{width:"50%"}}/>
+          <Money1 src={Money.src} style={{ width: "50%" }} />
           <div>
-            <div className='text-danger fs-3' style={{fontFamily:"var(--ff2)"}}> {memberInfo.wallet}</div>
+            <div className='text-danger fs-3' style={{ fontFamily: "var(--ff2)" }}> {memberInfo.wallet}</div>
           </div>
         </div>
-        </div>
+      </div>
     </div>
   )
 }

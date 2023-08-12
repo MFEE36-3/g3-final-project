@@ -123,20 +123,20 @@ const AddNewItem = () => {
   const [errors, setErrors] = useState(originErrors);
 
   // 判斷食品分類
-  const food_cate = ()=>{
+  const food_cate = () => {
     let foodCate = 0
     if (gotData.food_cate === '開胃菜') {
-        foodCate = 1
+      foodCate = 1
     } else if (gotData.food_cate === '主餐') {
-        foodCate = 2
+      foodCate = 2
     } else if (gotData.food_cate === '甜點') {
-        foodCate = 3
+      foodCate = 3
     } else if (gotData.food_cate === '飲料') {
-        foodCate = 4
+      foodCate = 4
     } else if (gotData.food_cate === '湯品') {
-        foodCate = 5
+      foodCate = 5
     }
-    setGotData({...gotData,food_cate:foodCate})
+    setGotData({ ...gotData, food_cate: foodCate })
   }
 
   const handleSubmit = (e) => {
@@ -226,34 +226,17 @@ const AddNewItem = () => {
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div className="card-body d-flex flex-column justify-content-center align-items-center">
+              <div className={"card-body d-flex flex-column justify-content-center align-items-center " + styles.info_outer}>
                 <div className={`${styles.uploadImg}`}>
                   <div className="d-flex align-items-center fw-bold fs-5">
-                    {getImg ? (
-                      <div>
-                        <img
-                          src={`${imgLink}${getImg}`}
-                          style={{
-                            height: '400px',
-                            width: '400px',
-                            overflow: 'static',
-                            border: '10px',
-                          }}
-                        />
-                      </div>
-                    ) : (
+                    {gotData.food_img !== null ? (
                       <div>
                         <img
                           src={`${imgLink}${gotData.food_img}`}
-                          style={{
-                            height: '400px',
-                            width: '400px',
-                            overflow: 'static',
-                            border: '10px',
-                          }}
+                          className={styles.uploadImg1}
                         />
                       </div>
-                    )}
+                    ) : ''}
                   </div>
                 </div>
 
@@ -298,7 +281,7 @@ const AddNewItem = () => {
                   <div>
                     <textarea
                       type="text"
-                      className={`${styles.textareainput} form-control`}
+                      className={`${styles.textareainput} form-control ${styles.des_textarea}`}
                       id="name"
                       placeholder="請輸入商品敘述:"
                       name="food_des"
@@ -312,13 +295,13 @@ const AddNewItem = () => {
                 <div className="mt-3 mx-5 d-flex justify-content-start align-items-center">
                   <div
                     htmlFor="shop_name"
-                    className={`${styles.box} form-label d-flex justify-content-center fw-bold me-3 py-1  rounded-3`}
+                    className={`${styles.box} form-label d-flex justify-content-center fw-bold py-1  rounded-3`}
                   >
                     商品分類
                   </div>
                   <div>
                     <select
-                      className={styles.textareainput}
+                      className={styles.textareainput + ' ' + styles.select_cate}
                       name="food_cate"
                       value={gotData.food_cate}
                       onChange={handleEdit}
@@ -370,7 +353,8 @@ const AddNewItem = () => {
                   <div>
                     <textarea
                       type="text"
-                      className={styles.textareainput}
+                      className={styles.textareainput + ' ' + styles.des_textarea}
+                      style={{ borderRadius: 5 }}
                       id="name"
                       placeholder="請輸入商品備註:"
                       name="food_note"

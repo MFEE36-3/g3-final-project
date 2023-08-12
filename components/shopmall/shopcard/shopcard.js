@@ -7,11 +7,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Swal from 'sweetalert2'
 import 'animate.css';
+import Image from 'next/image';
 import Modal from '@mui/material/Modal';
 import useLocalStorage from "@/components/hooks/useLocalStorage";
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 import {  AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { useRouter } from 'next/router';
+import filled_walkbag_middle from '@/public/main_page/filled_walkbag_middle.svg';
 
 const style = {
   position: 'absolute',
@@ -48,6 +50,7 @@ const Fs16pxdiv = styled.div`
 `
 const Fs20pxdiv = styled.div`
   font-size: 30px;
+  font-weight:bold;
   @media (max-width: 576px) {
     font-size:20px;
     font-weight:bolder
@@ -204,21 +207,21 @@ export default function ShopCard() {
   <ItemCard className="w-100 d-flex pb-xl-3 flex-column justify-content-between mb-5" key={v.item_id} style={{zIndex:"1"}} onClick={()=>handleOpen(v)}>
       <div>
       <ImageCss src={v.img_url} className='w-100'/>
-        <div className='px-3 mt-2'>
+        <div className='px-3 mt-2 fw-bold'>
           <Span20px>{v.item_name}</Span20px>
         </div>
       </div>
     <div className='w-100 mt-2'>
       <div>
           <div className='w-100 d-flex justify-content-end pe-xl-3 pe-1'>
-              <Span32px className='text-danger'>${v.price}</Span32px>
+              <Span32px className='text-danger fw-bold'>${v.price}</Span32px>
           </div>
           <div className='d-flex justify-content-between px-xl-3 px-1 mt-3 align-items-center'>
-            <div className='d-flex align-items-center'>
+            <div className='d-flex align-items-center fw-bold'>
                 <AiFillStar className='text-warning fs-4'/>
                 <Span16px className='ms-2'>{v.avg_rating.toFixed(1)} / 5</Span16px>
             </div>
-            <Span16px>已售出 {v.sales}00 件</Span16px>
+            <Span16px className='fw-bold'>已售出 {v.sales}00 件</Span16px>
           </div>
       </div>
     </div>
@@ -227,7 +230,14 @@ export default function ShopCard() {
   return (
     <>
     <div >
-        <ShopCardContainer className='justify-content-evenly pe-xl-5'>
+        <ShopCardContainer className='justify-content-evenly pe-xl-5 position-relative'>
+          {items.length === 0 && <>
+            <div className="position-absolute d-flex flex-column justify-content-center align-items-center" style={{top:"50%", left:"32%"}}>
+              <Image src={filled_walkbag_middle} className="" 
+              alt='filled_walkbag_middle' />
+              <p className="fs-2 mt-4 ms-5">無此分類商品！</p>
+            </div>
+          </>}
           {itemCardsMap}
           {selectedItem && <Modal
             open={open}
@@ -246,12 +256,12 @@ export default function ShopCard() {
                     {selectedItem.item_name}
                   </Fs20pxdiv>
                   <div className='d-flex justify-content-between '>
-                    <Fs16pxdiv className=' text-danger'>售價: {selectedItem.price}</Fs16pxdiv>
+                    <Fs16pxdiv className=' text-danger fw-bold'>售價: {selectedItem.price}</Fs16pxdiv>
                   </div>
                   <div className='d-flex flex-column justify-content-between'>
-                    <Fs13pxdiv className='d-flex w-100 flex-column align-items-end mb-2 fs-5 mb-xl-1 h-100'>
-                      <Fs13pxdiv>廠商:{selectedItem.factory_name}</Fs13pxdiv>
-                      <Fs13pxdiv>庫存: {remain} 件</Fs13pxdiv>
+                    <Fs13pxdiv className='d-flex w-100 flex-column align-items-end mb-2 fs-5 mb-xl-1 h-100 fw-bold'>
+                      <Fs13pxdiv>廠商：{selectedItem.factory_name}</Fs13pxdiv>
+                      <Fs13pxdiv>庫存：{remain} 件</Fs13pxdiv>
                     </Fs13pxdiv>
                     <div className=''>
                       <ModalDiv className='d-flex align-items-center mx-auto border border-secondary border-2 justify-content-center mt-xl-1  rounded-5 mb-xl-4 mb-2 position-relative'>
@@ -263,7 +273,7 @@ export default function ShopCard() {
                           <AiOutlinePlus className='fs-3 p-xl-1'/>
                         </Button>
                       </ModalDiv>
-                      <StyleButton variant="text" className='border-0 rounded-3 w-100 w-50  d-flex justify-content-center  text-light' style={{background:"#911010"}} onClick={()=>handleCart(selectedItem)}>加入購物車</StyleButton>
+                      <StyleButton variant="text" className='border-0 rounded-3 w-100 w-50 d-flex justify-content-center text-light fw-bold' style={{background:"#911010"}} onClick={()=>handleCart(selectedItem)}>加入購物車</StyleButton>
                     </div>
                   </div>
                 </Typography>

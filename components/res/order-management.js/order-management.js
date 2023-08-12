@@ -16,40 +16,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DateTime from '@/components/reservation/restaurantpage/reservation/datetime';
 import Head from 'next/head'
-const mui_style = {
-  '&:hover fieldset': {
-    backgroundColor: 'rgba(250,179,179,0.2)',
-    borderColor: '#FAB3B3'
-  },
-  '& .MuiInputLabel-root': {
-    fontSize: 'var(--h6)',
-    fontWeight: 900,
-    fontFamily: 'var(--ff1)'
-  },
-  '& .MuiSvgIcon-root': {
-    color: 'var(--sub-color)'
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: 'var(--sub-color)',
-    },
-    '&:hover fieldset': {
-      borderColor: 'var(--sub-color)',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: 'var(--sub-color)',
-    },
-    fontSize: 'var(--h6)',
-    fontWeight: 600,
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: 'var(--sub-color)'
-  },
-  '& label.Mui-focused,label': {
-    color: 'var(--main-color)',
-  },
-  width: '100%',
-}
+import Image from 'next/image';
+import hamburger from '@/public/buyforme/map/user_icon/hamburger.svg'
 
 export default function OrderManagement() {
 
@@ -60,7 +28,7 @@ export default function OrderManagement() {
 
   // 串四張(加了食物名稱):
   // SELECT `subA`.`open_sid`, `subA`.`order_sid`, `buy_for_me_detail`.`order_food`, `buy_for_me_detail`.`order_quantity`, `buy_for_me_detail`.`order_price`, `buy_for_me_detail`.`order_detail_sid`, `subA`.`target_store`, `subA`.`open_time`, `subA`.`order_instructions`, `food_items_try`.`food_title`, `food_items_try`.`food_id` FROM ( SELECT `open_for_you`.`open_sid`, `open_for_you`.`target_store`, `open_for_you`.`open_time`, `buy_for_me`.`order_sid`, `buy_for_me`.`order_instructions` FROM `open_for_you` JOIN `buy_for_me` ON `open_for_you`.`open_sid` = `buy_for_me`.`open_sid` ) AS `subA` JOIN `buy_for_me_detail` ON `buy_for_me_detail`.`order_sid` = `subA`.`order_sid` JOIN `food_items_try` ON `food_items_try`.`food_id` = `buy_for_me_detail`.`order_food` WHERE `target_store` = 1;
-  console.log('------')
+  // console.log('------')
 
   // 訂單狀態
   const [orderState, setOrderState] = useState('')
@@ -103,7 +71,7 @@ export default function OrderManagement() {
     })
       .then(r => r.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         setGetOrders(data.data3); // 在這裡處理後端回應，設置 getOrders 的新值
         setOrderTimeState(data.data1)
         setGetOrderAmount(data.data2);
@@ -144,13 +112,13 @@ export default function OrderManagement() {
     })
       .then(r => r.json())
       .then(data => {
-        console.log(data)   // array
+        // console.log(data)   // array
 
         const orders = data.orders  // array
         // console.log(groupedOrderItems)
         const sortedOrders = orders.slice().sort((a, b) => b.order_detail[0].sid - a.order_detail[0].sid)
         // setOriginalOrder(sortedOrders)
-        console.log(sortedOrders)
+        // console.log(sortedOrders)
         setTogoOrder(sortedOrders)
         // for(let i = 0; i < sortedOrders.length; i ++){
         //   sortedOrders
@@ -158,7 +126,7 @@ export default function OrderManagement() {
         sortedOrders.forEach((v, i) => {
           v.order_detail[0].status == '已完成' ? v.finished = true : v.finished = false
         })
-        console.log(sortedOrders)
+        // console.log(sortedOrders)
         // setTogoOrder([...sortedOrders])
         setOriginalTogoOrder(sortedOrders)
 
@@ -181,7 +149,7 @@ export default function OrderManagement() {
   // console.log(originalTogoOrder)
   // 訂單狀態
   const stateChange = () => {
-    console.log(originalTogoOrder)
+    // console.log(originalTogoOrder)
     if (orderState == '所有訂單') {
       setTogoOrder(originalTogoOrder)
       setTotalTogoPage(Math.ceil(originalTogoOrder.length / 10))
@@ -235,31 +203,8 @@ export default function OrderManagement() {
   const turnToComplete = (i) => {
     setCompleteOrder(true)
 
-    // if (orderState == '未完成') {
-    //   const stateResult = originalTogoOrder.filter((v, i) => {
-    //     if (v.order_detail[0].status == '未完成') {
-    //       return v
-    //     }
-    //   })
 
-    //   const finishedOrder = [...originalTogoOrder,originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成']
-
-    //   console.log(finishedOrder)
-
-    //   // setTogoOrder([...originalTogoOrder,originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成'])
-
-    //   setTogoOrder(stateResult)
-
-    //   setTotalTogoPage(Math.ceil(stateResult.length / 10))
-
-    //   Swal.fire(
-    //     '已完成該筆訂單!',
-    //     '',
-    //     'success'
-    //   );
-    // }
-
-    console.log(originalTogoOrder)
+    // console.log(originalTogoOrder)
     // setTogoOrder([...originalTogoOrder, originalTogoOrder[i].finished = true])
     setTogoOrder([...originalTogoOrder, originalTogoOrder[i].finished = true, originalTogoOrder[i].order_detail[0].status = '已完成'])
     stateChange()
@@ -275,7 +220,7 @@ export default function OrderManagement() {
   const [orderList, setOrderList] = useState(0)
   const handleChange = (event, value) => {
     // 在這裡處理頁碼變化的邏輯
-    console.log(`跳轉到頁碼：${value}`);
+    // console.log(`跳轉到頁碼：${value}`);
     setPage(value)
     setOrderList((value - 1) * 10)
   };
@@ -286,17 +231,17 @@ export default function OrderManagement() {
   const [noKeyWordMessage, setNoKeyWordMessage] = useState('')
 
   // 搜尋到的彈跳文字
-  const [hintWord,setHintWord] = useState('')
+  const [hintWord, setHintWord] = useState('')
 
   const searchKeyword = () => {
     setNoKeyWordMessage('')
     setHintWord('')
-    console.log(getKeyword)
+    // console.log(getKeyword)
     if (getKeyword) {
       const searchResult = originalTogoOrder.filter((v, i) => {
         const arr = v.order_detail.filter((v2) => v2.order_item.includes(getKeyword));
         return arr.length !== 0;
-        })
+      })
       //console.log(originalTogoOrder)
       if (searchResult.length === 0) {        // 沒有這筆訂單
         // setNoKeyWordMessage('沒有這項訂單!')
@@ -311,9 +256,9 @@ export default function OrderManagement() {
         })
       } else {
         const searchResult_arr = [];
-        console.log(searchResult_arr)
+        // console.log(searchResult_arr)
         setTogoOrder(searchResult)
-        console.log(Math.ceil((searchResult.length) / 10))
+        // console.log(Math.ceil((searchResult.length) / 10))
         setTotalTogoPage(Math.ceil((searchResult.length) / 10))
 
         // 彈跳關鍵字
@@ -344,98 +289,136 @@ export default function OrderManagement() {
     fontFamily: 'var(--ff1)',
   };
 
+  const mui_style = {
+    '&:hover fieldset': {
+      backgroundColor: 'rgba(250,179,179,0.2)',
+      borderColor: '#FAB3B3'
+    },
+    '& .MuiInputLabel-root': {
+      fontSize: 'var(--h6)',
+      fontWeight: 900,
+      fontFamily: 'var(--ff1)'
+    },
+    '& .MuiSvgIcon-root': {
+      color: 'var(--sub-color)'
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'var(--sub-color)',
+      },
+      '&:hover fieldset': {
+        borderColor: 'var(--sub-color)',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'var(--sub-color)',
+      },
+      fontSize: 'var(--h6)',
+      fontWeight: 600,
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'var(--sub-color)'
+    },
+    '& label.Mui-focused,label': {
+      color: 'var(--main-color)',
+    },
+    width: '95%',
+  }
+
   return (
     <>
       <Head>
         <title>食GOEAT! / 商家中心</title>
       </Head>
-      <div className={`container container-sm-fluid ${styles.tableBackGround} bg-subtle p-4 border border-black rounded-4 mt-3`}>
-        <h2 className='fw-bold'>訂單管理</h2>
-        <hr />
-        <div className="d-flex justify-content-between">
-          <div className="justify-content-between me-3">
-            <Btn text="所有訂單" className="me-3" />
-            <div className='mt-3 ms-3 fw-bold fs-4'>歡迎回來，{resAuth.shop}</div>
-            {orderCategory == '揪團' ?
-              <Pagination
-                count={totalShopPage}
-                onChange={handleChange}
-                sx={{
-                  '& .MuiPaginationItem-root': {
-                    fontSize: 20,
-                  },
-                  '& .Mui-selected': {
-                    fontSize: 25,
-                  },
-                  '& .MuiPaginationItem-page': {
-                    minWidth: '40px',
-                    padding: '7px',
-                  },
-                }}
-              />
-              :
-              <Pagination
-                count={totalTogoPage}
-                // page={totalTogoPage}
-                // onChange={handlePageChange}
-                onChange={handleChange}
-                sx={{
-                  '& .MuiPaginationItem-root': {
-                    fontSize: 20,
-                  },
-                  '& .Mui-selected': {
-                    fontSize: 25,
-                  },
-                  '& .MuiPaginationItem-page': {
-                    minWidth: '40px',
-                    padding: '7px',
-                  },
-                }}
-              />
-            }
-
-
-
-            <div className='d-flex justify-content-between'>
-
-
-              <select className='form-select mt-3 ms-3' value={orderCategory} onChange={(e) => {
-                setOrderCategory(e.target.value)
-              }}>
-                {orderCategoryOptions.map((v, i) => {
-                  return <option key={i} value={v}>{v}</option>
-                })}
-              </select>
-
-              {orderCategory == '揪團' ? '' : <select className="form-select mt-3 ms-3" value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
-                <option selected value={``}>---訂單狀態----</option>
-                {orderStateOptions.map((v, i) => {
-                  return <option key={i} value={v}>{v}</option>
-                })}
-              </select>}
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <Input placeholder="請輸入搜尋關鍵字" label="請輸入搜尋關鍵字" onChange={(e) => {
-
-                setGetKeyword(e.target.value)
-
-                // console.log(togoOrder.filter((v, i) => {
-                //   const arr = v.filter((v2, i2) => v2.order_item.includes(e.target.value));
-                //   if (arr.length !== 0) return v;
-                // }))
-              }} />
-              <button className={`${muistyles.btnright}`} onClick={searchKeyword}>搜尋</button>
-            </div>
-            <div className='fw-bold'>{hintWord}</div>
+      <div className={`container container-sm-fluid pt-3 px-4 pb-5 mt-4 ${styles.tableBackGround}`}>
+        <h2 className={styles.res_title}>訂單管理</h2>
+        <div className='mt-3 ms-3 fw-bold fs-4 mb-3 d-flex align-items-center'>
+          <Image src={hamburger} width={80} />
+          <div className='ms-3'>
+            歡迎回來，{resAuth.shop}
           </div>
         </div>
+        <div className="d-flex justify-content-between align-items-center">
+
+          <div className='d-flex'>
+
+            <select className={'p-2 my-3 ms-3 ' + styles.select_cate} value={orderCategory} onChange={(e) => {
+              setOrderCategory(e.target.value)
+            }}>
+              {orderCategoryOptions.map((v, i) => {
+                return <option key={i} value={v}>{v}</option>
+              })}
+            </select>
+
+            {orderCategory == '揪團' ? '' : <select className={'p-2 my-3 ' + styles.select_cate} value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
+              <option selected value={``}>---訂單狀態----</option>
+              {orderStateOptions.map((v, i) => {
+                return <option key={i} value={v}>{v}</option>
+              })}
+            </select>}
+          </div>
+          {orderCategory == '揪團' ?
+            <Pagination
+              count={totalShopPage}
+              onChange={handleChange}
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  fontSize: 20,
+                },
+                '& .Mui-selected': {
+                  fontSize: 25,
+                },
+                '& .MuiPaginationItem-page': {
+                  minWidth: '40px',
+                  padding: '7px',
+                },
+              }}
+            />
+            :
+            <Pagination
+              count={totalTogoPage}
+              // page={totalTogoPage}
+              // onChange={handlePageChange}
+              onChange={handleChange}
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  fontSize: 20,
+                },
+                '& .Mui-selected': {
+                  fontSize: 25,
+                },
+                '& .MuiPaginationItem-page': {
+                  minWidth: '40px',
+                  padding: '7px',
+                },
+              }}
+            />
+          }
+          <div className=''>
+            {/* <div className='d-flex justify-content-end me-3 mb-3'>
+              <Btn text="所有訂單" padding='10px 20px' />
+            </div> */}
+            <div className='fw-bold mb-2'>{hintWord}</div>
+            <div className='d-flex'>
+              <div>
+                <Input placeholder="請輸入搜尋關鍵字" label="請輸入搜尋關鍵字" sx={mui_style} onChange={(e) => {
+
+                  setGetKeyword(e.target.value)
+
+                  // console.log(togoOrder.filter((v, i) => {
+                  //   const arr = v.filter((v2, i2) => v2.order_item.includes(e.target.value));
+                  //   if (arr.length !== 0) return v;
+                  // }))
+                }} />
+              </div>
+              <Btn text='搜尋' padding='10px 20px' onClick={searchKeyword}></Btn>
+            </div>
+          </div>
+        </div>
+
         <div className='mt-3'>
           {orderCategory == '揪團' ?
             (
-              <TableContainer component={Paper}>
+              <TableContainer sx={{ borderRadius: 2, border: '2px solid var(--main-color)' }} >
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow sx={rowStyle}>
@@ -447,7 +430,7 @@ export default function OrderManagement() {
                       </TableCell>
                       <TableCell align="center" sx={ceilStyle} className='me-3'>
                         訂單內容
-                        <button type='button' className={`btn btn-warning ms-3 ${muistyles.btnright}`} style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
+                        <button type='button' className={`btn btn-danger ms-3 ${styles.btn_right}`} style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
                       </TableCell>
                       <TableCell align="center" sx={ceilStyle}>
                         總金額
@@ -505,14 +488,14 @@ export default function OrderManagement() {
                       </TableRow>
                     }
                     )
-                    })
+                    }
                   </TableBody>
                 </Table>
               </TableContainer>)
 
             :
 
-            (<TableContainer component={Paper}>
+            (<TableContainer sx={{ borderRadius: 2, border: '2px solid var(--main-color)' }}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow sx={rowStyle}>
@@ -594,7 +577,7 @@ export default function OrderManagement() {
                       <TableCell align="center" sx={tdStyle}>
                         {/* {v[0].create_at} */}
                         {v.order_detail[0].create_at}
-                      </TableCell>`
+                      </TableCell>
                       <TableCell align="center" sx={tdStyle}>
                         {v.finished ?
                           <div>訂單已完成!</div>
@@ -620,7 +603,6 @@ export default function OrderManagement() {
             </TableContainer>)
           }
         </div>
-        <hr />
       </div>
     </>
   );

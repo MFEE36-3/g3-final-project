@@ -136,13 +136,10 @@ export default function ArticleDetail() {
       const data = await response.json();
       if (data.success) {
         // 文章新增成功，你可以在這裡做任何你想要的處理
-        console.log('留言新增成功');
+        //console.log('留言新增成功');
         // 清空輸入欄位
         setComment_Content('');
         router.push('/forum');
-      } else {
-        // 文章新增失敗，你可以在這裡做任何你想要的處理
-        console.error('留言新增失敗');
       }
     } catch (error) {
       console.error('發生錯誤:', error);
@@ -155,6 +152,7 @@ export default function ArticleDetail() {
     Swal.fire({
       icon: 'success',
       title: '新增留言成功！',
+      showConfirmButton: false,
     });
     fetch(process.env.API_SERVER + '/forum/addmessage', {
       method: 'POST',
@@ -189,41 +187,46 @@ export default function ArticleDetail() {
 
   return (
     <>
-     <Head>
-            <title>食GOEAT! / 美食論壇</title>
-        </Head>
+      <Head>
+        <title>食GOEAT! / 美食論壇</title>
+      </Head>
       <div className={styles.container}>
         <Newnav />
+
         <div className={styles.flex}>
           <div className={styles.avatar}>
             <img
               src={`http://localhost:3002/img/member/${article.user_photo}`}
             />
           </div>
+
           <div className={styles.nickname}>{article.nickname}</div>
         </div>
         <div className={styles.ptext}></div>
         <DetailTitle data={article.header} />
         <TagTime data={article.publishedTime} />
         {article.forum_photo && (
-          <div className="w-75">
+          <div className={styles.imgcontainer}>
             <img
               src={`${imgPreview + article.forum_photo}`}
-              className="w-75 h-50 object-fit-contain"
+              className={styles.img}
             />
+            <div className={styles.pcontainer}>
+              <DetailP data={article.forum_content} key={article.forum_sid} />
+            </div>
           </div>
         )}
-
-        <DetailP data={article.forum_content} key={article.forum_sid} />
-
-        <MessageInput
-          handleAddContent={handleAddContent}
-          addMessage={addMessage}
-          handlemessagepost={handlemessagepost}
-          userPhoto={userPhoto}
-          sendMessage={sendMessage}
+        {localStorage.getItem('auth') ?
+          <MessageInput
+            handleAddContent={handleAddContent}
+            addMessage={addMessage}
+            handlemessagepost={handlemessagepost}
+            userPhoto={userPhoto}
+            sendMessage={sendMessage}
           // showLoginAlert={showLoginAlert}
-        />
+          />
+          : ''
+        }
         <Message messages={messages} />
       </div>
     </>

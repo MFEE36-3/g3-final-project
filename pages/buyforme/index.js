@@ -335,7 +335,7 @@ const Buyforme = ({ initialData, review_data, open_sheet_data }) => {
             </div>
         </div>
 
-        <My_Open_Follow open_checklist={open_checklist} handleChecklistClose={handleChecklistClose} open_or_follow={open_or_follow} />
+        <My_Open_Follow open_checklist={open_checklist} handleChecklistClose={handleChecklistClose} open_or_follow={open_or_follow} getLatlng={getLatlng}/>
 
 
 

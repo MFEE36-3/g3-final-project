@@ -46,17 +46,28 @@
     display: flex;
     flex-direction: column;
     font-size: 18px;
+    padding: 8px;
+    width: 290px;
   }
 
   .box {
     width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
+  }
+
+  .box1 {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
   }
 
   .box2 {
-    width: 100%;
+    white-space: wrap;
+    font-size: 16px;
+    width: 250px;
     justify-content: center;
     margin-top: 10px;
+    overflow: visible;
   }
 
   .box3 {
@@ -66,5 +77,6 @@
     padding-right: 20px;
     font-size: 12px;
     margin-top: 10px;
+    padding-right: 10px;
   }
 }

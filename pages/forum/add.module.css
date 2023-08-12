@@ -1,12 +1,20 @@
-.buttonContainer{
+.buttonContainer {
     display: flex;
     justify-content: space-between;
     width: 75%;
     margin: 0 auto;
     box-sizing: border-box;
-    height: 640px;
     margin-top: 40px;
 }
+
+.errorheader {
+    color: red;
+}
+
+.errorcontainer {
+    margin-bottom: 20px;
+}
+
 .input[type="file"] {
     position: absolute;
     width: 1px;
@@ -14,9 +22,10 @@
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0,0,0,0);
+    clip: rect(0, 0, 0, 0);
     border: 0;
 }
+
 .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
@@ -24,20 +33,21 @@
     cursor: pointer;
 }
 
-.text{
+.text {
     font-size: var(--h6);
     margin-top: 30px;
     font-family: var(--ff2);
 }
 
-.line{
+.line {
     border-bottom: 1px solid var(--main-color);
     margin-bottom: 20px;
     margin-top: 10px;
     width: 100%;
 
 }
-.kanban{
+
+.kanban {
     background-color: var(--main-color);
     color: white;
     font-size: var(--h7);
@@ -47,45 +57,50 @@
 
 
 }
-.input1{
+
+.input1 {
     margin-top: 20px;
-    margin-bottom: 20px;
     border: 1px solid gray;
     width: 100%;
     border-radius: 5px;
     background-color: white;
     padding: 10px;
+    margin-bottom: 8px;
 }
-.input1:focus{
+
+.input1:focus {
     margin-top: 20px;
-    margin-bottom: 20px;
     border: 2px solid var(--main-color);
     width: 100%;
     border-radius: 5px;
     background-color: transparent;
     padding: 10px;
     outline: none;
+    margin-bottom: 8px;
 
 }
-.input2{
-border: 1px solid gray;
-border-radius: 5px;
-width: 100%;
-height: 70%;
-background-color: transparent;
-padding: 10px;
-resize: none;
+
+.input2 {
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 100%;
+    height: 400px;
+    background-color: transparent;
+    padding: 10px;
+    resize: none;
 }
-.input2:focus{
+
+.input2:focus {
     border: 2px solid var(--main-color);
     border-radius: 5px;
     width: 100%;
-    height: 70%;
+    height: 400px;
     background-color: transparent;
     padding: 10px;
     outline: none;
-    }
-.addbtn{
+}
+
+.addbtn {
     border-radius: 5px;
     background-color: var(--main-color);
     color: white;
@@ -95,7 +110,8 @@ resize: none;
     border: 0;
     font-family: var(--ff2);
 }
-.cancel{
+
+.cancel {
     border-radius: 5px;
     width: 100px;
     height: 40px;
@@ -104,24 +120,41 @@ resize: none;
     font-size: var(--h7);
     font-family: var(--ff2);
 }
-.icon{
+
+.icon {
     width: 30px;
     /* margin-top: 10px; */
 }
 
-.end{
+.buttonContainer>div>input{
+    display: none;
+}
+
+/* .buttonContainer input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  } */
+.end {
     display: flex;
     justify-content: flex-end;
 }
-.between{
+
+.between {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
+
 .btn {
     background: linear-gradient(45deg, var(--main-color) 100%, #FF8E53 0%);
-    border-radius: 45px ;
-    border: 0 ;
+    border-radius: 45px;
+    border: 0;
     padding: 10px 20px;
     box-shadow: 0 1px 3px 1px #b1b1b1;
 }
@@ -135,10 +168,10 @@ resize: none;
     color: white;
     font-size: var(--h7);
 }
-.container{
+
+.container {
     width: 75%;
     margin: 0 auto;
     box-sizing: border-box;
-    height: 640px;
+    height: 650px;
 }
-

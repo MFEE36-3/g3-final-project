@@ -30,7 +30,7 @@ const random_user = [
 
 
 
-export default function My_Open_Follow({ open_checklist, handleChecklistClose, open_or_follow }) {
+export default function My_Open_Follow({ open_checklist, handleChecklistClose, open_or_follow, getLatlng }) {
 
     const [data, setData] = useState([]);
     const [follower, setFollower] = useState([]);
@@ -97,14 +97,13 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
                                 <tbody>
                                     {data.map((v) => {
                                         return (
-                                            <tr key={v.open_sid + v.meet_place + Math.floor(10 * Math.random())}>
-                                                <td className={styles.text_nowrap + ' ' + (v.nickname.length > 6 ? styles.small_font : '')}>{v.nickname}</td>
-                                                <td className={v.meet_place.length > 5 ? styles.small_font : ''}>{v.meet_place}</td>
+                                            <tr key={v.open_sid + v.meet_place + Date.now()}>
+                                                <td className={styles.text_nowrap + ' ' + (v.nickname.length > 6 ? styles.small_font : '')} >{v.nickname}</td>
+                                                <td className={v.meet_place.length > 5 ? styles.small_font : ''} onClick={() => getLatlng(v.meet_place)}>{v.meet_place}</td>
                                                 <td>{dayjs(v.meet_time).format('MM-DD HH:mm')}</td>
                                                 <td>{v.foods.map((food, i) => {
-                                                    console.log(food[0] + food[1] * i)
                                                     return (<>
-                                                        <div key={food[0] + food[1] * i} className={food[0].length > 6 ? styles.small_font : ''}>{food[0]} * {food[1]}</div>
+                                                        <div key={food[0] + Date.now() + food[1]} className={food[0].length > 6 ? styles.small_font : ''}>{food[0]} * {food[1]}</div>
                                                     </>)
                                                 })}</td>
                                                 <td>
@@ -189,7 +188,7 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
                                                     <tr key={item[0] + item[3]} className={styles.detail_tr}>
                                                         <td colSpan={5}>
                                                             <div className={styles.big_td}>
-                                                                <div className={styles.random_icon} style={{backgroundImage:`url(./buyforme/map/user_icon/` + random_character.img}}></div>
+                                                                <div className={styles.random_icon} style={{ backgroundImage: `url(./buyforme/map/user_icon/` + random_character.img }}></div>
                                                                 <div className={styles.follow_numbers}>跟單序號 {i + 1}</div>
                                                                 <div className={styles.last_td}>
                                                                     <div>{'暱稱： ' + item[0]}</div>
@@ -197,7 +196,7 @@ export default function My_Open_Follow({ open_checklist, handleChecklistClose, o
                                                                     <div>{'備註： ' + item[2]}</div>
                                                                     <div className={styles.amount}>{'訂單總額： ' + item[3]}</div>
                                                                 </div>
-                                                                <div className={styles.text_nowrap +' ' + styles.align_start}>
+                                                                <div className={styles.text_nowrap + ' ' + styles.align_start}>
                                                                     {item[1].map((detail, i) => {
                                                                         return (<div key={detail[0] + i}>{detail.join('*')}</div>)
                                                                     })}

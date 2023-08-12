@@ -102,3 +102,52 @@
   position: relative;
   left: 30px;
 }
+
+@media screen and (max-width: 391px) {
+  .form {
+    width: 360px;
+    padding: 10px;
+    padding-left: 0px;
+    position: relative;
+  }
+
+  .formArea {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  .formArea2 {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  .input {
+    width: 300px;
+    left: 0;
+    margin-left: 28px;
+  }
+
+  .input2 {
+    width: 300px;
+    left: 0;
+    margin-left: 50px;
+  }
+
+  .hide {
+    margin-left: 30px;
+  }
+
+  .file {
+    left: 30px;
+  }
+
+  .label {
+    width: 250px;
+  }
+
+  .birth {
+    width: 250px;
+  }
+}

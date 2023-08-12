@@ -56,7 +56,7 @@ export default function Articlelist({
                       clickHeartHandler(forum_sid);
                     }}
                   />
-                  <div className={styles.like}>喜歡</div>
+                  <div className={styles.like}>收藏</div>
                 </div>
               ) : (
                 <div className={styles.likeContainer}>
@@ -66,12 +66,12 @@ export default function Articlelist({
                       clickHeartHandler(forum_sid);
                     }}
                   />
-                  <div className={styles.like}>不喜歡</div>
+                  <div className={styles.like}>未收藏</div>
                 </div>
               )}
               <BiSolidMessageAltDetail className={styles.message} />
               <div className={styles.like}>{comment_count}</div>
-              {is_favorite ? (
+              {/* {is_favorite ? (
                 <BsBookmarksFill
                   onClick={(e) => {
                     clickCollectHandler(forum_sid);
@@ -90,7 +90,7 @@ export default function Articlelist({
                 <div className={styles.like}>收藏</div>
               ) : (
                 <div className={styles.like}>未收藏</div>
-              )}
+              )} */}
             </div>
           </div>
           {forum_photo && ( // 判斷是否有照片，若有則渲染照片

@@ -18,7 +18,10 @@ export default function Add() {
   const [content, setContent] = useState('');
   const [img, setImg] = useState('');
   const [showImg, setShowImg] = useState('');
+  const [isupload, setIsupload] = useState(false);
+
   const imgUpload = async (e) => {
+    if (e.target.value) setIsupload(true)
     const file = e.target.files[0];
     // const fileField = document.querySelector('input[type="file"]');
     setImg(URL.createObjectURL(e.target.files[0]));
@@ -46,6 +49,18 @@ export default function Add() {
       console.error('Error', error);
     }
   };
+  const originErrors = { header: '', content: '' };
+  const [errors, setErrors] = useState(originErrors);
+  const handleblur = (e) => {
+    const newError = { ...originErrors };
+    if (!header) {
+      newError.header = '* 請輸入標題';
+    }
+    if (!content) {
+      newError.content = '* 請輸入敘述';
+    }
+    setErrors(newError);
+  };
   // 文章新增函式
   const handleheader = (e) => {
     console.log('header');
@@ -59,8 +74,9 @@ export default function Add() {
     Swal.fire({
       icon: 'success',
       title: '新增文章成功！',
-    });
-    console.log('yes');
+      showConfirmButton: false,
+      timer: 1500
+    }).then(router.push('/forum'));;
     e.preventDefault();
 
     // 判断用户是否上傳了圖片
@@ -113,22 +129,30 @@ export default function Add() {
         >
           <div className={styles.btn_text}>點擊選擇看板</div>
         </Button> */}
-        <div>
+        <div className={styles.errorcontainer}>
           <input
             type="text"
             placeholder="請輸入標題"
             value={header}
             className={styles.input1}
             onChange={handleheader}
+            onBlur={handleblur}
           ></input>
+          <div className={styles.errorheader}>{errors.header}</div>
         </div>
-        <textarea
-          type="text"
-          placeholder="敘述"
-          value={content}
-          className={styles.input2}
-          onChange={handlecontent}
-        ></textarea>
+
+        <div></div>
+        <div>
+          <textarea
+            type="text"
+            placeholder="敘述"
+            value={content}
+            className={styles.input2}
+            onChange={handlecontent}
+            onBlur={handleblur}
+          ></textarea>
+        </div>
+        <div className={styles.errorheader}>{errors.content}</div>
         <div className={styles.end}></div>
       </div>
 
@@ -147,6 +171,8 @@ export default function Add() {
             <FaPhotoVideo className={styles.icon} /> 請選擇照片
           </label>
           <input id="file-upload" type="file" onChange={imgUpload} />
+          {isupload ? <span style={{ marginLeft: 10, color: 'var(--main-color)', fontWeight: 600 }}>已上傳照片</span> : ''}
+
         </div>
 
         <div>

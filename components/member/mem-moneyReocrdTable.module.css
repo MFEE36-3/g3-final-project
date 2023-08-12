@@ -20,4 +20,17 @@
   border-radius: 7px;
   padding: 10px;
   overflow: hidden;
+  padding-left: 30px;
+}
+
+@media screen and (max-width: 391px) {
+  .recordBox {
+    scrollbar-width: thin;
+    padding-right: 20px;
+  }
+
+  .recordBox::-webkit-scrollbar {
+    width: 0;
+    background-color: transparent;
+  }
 }

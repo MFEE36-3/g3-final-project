@@ -1,12 +1,11 @@
 .mainbody {
   height: 30px;
   width: 60px;
-  background-color: rgb(209, 209, 209);
   border-radius: 20px;
   margin-bottom: 30px;
   display: flex;
   align-items: center;
-  box-shadow: inset 0px 3px 3px rgb(157, 157, 157);
+  box-shadow: inset 0px 3px 3px rgb(157, 157, 157,0.5);
   border: none;
 }
 
@@ -15,7 +14,10 @@
   height: 35px;
   width: 35px;
   background-color: #b91c1c;
-  border: 3px solid #921010;
+  border: 3px solid rgb(165, 97, 42);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 50%;
 }
 
@@ -23,7 +25,7 @@
   height: 35px;
   width: 35px;
   background-color: #b91c1c;
-  border: 3px solid #921010;
+  border: 3px solid rgb(255, 115, 0);
   border-radius: 50%;
   position: relative;
   left: 27px;

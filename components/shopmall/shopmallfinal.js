@@ -166,7 +166,7 @@ export default function ShopMallFinal() {
           <ShopFilter />
           <div className='col-xl-10 col-12 ps-0 pe-0'>
             <ShopSearchTitle/>
-            {!state.isLoading && <HoverBtn onClick={resetButton} className='border-0 mb-5 text-danger bg-transparent fs-3 ms-4' >清除篩選條件</HoverBtn>}
+            {!state.isLoading && <HoverBtn onClick={resetButton} className='border-0 mb-5 text-danger bg-transparent fs-4 ms-5 ps-1 fw-bold' >清除篩選條件</HoverBtn>}
             {state.isLoading ? LoadingAni() :<ShopCard/>}
             {!state.isLoading && <ShopPagination />}
           </div>

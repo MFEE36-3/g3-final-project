@@ -6,7 +6,8 @@ import { Cart } from '@/components/checkout/CheckOutFinal'
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const CustomTextField = styled(TextField)({
   '& label' : {
-    fontFamily:"Zen Maru Gothic"
+    fontFamily:"Zen Maru Gothic",
+    fontSize:'var(--h9)'
   }
 })
 export default function SendAddress({setOrderInfo}) {

@@ -8,7 +8,7 @@ export default function CarouselDiv() {
       <Carousel.Item interval={1500} className={style.carousel}>
         <img
           className={`${style.carouselitem} d-block w-100`}
-          src="../../reservation/carousel_4.jpg"
+          src="../../reservation/carousel_1.jpg"
         />
       </Carousel.Item>
       <Carousel.Item interval={1500} className={style.carousel}>
