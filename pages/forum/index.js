@@ -328,11 +328,11 @@ export default function Detail() {
                   fontSize: 25,
                 },
                 '& .Mui-selected': {
-                  fontSize: 30,
+                  fontSize: 20,
                 },
                 '& .MuiPaginationItem-page': {
-                  minWidth: '50px',
-                  padding: '7px',
+                  minWidth: '20px',
+                  padding: '10px',
                 },
               }}
             />

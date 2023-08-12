@@ -4,7 +4,7 @@ import { useState } from 'react';
 export default function DetailP({ data = '', key = '' }) {
   return (
     <div key={key} className={styles.ptext}>
-      {data}{' '}
+      {data}
     </div>
   );
 }

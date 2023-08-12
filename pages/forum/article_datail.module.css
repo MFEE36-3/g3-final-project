@@ -4,6 +4,9 @@
 .flex{
     display: flex;
 }
+.left{
+    display: flex;
+}
 .nickname{
     margin-top: 20px;
     font-family: var(--ff2);
@@ -11,7 +14,6 @@
 }
 .imgcontainer{
      object-fit:contain;
-     width: 100%;
      display: flex;
 }
 .avatar{
@@ -33,11 +35,14 @@
     font-size: var(--h4);
     font-weight: bold;
     margin-top: 10px;
+    margin-right: 20px;
 }
 .img{
     width: 600px;
     height:600px;
     margin-bottom: 20px;
+    margin-right: 120px;
+    
 }
 .container{
     width: 75%;
@@ -49,20 +54,22 @@
 }
 @media screen and (max-width:767px) {
     .container{
-        width: 100%;
+        width: 95%;
     }
     .img{
-        width: 390px;
         height:300px;
+        width: 400px;
+        margin: 0;
     }
-    .imgcontainer{
-        object-fit:contain;
-        
-        display: block;
-   }
    .pcontainer{
-    
-
+    width: 300px;
 }
+.left{
+    display: block;
+}
+.imgcontainer{
+    object-fit:contain;
+    display: flex;
     
+}
 }
