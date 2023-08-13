@@ -25,6 +25,43 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import muistyles from '@/components/res/item/add-item.module.css';
 import Head from 'next/head'
+import Image from 'next/image';
+import hamburger from '@/public/buyforme/map/user_icon/hamburger.svg'
+
+const mui_style = {
+  '&:hover fieldset': {
+    backgroundColor: 'rgba(250,179,179,0.2)',
+    borderColor: '#FAB3B3'
+  },
+  '& .MuiInputLabel-root': {
+    fontSize: 'var(--h6)',
+    fontWeight: 900,
+    fontFamily: 'var(--ff1)'
+  },
+  '& .MuiSvgIcon-root': {
+    color: 'var(--sub-color)'
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'var(--sub-color)',
+    },
+    '&:hover fieldset': {
+      borderColor: 'var(--sub-color)',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'var(--sub-color)',
+    },
+    fontSize: 'var(--h6)',
+    fontWeight: 600,
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'var(--sub-color)'
+  },
+  '& label.Mui-focused,label': {
+    color: 'var(--main-color)',
+  },
+  width: '95%',
+}
 
 export default function Management() {
   const router = useRouter();
@@ -304,6 +341,7 @@ export default function Management() {
 
   const showFoodItems = () => {
 
+
     return (
       <>
         <Head>
@@ -317,10 +355,18 @@ export default function Management() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell align="center" sx={tdStyle}>
-                <img
-                  src={`${imgLink}${v.food_img}`}
+                {v.food_img !== null ? (
+                  <div >
+                    <img
+                      src={`${imgLink}${v.food_img}`}
+                      className={`${styles.imgSize}`}
+                      style={{ objectFit: 'cover' }}
+                    ></img>
+                  </div>
+                ) : (<div
                   className={`${styles.imgSize}`}
-                ></img>
+                ></div>)}
+
               </TableCell>
               <TableCell align="center" sx={tdStyle}>
                 {v.food_title}
@@ -340,7 +386,7 @@ export default function Management() {
                 >
                   <button
                     type="button"
-                    className={`me-3 btn btn-primary ${muistyles.btnright}`}
+                    className={`btn text-light ${styles.btn_right}`}
                     onClick={(e) => {
                       router.push(
                         `/res/item-management/edit-item/${v.food_id}`
@@ -363,7 +409,7 @@ export default function Management() {
               <TableCell align="center" sx={tdStyle}>
                 <button
                   type="button"
-                  className={`me-3 btn ${muistyles.btnright}`}
+                  className={`btn text-light ${styles.btn_right}`}
                   onClick={() => {
                     Swal.fire({
                       title: '您確定要刪除此項商品嗎?',
@@ -401,31 +447,36 @@ export default function Management() {
   return (
     <>
       <div
-        className={`container-xxl-fluid container container-sm-fluid d-flex flex-column ${styles.formbgc} p-3 col-10 border border-2 rounded-4 border-black mt-4`}
+        className={`container-xxl-fluid container container-sm-fluid d-flex flex-column ${styles.formbgc} p-3 pb-5 col-10 mt-4 px-4`}
       >
+        <h2 className={styles.res_title}>商品管理</h2>
         <div className="row">
           <div className="col-xxl-12 col-sm-12">
-            <div className="d-flex justify-content-between mt-3">
+            <div className="me-3">
               <div className="">
-                <div className="d-flex justify-content-start align-items-center">
-                  <Link href={`/res/add-item`}>
-                    <button className={`${styles.addbtn} ms-3 `}>新增商品</button>
-                  </Link>
+                <div className="d-flex justify-content-between align-items-center">
 
                   {resAuth.account ? (
                     <>
-                      <label className="ms-3 fw-bold fs-3">
-                        歡迎回來，{resAuth.shop}
-                      </label>
+                      <div className='mt-3 ms-3 fw-bold fs-4 mb-3 d-flex align-items-center'>
+                        <Image src={hamburger} width={80} />
+                        <div className='ms-3'>
+                          歡迎回來，{resAuth.shop}
+                        </div>
+                      </div>
                     </>
                   ) : (
                     ''
                   )}
+
+                  <Link href={`/res/add-item`}>
+                    <Btn text='新增商品' padding='10px 20px'></Btn>
+                  </Link>
                 </div>
-                <div className='d-flex justify-content-between'>
+                <div className='d-flex justify-content-between align-items-center'>
                   <div className="d-flex justify-content-between">
                     <select
-                      className="form-select mt-3 ms-3"
+                      className={'p-2 my-3 ' + styles.select_cate}
                       value={itemOrder}
                       onChange={(e) => {
                         setItemOrder(e.target.value);
@@ -444,7 +495,7 @@ export default function Management() {
                     <select
                       value={foodCate}
                       onChange={matchList}
-                      className="form-select mt-3 ms-3"
+                      className={'p-2 my-3 ' + styles.select_cate}
                     >
                       <option value="">---請選擇分類---</option>
                       {foodCateOptions.map((v, i) => {
@@ -455,51 +506,48 @@ export default function Management() {
                         );
                       })}
                     </select>
-                    <div className="w-100 d-flex justify-content-center mt-3">
+                  </div>
+                  <div className="d-flex justify-content-center mt-3">
 
-                      <Pagination
-                        count={foodItem.totalPages}
-                        // page={currentPage}
-                        className={styles.page}
-                        onChange={handlePageChange}
-                        sx={{
-                          '& .MuiPaginationItem-root': {
-                            fontSize: 20,
-                          },
-                          '& .Mui-selected': {
-                            fontSize: 25,
-                          },
-                          '& .MuiPaginationItem-page': {
-                            minWidth: '40px',
-                            padding: '7px',
-                          },
-                        }}
+                    <Pagination
+                      count={foodItem.totalPages}
+                      // page={currentPage}
+                      className={styles.page}
+                      onChange={handlePageChange}
+                      sx={{
+                        '& .MuiPaginationItem-root': {
+                          fontSize: 20,
+                        },
+                        '& .Mui-selected': {
+                          fontSize: 25,
+                        },
+                        '& .MuiPaginationItem-page': {
+                          minWidth: '40px',
+                          padding: '7px',
+                        },
+                      }}
+                    />
+                  </div>
+                  <div className='d-flex'>
+                    <div>
+                      <Input
+                        label="搜尋商品"
+                        placeholder="請輸入搜尋文字"
+                        name="keyword"
+                        value={searchKeyword}
+                        sx={mui_style}
+                        onChange={search}
                       />
                     </div>
-                  </div>
-                  <div className={styles.input}>
-                    <Input
-                      label="搜尋商品"
-                      placeholder="請輸入搜尋文字"
-                      name="keyword"
-                      value={searchKeyword}
-                      onChange={search}
-                    />
 
-                    <button
-                      type="button"
-                      className={styles.search}
-                      onClick={getSearchQuery}
-                    >
-                      搜尋
-                    </button>
+                    <Btn text='搜尋' padding='10px 20px' onClick={getSearchQuery}></Btn>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="mt-3">
-              <TableContainer component={Paper}>
+              <TableContainer sx={{ borderRadius: 2, border: '2px solid var(--main-color)' }}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow sx={rowStyle}>

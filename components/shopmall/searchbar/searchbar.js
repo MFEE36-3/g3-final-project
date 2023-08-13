@@ -2,12 +2,14 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
-import { styled } from '@mui/system';
+// import { styled } from '@mui/system';
+import styled from '@emotion/styled';
 import { BiSearch } from 'react-icons/bi';
 import { useRouter } from 'next/router';
 import { css, keyframes } from '@emotion/react';
 import { Host } from '@/components/shopmall/shopmallfinal';
 import { debounce } from 'lodash';
+import { PiFunnelLight } from 'react-icons/pi'
 const scaleAnimation = keyframes`
   0% {
     transform: scale(1);
@@ -30,8 +32,8 @@ const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       background: "#FFF",
-      borderRadius:"20px",
-      border:"2px solid #adadad",
+      borderRadius: "20px",
+      border: "2px solid #adadad",
     },
     "& input": {
       color: "black",
@@ -42,6 +44,9 @@ const CustomTextField = styled(TextField)({
       color: "black",
       zIndex: 1,
     },
+    '& fieldset.MuiOutlinedInput-notchedOutline': {
+      borderColor: 'var(--sub-color)',
+    },
     "&:hover fieldset": {
       borderColor: "var(--main-color)",
       border: "2px solid var(--main-color)",
@@ -50,59 +55,75 @@ const CustomTextField = styled(TextField)({
       borderColor: "var(--main-color)",
       border: "2px solid var(--main-color)",
     },
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'var(--sub-color)'
+    },
+
+
   },
 });
-
+const RWDdiv = styled.div`
+  display:none;
+  @media (max-width: 576px) {
+    display: block
+  }
+`
 export default function SearchBar() {
-  const {host, dispatch, setSelectedCategory,categories} = React.useContext(Host);
+  const { host, dispatch, setSelectedCategory, categories, RWD, setRWD } = React.useContext(Host);
   const [currKey, setCurrKey] = React.useState("");
   const [commandItems, setCommandItems] = React.useState([])
   const router = useRouter();
+  const handleRWD = () => {
+    setRWD(!RWD)
+  }
   const handleSearch = () => {
     const keywordValue = currKey ? currKey.trim() : '';
-    if(keywordValue === "") {
+    if (keywordValue === "") {
       setCurrKey('')
       return
     }
     const selectedCategoryIds = Object.keys(categories).filter((key) => categories[key].checked);
     setSelectedCategory(selectedCategoryIds);
     dispatch({
-      type:"SET_KEYWORD",
+      type: "SET_KEYWORD",
       payload: keywordValue
     })
     const query = {};
 
     if (selectedCategoryIds.length > 0) {
-      query.cate_id = selectedCategoryIds.join('%'); 
+      query.cate_id = selectedCategoryIds.join('%');
     }
-  
+
     if (keywordValue !== '') {
       query.keyword = keywordValue;
     }
-  
+
     router.push({
       pathname: '/shopmall',
       query: query,
-    }, undefined, {scroll: false});
+    }, undefined, { scroll: false });
   };
-  React.useEffect(()=> {
-  const fetchCommandItems = async () => {
-    const response = await fetch(`${host}/ecshop/item`) 
-    const { data } = await response.json()
-    setCommandItems(data)
-  }
-  fetchCommandItems()
-  },[])  
+  React.useEffect(() => {
+    const fetchCommandItems = async () => {
+      const response = await fetch(`${host}/ecshop/item`)
+      const { data } = await response.json()
+      setCommandItems(data)
+    }
+    fetchCommandItems()
+  }, [])
   const comItems = commandItems.map(v => ({
     title: v.item_name
   }))
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-        handleSearch();
-      }
+      handleSearch();
+    }
   };
   return (
     <div className=' mx-0 d-flex pe-0 pt-2 justify-content-center align-items-center my-xl-4'>
+      <RWDdiv>
+        <PiFunnelLight className='fs-1 me-2' onClick={()=>handleRWD()}/>
+      </RWDdiv>
       <Stack spacing={2} className='w-75'>
         <Autocomplete
           id="free-solo-demo"
@@ -111,7 +132,7 @@ export default function SearchBar() {
           value={currKey}
           onInputChange={(event, newValue) => {
             setCurrKey(newValue);
-        }}
+          }}
           options={comItems.map((option) => option.title)}
           renderInput={(params) => (
             <CustomTextField
@@ -120,12 +141,12 @@ export default function SearchBar() {
               onChange={e => {
                 setCurrKey(e.target.value)
               }}
-              onKeyDown={handleKeyDown}  
+              onKeyDown={handleKeyDown}
             />
           )}
         />
       </Stack>
-      <StyledBiSearch className='fs-1 ms-3 ' onClick={handleSearch} />
+      <StyledBiSearch className='fs-1 ms-2 ' onClick={handleSearch} />
     </div>
   );
 }

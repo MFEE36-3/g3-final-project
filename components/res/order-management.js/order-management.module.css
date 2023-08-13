@@ -1,5 +1,8 @@
 .tableBackGround {
-    background-color: #F2F0E7;
+    background-color: white;
+    border: 3px solid var(--main-color);
+    border-radius: 16px;
+    padding-bottom: 10px;
 }
 
 .orderShow_hidden {
@@ -12,4 +15,37 @@
     height: 100%;
     visibility: visible;
     overflow: visible;
+}
+
+.res_title {
+    color: var(--main-color);
+    font-family: var(--ff1);
+    font-size: var(--h3);
+    border-bottom: 2px solid var(--main-color);
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.btn_right {
+    background-color: var(--main-color);
+    border: none;
+    font-family: var(--ff2);
+    padding: 15px 20px;
+    border-radius: 30px;
+}
+
+.btn_right:hover {
+    background-color: var(--sub-color);
+}
+
+.select_cate {
+    margin-left: 16px;
+    border-color: var(--main-color);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.select_cate:focus {
+    outline: 4px solid var(--sub-color);
+    box-shadow: none;
 }

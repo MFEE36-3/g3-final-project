@@ -86,26 +86,26 @@ export default function Category() {
 
   return (
     <div className='border-bottom border-2 overflow-hidden'>
-      <H4div className='mt-3'>分類</H4div>
+      <H4div className='mt-3 fs-5'>分類</H4div>
       {/* {console.log(selectedCategory)} */}
-      <div className='d-flex w-100 mt-4 flex-column align-items-start '>
+      <div className='d-flex w-100 mt-1 flex-column align-items-start '>
         {displayedCategories.map(([key, value]) => (
-          <label key={key} style={{ cursor: 'pointer' }}>
+          <label key={key} style={{ cursor: 'pointer' }} className='d-flex align-items-center'>
             <Checkbox
               checked={value.checked}
-              sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+              sx={{ '& .MuiSvgIcon-root': { fontSize: 22 } }}
               onChange={handleChange}
               value={key}
               inputProps={{ 'aria-label': 'controlled' }}
             />
-            <H5span>{value.cate_name}</H5span>
+            <H5span className='fs-6'>{value.cate_name}</H5span>
           </label>
         ))}
       </div>
       {!showAll && Object.entries(categories).length > 5 && (
         <H5span className='d-flex justify-content-center mb-3 text-dark align-items-center' style={{ cursor: 'pointer' }} onClick={() => setShowAll(true)}>
-          <H5span>查看更多</H5span>
-          <FiArrowDown />
+          <H5span className='fs-6' style={{color:'var(--main-color)'}}>查看更多</H5span>
+          <FiArrowDown style={{color:'var(--main-color)'}}/>
         </H5span>
       )}
     </div>

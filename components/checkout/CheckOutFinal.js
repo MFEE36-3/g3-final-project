@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useContext } from 'react'
 import CheckOutContainer from '@/components/checkout/checkoutcontainer/CheckOutContainer'
 import CheckOutPage from '@/components/checkout/checkoutpage/CheckOutPage'
 import CheckOutLeft from '@/components/checkout/checkoutleft/CheckOutLeft'
@@ -7,12 +7,16 @@ import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 import Button from '@mui/material/Button';
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router'
+import AuthContext from '@/context/AuthContext';
+
+
 export const Cart = createContext()
 export default function CheckOutFinal() {
     const [page, setPage] = useState('subscribe')
     const [token, setToken] = useState(false)
     const host = process.env.API_SERVER
     const router = useRouter()
+    const { auth } = useContext(AuthContext)
     const [items, setItems] = useState(
         {
             subscribe: [],
@@ -169,22 +173,22 @@ export default function CheckOutFinal() {
     return (
         <>
             <Cart.Provider value={{ page, setPage, items, setItems, showPages, memberInfo, memberInfo, host, memberCoupon }}>
-                <div className='overflow-hidden' style={{ fontFamily: "var(--ff1)" }}>
-                    <CheckOutContainer>
-                        {JSON.parse(localStorage.getItem('auth')) ?
-                            <>
-                                <CheckOutPage />
-                                <CheckOutLeft />
-                                <CheckOutRight />
-                            </> :
-                            <div className='d-flex flex-column justify-content-center align-items-center w-100 fs-1'>
-                                <img src={chocoCookie.src}></img>
-                                <div style={{ fontFamily: "Zen Maru Gothic" }}>請先登入會員</div>
-                                <Button variant="contained" className='mt-5 fs-2 bg-danger' onClick={() => router.push("/login")}>前往登入</Button>
-                            </div>
-                        }
-                    </CheckOutContainer> :
-                </div>
+                {auth && auth.sid ?
+                    <div className='overflow-hidden' style={{ fontFamily: "var(--ff1)" }}>
+                        <CheckOutContainer>
+                            <CheckOutPage />
+                            <CheckOutLeft />
+                            <CheckOutRight />
+                             {/* <div className='d-flex flex-column justify-content-center align-items-center w-100 fs-1'>
+                                 <img src={chocoCookie.src}></img>
+                                 <div style={{ fontFamily: "Zen Maru Gothic" }}>請先登入會員</div>
+                                 <Button variant="contained" className='mt-5 fs-2 bg-danger' onClick={() => router.push("/login")}>前往登入</Button>
+                             </div> */}
+
+
+                        </CheckOutContainer> :
+                    </div>
+                    : ''}
             </Cart.Provider>
         </>
     )

@@ -8,14 +8,23 @@ import Select from '@mui/material/Select';
 import { Host } from '@/components/shopmall/shopmallfinal'
 import { useRouter } from 'next/router';
 const H2div = styled.div`
-    font-size:var(--h2);
+    font-size:36px;
     @media (max-width: 576px) {
-    font-size:25px
+    font-size:20px
   }
 `
 const H4div = styled.div`
     font-size:var(--h4)
 `
+const mui_select_style = {
+  '&:hover .MuiOutlinedInput-notchedOutline': {
+      backgroundColor: 'rgba(250,179,179,0.2)',
+      borderColor: '#FAB3B3'
+  },
+  '& fieldset.MuiOutlinedInput-notchedOutline': {
+      borderColor: 'var(--main-color) !important',
+  },
+}
 
 export default function ShopSearchTitle() {
     const {sortby, order, keyword, dispatch, items, isReset, totalpages} = useContext(Host)
@@ -57,20 +66,21 @@ export default function ShopSearchTitle() {
   },[isReset])
   return (
     <div className=''>
-        <H2div className='text-danger'>{keyword}</H2div>
         <div className='mt-3 w-100 mb-xl-4 d-flex justify-content-between align-items-center'>
+        <H2div className='ms-xl-4 ms-2' style={{color:"var(--main-color)"}}>{keyword}</H2div>
         {keyword && <div></div>}
         {!keyword && <>
         <div></div>
         </>}
         <Box sx={{ minWidth: 120 }} className="me-xl-5 border-3">
         <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label" className='d-flex align-items-center'>排序</InputLabel>
+        <InputLabel id="demo-simple-select-label" className='d-flex align-items-center' sx={{color:'var(--main-color)',fontWeight:900,'&.MuiInputLabel-root.Mui-focused':{color:'var(--main-color)'}}}>排序</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={orders}
           label="sort"
+          sx={mui_select_style}
           onChange={handleChange}
         >
           <MenuItem value={"ctime"}>最新</MenuItem>

@@ -4,7 +4,7 @@ import RegSuccessComponent from '@/components/res/register-form/reg-success-comp
 
 export default function RegSuccess(){
     return <>
-        <div className='container'>RegSuccess</div>
+        {/* <div className='container'>RegSuccess</div> */}
         <RegSuccessComponent />
     </>
 }

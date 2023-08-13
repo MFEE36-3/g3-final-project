@@ -1,11 +1,12 @@
 .ptext{
     font-size: var(--h7);
     letter-spacing: 5px;
-    white-space: pre;
+    white-space: pre-line;
     margin-bottom: 40px;
-    margin-left: 80px;
-    line-height:1.5;
     
+    line-height:1.2;
+    width: 300px;
+  
     
 }
 @media screen and (max-width:767px) {
