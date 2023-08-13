@@ -245,6 +245,11 @@ margin-bottom: 100px;
   text-align: center;
 }
 
+.timetextfull{
+  text-align: center;
+  color: var(--main-color);
+}
+
 .interiotdiv{
   width: 836px;
   height: 424px;
@@ -1725,7 +1730,7 @@ font-weight: 600;
 .carticon{
   position: absolute;
   right: 20px;
-  top: 270px;
+  top: 300px;
 }
 
 .carttitle{
