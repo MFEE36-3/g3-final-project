@@ -76,7 +76,7 @@ export default function MemActMail() {
         <div>訂單金額</div>
       </div>
 
-      {mail[0] ? (
+      {mail.length !== 0 ? (
         <div className={styles.area1}>
           <div className={styles.scrollArea}>
             {mail
