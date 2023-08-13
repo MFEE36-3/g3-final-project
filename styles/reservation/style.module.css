@@ -54,6 +54,12 @@ margin-bottom: 100px;
   overflow: hidden;
 }
 
+.top5cardlink{
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
 .top5row{
   width: 1350px;
   position: relative;
@@ -1079,15 +1085,16 @@ margin-bottom: 100px;
 
   .rwdsearchdiv{
     width: 100%;
+    margin-top: 100px;
   }
 
   .searchbar {
     position: relative;
     display: flex;
     align-items: center;
-    width: 60%;
+    width: 90%;
     height: 50px;
-    margin-top: 100px;
+    /* margin-top: 100px; */
     background-color: white;
     border-radius: 40px;
     border:3px solid var(--main-color);
@@ -1144,6 +1151,12 @@ margin-bottom: 100px;
   overflow: hidden;
 }
 
+.top5cardlink{
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
 .top5row{
   width: 270px;
   position: relative;
@@ -1163,6 +1176,7 @@ margin-bottom: 100px;
   position: absolute;
   width: 135px;
   min-width: 135px;
+  height: 200px;
   border: none;
   background:none;
   transition: transform 0.3s ease;
@@ -1711,7 +1725,7 @@ font-weight: 600;
 .carticon{
   position: absolute;
   right: 20px;
-  top: 300px;
+  top: 270px;
 }
 
 .carttitle{

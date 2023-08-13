@@ -13,7 +13,9 @@ export default function TopDiv({ keyword, setKeyword }) {
           <div>
             <BiCategory className={style.rwdselected} />
           </div>
-          <SearchBar keyword={keyword} setKeyword={setKeyword} />
+          <div>
+            <SearchBar keyword={keyword} setKeyword={setKeyword} />
+          </div>
         </div>
       </div>
     </>
