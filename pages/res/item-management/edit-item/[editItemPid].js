@@ -50,10 +50,10 @@ const AddNewItem = () => {
 
   useEffect(() => {
     if (router.query) {
-      console.log(router);
-      console.log(router.query);
+      // console.log(router);
+      // console.log(router.query);
       const editItemPid = router.query.editItemPid;
-      console.log(editItemPid); // 99
+      // console.log(editItemPid); // 99
       getSingleItem(editItemPid);
     }
   }, [router.query]);
