@@ -158,7 +158,7 @@ export default function OrderManagement() {
       const stateResult = originalTogoOrder.filter((v, i) => {
         // const arr = v.filter((v2, i2) => v2.status == '未完成');
         // if (arr.length !== 0) return v;
-        if (v.order_detail[0].status == '未完成') {
+        if (v.order_detail[0].status === 0) {
           return v
         }
       })
@@ -170,7 +170,7 @@ export default function OrderManagement() {
       const stateResult = originalTogoOrder.filter((v, i) => {
         // const arr = v.filter((v2, i2) => v2.status == '未完成');
         // if (arr.length !== 0) return v;
-        if (v.order_detail[0].status == '已完成') {
+        if (v.order_detail[0].status === 1) {
           return v
         }
       })
@@ -535,7 +535,7 @@ export default function OrderManagement() {
                       </TableCell>
                       <TableCell align="center" sx={tdStyle}>
                         {/* {v[0].status} */}
-                        {v.order_detail[0].status}
+                        {v.order_detail[0].status === 0 ? '未完成' : '已完成'}
                       </TableCell>
                       <TableCell align="center" sx={tdStyle}>
 
