@@ -79,6 +79,22 @@ export default function MainContent({ favorite, setFavorite }) {
           const newFav = data.rows.map(v => v.shop_id);
           setFavorite(prev => newFav)
         })
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: 'success',
+        title: '餐廳收藏已移除'
+      })
       return;
     }
 
@@ -102,6 +118,22 @@ export default function MainContent({ favorite, setFavorite }) {
         const newFav = data.rows.map(v => v.shop_id);
         setFavorite(prev => newFav)
       })
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: '餐廳已收藏成功'
+    })
 
 
   }
