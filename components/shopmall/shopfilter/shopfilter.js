@@ -14,7 +14,7 @@ export default function ShopFilter() {
   return (
     <>
     <div className={`col-xl-2 pe-xl-5 col-12 d-xl-block fw-bold ${RWD ? 'd-block' : 'd-none'}`}>
-      <H3div>
+      <H3div className={`${RWD ? 'd-none' : 'd-block'}`}>
         <PiFunnelLight className='me-xl-2' style={{color:'var(--main-color)'}}/>
         <span className='fs-4 fw-bold' style={{color:'var(--main-color)'}}>條件篩選</span>
       </H3div>
