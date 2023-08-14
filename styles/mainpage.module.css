@@ -447,6 +447,7 @@
     overflow: hidden;
     border-radius: 20px;
     box-shadow: 0 5px 10px rgb(174, 174, 174);
+    transition: .5s ease-in-out;
 }
 
 .commodity_card {
