@@ -1,11 +1,11 @@
 .ptext{
-    font-size: var(--h7);
-    letter-spacing: 5px;
+    font-size: var(--h6);
+    letter-spacing: 6px;
     white-space: pre-line;
     margin-bottom: 40px;
-    
+    font-family: var(--ff3);
     line-height:1.2;
-    width: 300px;
+    width: 430px;
   
     
 }
@@ -20,6 +20,7 @@
         margin-bottom: 40px;
         margin: 0;
         line-height:1.5;
+        width: 350px;
     }
     
 }
