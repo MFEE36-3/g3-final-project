@@ -62,10 +62,14 @@ export default function PriceRange() {
 
     if (minPrice !== '') {
       query.price_min = minPrice;
+    } else {
+        delete query.price_min;
     }
 
     if (maxPrice !== '') {
       query.price_max = maxPrice;
+    } else {
+        delete query.price_max;
     }
 
     router.push({
