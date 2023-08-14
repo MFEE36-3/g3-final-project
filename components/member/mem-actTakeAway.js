@@ -80,8 +80,7 @@ export default function MemActTakeAway() {
         </div>
       )}
 
-      {order
-      ?.filter((z) => z.status === 0).length > 0 ? (
+      {order?.filter((z) => z.status === 0).length > 0 ? (
         <div className={showDetail ? styles.area1_active : styles.area1}>
           <div className={styles.scrollArea}>
             {order
@@ -107,7 +106,9 @@ export default function MemActTakeAway() {
                       {v.order_date.substring(0, 10)}{' '}
                       {v.order_time.substring(0, 5)}
                     </div>
-                    <div className={styles.td}>{v.status}</div>
+                    <div className={styles.td}>
+                      {v.status == 0 ? '未完成' : '已完成'}
+                    </div>
                   </button>
                 );
               })}
