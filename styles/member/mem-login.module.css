@@ -110,6 +110,7 @@
   font-size: 12px;
   gap: 5px;
   position: relative;
+  top: -20px;
   margin-top: -60px;
   margin-bottom: 20px;
   box-shadow: 0px 0.7px 2px rgb(136, 136, 136);
