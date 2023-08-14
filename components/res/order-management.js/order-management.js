@@ -429,8 +429,8 @@ export default function OrderManagement() {
                         訂單狀態
                       </TableCell>
                       <TableCell align="center" sx={ceilStyle} className='me-3'>
-                        訂單內容
-                        <button type='button' className={`btn btn-danger ms-3 ${styles.btn_right}`} style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
+                        <span className='me-2'>訂單內容</span>
+                        <Btn type='button'  padding='15px 20px' fs='var(--h7)' sx={{marginLeft:'5px'}} onClick={changeShowOrder} text={showOrder == false ? '顯示更多' : '隱藏內容'}></Btn>
                       </TableCell>
                       <TableCell align="center" sx={ceilStyle}>
                         總金額
@@ -506,8 +506,8 @@ export default function OrderManagement() {
                       訂單狀態
                     </TableCell>
                     <TableCell align="center" sx={ceilStyle}>
-                      訂單內容
-                      <button type='button' className={`btn btn-warning ms-auto mt-auto ${muistyles.btnright}`} style={{ visibility: 'visibile' }} onClick={changeShowOrder}>{showOrder == false ? '顯示更多' : '隱藏內容'}</button>
+                    <span className='me-2'>訂單內容</span>
+                      <Btn type='button' padding='15px 20px' fs='var(--h7)' sx={{marginLeft:'5px'}} onClick={changeShowOrder} text={showOrder == false ? '顯示更多' : '隱藏內容'}></Btn>
                     </TableCell>
                     <TableCell align="center" sx={ceilStyle}>
                       總金額
@@ -582,11 +582,10 @@ export default function OrderManagement() {
                         {v.finished ?
                           <div>訂單已完成!</div>
                           :
-                          <button type='button' id={`buttonIndex${i}`} className={`btn btn-primary ${muistyles.btnright}`}
+                          <Btn id={`buttonIndex${i}`} padding='10px 15px' fs='var(--h7)' text='完成訂單'
                             onClick={() => turnToComplete(i)}
                           >
-                            完成訂單
-                          </button>}
+                          </Btn>}
                         {/* {v.order_detail[0].status == '未完成' ? v.finished ?
                           <div>訂單已完成!</div>
                           :
