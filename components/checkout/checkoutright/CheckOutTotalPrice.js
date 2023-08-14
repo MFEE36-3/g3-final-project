@@ -156,7 +156,7 @@ export default function CheckOutTotalPrice({ payment, orderInfo }) {
             sid: showPages(items).map(item => item.itemID)
         }
         const buyOrderData = {
-            order_sid: showPages(items).map(item => item.order_sid)
+            order_sid: showPages(items).map(item => item.order_sid)[0]
         }
 
         const takeoutOrderData = {
