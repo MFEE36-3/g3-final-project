@@ -230,7 +230,7 @@ export default function MemOrderDetail({
             padding={'3px 5px'}
           ></MemBtn>
           <MemBtn
-            text={'完成訂單'}
+            text={'完成'}
             padding={'3px 15px'}
             onClick={finishFood}
           ></MemBtn>

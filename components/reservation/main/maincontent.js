@@ -131,7 +131,7 @@ export default function MainContent({ favorite, setFavorite }) {
                     <div className={style.cardtext}>查看餐廳</div>
                   </Link>
                 </div>
-                <Card.Body>
+                <Card.Body className={style.cardbody}>
                   <Card.Title className={style.cardtitle}>{shop}</Card.Title>
                   <Card.Text className={style.cardlocation}>{location}</Card.Text>
                   <div className="d-flex align-item-center justify-content-between">

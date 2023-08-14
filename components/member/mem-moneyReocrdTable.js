@@ -44,10 +44,10 @@ export default function MemMoneyReocrdTable({ rows, page }) {
             <TableCell align="left" sx={ceilStyle}>
               內容
             </TableCell>
-            <TableCell align="left" sx={ceilStyle}>
+            <TableCell align="center" sx={ceilStyle}>
               金額
             </TableCell>
-            <TableCell align="left" sx={ceilStyle}>
+            <TableCell align="right" sx={ceilStyle}>
               時間
             </TableCell>
           </TableRow>
@@ -60,10 +60,10 @@ export default function MemMoneyReocrdTable({ rows, page }) {
                 <TableCell align="left" sx={tdStyle}>
                   {row.content}
                 </TableCell>
-                <TableCell align="left" sx={tdStyle}>
+                <TableCell align="center" sx={tdStyle}>
                   {row.money}
                 </TableCell>
-                <TableCell align="left" sx={tdStyle}>
+                <TableCell align="right" sx={tdStyle}>
                   {row.time}
                 </TableCell>
               </TableRow>

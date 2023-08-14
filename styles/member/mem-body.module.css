@@ -108,6 +108,17 @@
   font-size: 14px;
   font-weight: 800;
   box-shadow: inset -2px -2px 3px rgba(65, 65, 65, 0.5);
+  animation: rotateZAnimation 1.5s ease-in-out;
+}
+
+@keyframes rotateZAnimation {
+  0% {
+    transform: perspective(500px) rotateY(0deg) scale(0.3);
+  }
+
+  100% {
+    transform: perspective(800px) rotateY(360deg) scale(1);
+  }
 }
 
 .packDown {

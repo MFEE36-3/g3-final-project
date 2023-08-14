@@ -278,7 +278,7 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                                         <div className={style.togocardtext}>查看餐點</div>
                                     </div>
                                     <div className='px-1 py-2'>
-                                        <Card.Title><span style={{ fontWeight: 600 }}>{v.food_title}</span></Card.Title>
+                                        <Card.Title>{v.food_title}</Card.Title>
                                         <Card.Text>${v.food_price}</Card.Text>
                                         <div className={style.additembutton}>
                                             <Button
@@ -286,12 +286,10 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                                                     width: '100%',
                                                     fontSize: '12px',
                                                     background: '#911010',
-                                                    lineHeight: '20px',
                                                     borderRadius: 20,
                                                     border: 0,
                                                     color: 'white',
                                                     padding: '5px',
-                                                    fontWeight: 900,
                                                 }}
                                                 onClick={() => handleAddToCart(v)}
                                             >
@@ -319,13 +317,13 @@ export default function Products({ row, category, shoppingCart, setShoppingCart,
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                className='container-fulid '
+                className='container-fulid'
             >
-                <Box sx={stylemodal} className='d-flex row'>
-                    <div className='col-7 h-100 overflow-hidden object-fit-cover'>
+                <Box sx={stylemodal} className={`${style.modaldiv} d-flex row`}>
+                    <div className={style.modalimg}>
                         <img src={`${process.env.API_SERVER}/img/res-img/${itemdeatil.food_img}`} className='w-100 h-100' ></img>
                     </div>
-                    <div className='col-5 h-100'>
+                    <div className={style.modalword}>
                         <Typography id="modal-modal-title" component="h2" className={style.modaltitle}>
                             {itemdeatil.food_title}
                         </Typography>

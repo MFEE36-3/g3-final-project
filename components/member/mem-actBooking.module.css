@@ -3,9 +3,10 @@
   display: flex;
   flex-direction: column;
   width: 1000px;
+  /* height: 100%; */
   gap: 30px;
   position: relative;
-  margin-bottom: 150px;
+  /* margin-bottom: 150px; */
 }
 
 .row {
@@ -77,6 +78,25 @@
   background-color: #fff;
 }
 
+.area1_active {
+  font-size: 18px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid #921010;
+  margin-bottom: 60px;
+  font-weight: 800;
+  margin-top: 5px;
+  height: 500px;
+  padding-right: 10px;
+  padding-left: 5px;
+  background-color: #fff;
+}
+
 .scrollArea {
   height: 100%;
   width: 100%;
@@ -90,12 +110,15 @@
 }
 
 .scrollArea::-webkit-scrollbar {
-  width: 3px; /* 設置滾輪寬度 */
+  width: 3px;
+  /* 設置滾輪寬度 */
 }
 
 .scrollArea::-webkit-scrollbar-thumb {
-  background-color: #aeaeae; /* 設置滾輪顏色 */
+  background-color: #aeaeae;
+  /* 設置滾輪顏色 */
 }
+
 
 .detailArea {
   font-size: 22px;
@@ -157,7 +180,7 @@
     padding-left: 15px;
   }
 
-  .title > * {
+  .title>* {
     width: 70px;
   }
 
@@ -181,13 +204,14 @@
     padding: 2px;
     justify-content: space-around;
   }
-  .hideArea > img {
+
+  .hideArea>img {
     position: relative;
     width: 30px;
     height: 30px;
   }
 
-  .hideArea > * {
+  .hideArea>* {
     width: 60px;
     position: relative;
     left: -47px;
@@ -204,5 +228,9 @@
   .detailArea {
     width: 350px;
     left: 0;
+  }
+
+  .area1_active{
+    height: 200px;
   }
 }

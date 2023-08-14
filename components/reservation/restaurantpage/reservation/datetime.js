@@ -44,7 +44,7 @@ export default function DateTime({ row, date, time, setTime, setPerson, setSeat,
                             onClick={() => handleTime(name)}
                             disabled={isDisabled}
                         >
-                            <div className={style.timetext}>{`${pickdate}`}</div>
+                            <div className={isDisabled ? style.timetextfull : style.timetext}>{isDisabled ? '已額滿' : `${pickdate}`}</div>
                             <div className={style.timetext}>{name}</div>
                         </button>
                     )

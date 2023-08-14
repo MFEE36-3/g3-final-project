@@ -15,7 +15,7 @@ export default function Btn({
       <Button
         className={styles.btn}
         sx={{
-          '&& .MuiTouchRipple-child': { backgroundColor: '#911010' },
+          '&& .MuiTouchRipple-child': { backgroundColor: '#911010 !important' },
           padding: { padding },
           ...props.sx,
         }}

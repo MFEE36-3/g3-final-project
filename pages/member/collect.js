@@ -21,7 +21,7 @@ export default function Index() {
   const [list, setList] = useState([]);
   const [store, setStore] = useState([]);
   const [forum, setForum] = useState([]);
-  const [open, setOpen] = useState('收藏貼文');
+  const [open, setOpen] = useState('貼文');
   const [page, setPage] = useState(0);
 
   // 抓會員自己的發文
@@ -150,11 +150,19 @@ export default function Index() {
               </div>
               {open === '店家' ? (
                 <div className={styles2.scroll2}>
-                  <MemCollectReocrd2 store={store} page={page} />
+                  <MemCollectReocrd2
+                    store={store}
+                    page={page}
+                    setOpen={setOpen}
+                  />
                 </div>
               ) : (
                 <div className={styles2.scroll2}>
-                  <MemCollectReocrd1 forum={forum} page={page} />
+                  <MemCollectReocrd1
+                    forum={forum}
+                    page={page}
+                    setOpen={setOpen}
+                  />
                 </div>
               )}
             </div>

@@ -7,7 +7,7 @@ import MemBookingDetail from './MemBookingDetail';
 
 export default function MemActBooking() {
   const { auth } = useContext(AuthContext);
-  const [mail, setMail] = useState([]);
+  const [booking, setBooking] = useState([]);
   const [showDetail, setShowDetail] = useState(false);
   const [data, setData] = useState({});
 
@@ -24,8 +24,8 @@ export default function MemActBooking() {
       })
         .then((res) => res.json())
         .then((data) => {
-          setMail(data);
-        });
+          setBooking(data);
+        })
     }
   }, [auth]);
 
@@ -60,11 +60,11 @@ export default function MemActBooking() {
           />
         </div>
       )}
-
-      {mail[0] ? (
-        <div className={styles.area1}>
+      {booking
+        ?.filter((a) => a.status === '未完成').length > 0 ? (
+        <div className={showDetail ? styles.area1_active : styles.area1}>
           <div className={styles.scrollArea}>
-            {mail
+            {booking
               ?.filter((a) => a.status === '未完成')
               .map((v) => {
                 return (
@@ -95,7 +95,7 @@ export default function MemActBooking() {
           </div>
         </div>
       ) : (
-        <div className={styles.default}>您目前沒有任何餐廳訂位</div>
+        <div className={`${styles.default}`}>您目前沒有任何餐廳訂位</div>
       )}
     </div>
   );

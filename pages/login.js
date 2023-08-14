@@ -300,12 +300,12 @@ const Login = () => {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                         color="warning"
-                        onChange={() => { }}
+                        onChange={() => {}}
                         onSubmit={resHandleSubmit}
                         style={{
                           fontSize: '13px',
                           fontFamily: 'Zen Maru Gothic',
-                          marginTop: 16
+                          marginTop: 16,
                         }}
                       >
                         登入
@@ -332,7 +332,6 @@ const Login = () => {
                       </Grid>
                     </Box>
                   </Box>
-
                 </Container>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
               </ThemeProvider>
@@ -408,13 +407,7 @@ const Login = () => {
                           登入
                         </div>
                       </Button>
-                      <button
-                        className={styles.google}
-                        onClick={() => loginGoogle(callbackGoogleLogin)}
-                      >
-                        <GoogleLogo />
-                        Google登入
-                      </button>
+
                       <Grid container>
                         <Grid item xs>
                           <Link
@@ -436,8 +429,14 @@ const Login = () => {
                         </Grid>
                       </Grid>
                     </Box>
+                    <button
+                      className={styles.google}
+                      onClick={() => loginGoogle(callbackGoogleLogin)}
+                    >
+                      <GoogleLogo />
+                      Google登入
+                    </button>
                   </Box>
-
                 </Container>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
               </ThemeProvider>

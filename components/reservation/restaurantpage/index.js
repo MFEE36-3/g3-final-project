@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import ToggleButtonGroup from './ToggleButtonGroup'
 import Reservation from './reservation'
 import Togo from './togo'
+// import { style } from '@mui/system';
+import style from '@/styles/reservation/style.module.css'
 
 
 export default function ReservationPage({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo, shoppingCart, setShoppingCart, togodate, setTogodate, togotime, setTogotime, item, setItem }) {
@@ -11,7 +13,7 @@ export default function ReservationPage({ row, date, setDate, time, setTime, per
     return (
         <>
             <div className='position-relative'>
-                <div className='d-flex justify-content-center m-4'>
+                <div className={style.togglebuttongroup}>
                     <ToggleButtonGroup page={page} setPage={setPage} setDate={setDate} setTime={setTime} setPerson={setPerson} setSeat={setSeat} setTogodate={setTogodate} setTogotime={setTogotime} />
                 </div>
                 {page === '訂位' ? <Reservation row={row} date={date} setDate={setDate} time={time} setTime={setTime} person={person} setPerson={setPerson} seat={seat} setSeat={setSeat} memo={memo} setMemo={setMemo} item={item} setItem={setItem} />

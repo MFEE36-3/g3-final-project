@@ -232,10 +232,10 @@ export default function ShopCard() {
     <div >
         <ShopCardContainer className='justify-content-evenly pe-xl-5 position-relative'>
           {items.length === 0 && <>
-            <div className="position-absolute d-flex flex-column justify-content-center align-items-center" style={{top:"50%", left:"32%"}}>
-              <Image src={filled_walkbag_middle} className="" 
+            <div className="position-absolute d-flex justify-content-center align-items-center" style={{top:"50%", left:"15%"}}>
+              <Image src={filled_walkbag_middle} style={{width:"35%"}}
               alt='filled_walkbag_middle' />
-              <p className="fs-2 mt-4 ms-5">無此分類商品！</p>
+              <p className="fs-2 ms-5 " style={{color:"var(--main-color)"}}>沒有符合您搜尋條件的商品！</p>
             </div>
           </>}
           {itemCardsMap}

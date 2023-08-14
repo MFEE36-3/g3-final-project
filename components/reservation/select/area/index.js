@@ -31,7 +31,7 @@ export default function Area({ keyword, setKeyword }) {
 
   return (
     <div className={`${style.mb20}`}>
-      <p>地區</p>
+      <p className={style.selecttitle}>地區</p>
       <hr />
       <div className={style.mb10}>
         <City keyword={keyword} setKeyword={setKeyword} cdata={cdata} setCdata={setCdata} />
