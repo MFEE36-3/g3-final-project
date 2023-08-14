@@ -8,6 +8,7 @@ export default function CheckOutItem() {
     const {items, showPages, setItems, page} = useContext(Cart)
     const [localStorageItems, setLocalStorageItems] = useState({});
     const handleRemove = (removeItem) => {
+      setLocalStorageItems({});
       Swal.fire({
         title: `<div style="font-family: Mochiy Pop One;">確定要刪除${removeItem.itemName}</div>`,
         html: '<div style="font-family: Mochiy Pop One;">刪除後需重新將商品加入購物車</div>',
@@ -28,8 +29,30 @@ export default function CheckOutItem() {
           const buyItem = JSON.parse(localStorage.getItem("buy"));
           const orderItem = JSON.parse(localStorage.getItem("order"));
           const shopItem = JSON.parse(localStorage.getItem("shop"));
-          const updatedShopItem = Object.values(shopItem).filter(item => item[0] !== removeItem.itemId)
-          localStorage.setItem("shop", JSON.stringify(Object.fromEntries(updatedShopItem)));
+          const updatedShopItem = (shopItem !== null && shopItem !== undefined) ? Object.values(shopItem).filter(item => item[0] !== removeItem.itemId) :[]
+          const updatedOrderItem = (orderItem !== null && orderItem !== undefined)? Object.values(orderItem).filter(item => item[0] !== removeItem.itemId) : []
+          const updatedBuyItem = (buyItem !== null && buyItem !== undefined) ? Object.values(buyItem).filter(item => item[0] !== removeItem.itemId) : []
+          const updatedSubscribeItem = (subscribeItem !== null && subscribeItem !== undefined) ? Object.values(subscribeItem).filter(item => item[0] !== removeItem.itemId) :[]
+          if (updatedShopItem.length > 0) {
+            localStorage.setItem("shop", JSON.stringify(Object.fromEntries(updatedShopItem)));
+          }
+          if (updatedOrderItem.length > 0) {
+            localStorage.setItem("order", JSON.stringify(Object.fromEntries(updatedOrderItem)));
+          }
+          
+          if (updatedBuyItem.length > 0) {
+            localStorage.setItem("buy", JSON.stringify(Object.fromEntries(updatedBuyItem)));
+          }
+          
+          if (updatedSubscribeItem.length > 0) {
+            localStorage.setItem("subscribe", JSON.stringify(Object.fromEntries(updatedSubscribeItem)));
+          }
+          setLocalStorageItems({
+            ...Object.fromEntries(updatedShopItem),
+            ...Object.fromEntries(updatedOrderItem),
+            ...Object.fromEntries(updatedBuyItem),
+            ...Object.fromEntries(updatedSubscribeItem)
+          })
           Swal.fire(
             '刪除成功!',
             `已將${removeItem.itemName}從購物車移除`,
@@ -38,6 +61,16 @@ export default function CheckOutItem() {
         }
       });
     }
+    useEffect(()=>{
+        const subscribeItem = JSON.parse(localStorage.getItem("subscribe")) || {}
+        const buyItem = JSON.parse(localStorage.getItem("buy")) || {}
+        const orderItem = JSON.parse(localStorage.getItem("order")) || {}
+        const shopItem = JSON.parse(localStorage.getItem("shop")) || {}
+        if (orderItem !== undefined && Object.values(orderItem).length < 1) localStorage.removeItem('order');
+        if (shopItem !== undefined && Object.values(shopItem).length < 1) localStorage.removeItem('shop');
+        if (buyItem !== undefined && Object.values(buyItem).length < 1) localStorage.removeItem('buy');
+        if (subscribeItem !== undefined && Object.values(subscribeItem).length < 1) localStorage.removeItem('subscribe');
+    },[localStorageItems])
     const itemCart = (item) =>{
       const maxChars = 20;
       const shortItemName = item.itemName.length > maxChars ? item.itemName.substring(0, maxChars) + '...' : item.itemName;
@@ -56,13 +89,6 @@ export default function CheckOutItem() {
         </div>
       )
     }
-    useEffect(()=>{
-    const updatedSubscribeItem = JSON.parse(localStorage.getItem('subscribe')) || [];
-    const updatedBuyItem = JSON.parse(localStorage.getItem('buy')) || [];
-    const updatedOrderItem = JSON.parse(localStorage.getItem('order')) || [];
-    const updatedShopItem = JSON.parse(localStorage.getItem('shop')) || [];
-    setLocalStorageItems({...updatedSubscribeItem, ...updatedBuyItem, ...updatedOrderItem, ...updatedShopItem});
-    },[])
     
   return (
     <>
