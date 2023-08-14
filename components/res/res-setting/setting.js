@@ -492,7 +492,7 @@ export default function resSetting() {
                   {/* <button type='button' className={`btn btn-primary ms-3 ${styles.labels}`} onClick={changePassword}>確定修改
                   </button> */}
                   <div className='d-flex align-items-center justify-content-center ms-2'>
-                    <button type="button" class={`btn btn-danger ` + styles.btn_cancel} onClick={changePassword}>確定修改</button>
+                    <Btn text="確定修改" padding='10px 20px' fs='var(--h7)' onClick={changePassword}/>
                   </div>
                   <div className='ms-4 fw-bold' style={{ color: 'green', paddingLeft: '10px' }}>{changePwdSuccess}</div>
                 </div>

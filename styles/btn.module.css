@@ -1,6 +1,6 @@
 .btn {
   background: linear-gradient(45deg, var(--main-color) 100%, #ff8e53 0%);
-  border-radius: 45px;
+  border-radius: 45px !important;
   border: 0;
   box-shadow: 0 1px 3px 1px #b1b1b1;
 }
