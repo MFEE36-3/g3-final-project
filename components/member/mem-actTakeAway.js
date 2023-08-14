@@ -80,7 +80,8 @@ export default function MemActTakeAway() {
         </div>
       )}
 
-      {order?.filter((z) => z.status === 0).length > 0 ? (
+      {order
+      ?.filter((z) => z.status === 0).length > 0 ? (
         <div className={showDetail ? styles.area1_active : styles.area1}>
           <div className={styles.scrollArea}>
             {order
