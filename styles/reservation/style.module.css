@@ -1113,9 +1113,7 @@ margin-bottom: 100px;
   }
 
   /* 篩選器rwd */
-  .rwdselected{
-  display: block;
-}
+
   .rwdselected{
     display: block;
     position: relative;
@@ -1139,6 +1137,10 @@ margin-bottom: 100px;
   .rwdarea{
     display: none;
   }
+  .rwdareashow{
+    display: block;
+  }
+
 
   .rightdiv{
     width: 100%;
