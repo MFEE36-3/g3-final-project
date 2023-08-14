@@ -115,7 +115,7 @@ export default function SliderBar({ keyword, setKeyword }) {
   return (
     <>
       <div className={style.mb20}>
-        <p>價格範圍</p>
+        <p className={style.selecttitle}>價格範圍</p>
         <hr />
         <ThemeProvider theme={theme}>
           <Box sx={{ width: '100%' }}>

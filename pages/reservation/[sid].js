@@ -76,10 +76,10 @@ export default function RestaurantPage() {
                 <title>食GOEAT! / 訂位外帶</title>
             </Head>
 
-            <div className={style.body}>
+            <div className={`${style.body} ${style.sidmb}`} >
                 <Rcarousel row={row} />
                 <div className="container">
-                    <div className="row">
+                    <div className={`${style.rwdrow} row`}>
                         <div className={style.infodiv}>
                             <Info row={row} />
                         </div>
@@ -105,8 +105,8 @@ export default function RestaurantPage() {
                                 fontSize: '18px', // 修改文字大小
                                 backgroundColor: '#911010', // 修改背景颜色
                                 color: 'white', // 修改文字颜色
-                                borderRadius: '50%', // 修改背景圆形大小
-                                width: '30px', // 修改宽度
+                                borderRadius: '50%', // 修改背景圓形大小
+                                width: '30px', // 修改寬度
                                 height: '30px', // 修改高度
                             },
                         }}

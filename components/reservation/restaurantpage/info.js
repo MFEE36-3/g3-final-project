@@ -63,7 +63,7 @@ export default function Info({ row }) {
                     </div>
                     <div className={style.infodetail}>
                         <ImSpoonKnife className={style.iconstyle} />
-                        <Button
+                        <div
                             style={{
                                 fontSize: '14px',
                                 fontWeight: 600,
@@ -77,7 +77,7 @@ export default function Info({ row }) {
                         >
                             <FaUtensils className={style.buttonicon} />
                             {row.detail?.res_cate}
-                        </Button>
+                        </div>
                     </div>
                     <div className={style.infodetail}>
                         <iframe

@@ -4,14 +4,23 @@ import style from '@/styles/reservation/style.module.css';
 import CarouselDiv from './carousel';
 import { BiCategory } from "react-icons/bi";
 
-export default function TopDiv({ keyword, setKeyword }) {
+export default function TopDiv({ keyword, setKeyword, rwd, setrwd }) {
+
+  const handlerwd = () => {
+    setrwd(!rwd);
+  }
+
   return (
     <>
       <div className={style.topdiv}>
         <CarouselDiv />
-        <div className='d-flex'>
-          <SearchBar keyword={keyword} setKeyword={setKeyword} />
-          <BiCategory className={style.rwdselected} />
+        <div className={`${style.rwdsearchdiv} d-flex`}>
+          <div>
+            <BiCategory className={style.rwdselected} onClick={() => handlerwd()} />
+          </div>
+          <div>
+            <SearchBar keyword={keyword} setKeyword={setKeyword} />
+          </div>
         </div>
       </div>
     </>

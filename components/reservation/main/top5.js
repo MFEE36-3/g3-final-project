@@ -54,7 +54,7 @@ export default function Top5() {
                 style={{ transform: `translateX(${position}px)` }}
               >
                 <Image src={Crown} className={style.top5crown} alt="" />
-                <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+                <div className={style.top5cardlink}>
                   <Link href={"/reservation/" + sid}>
                     <Card.Img src={`${process.env.API_SERVER}/img/top5/${removeBackgroundImage}`} className={style.top5img} alt="" />
                   </Link>

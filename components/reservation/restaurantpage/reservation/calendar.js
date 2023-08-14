@@ -54,54 +54,10 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
     };
 
     return (
-        <div style={{ width: "100%", display: "flex", justifyContent: "center"}}>
+        <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
             <ThemeProvider theme={theme}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateCalendar
-                        // sx={{
-                        //     '&.MuiDateCalendar-root': {
-                        //         width: '600px',
-                        //         minHeight: '400px',
-                        //     },
-                        //     '& .MuiPickersCalendarHeader-root': {
-                        //         padding: '0px 2px 0px 10px',
-                        //     },
-                        //     '& .MuiDayCalendar-header': {
-                        //         width: '600px',
-                        //         display: 'flex',
-                        //         justifyContent: 'space-between',
-                        //     },
-                        //     '& .MuiPickersSlideTransition-root': {
-                        //         minHeight: '400px',
-                        //     },
-                        //     '& .MuiDayCalendar-monthContainer': {
-                        //         minHeight: '400px',
-                        //     },
-                        //     '& .MuiDayCalendar-weekContainer': {
-                        //         width: '600px',
-                        //         display: 'flex',
-                        //         justifyContent: 'space-between',
-                        //         margin: '10px 0px'
-                        //     },
-                        //     '& .MuiPickersDay-root': {
-                        //         color: '#911010',
-                        //         fontSize: '20px',
-                        //         borderRadius: '15px',
-                        //         border: '1px solid #a8a8a8',
-                        //         padding: '22px',
-                        //     },
-                        //     '& .Mui-selected': {
-                        //         color: 'white',
-                        //         background: '#911010',
-                        //         '&:focus': {
-                        //             background: '#911010',
-                        //         },
-                        //         '&:active': {
-                        //             background: '#911010',
-                        //         },
-                        //     },
-
-                        // }}
 
                         sx={{
                             '&.MuiDateCalendar-root': {
@@ -115,10 +71,10 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
                             '& .MuiPickersCalendarHeader-labelContainer': {
                                 fontSize: '32px',
                                 paddingLeft: '15%',
-                                paddingBottom:'15px',
-                                margin:'0 auto',
+                                paddingBottom: '15px',
+                                margin: '0 auto',
                                 color: 'var(--main-color)',
-                                fontFamily:'var(--ff1)'
+                                fontFamily: 'var(--ff1)'
                                 // textShadow: '1px 1px 1px black',
                             },
                             '& .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPickersCalendarHeader-switchViewIcon': {
@@ -173,6 +129,77 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
                                     background: '#911010',
                                 },
                             },
+                            '@media (max-width: 390px)': {
+                                '&.MuiDateCalendar-root': {
+                                    width: '100%',
+                                    minHeight: '380px',
+                                    maxHeight: '420px'
+                                },
+                                '& .MuiPickersCalendarHeader-root': {
+                                    padding: '0',
+                                },
+                                '& .MuiPickersCalendarHeader-labelContainer': {
+                                    fontSize: '20px',
+                                    paddingLeft: '15%',
+                                    paddingBottom: '10px',
+                                    margin: '0 auto',
+                                    color: 'var(--main-color)',
+                                    fontFamily: 'var(--ff1)'
+                                    // textShadow: '1px 1px 1px black',
+                                },
+                                '& .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPickersCalendarHeader-switchViewIcon': {
+                                    display: 'none',
+                                },
+                                '& .MuiDayCalendar-header': {
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'space-evenly',
+                                    background: 'var(--main-color)',
+                                    borderRadius: '5px 5px 0px 0px',
+                                },
+                                '& .MuiDayCalendar-weekDayLabel': {
+                                    color: 'white',
+                                    fontSize: '18px',
+                                    fontWeight: 'bold',
+                                    margin: '10px -13px'
+                                },
+                                '& .MuiDayCalendar-weekContainer': {
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                },
+                                '& .MuiPickersDay-root': {
+                                    color: '#911010',
+                                    fontSize: '18px',
+                                    borderRadius: '20%',
+                                    border: '1px solid #a8a8a8',
+                                    padding: '20px',
+                                    margin: '3px 4px'
+                                },
+                                '& .MuiPickersSlideTransition-root.MuiDayCalendar-slideTransition': {
+                                    minHeight: '500px',
+                                },
+                                '& .MuiDayCalendar-monthContainer ': {
+                                    border: '2px solid #a8a8a8',
+                                    borderTop: 'none',
+                                    borderRadius: '0px 0px 5px 5px',
+                                },
+                                '& .MuiDayCalendar-weekContainer': {
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                },
+                                '& .Mui-selected': {
+                                    color: 'white',
+                                    background: '#911010',
+                                    '&:focus': {
+                                        background: '#911010',
+                                    },
+                                    '&:active': {
+                                        background: '#911010',
+                                    },
+                                },
+                            }
 
                         }}
 
