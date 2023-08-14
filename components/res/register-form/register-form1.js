@@ -67,6 +67,35 @@ export default function RegisterForm() {
     verifyEmail: false
   })
 
+  const demo_info = {
+    shopname: '志明牛肉麵',
+    phone: '0915165498',
+    city: '台北市',
+    area: '中山區',
+    account: 'chou.no98@gmail.com',
+    password: 'qwerty',
+    password2: 'qwerty',
+    owner: '陳小華',
+    res_cate: '中式',
+    photo: showImg,
+    description: '超過二十年的好味道，芳香甘醇的志明牛肉麵，靜候您的光臨',
+    avg_consumption: '200',
+    fulladdress: '錦州街413號',
+    fulladdress1: '錦州街413號',
+    open_time: '11:00',
+    close_time: '21:00',
+    open_days: ["星期二", "星期四", "星期五", "星期六", "星期三", "星期日"],
+    table_number: '48',
+    latitude: '25.0603595',
+    longitude: '121.5416455',
+    verifyEmail: false
+  }
+
+  // 一鍵輸入假資料
+  const ketInFakeData = () => {
+    setShop(demo_info)
+  }
+
   // 設計進階桌型的人數總數
   const originalSeats = {
     seat2: 0,
@@ -381,8 +410,28 @@ export default function RegisterForm() {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          Swal.fire('成功送出!', '', '確定')
+          Swal.fire('成功註冊!', '', '請重新登入!')
           testGoogleAPI()
+
+          // 註冊成功將商家資料寫進localStorage
+          // fetch('http://localhost:3002/res/registerData', {
+          //   method: 'POST',
+          //   body: JSON.stringify(shop),
+          //   headers: {
+          //     'Content-Type': 'application/json'
+          //   }
+          // })
+          //   .then(r => r.json())
+          //   .then(obj => {
+          //     console.log(obj)
+          //     localStorage.setItem('res-auth', JSON.stringify({
+          //       account: obj[0].account,
+          //       sid: obj[0].sid,
+          //       photo: obj[0].photo,
+          //       shop: obj[0].shop
+          //     }))
+          //   })
+
           fetch('http://localhost:3002/res/res-register-form', {
             method: 'POST',
             body: JSON.stringify(shop),
@@ -393,8 +442,9 @@ export default function RegisterForm() {
             .then(r => r.json())
             .then(data => {
               console.log(data)
-              router.push('/res/reg-success')
+              router.push('/login')
             })
+
         } else if (result.isDenied) {
           Swal.fire('已取消送出!', '', '確定')
         }
@@ -423,9 +473,10 @@ export default function RegisterForm() {
             <h1 className={"d-flex justify-content-center fw-bold mt-3 pb-2 mx-2 " + styles.res_title}>商家註冊</h1>
 
             <div className="col-xxl-mx-5 mt-4">
+              <div className='name mx-5 d-flex justify-content-end align-items-center'><button type='button' className={`form-label btn d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }} onClick={ketInFakeData}>一鍵填寫資料</button></div>
 
               <div className='name mx-5 d-flex justify-content-start align-items-center'>
-                <div htmlFor="shop_name" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>店名:</div>
+                <div htmlFor="shop_name" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>店名</div>
                 <input
                   type="text"
                   className="form-control border-black"
@@ -441,7 +492,7 @@ export default function RegisterForm() {
 
               <div className='phone mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_phone" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>電話:</div>
+                <div htmlFor="shop_phone" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>電話</div>
                 <input
                   type="text"
                   className="form-control border-black"
@@ -458,7 +509,7 @@ export default function RegisterForm() {
 
               <div className='account mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_account" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>帳號:</div>
+                <div htmlFor="shop_account" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>帳號</div>
                 <input
                   type="text"
                   className="form-control border-black"
@@ -474,7 +525,7 @@ export default function RegisterForm() {
 
               <div className='password mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_password" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>密碼:</div>
+                <div htmlFor="shop_password" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>密碼</div>
 
                 <div className="input-group mb-3 d-flex flex-row mb-3">
                   <input
@@ -495,7 +546,7 @@ export default function RegisterForm() {
 
               <div className='password2 mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_password" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>確認密碼:</div>
+                <div htmlFor="shop_password" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>確認密碼</div>
                 <input
                   type="password"
                   className="form-control border-black"
@@ -512,7 +563,7 @@ export default function RegisterForm() {
 
               <div className='owner mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>負責人姓名:</div>
+                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>負責人姓名</div>
                 <input
                   type="text"
                   className="form-control border-black"
@@ -530,7 +581,7 @@ export default function RegisterForm() {
 
               <div className='description mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>餐廳敘述:</div>
+                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px', }}>餐廳敘述</div>
                 <textarea
                   className={"form-control " + styles.des_textarea}
                   id="description"
@@ -546,7 +597,7 @@ export default function RegisterForm() {
 
               <div className='avg_consumption mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>平均消費額:</div>
+                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold me-3 py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>平均消費額</div>
                 <input
                   type="text"
                   className="form-control border-black"
@@ -561,7 +612,7 @@ export default function RegisterForm() {
               <div className='error me-5 pe-5 fs-5 fw-bold d-flex justify-content-center'>{errors.avg_consumption}</div>
               <div className='res_cate mx-5 d-flex justify-content-start align-items-center mt-3'>
 
-                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳分類:</div>
+                <div htmlFor="shop_owner" className={`form-label d-flex justify-content-center fw-bold py-1 rounded-3 ${muistyles.btnright}`} style={{ width: '150px' }}>餐廳分類</div>
                 <select value={resCate} onChange={(e) => {
                   setResCate(e.target.value)
                   setShop({ ...shop, res_cate: e.target.value })
@@ -584,7 +635,7 @@ export default function RegisterForm() {
 
                   <div className='d-flex flex-column ' style={{ width: '90%' }}>
                     {showImg == false ? (<div htmlFor="res_photo" className={`${styles.uploadImg} me-3 `}>
-                      商家圖片:
+                      商家圖片
                     </div>) : (
                       <div
                         htmlFor="res_photo"
@@ -838,7 +889,7 @@ export default function RegisterForm() {
                     </div>
                   </div>
                 }
-                <div className={'mt-2 fw-bold '+styles.labels}>您的餐廳共有：<span className='mx-2' style={{ color: 'var(--main-color)' }}>{shop.table_number}</span>個位子</div>
+                <div className={'mt-2 fw-bold ' + styles.labels}>您的餐廳共有：<span className='mx-2' style={{ color: 'var(--main-color)' }}>{shop.table_number}</span>個位子</div>
 
               </div>
 

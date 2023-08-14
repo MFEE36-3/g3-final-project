@@ -388,7 +388,7 @@ export default function resSetting() {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          Swal.fire('成功送出!', '', '確定')
+          Swal.fire('成功編輯!', '', '確定')
           testGoogleAPI()
           fetch('http://localhost:3002/res/res-setting', {
             method: 'PUT',
@@ -403,7 +403,7 @@ export default function resSetting() {
               // router.push('/res/reg-success')
             })
         } else if (result.isDenied) {
-          Swal.fire('已取消送出!', '', '確定')
+          Swal.fire('已取消編輯!', '', '確定')
         }
       })
     }
@@ -503,6 +503,8 @@ export default function resSetting() {
 
               <div className={styles.info_outer}>
                 <h3 className={`mb-2 ps-3 fw-bold ${styles.titleWord}`}>聯絡資訊</h3>
+
+
 
                 <div className='phone mx-5 d-flex justify-content-start align-items-center mt-3'>
 
@@ -727,9 +729,6 @@ export default function resSetting() {
                       />
                     </div>
 
-                    {/* <div id="shop" className="form-text">
-                      請填入完整地址
-                    </div> */}
                   </div>
                 </div>
 

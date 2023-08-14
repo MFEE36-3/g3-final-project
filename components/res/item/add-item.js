@@ -173,11 +173,8 @@ export default function AddNewItem() {
         <div>
           <div className={`${styles.border} card p-5 rounded-3 border-3`}>
             <div className="card-title d-flex justify-content-center align-items-center fw-bold fs-5">
-              {/* <Btn text="新增商品" /> */}
               <div className='fs-2 me-5' style={{ color: 'var(--main-color)' }}>新增商品</div>
-              {/* <button className={styles.btnleft}>新增商品</button> */}
               <Link href={`/res/item-management`}>
-                {/* <Btn text="商品清單" /> */}
                 <button className={`${styles.btnright} ms-5`}>返回商品清單</button>
               </Link>
             </div>

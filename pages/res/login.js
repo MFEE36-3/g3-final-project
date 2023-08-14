@@ -62,7 +62,7 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    fetch('http://localhost:3003/res-login', {
+    fetch('http://localhost:3002/res-login', {
       method: 'POST',
       body: JSON.stringify(loginInfo),
       headers: {
