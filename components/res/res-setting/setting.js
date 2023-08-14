@@ -39,7 +39,7 @@ export default function resSetting() {
     })
       .then(r => r.json())
       .then(data => {
-        console.log(data)
+        //console.log(data)
         setShop({
           ...shop,
           shopId: resAuth.id,
@@ -72,7 +72,7 @@ export default function resSetting() {
           latitude: data.latitude,
           longitude: data.longitude,
         })
-        console.log('----------')
+        //console.log('----------')
       })
   }
 
@@ -91,7 +91,7 @@ export default function resSetting() {
     })
       .then(r => r.json())
       .then(data => {
-        console.log(data)
+        //console.log(data)
         if (data.filename) {
           setShowImg(data.filename)
         }
@@ -125,16 +125,16 @@ export default function resSetting() {
   useEffect(() => {
     if (resAuth.account && !isShopDataFetched) {
       getShopData()
-      console.log(shop)
+      //console.log(shop)
       setSendPassword({ ...sendPassword, resId: resAuth.id })
     }
   }, [resAuth]);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    console.log(shop)
+  //   console.log(shop)
 
-  }, [shop]);
+  // }, [shop]);
 
   const handleOpenDays = (e) => {
     const targetValue = e.target.value;
@@ -249,7 +249,7 @@ export default function resSetting() {
     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=台灣${shop.city}${shop.area}${shop.fulladdress1}&key=AIzaSyBcRKBsOJ9t8gpHAfAC_ZbY4eNTyDlBlMQ`)
       .then((r) => r.json())
       .then((obj) => {
-        console.log(obj);
+        //console.log(obj);
         if (obj.results.length > 0) {
           const newShop = {
             ...shop,
@@ -306,11 +306,11 @@ export default function resSetting() {
       })
         .then(r => r.json())
         .then(data => {
-          console.log(data)
+          //console.log(data)
           if (data.success) {
             setChangePwdSuccess('修改密碼成功!')
           } else {
-            console.log(data)
+            //console.log(data)
             newError.oldPassword = '輸入密碼與舊密碼不相符!'
             setPasswordErrors(newError)
           }
@@ -397,11 +397,11 @@ export default function resSetting() {
               'Content-Type': 'application/json'
             }
           })
-            .then(r => r.json())
-            .then(data => {
-              console.log(data)
-              // router.push('/res/reg-success')
-            })
+          // .then(r => r.json())
+          // .then(data => {
+          //   console.log(data)
+          //   // router.push('/res/reg-success')
+          // })
         } else if (result.isDenied) {
           Swal.fire('已取消編輯!', '', '確定')
         }
@@ -492,7 +492,7 @@ export default function resSetting() {
                   {/* <button type='button' className={`btn btn-primary ms-3 ${styles.labels}`} onClick={changePassword}>確定修改
                   </button> */}
                   <div className='d-flex align-items-center justify-content-center ms-2'>
-                    <Btn text="確定修改" padding='10px 20px' fs='var(--h7)' onClick={changePassword}/>
+                    <Btn text="確定修改" padding='10px 20px' fs='var(--h7)' onClick={changePassword} />
                   </div>
                   <div className='ms-4 fw-bold' style={{ color: 'green', paddingLeft: '10px' }}>{changePwdSuccess}</div>
                 </div>
@@ -740,7 +740,7 @@ export default function resSetting() {
                   </div>
                   <div>
                     <div className={`${styles.openTimes}`}>
-                      <select className={' ' + styles.select_city} style={{ width: 156 }} value={shop.open_time} onChange={(e) => {
+                      <select className={' ' + styles.select_city} style={{ width: 156 }} value={shop.open_time[0] === 1 ? shop.open_time.substring(1) : shop.open_time} onChange={(e) => {
                         setShop({ ...shop, open_time: e.target.value })
                       }}>
                         <option selected>開始營業時間</option>

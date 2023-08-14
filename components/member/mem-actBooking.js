@@ -62,7 +62,7 @@ export default function MemActBooking() {
       )}
       {booking
         ?.filter((a) => a.status === '未完成').length > 0 ? (
-        <div className={styles.area1}>
+        <div className={showDetail ? styles.area1_active : styles.area1}>
           <div className={styles.scrollArea}>
             {booking
               ?.filter((a) => a.status === '未完成')
