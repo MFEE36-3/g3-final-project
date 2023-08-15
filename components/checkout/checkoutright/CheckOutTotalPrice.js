@@ -18,7 +18,7 @@ Fs23pxSpan.defaultProps = {
     },
 };
 export default function CheckOutTotalPrice({ payment, orderInfo }) {
-
+    const [tip, setTip] = useState('')
     const { items, showPages, host, memberCoupon, memberInfo, page } = useContext(Cart)
     const [date, setDate] = useState('')
     const router = useRouter()
@@ -33,7 +33,7 @@ export default function CheckOutTotalPrice({ payment, orderInfo }) {
     const handleChange = (event) => {
         setCouponId(event.target.value);
     };
-    const totalPrice = showPages(items).length > 0 ? `${pagePrice() + (page === 'order' || page === 'subscribe' ? 0 :  page === 'buy' ? localStorage.getItem('buy') ? Object.values(JSON.parse(localStorage.getItem('buy')))[0].tip : 0 : memberInfo.level === 2 ? 0 : showPages(items).length > 0 ? fee : 0) - discount}` : 0
+    const totalPrice = showPages(items).length > 0 ? `${pagePrice() + (page === 'order' || page === 'subscribe' ? 0 :  page === 'buy' ? tip : memberInfo.level === 2 ? 0 : showPages(items).length > 0 ? fee : 0) - discount}` : 0
     const coupon =
         <Box sx={{ minWidth: 200, textAlign: "center" }}>
             <FormControl fullWidth >
@@ -77,10 +77,16 @@ export default function CheckOutTotalPrice({ payment, orderInfo }) {
     }, [couponId, memberCoupon]);
     useEffect(() => {
         const orderItem = JSON.parse(localStorage.getItem('order'))
-        if (!orderItem) return
-        const day = Object.values(orderItem).map(i => i.togodate).shift() || []
-        const time = Object.values(orderItem).map(i => i.togotime).shift() || []
-        setDate(`${day} ${time}`)
+        const buyTip = JSON.parse(localStorage.getItem('buy'))
+        if(buyTip) {
+            const tips = Object.values(buyTip)[0]?.tip
+            setTip(tips)
+        }
+        if (orderItem) {
+            const day = Object.values(orderItem).map(i => i.togodate).shift() || []
+            const time = Object.values(orderItem).map(i => i.togotime).shift() || []
+            setDate(`${day} ${time}`)
+        }
     }, [])
     const createOrderLoading = (href) => {
         let timerInterval
@@ -252,7 +258,7 @@ export default function CheckOutTotalPrice({ payment, orderInfo }) {
                             <Fs23pxSpan style={page === 'buy' ? {textDecoration:'none '} : memberInfo.level === 2 ? { textDecoration: "line-through" } : {}}
                                 className={page === 'buy' ? 'text-dark' : memberInfo.level === 2 ? 'text-danger' : ''}
                             >
-                           { page === 'subscribe' ? '$ 0' : page === 'buy' ? `$ ${localStorage.getItem('buy') ? Object.values(JSON.parse(localStorage.getItem('buy')))[0]?.tip || 0 : 0}` : showPages(items).length > 0 ? `$ ${fee}` : memberInfo.level === 2 ? `$ ${fee}` : `$ 0` } 
+                           { page === 'subscribe' ? '$ 0' : page === 'buy' ? `$ ${tip}` : showPages(items).length > 0 ? `$ ${fee}` : memberInfo.level === 2 ? `$ ${fee}` : `$ 0` } 
                             </Fs23pxSpan>
                             
                         </>
