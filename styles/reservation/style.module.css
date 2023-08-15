@@ -248,6 +248,7 @@ margin-bottom: 100px;
 .timetextfull{
   text-align: center;
   color: var(--main-color);
+  font-weight: bold;
 }
 
 .interiotdiv{
@@ -1730,7 +1731,7 @@ font-weight: 600;
 .carticon{
   position: absolute;
   right: 20px;
-  top: 300px;
+  top: 270px;
 }
 
 .carttitle{
