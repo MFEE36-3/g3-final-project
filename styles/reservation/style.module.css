@@ -17,6 +17,12 @@ margin-bottom: 100px;
   font-family: var(--ff1);
 }
 
+
+.leftdivactive{
+  width: 100%;
+  font-family: var(--ff1);
+}
+
 .rightdiv{
   width: 83%;
 }
@@ -25,6 +31,10 @@ margin-bottom: 100px;
   font-family: var(--ff1);
   color: var(--main-color);
   font-size: var(--h3);
+}
+
+.contentdivflex{
+  display: flex;
 }
 
 /* 副標題 */
@@ -1125,6 +1135,10 @@ margin-bottom: 100px;
     height: 45px;
     margin: 10px 10px;
   }
+
+  .leftdiv{
+    display: none;
+  }
   
   /* 查詢條件-條件區塊 */
   .clearselect{
@@ -1138,7 +1152,7 @@ margin-bottom: 100px;
   }
 
   .rwdarea{
-    display: none;
+    display: block;
   }
 
   .rightdiv{
@@ -1230,7 +1244,7 @@ margin-bottom: 100px;
 
 .contentdiv{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 }
 
 
@@ -1324,6 +1338,12 @@ margin-bottom: 100px;
 
 .cardheart:hover{
   color: #911010;
+}
+
+.sortdiv{
+  width: 20%;
+  height: 60%;
+
 }
 
 /* 餐廳頁面------------------ */
@@ -1699,10 +1719,6 @@ font-weight: 600;
   margin-top: 10px;
   color: var(--main-color);
 }
-
-
-
-
 
 
 
