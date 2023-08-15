@@ -349,7 +349,9 @@ export default function OrderManagement() {
               })}
             </select>
 
-            {orderCategory == '揪團' ? '' : <select className={'p-2 my-3 ' + styles.select_cate} value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
+            {orderCategory == '揪團' ? '' 
+            : 
+            <select className={'p-2 my-3 ' + styles.select_cate} value={orderState} onChange={(e) => { setOrderState(e.target.value) }}>
               <option selected value={``}>---訂單狀態----</option>
               {orderStateOptions.map((v, i) => {
                 return <option key={i} value={v}>{v}</option>
