@@ -321,8 +321,7 @@ export default function AddNewItem() {
                       value="確認新增"
                     />
                   </div>
-                  <div>
-                    {/* <Btn text="取消填寫" /> */}
+                  {/* <div>
                     <input
                       className={styles.cancel}
                       type="reset"
@@ -331,6 +330,24 @@ export default function AddNewItem() {
                         router.push('/res/item-management')
                       }}
                     />
+                  </div> */}
+                  <div>
+                    <button
+                      type="button"
+                      className={`btn text-light ${styles.add}`}
+                      onClick={(e) => {
+                        setAddItem({
+                          ...addItem, shop_id: null,
+                          photo: '',
+                          name: '巧克力蛋糕',
+                          description: '美味的巧克力蛋糕',
+                          foodCate: '甜點',
+                          price: '100',
+                          note: '',
+                        })
+
+                      }}
+                    >填寫資料</button>
                   </div>
                 </div>
               </div>
