@@ -13,6 +13,7 @@ export default function Reservation() {
   // const [token, setToken] = useState({})
   //加入收藏
   const [favorite, setFavorite] = useState([0]);
+  const [rwd,setRwd] = useState(false);
 
   // 篩選器 - 預設值(default)
   let totalKeyword = {
@@ -118,7 +119,7 @@ export default function Reservation() {
         <title>食GOEAT! / 訂位外帶</title>
       </Head>
       <div className={style.body}>
-        <TopDiv keyword={keyword} setKeyword={setKeyword} />
+        <TopDiv keyword={keyword} setKeyword={setKeyword} rwd={rwd} setRwd={setRwd}/>
         {/* <div className="container-fluid">
           <div className={`${style.contentdiv} row `}>
             <div className={`${style.rwdarea} col-2`}>
@@ -130,10 +131,11 @@ export default function Reservation() {
           </div>
         </div> */}
         <div className="container-fluid">
-          <div className={`${style.contentdiv} row `}>
-            <div className={`${style.leftdiv} ${style.rwdarea}`}>
+          <div className={ rwd ? style.contentdiv : style.contentdivflex }>
+            <div className={rwd ? style.leftdivactive:style.leftdiv }>
               <SelectArea keyword={keyword} setKeyword={setKeyword} />
             </div>
+
             <div className={style.rightdiv}>
               <Main keyword={keyword} setKeyword={setKeyword} favorite={favorite} setFavorite={setFavorite} />
             </div>
