@@ -27,7 +27,7 @@ export default function MainContent({ favorite, setFavorite }) {
       fetch(`${process.env.API_SERVER}/reservation/favoritelist/${member?.sid}`)
         .then(r => r.json())
         .then(data => {
-          console.log(data)
+          // console.log(data)
         })
     }
 

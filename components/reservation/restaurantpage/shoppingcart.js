@@ -13,22 +13,24 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
 
     const router = useRouter();
     const cartitem = localStorage.getItem('order')
-
+    // console.log(cartitem)
     const menuItems = JSON.parse(cartitem) || 0;
-
+    // console.log(menuItems)
     const menuItemsArray = Object.values(menuItems);
-
+    // console.log(menuItemsArray)
     const [products, setProducts] = useState(menuItemsArray)
 
     const localdatetime = JSON.parse(localStorage.getItem('order')) || {};
+    console.log(cartitem)
+    console.log(localdatetime)
     const nowdatetime = Object.entries(localdatetime).map(item => item.pop());
-
 
 
     if (Object.values(nowdatetime).length > 0) {
         setTogodate(Object.values(nowdatetime)[0]?.togodate);
         setTogotime(Object.values(nowdatetime)[0]?.togotime);
     }
+    // console.log(Object.values(nowdatetime)[0])
 
     //商品數量-增加
     const handleAdd = (item) => {
@@ -210,8 +212,8 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
                             )
                         })
                     }
-                    <div className={style.totalprice}>總金額： 
-                    <div style={{color:'var(--main-color)'}}>${getTotalAmount()}</div>
+                    <div className={style.totalprice}>總金額：
+                        <div style={{ color: 'var(--main-color)' }}>${getTotalAmount()}</div>
                     </div>
                 </div>
                 :
@@ -223,7 +225,7 @@ export default function ShoppingCart({ shoppingCart, setShoppingCart, row, togod
 
             {products.length > 0 ?
                 <div className={style.togotime}>
-                    <BsFillCalendar3WeekFill className='me-1' /> 取餐時間 
+                    <BsFillCalendar3WeekFill className='me-1' /> 取餐時間
                     <div className='ms-3'>{togodate} {togotime}</div>
                 </div>
                 : ''

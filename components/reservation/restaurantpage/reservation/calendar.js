@@ -16,8 +16,9 @@ const theme = createTheme({
 
 export default function Calendar({ row, date, setDate, setTime, setPerson, setSeat, setMemo }) {
     const today = new Date();
-    const minDate = dayjs(today).add(1, 'day').startOf('day').toDate(); // 明天的开始时间
-    const maxDate = dayjs(today).add(31, 'day').endOf('day').toDate(); // 31天后的结束时间
+    const minDate = dayjs(today).add(1, 'day').startOf('day').toDate(); // 明天為可選擇的起始日 Wed Aug 08 2023 00:00:00 GMT+0800 (台北標準時間)
+    const maxDate = dayjs(today).add(31, 'day').endOf('day').toDate(); //  第31天為最後可選擇的結束日
+
 
     // 從資料庫取得的店家營業時間
     const shopOpenTimeInfo = {
@@ -31,7 +32,7 @@ export default function Calendar({ row, date, setDate, setTime, setPerson, setSe
     };
 
     const isShopOpenOnDate = (date) => {
-        const dayOfWeek = date.day(); // 將 date 轉換為 dayjs，取得星期幾的值
+        const dayOfWeek = date.day(); // 將 date 轉換為 dayjs，取得星期幾的值 0,1,2,3....6
         const dayOfWeekString = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek];
         return shopOpenTimeInfo[dayOfWeekString] === 1;
     };

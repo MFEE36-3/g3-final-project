@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import chocoCookie from '@/public/buyforme/map/chocoCookie.svg';
 
 export default function Reservation({ row, date, setDate, time, setTime, person, setPerson, seat, setSeat, memo, setMemo, item, setItem }) {
-  const [memberInfo, setMemberInfo] = useState({})
+  // const [memberInfo, setMemberInfo] = useState({})
   const [reservationData, setReservationData] = useState({
     id: 0,
     shop_id: 0,
@@ -105,8 +105,6 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
       }).then((result) => {
         if (result.isConfirmed) {
           // 當用戶點擊「確定送出」按鈕時，處理提交資訊
-          // 可以在這裡呼叫提交資訊的函式
-          // ...
 
           // 將資料轉換為JSON格式
           const jsonData = JSON.stringify(reservationData);
@@ -147,6 +145,7 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
             });
         }
       });
+
     }
     else {
     }
@@ -183,7 +182,7 @@ export default function Reservation({ row, date, setDate, time, setTime, person,
           <div className='d-flex justify-content-center'>
             <p className={style.subtitle}>請選擇<span style={{ color: '#911010' }}>座位</span></p>
           </div>
-          <div className='d-flex align-items-center fw-bold text-secondary' style={{margin:0}}>
+          <div className='d-flex align-items-center fw-bold text-secondary' style={{ margin: 0 }}>
             <GoDotFill className={style.disabledicon} />已訂位或用餐人數不符
           </div>
           <div className='d-flex justify-content-center'>

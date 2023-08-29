@@ -13,7 +13,7 @@ export default function InteriorPic({ row, date, time, person, seat, setSeat }) 
     const handleSeat = (e) => {
         const selectedSeat = e.currentTarget.getAttribute('data-value');
         setSeat(selectedSeat);
-        console.log(selectedSeat);
+        // console.log(selectedSeat);
 
     }
 

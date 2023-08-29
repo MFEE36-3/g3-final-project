@@ -10,10 +10,9 @@ export const auth = createContext()
 export default function Reservation() {
 
   const router = useRouter();
-  // const [token, setToken] = useState({})
   //加入收藏
   const [favorite, setFavorite] = useState([0]);
-  const [rwd,setRwd] = useState(false);
+  const [rwd, setRwd] = useState(false);
 
   // 篩選器 - 預設值(default)
   let totalKeyword = {
@@ -33,6 +32,7 @@ export default function Reservation() {
   }
   const [keyword, setKeyword] = useState(totalKeyword)
 
+  // 第一次渲染取得用戶收藏餐廳
   useEffect(() => {
 
     if (localStorage.getItem('auth')) {
@@ -42,7 +42,6 @@ export default function Reservation() {
         .then(r => r.json())
         .then(data => {
           // console.log(data)
-
           const newFav = data.rows.map(v => v.shop_id);
           setFavorite(prev => newFav)
         })
@@ -119,7 +118,7 @@ export default function Reservation() {
         <title>食GOEAT! / 訂位外帶</title>
       </Head>
       <div className={style.body}>
-        <TopDiv keyword={keyword} setKeyword={setKeyword} rwd={rwd} setRwd={setRwd}/>
+        <TopDiv keyword={keyword} setKeyword={setKeyword} rwd={rwd} setRwd={setRwd} />
         {/* <div className="container-fluid">
           <div className={`${style.contentdiv} row `}>
             <div className={`${style.rwdarea} col-2`}>
@@ -131,8 +130,8 @@ export default function Reservation() {
           </div>
         </div> */}
         <div className="container-fluid">
-          <div className={ rwd ? style.contentdiv : style.contentdivflex }>
-            <div className={rwd ? style.leftdivactive:style.leftdiv }>
+          <div className={rwd ? style.contentdiv : style.contentdivflex}>
+            <div className={rwd ? style.leftdivactive : style.leftdiv}>
               <SelectArea keyword={keyword} setKeyword={setKeyword} />
             </div>
 

@@ -19,17 +19,18 @@ export default function Info({ row }) {
     useEffect(() => {
         // 確保 row 物件及其屬性不是 undefined，然後再處理日期和時間的分割
         if (row && row.detail?.open_time && row.detail?.close_time) {
-            const nowtime = new Date();//['Thu Jul 27 2023 11', '28', '30 GMT+0800 (台北標準時間)']
-            const timearr = nowtime.toString().split(':');
-            const timearr1 = timearr[0].slice(-2);
-            const timearr2 = timearr[1];
-            const inttime = Number(timearr1 + timearr2);
+            const nowtime = new Date(); // Tue Aug 22 2023 10:12:32 GMT+0800 (台北標準時間)
+            const timearr = nowtime.toString().split(':'); // ['Tue Aug 22 2023 10', '12', '32 GMT+0800 (台北標準時間)']
+            const timearr1 = timearr[0].slice(-2); // 10
+            const timearr2 = timearr[1]; // 12
+            const inttime = Number(timearr1 + timearr2); //1012
 
-            const opentime = parseInt(row.detail?.open_time.split(':').join(''));
+            const opentime = parseInt(row.detail?.open_time.split(':').join('')); // ex. 1530
             const closetime = parseInt(row.detail?.close_time.split(':').join(''));
 
-            const today = dayjs().day(); // 取得現在是星期幾
+            const today = dayjs().day(); // dayjs取得今天是星期幾 0,1,2,3...,6
             const dayOfWeekString = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][today];
+            // console.log(dayOfWeekString) // Tuesday
 
             if (inttime >= opentime && inttime <= closetime && row.detail[dayOfWeekString] === 1) {
                 setIsopen(true);
@@ -83,7 +84,6 @@ export default function Info({ row }) {
                         <iframe
                             className={style.map}
                             frameBorder={0}
-                            // src={`https://www.google.com/maps/embed/v1/place?q=${row?.cityname}${row?.areaname}${row?.location}&key=`}
                             src={`https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=${Number(row.detail?.latitude)},${Number(row.detail?.longitude)}&z=16&output=embed&t=`}
                         >
                         </iframe>
